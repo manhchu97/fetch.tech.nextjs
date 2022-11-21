@@ -12,10 +12,18 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className='ft-container'>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <div className={styles.largeText}>
+          Smoother recruiting begins with Fetch
+        </div>
+
+        <div className={styles.smallText}>
+          Hiring and managing your offshore staff need not be complicated. Build your remote dream team effortlessly and let Fetch take care of the HR side of business.
+        </div>
 
         <p className={styles.description}>
           Get started by editing{' '}
