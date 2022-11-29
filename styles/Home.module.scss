@@ -1,5 +1,9 @@
+@import "./_variables.scss";
+@import "./_mixins.scss";
+
 .container {
-  padding: 0 2rem;
+  padding: 0 ($spacing  * 2);
+  background: $color-link;
 }
 
 .largeText {
@@ -11,6 +15,9 @@
     letter-spacing: -1px;
     color: #17274e;
     max-width: 80%;
+    @include screen(lg) {
+      width: 50%;
+    }
 }
 
 .smallText {
