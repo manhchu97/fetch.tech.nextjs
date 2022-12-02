@@ -1,8 +1,8 @@
 /app
 /storybook
 /Tests
+tsconfig.json
 package.lock.json
 build
 node_modules
 yarn.lock
-.eslintrc.json

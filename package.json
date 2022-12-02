@@ -2,11 +2,23 @@
   "name": "next-app",
   "version": "0.1.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "components/*.{js,jsx,ts,tsx}": [
+      "npm run lint",
+      "npm run format"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "format": "prettier .prettierrc.json 'components/**/*.{js,jsx,ts,tsx}' --write"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
@@ -23,6 +35,7 @@
     "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "eslint": "8.28.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "13.0.4",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^8.0.2",
