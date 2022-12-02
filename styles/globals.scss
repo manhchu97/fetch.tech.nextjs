@@ -54,3 +54,13 @@ a {
     max-width: $max-width-xxl;
   }
 }
+
+.ft-full-screen {
+  width: 100%;
+  background-color: #fff;
+  padding: 0 10%;
+
+  @include screen-down(md) {
+    padding: 0 16px;
+  }
+}

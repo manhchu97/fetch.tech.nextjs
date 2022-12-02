@@ -1,0 +1,196 @@
+import { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+
+import clsx from 'clsx'
+
+import MenuItem from '@components/nav/menu-item'
+import DropdownItem from '@components/nav/dropdown-item'
+import styles from './Header.module.scss'
+
+const Header = () => {
+  const [isExpandContent, setIsExpandContent] = useState<boolean>(false)
+
+  return (
+    <div className={clsx('ft-full-screen', styles['header-container'])}>
+      <Link href='/'>
+        {/* https://github.com/vercel/next.js/issues/20434 */}
+        <a className='header-logo-container'>
+          <Image
+            src='/images/LogoDefault.svg'
+            alt='Picture of the author'
+            width={126}
+            height={54}
+          />
+        </a>
+      </Link>
+
+      <div
+        className={clsx(
+          'nav-container',
+          isExpandContent && 'show-nav-container'
+        )}
+      >
+        <div className='nav-group'>
+          <div className='nav-group__first-container'>
+            <Link href='/company'>
+              <a>
+                <MenuItem title='For Companies' />
+              </a>
+            </Link>
+
+            <Link href='/employees'>
+              <a>
+                <MenuItem title='For Jobseekers' />
+              </a>
+            </Link>
+          </div>
+
+          <div className='dropdown'>
+            <MenuItem
+              title='Services'
+              id='services'
+              target='servicesMenu'
+              hasIcon
+            />
+
+            <div
+              className='dropdown-menu'
+              id='servicesMenu'
+              aria-labelledby='services'
+            >
+              <div className='dropdown-menu-container'>
+                <Link href='/services/1'>
+                  <a>
+                    <DropdownItem
+                      title='Talent Acquisition'
+                      text='Procure talents from Vietnam'
+                      imageSrc='/images/TalentAcquisition.png'
+                    />
+                  </a>
+                </Link>
+
+                <Link href='/services/2'>
+                  <a>
+                    <DropdownItem
+                      title='Services management'
+                      text='Employee directives and administration'
+                      imageSrc='/images/ServiceManageMent.png'
+                    />
+                  </a>
+                </Link>
+
+                <Link href='/services/3'>
+                  <a>
+                    <DropdownItem
+                      title='Payroll and compliances'
+                      text='Streamlined contracting and payroll process'
+                      imageSrc='/images/Payroll.png'
+                    />
+                  </a>
+                </Link>
+
+                <Link href='/services/4'>
+                  <a>
+                    <DropdownItem
+                      title='Full-suite project consultancy'
+                      text='Comprehensive projects management'
+                      imageSrc='/images/FullSuite.png'
+                    />
+                  </a>
+                </Link>
+              </div>
+
+              <div className='upperArrow'></div>
+            </div>
+          </div>
+
+          <div className='dropdown'>
+            <MenuItem
+              title='Resources'
+              id='resources'
+              target='resourcesMenu'
+              hasIcon
+            />
+
+            <div
+              className='dropdown-menu'
+              id='resourcesMenu'
+              aria-labelledby='resources'
+            >
+              <div className='dropdown-menu-container'>
+                <Link href='/ourstory'>
+                  <a>
+                    <DropdownItem
+                      title='Our story'
+                      text='Learn more about us'
+                      imageSrc='/images/OurStory.png'
+                    />
+                  </a>
+                </Link>
+
+                <Link href='/case-studies'>
+                  <a>
+                    <DropdownItem
+                      title='Case Studies'
+                      text='Case studies'
+                      imageSrc='/images/CaseStudies.png'
+                    />
+                  </a>
+                </Link>
+
+                <Link href='/services/salary'>
+                  <a>
+                    <DropdownItem
+                      title='Vietnam Calculator'
+                      text='Assess estimated costs'
+                      imageSrc='/images/Calculator.png'
+                    />
+                  </a>
+                </Link>
+              </div>
+
+              <div className='upperArrow'></div>
+            </div>
+          </div>
+        </div>
+
+        <div className='header-contact-container'>
+          <Link href='/employees'>
+            <a>
+              <div role='button' className='header__contact-button'>
+                <span className='header__contact-button__content'>
+                  Contact Us
+                </span>
+              </div>
+            </a>
+          </Link>
+        </div>
+      </div>
+
+      <div
+        className='nav-toggler'
+        role='button'
+        onClick={() => setIsExpandContent((prev) => !prev)}
+      >
+        {isExpandContent ? (
+          <Image
+            src='/images/NavbarClose.png'
+            alt='close'
+            width={16}
+            height={16}
+          />
+        ) : (
+          <Image
+            src='/images/NavbarOpen.png'
+            alt='open'
+            width={21}
+            height={14}
+          />
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default Header

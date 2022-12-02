@@ -1,9 +1,19 @@
-import '../styles/fonts.scss'
-import '../styles/globals.scss'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '@styles/fonts.scss'
+import '@styles/globals.scss'
+import Script from 'next/script'
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Script
+        id='bootstrap-cdn'
+        src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'
+      />
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 export default MyApp

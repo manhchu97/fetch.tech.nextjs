@@ -1,0 +1,114 @@
+@import "@styles/_mixins.scss";
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  :global .footer-logo-container {
+    margin-bottom: 30px;
+  }
+
+  :global .footer-content-container {
+    display: flex;
+    padding-bottom: 40px;
+
+    @include screen-down(lg) {
+      flex-direction: column;
+    }
+
+    .footer-form-container {
+      .footer-form-inner {
+        width: 100%;
+
+        @include screen-up(lg) {
+          width: 90%;
+        }
+
+        .text-form-input {
+          color: rgb(62, 84, 118);
+          font-family: "Gilroy-Regular";
+          font-size: 16px;
+          line-height: 150%;
+          margin-bottom: 24px;
+        }
+      }
+    }
+
+    .footer-nav-container {
+      display: flex;
+
+      a {
+        display: flex;
+      }
+
+      @include screen-down(lg) {
+        margin-top: 50px;
+        margin-bottom: 35px;
+      }
+
+      .nav-title {
+        font-family: "Gilroy-Regular";
+        font-size: 16px;
+        line-height: 150%;
+        margin-bottom: 24px;
+        color: #a4b7c8;
+      }
+    }
+
+    .footer-social-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      @include screen-down(lg) {
+        flex-direction: row;
+      }
+
+      .img-social-container {
+        display: flex;
+        align-items: center;
+        width: 50%;
+
+        @include screen-down(lg) {
+          width: auto;
+
+          &:first-child {
+            margin-right: 32px;
+          }
+        }
+
+        .img-social {
+          position: relative;
+          width: 16px;
+          height: 16px;
+
+          @include screen-down(lg) {
+            width: 32px;
+            height: 32px;
+          }
+        }
+
+        .img-title {
+          margin-left: 10px;
+          font-family: "Gilroy-Regular";
+          font-size: 14px;
+          line-height: 32px;
+          color: #000000;
+
+          @include screen-down(lg) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  :global .footer-copy-right {
+    font-family: "Gilroy-Regular";
+    font-size: 16px;
+    line-height: 150%;
+    color: #a4b7c8;
+  }
+}

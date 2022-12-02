@@ -1,0 +1,75 @@
+@import "@styles/_mixins.scss";
+
+.dropdown-item-container {
+  position: relative;
+  z-index: 11;
+  padding: 0;
+  display: inline-flex;
+
+  @include screen-up(md) {
+    padding: 20px 15px;
+
+    &:hover {
+      background-color: #1264a3;
+      color: #fff !important;
+      box-shadow: 0 1px 3px #7a5757;
+
+      div {
+        color: #ffffff !important;
+      }
+    }
+  }
+
+  :global .header__dropdown-item {
+    &__img {
+      width: 22px;
+      display: inline-block;
+      margin: 5px 15px;
+
+      @include screen-down(md) {
+        display: none;
+      }
+
+      &__icon {
+        width: 22px;
+        height: 28px;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+
+    &__content {
+      &__text {
+        font-family: "Gilroy-SemiBold";
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: -0.25px;
+        color: #17274e;
+
+        @include screen-down(md) {
+          padding-bottom: 16px;
+          font-family: "Gilroy-Medium";
+          font-size: 16px;
+          color: #a4b7c8;
+
+          &:hover {
+            color: #3e5476 !important;
+          }
+        }
+      }
+
+      &__sub-text {
+        font-family: "Gilroy-Regular";
+        font-size: 16px;
+        line-height: 28px;
+        display: inline-block;
+        color: #a4b7c8;
+        width: 246px;
+
+        @include screen-down(md) {
+          display: none;
+        }
+      }
+    }
+  }
+}

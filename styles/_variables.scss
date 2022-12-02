@@ -15,5 +15,15 @@ $max-width-lg: 960px;
 $max-width-xl: 1140px;
 $max-width-xxl: 1320px;
 
+// A map of breakpoints.
+$breakpoints: (
+  xs: $xs,
+  sm: $sm,
+  md: $md,
+  lg: $lg,
+  xl: $xl,
+  xxl: $xxl
+);
+
 $color-link: transparent;
 $spacing: 8px;
