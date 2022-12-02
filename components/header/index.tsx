@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 
 import clsx from 'clsx'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import MenuItem from '@components/nav/menu-item'
 import DropdownItem from '@components/nav/dropdown-item'
+import MenuItem from '@components/nav/menu-item'
+
 import styles from './Header.module.scss'
 
 const Header = () => {
@@ -28,7 +29,7 @@ const Header = () => {
       <div
         className={clsx(
           'nav-container',
-          isExpandContent && 'show-nav-container'
+          isExpandContent && 'show-nav-container',
         )}
       >
         <div className='nav-group'>
