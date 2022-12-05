@@ -1,10 +1,17 @@
-import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
-import Script from 'next/script'
-import React, { ReactElement } from "react";
+import React, { ReactElement } from 'react'
+
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document'
 
 class MyDocument extends Document {
   static async getInitialProps(
-    ctx: DocumentContext
+    ctx: DocumentContext,
   ): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx)
 
@@ -19,7 +26,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
 
-          <Script
+          {/* <Script
             id='show-google-tagmanager'
             strategy='lazyOnload'
             dangerouslySetInnerHTML={{
@@ -34,10 +41,10 @@ class MyDocument extends Document {
                 f.parentNode.insertBefore(j, f);
               })(window, document, "script", "dataLayer", "GTM-WNH5KRZ");`,
             }}
-          />
+          /> */}
         </body>
       </Html>
-    );
+    )
   }
 }
 
