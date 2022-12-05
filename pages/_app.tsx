@@ -1,8 +1,10 @@
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import type { AppProps } from 'next/app'
+import Script from 'next/script'
+
 import '@styles/fonts.scss'
 import '@styles/globals.scss'
-import Script from 'next/script'
-import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
