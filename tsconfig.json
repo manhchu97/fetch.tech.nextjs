@@ -41,6 +41,9 @@
       "@config/*": [
         "config/*"
       ],
+      "@sections/*": [
+        "sections/*"
+      ]
     }
   },
   "include": [

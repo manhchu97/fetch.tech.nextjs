@@ -1,0 +1,24 @@
+@import '@styles/_mixins.scss';
+
+.blog-section {
+  padding: 48px 0 80px;
+
+  &-header {
+    h1 {
+      color: var(--bs-warning);
+    }
+  }
+
+  &-list {
+    @include screen-up(lg) {
+      max-width: 910px;
+    }
+
+    :global .blog-section-pagination ul li {
+      margin-right: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+  }
+}
