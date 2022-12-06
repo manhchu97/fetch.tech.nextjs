@@ -1,0 +1,18 @@
+@import '@styles/_mixins.scss';
+
+.blog-section {
+  &-detail {
+    padding: 48px 0;
+    border-bottom: 1px dotted #ddd;
+
+    @include screen-up(lg) {
+      max-width: 910px;
+    }
+
+    :global .blog-section-related {
+      & h4 {
+        margin: 24px 0;
+      }
+    }
+  }
+}

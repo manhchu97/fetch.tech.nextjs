@@ -3,6 +3,8 @@ import React from 'react'
 import { DOTS, usePagination } from '@hooks/usePagination'
 import clsx from 'clsx'
 
+import styles from './Pagination.module.scss'
+
 interface IPaginationProps {
   onPageChange: (page: number) => void
   totalCount: number
@@ -45,6 +47,7 @@ const Pagination = ({
       <ul
         className={clsx({
           pagination: true,
+          [styles['styled-pagination']]: true,
           'flex-wrap': true,
           [className as string]: className,
         })}

@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
-import BannerContact from '@components/banner/contact'
+
 import Page from '@components/Page'
+import BannerContact from '@components/banner/contact'
 
 const Home: NextPage = () => {
   return (

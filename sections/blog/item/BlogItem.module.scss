@@ -3,8 +3,10 @@
   border-bottom: 1px dotted #ddd;
   padding-bottom: 40px;
 
-  :global .blog-item-thumbnail img {
-    border-radius: 10px;
+  :global .blog-item-thumbnail {
+    & img {
+      border-radius: 10px;
+    }
   }
 
   :global .blog-item-title {
@@ -58,6 +60,14 @@
 
     & .blog-meta-author span img {
       border-radius: 50%;
+    }
+  }
+
+  :global .blog-item-control {
+    & .styled-button {
+      --bs-btn-border-radius: 32px;
+      --bs-btn-hover-color: #fff;
+      --bs-btn-active-color: #fff;
     }
   }
 }

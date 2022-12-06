@@ -1,0 +1,10 @@
+.post-skeleton-wrapper {
+  :global .post-skeleton-thumbnail {
+    height: 148px;
+
+    & span {
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
+}

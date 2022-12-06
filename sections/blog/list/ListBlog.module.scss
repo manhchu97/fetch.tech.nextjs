@@ -1,17 +1,17 @@
 @import '@styles/_mixins.scss';
 
 .blog-section {
-  padding: 48px 0 80px;
-
-  &-header {
-    h1 {
-      color: var(--bs-warning);
-    }
-  }
-
   &-list {
+    padding: 48px 0;
+    border-bottom: 1px dotted #ddd;
     @include screen-up(lg) {
       max-width: 910px;
+    }
+
+    :global .blog-section-header {
+      h1 {
+        color: var(--bs-warning);
+      }
     }
 
     :global .blog-section-pagination ul li {
