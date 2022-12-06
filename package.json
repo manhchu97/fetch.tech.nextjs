@@ -18,16 +18,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
-    "format": "prettier .prettierrc.json 'components/**/*.{js,jsx,ts,tsx}' --write"
+    "format": "prettier .prettierrc.json 'components/**/*.{js,jsx,ts,tsx}' --write",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@hookform/resolvers": "^2.9.10",
+    "@next/bundle-analyzer": "^13.0.6",
     "@phntms/next-gtm": "^0.1.0",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
     "clsx": "^1.2.1",
+    "cross-env": "^7.0.3",
     "next": "12.3.3",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.8.3",
