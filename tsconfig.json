@@ -31,7 +31,16 @@
       ],
       "@hooks/*": [
         "hooks/*"
-      ]
+      ],
+      "@context/*": [
+        "context/*"
+      ],
+      "@routes/*": [
+        "routes/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
     }
   },
   "include": [
