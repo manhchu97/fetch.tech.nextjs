@@ -16,14 +16,6 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
     post
   const { name, linkAvatar } = user
 
-  const formatTags = tags.map((tag, index) => {
-    if (index === tags.length - 1) {
-      return tag.title
-    }
-
-    return `${tag.title},`
-  })
-
   return (
     <article className={styles['blog-item']}>
       <div className='blog-item-thumbnail'>
@@ -47,38 +39,52 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
         </div>
 
         <div className='blog-item-meta'>
-          <div className='blog-meta-tags'>
+          <span className='blog-meta-item blog-meta-tags'>
             Tags:
-            {formatTags.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
-          </div>
+            {tags.map((tag, index) => {
+              if (index === tags.length - 1) {
+                return <span key={tag.title}>{tag.title}</span>
+              }
 
-          <div className='blog-meta-time'>
+              return (
+                <>
+                  <span key={tag.title}>{tag.title}</span>,
+                </>
+              )
+            })}
+          </span>
+
+          <span className='blog-meta-item blog-meta-time'>
             <time>{new Date(createdTimestamp).toDateString()}</time>
-          </div>
+          </span>
 
-          <div className='blog-meta-author'>
-            <Image
-              alt={name}
-              src={`${PORTAL_API}/${linkAvatar}`}
-              width={25}
-              height={25}
-            />
+          <span className='blog-meta-item blog-meta-author'>
+            <Link href='#'>
+              <a>
+                <Image
+                  alt={name}
+                  src={`${PORTAL_API}/${linkAvatar}`}
+                  width={25}
+                  height={25}
+                />
+              </a>
+            </Link>
 
             <span>{name}</span>
-          </div>
+          </span>
         </div>
 
-        <div className='blog-item-content mt-3'>
-          <p>{description}</p>
+        <div className='blog-item-content '>
+          <p className='my-3'>{description}</p>
         </div>
 
         <div className='blog-item-control'>
           <Link href='/'>
-            <button className='btn btn-outline-warning styled-button'>
-              Continue Reading
-            </button>
+            <a>
+              <button className='btn btn-outline-warning styled-button'>
+                Continue Reading
+              </button>
+            </a>
           </Link>
         </div>
       </div>

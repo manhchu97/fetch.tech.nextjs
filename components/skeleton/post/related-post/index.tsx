@@ -13,14 +13,12 @@ const RelatedPostSkeleton = (): React.ReactElement => {
           src='/images/image-placeholder.png'
           width={600}
           height={300}
-          placeholder='blur'
-          blurDataURL='/images/image-placeholder.png'
         />
       </div>
 
       <div className='placeholder-glow post-skeleton-title'>
-        <span className='placeholder col-12 ' />
-        <span className='placeholder col-12' />
+        <span className='placeholder col-12 placeholder-sm' />
+        <span className='placeholder col-12 placeholder-sm' />
       </div>
     </div>
   )

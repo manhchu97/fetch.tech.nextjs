@@ -1,13 +1,15 @@
 @import '@styles/_mixins.scss';
 
 .blog-section {
+  padding: 0 10%;
+
+  @include screen-down(md) {
+    padding: 0 1rem;
+  }
+
   &-detail {
     padding: 48px 0;
     border-bottom: 1px dotted #ddd;
-
-    @include screen-up(lg) {
-      max-width: 910px;
-    }
 
     :global .blog-section-related {
       & h4 {

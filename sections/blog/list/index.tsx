@@ -39,7 +39,7 @@ const ListBlog = (): React.ReactElement => {
 
   return (
     <section id='content' className={styles['blog-section']}>
-      <div className={clsx('container', styles['blog-section-list'])}>
+      <div className={clsx('container-fluid', styles['blog-section-list'])}>
         <div className='blog-section-header'>
           <h1>Blog</h1>
         </div>

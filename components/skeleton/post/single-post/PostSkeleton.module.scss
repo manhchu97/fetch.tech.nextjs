@@ -48,8 +48,8 @@
   :global .post-skeleton-control {
     & .styled-button {
       --bs-btn-border-radius: 32px;
-      --bs-btn-hover-color: #fff;
-      --bs-btn-active-color: #fff;
+      cursor: wait;
+      background-color: currentColor;
     }
   }
 }
