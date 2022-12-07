@@ -28,7 +28,7 @@ const ListBlog = ({ posts }: ListBlogProps): React.ReactElement => {
         </div>
 
         <div className='row pt-5'>
-          <main className='col-md-12'>
+          <main className='col-12'>
             {posts.map((post) => (
               <BlogItem key={post.id} post={post} />
             ))}

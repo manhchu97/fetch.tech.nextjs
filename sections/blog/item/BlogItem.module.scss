@@ -1,11 +1,14 @@
 .blog-item {
-  margin-bottom: 35px;
+  margin-bottom: 2rem;
   border-bottom: 1px dotted #ddd;
-  padding-bottom: 40px;
+  padding-bottom: 2rem;
 
   :global .blog-item-thumbnail {
-    & img {
+    text-align: center;
+
+    & span {
       border-radius: 10px;
+      cursor: pointer;
     }
   }
 
@@ -22,7 +25,7 @@
   }
 
   :global .blog-item-info {
-    max-width: 710px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -50,15 +53,12 @@
       color: var(--bs-gray-600);
     }
 
-    & .blog-meta-tags span {
+    & .blog-meta-tags span,
+    .blog-meta-author span {
       border-bottom: 1px dotted #ccc;
     }
 
-    & .blog-meta-author span {
-      border-bottom: 1px dotted #ccc;
-    }
-
-    & .blog-meta-author span img {
+    & .blog-meta-author span:first-child {
       border-radius: 50%;
     }
   }

@@ -1,21 +1,26 @@
 @import '@styles/_mixins.scss';
 
 .blog-section {
+  padding: 0 10%;
+
+  @include screen-down(md) {
+    padding: 0 1rem;
+  }
+
   &-list {
-    padding: 48px 0;
+    padding: 3rem 0;
     border-bottom: 1px dotted #ddd;
-    @include screen-up(lg) {
-      max-width: 910px;
-    }
 
     :global .blog-section-header {
       h1 {
+        max-width: 900px;
+        margin: 0 auto;
         color: var(--bs-warning);
       }
     }
 
     :global .blog-section-pagination ul li {
-      margin-right: 8px;
+      margin-right: 0.5rem;
       width: 36px;
       height: 36px;
       border-radius: 50%;

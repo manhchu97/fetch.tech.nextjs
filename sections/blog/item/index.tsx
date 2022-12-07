@@ -27,12 +27,14 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
     <article className={styles['blog-item']}>
       <div className='blog-item-thumbnail'>
         <Link href='/'>
-          <Image
-            alt={slug}
-            src={`http://139.59.117.75:3008/${imageCover}`}
-            width={910}
-            height={400}
-          />
+          <a>
+            <Image
+              alt={slug}
+              src={`http://139.59.117.75:3008/${imageCover}`}
+              width={900}
+              height={450}
+            />
+          </a>
         </Link>
       </div>
 

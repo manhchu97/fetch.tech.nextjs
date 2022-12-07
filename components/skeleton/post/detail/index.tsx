@@ -1,12 +1,21 @@
 import React from 'react'
 
+import Image from 'next/image'
+
 import styles from './DetailPostSkeleton.module.scss'
 
 const DetailPostSkeleton = (): React.ReactElement => {
   return (
     <article className={styles['post-skeleton']}>
-      <div className='placeholder-glow post-skeleton-thumbnail'>
-        <span className='placeholder col-12' />
+      <div className=' post-skeleton-thumbnail'>
+        <Image
+          alt='Image placeholder'
+          src='/images/image-placeholder.png'
+          width={900}
+          height={450}
+          placeholder='blur'
+          blurDataURL='/images/image-placeholder.png'
+        />
       </div>
 
       <div className='post-skeleton-info'>

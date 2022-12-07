@@ -4,17 +4,19 @@
   padding-bottom: 40px;
 
   :global .post-skeleton-thumbnail {
-    width: 880px;
-    height: 400px;
+    text-align: center;
+
+    & img {
+      cursor: wait;
+    }
 
     & span {
-      height: 100%;
       border-radius: 10px;
     }
   }
 
   :global .post-skeleton-info {
-    max-width: 710px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 
