@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['localhost', '139.59.117.75'],
+    domains: ['localhost', 'api2-staging.fetch.tech'],
     minimumCacheTTL: 60,
   },
 }

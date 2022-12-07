@@ -14,7 +14,10 @@ const DETAIL_POST = {
   content:
     'Being creative within the constraints of client briefs, budgets and timelines is the norm for most agencies. However, investing in research and development as a true, creative outlet is a powerful addition. In these side projects alone, your team members can pool their expertise to create and shape their own vision — a powerful way to develop motivation, interdisciplinary skills and close relationships.',
   view: 4,
-  createdTimestamp: '2022-12-01T03:49:17.000Z',
+  status: '1',
+  userId: 'abc',
+  createdTimestamp: new Date('2022-12-01T03:49:17.000Z'),
+  updatedTimestamp: new Date('2022-12-01T03:49:17.000Z'),
   user: {
     email: 'test@gmail.com',
     name: 'Blogger Anonymous',

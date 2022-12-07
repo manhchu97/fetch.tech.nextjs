@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ToastProvider from '@context/ToastContext'
 import { TrackingHeadScript } from '@phntms/next-gtm'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -12,13 +11,7 @@ import '@styles/fonts.scss'
 import '@styles/globals.scss'
 import '@styles/toast.scss'
 
-interface CustomPageProps {
-  fallback?: any
-}
-
-function MyApp({ Component, pageProps }: AppProps<CustomPageProps>) {
-  const { fallback = {} } = pageProps
-
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Script
@@ -28,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps<CustomPageProps>) {
       <TrackingHeadScript id='GTM-WNH5KRZ' />
 
       <ToastProvider>
-        <SWRConfigProvider swrConfig={{ fallback }}>
+        <SWRConfigProvider>
           <Component {...pageProps} />
         </SWRConfigProvider>
       </ToastProvider>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Post } from '@sections/blog/config'
+import { IBlogItem } from '@type/blog'
 import clsx from 'clsx'
 
 import DetailPostSkeleton from '@components/skeleton/post/detail'
@@ -9,7 +9,7 @@ import RelatedPostSkeleton from '@components/skeleton/post/related-post'
 import styles from './BlogDetail.module.scss'
 
 interface BlogDetailProps {
-  post: Post
+  post: IBlogItem
 }
 
 const BlogDetail = ({ post }: BlogDetailProps): React.ReactElement => {
