@@ -87,6 +87,13 @@
       &__first-container {
         display: flex;
 
+        @include screen-up(lg) {
+          padding-left: 20px;
+          .menu-item-container {
+            margin-right: 20px;
+          }
+        }
+
         @include screen-down(lg) {
           .menu-item-container {
             margin-right: 60px;

@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { Post } from '@sections/blog/config'
+import { PORTAL_API } from '@config/global'
+import { IBlogItem } from '@type/blog'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from './BlogItem.module.scss'
 
 interface BlogItemProps {
-  post: Post
+  post: IBlogItem
 }
 
 const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
@@ -30,7 +31,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
           <a>
             <Image
               alt={slug}
-              src={`http://139.59.117.75:3008/${imageCover}`}
+              src={`${PORTAL_API}/${imageCover}`}
               width={900}
               height={450}
             />
@@ -60,7 +61,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
           <div className='blog-meta-author'>
             <Image
               alt={name}
-              src={`http://139.59.117.75:3008/${linkAvatar}`}
+              src={`${PORTAL_API}/${linkAvatar}`}
               width={25}
               height={25}
             />

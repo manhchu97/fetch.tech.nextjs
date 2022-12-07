@@ -154,6 +154,12 @@ const Header = () => {
               <div className='upperArrow'></div>
             </div>
           </div>
+
+          <Link href='/blog'>
+            <a>
+              <MenuItem title='Blogs' />
+            </a>
+          </Link>
         </div>
 
         <div className='header-contact-container'>

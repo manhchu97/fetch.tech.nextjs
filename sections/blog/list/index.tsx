@@ -1,20 +1,37 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
-import { Post } from '@sections/blog/config'
+import { API_LIST_PUBLIC_BLOG } from '@routes/api'
 import BlogItem from '@sections/blog/item'
+import { _getApi } from '@utils/portalAxios'
+import { AxiosRequestConfig } from 'axios'
 import clsx from 'clsx'
+import useSWR from 'swr'
 
 import Pagination from '@components/pagination'
 import PostSkeleton from '@components/skeleton/post/single-post'
 
 import styles from './ListBlog.module.scss'
 
-interface ListBlogProps {
-  posts: Post[]
-}
-
-const ListBlog = ({ posts }: ListBlogProps): React.ReactElement => {
+const ListBlog = (): React.ReactElement => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+
+  const params = useMemo(
+    () => ({
+      params: {
+        pageSize: 10,
+        pageNumber: currentPage,
+      },
+    }),
+    [currentPage],
+  )
+
+  const { data, error } = useSWR(
+    [API_LIST_PUBLIC_BLOG, params],
+    (url: string, options?: AxiosRequestConfig) => _getApi(url, options),
+  )
+
+  const isLoading = !error && !data
+  const { list: listPosts = [], total: totalRecord = 0 } = data?.data || {}
 
   const handleChangePage = (page: number) => {
     setCurrentPage(page)
@@ -29,20 +46,37 @@ const ListBlog = ({ posts }: ListBlogProps): React.ReactElement => {
 
         <div className='row pt-5'>
           <main className='col-12'>
-            {posts.map((post) => (
-              <BlogItem key={post.id} post={post} />
-            ))}
+            {(() => {
+              if (isLoading)
+                return (
+                  <>
+                    {Array.from({ length: 10 }, (_, index) => (
+                      <PostSkeleton key={index} />
+                    ))}
+                  </>
+                )
 
-            <PostSkeleton />
+              if (!Array.isArray(listPosts) || !listPosts.length) return null
+
+              return (
+                <>
+                  {(listPosts || [])?.map((post) => (
+                    <BlogItem key={post.id} post={post} />
+                  ))}
+                </>
+              )
+            })()}
           </main>
         </div>
 
-        <Pagination
-          onPageChange={handleChangePage}
-          totalCount={40}
-          currentPage={currentPage}
-          pageSize={5}
-        />
+        {totalRecord > 0 && (
+          <Pagination
+            onPageChange={handleChangePage}
+            totalCount={totalRecord}
+            currentPage={currentPage}
+            pageSize={10}
+          />
+        )}
       </div>
     </section>
   )

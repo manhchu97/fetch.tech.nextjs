@@ -15,7 +15,7 @@ const MenuItem = (props: MenuItemProps): React.ReactElement => {
       role='button'
       id={id}
       className='menu-item-container'
-      data-bs-toggle='dropdown'
+      data-bs-toggle={`${hasIcon ? 'dropdown' : ''}`}
       data-bs-target={`#${target}`}
       aria-expanded='false'
     >

@@ -43,6 +43,12 @@
       ],
       "@sections/*": [
         "sections/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@type/*": [
+        "type/*"
       ]
     }
   },
