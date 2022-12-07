@@ -1,12 +1,30 @@
+import { PORTAL_API } from '@config/global'
+import { API_LIST_PUBLIC_BLOG } from '@routes/api'
 import ListBlog from '@sections/blog/list'
-import type { NextPage } from 'next'
+import { IListPostsResponse } from '@type/blog'
+import { InferGetStaticPropsType } from 'next'
 
 import Page from '@components/Page'
 
-const BlogPage: NextPage = () => {
+export const getStaticProps = async () => {
+  const res = await fetch(
+    `${PORTAL_API}/${API_LIST_PUBLIC_BLOG}?pageSize=10&pageNumber=1`,
+  )
+  const data: IListPostsResponse = await res.json()
+
+  return {
+    props: {
+      fallback: data,
+    },
+  }
+}
+
+const BlogPage = ({
+  fallback,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Page title='Blog'>
-      <ListBlog />
+      <ListBlog fallback={fallback} />
     </Page>
   )
 }

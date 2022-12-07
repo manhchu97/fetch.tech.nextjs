@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ReactNode } from 'react'
 
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import customFetcher from '@utils/fetcher'
 import { Cache, SWRConfig } from 'swr'
 import { Fetcher, PublicConfiguration } from 'swr/dist/types'
-import { _getApi } from 'utils/portalAxios'
 
 type Provider = { provider?: (cache: Readonly<Cache<any>>) => Cache<any> }
 
@@ -20,11 +19,4 @@ export function SWRConfigProvider({
       {children}
     </SWRConfig>
   )
-}
-
-export function customFetcher(
-  url: string,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<any>> {
-  return _getApi(url, options)
 }

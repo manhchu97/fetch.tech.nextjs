@@ -31,3 +31,13 @@ export interface IBlogItem {
   meta: IMeta
   tags: ITag[]
 }
+
+interface IData {
+  list: IBlogItem[]
+  success: boolean
+  total: number
+}
+export interface IListPostsResponse {
+  code: number
+  data?: IData
+}

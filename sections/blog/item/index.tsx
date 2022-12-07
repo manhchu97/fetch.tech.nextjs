@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { PORTAL_API } from '@config/global'
 import { IBlogItem } from '@type/blog'
+import { getImageWeserv } from '@utils/getImageWeserv'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -23,7 +23,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
           <a>
             <Image
               alt={slug}
-              src={`${PORTAL_API}/${imageCover}`}
+              src={getImageWeserv(imageCover, { w: 900, h: 450 })}
               width={900}
               height={450}
             />
@@ -63,7 +63,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
               <a>
                 <Image
                   alt={name}
-                  src={`${PORTAL_API}/${linkAvatar}`}
+                  src={getImageWeserv(linkAvatar, { w: 25, h: 25 })}
                   width={25}
                   height={25}
                 />

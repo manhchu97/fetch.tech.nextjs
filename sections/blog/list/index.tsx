@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
+import { PORTAL_API } from '@config/global'
 import { API_LIST_PUBLIC_BLOG } from '@routes/api'
 import BlogItem from '@sections/blog/item'
-import { _getApi } from '@utils/portalAxios'
-import { AxiosRequestConfig } from 'axios'
+import { IListPostsResponse } from '@type/blog'
+import fetcher from '@utils/fetcher'
 import clsx from 'clsx'
 import useSWR from 'swr'
 
@@ -12,22 +13,18 @@ import PostSkeleton from '@components/skeleton/post/single-post'
 
 import styles from './ListBlog.module.scss'
 
-const ListBlog = (): React.ReactElement => {
+interface IListBlog {
+  fallback: IListPostsResponse
+}
+
+const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const params = useMemo(
-    () => ({
-      params: {
-        pageSize: 10,
-        pageNumber: currentPage,
-      },
-    }),
-    [currentPage],
-  )
-
   const { data, error } = useSWR(
-    [API_LIST_PUBLIC_BLOG, params],
-    (url: string, options?: AxiosRequestConfig) => _getApi(url, options),
+    [API_LIST_PUBLIC_BLOG, currentPage],
+    (url: string, currentPage: number) =>
+      fetcher(`${PORTAL_API}/${url}?pageSize=10&pageNumber=${currentPage}`),
+    { fallbackData: fallback },
   )
 
   const isLoading = !error && !data
