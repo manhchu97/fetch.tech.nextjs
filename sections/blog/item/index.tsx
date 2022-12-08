@@ -19,7 +19,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
   return (
     <article className={styles['blog-item']}>
       <div className='blog-item-thumbnail'>
-        <Link href='/'>
+        <Link href={`/blog/${slug}`}>
           <a>
             <Image
               alt={slug}
@@ -74,8 +74,8 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
           </span>
         </div>
 
-        <div className='blog-item-content '>
-          <p className='my-3'>{description}</p>
+        <div className='blog-item-content my-3'>
+          <p>{description}</p>
         </div>
 
         <div className='blog-item-control'>

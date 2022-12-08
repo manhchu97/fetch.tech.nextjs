@@ -25,9 +25,9 @@ export interface IBlogItem {
   content: string
   status: string
   view: number
-  deletedTimestamp?: Date | null
-  createdTimestamp: Date
-  updatedTimestamp: Date
+  deletedTimestamp?: string | null
+  createdTimestamp: string
+  updatedTimestamp: string
   user: IUser
   meta: IMeta
   tags: ITag[]

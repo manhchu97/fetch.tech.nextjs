@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 import { PORTAL_API } from '@config/global'
 import { API_LIST_PUBLIC_BLOG } from '@routes/api'
 import { IBlogItem, IDetailPostResponse } from '@type/blog'
 import fetcher from '@utils/fetcher'
+import { getImageWeserv } from '@utils/getImageWeserv'
 import clsx from 'clsx'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
 import DetailPostSkeleton from '@components/skeleton/post/detail'
@@ -54,17 +59,83 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
   }
 
   const post: IBlogItem = data?.data?.blog || {}
-  console.log(post)
+  const {
+    title,
+    slug: postSlug,
+    imageCover,
+    content,
+    tags,
+    updatedTimestamp,
+    user,
+  } = post
+  const { name, linkAvatar } = user
 
   return (
     <section id='content' className={styles['blog-section']}>
       <div className={clsx('container-fluid', styles['blog-section-detail'])}>
-        <DetailPostSkeleton />
+        <article className='blog-detail'>
+          <div className='blog-detail-thumbnail'>
+            <Image
+              alt={postSlug}
+              src={getImageWeserv(imageCover, { w: 1000, h: 500 })}
+              width={1000}
+              height={500}
+            />
+          </div>
+
+          <div className='blog-detail-info'>
+            <div className='blog-detail-title'>
+              <h2>{title}</h2>
+            </div>
+
+            <div className='blog-detail-meta'>
+              <span className='blog-meta-detail blog-meta-tags'>
+                Tags:
+                {tags.map((tag, index) => {
+                  if (index === tags.length - 1) {
+                    return <span key={tag.id}>{tag.title}</span>
+                  }
+
+                  return (
+                    <Fragment key={tag.id}>
+                      <span>{tag.title}</span>,
+                    </Fragment>
+                  )
+                })}
+              </span>
+
+              <span className='blog-meta-detail blog-meta-time'>
+                <time>{new Date(updatedTimestamp).toDateString()}</time>
+              </span>
+
+              <span className='blog-meta-detail blog-meta-author'>
+                <Link href='#'>
+                  <a>
+                    <Image
+                      alt={name}
+                      src={getImageWeserv(linkAvatar, { w: 25, h: 25 })}
+                      width={25}
+                      height={25}
+                    />
+                  </a>
+                </Link>
+
+                <span>{name}</span>
+              </span>
+            </div>
+
+            <div className='blog-detail-content my-3'>
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                {content}
+              </ReactMarkdown>
+            </div>
+          </div>
+        </article>
 
         <div className='blog-section-related'>
           <h4>Related Posts:</h4>
 
-          <div className='container px-0'>
+          <div className='container-fluid px-0'>
             <div className='row gx-4'>
               {Array.from({ length: 3 }, (v, i) => (
                 <div key={i} className='col-sm-12 col-md-4 g-3'>
