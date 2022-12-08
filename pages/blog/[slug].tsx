@@ -5,6 +5,7 @@ import { IBlogItem, IDetailPostResponse, IListPostsResponse } from '@type/blog'
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
 import Page from '@components/Page'
+import BannerContact from '@components/banner/contact'
 
 type IPatch = {
   slug: string
@@ -53,6 +54,13 @@ const BlogDetailPage = ({
   return (
     <Page title='Blog Detail'>
       <BlogDetail fallback={fallback} />
+
+      <BannerContact
+        title='Find the perfect fit with Fetch'
+        subTitle='Find the perfect fit with Fetch'
+        buttonText='Sign Up'
+        linkTo='/contact'
+      />
     </Page>
   )
 }

@@ -5,6 +5,7 @@ import { IListPostsResponse } from '@type/blog'
 import { InferGetStaticPropsType } from 'next'
 
 import Page from '@components/Page'
+import BannerContact from '@components/banner/contact'
 
 export const getStaticProps = async () => {
   const res = await fetch(
@@ -25,6 +26,13 @@ const BlogPage = ({
   return (
     <Page title='Blog'>
       <ListBlog fallback={fallback} />
+
+      <BannerContact
+        title='Find the perfect fit with Fetch'
+        subTitle='Find the perfect fit with Fetch'
+        buttonText='Sign Up'
+        linkTo='/contact'
+      />
     </Page>
   )
 }

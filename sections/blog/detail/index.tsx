@@ -8,6 +8,7 @@ import { IBlogItem, IDetailPostResponse } from '@type/blog'
 import fetcher from '@utils/fetcher'
 import { getImageWeserv } from '@utils/getImageWeserv'
 import clsx from 'clsx'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -43,8 +44,14 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
     tags,
     updatedTimestamp,
     user,
+    meta,
   } = post
   const { name, linkAvatar } = user || {}
+  const {
+    title: metaTitle,
+    keyword: metaKeyword,
+    description: metaDescription,
+  } = meta || {}
 
   const { data: relatedPostData, error } = useSWR(
     id ? API_BLOG_RELATED({ id, pageSize: 3 }) : null,
@@ -81,95 +88,103 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
   }
 
   return (
-    <section id='content' className={styles['blog-section']}>
-      <div className={clsx('container-fluid', styles['blog-section-detail'])}>
-        <article className='blog-detail'>
-          <div className='blog-detail-thumbnail'>
-            <Image
-              alt={postSlug}
-              src={getImageWeserv(imageCover, { w: 1000, h: 500 })}
-              width={1000}
-              height={500}
-            />
-          </div>
+    <>
+      <Head>
+        <title>{metaTitle || title}</title>
+        <meta name='description' content={metaDescription || ''} />
+        <meta name='keywords' content={metaKeyword || ''} />
+      </Head>
 
-          <div className='blog-detail-info'>
-            <div className='blog-detail-title'>
-              <h2>{title}</h2>
+      <section id='content' className={styles['blog-section']}>
+        <div className={clsx('container-fluid', styles['blog-section-detail'])}>
+          <article className='blog-detail'>
+            <div className='blog-detail-thumbnail'>
+              <Image
+                alt={postSlug}
+                src={getImageWeserv(imageCover, { w: 1000, h: 500 })}
+                width={1000}
+                height={500}
+              />
             </div>
 
-            <div className='blog-detail-meta'>
-              <span className='blog-meta-detail blog-meta-tags'>
-                Tags:
-                {tags.map((tag, index) => {
-                  if (index === tags.length - 1) {
-                    return <span key={tag.id}>{tag.title}</span>
+            <div className='blog-detail-info'>
+              <div className='blog-detail-title'>
+                <h2>{title}</h2>
+              </div>
+
+              <div className='blog-detail-meta'>
+                <span className='blog-meta-detail blog-meta-tags'>
+                  Tags:
+                  {tags.map((tag, index) => {
+                    if (index === tags.length - 1) {
+                      return <span key={tag.id}>{tag.title}</span>
+                    }
+
+                    return (
+                      <Fragment key={tag.id}>
+                        <span>{tag.title}</span>,
+                      </Fragment>
+                    )
+                  })}
+                </span>
+
+                <span className='blog-meta-detail blog-meta-time'>
+                  <time>{new Date(updatedTimestamp).toDateString()}</time>
+                </span>
+
+                <span className='blog-meta-detail blog-meta-author'>
+                  <Link href='#'>
+                    <a>
+                      <Image
+                        alt={name}
+                        src={getImageWeserv(linkAvatar, { w: 25, h: 25 })}
+                        width={25}
+                        height={25}
+                      />
+                    </a>
+                  </Link>
+
+                  <span>{name}</span>
+                </span>
+              </div>
+
+              <div className='blog-detail-content my-3'>
+                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                  {content}
+                </ReactMarkdown>
+              </div>
+            </div>
+          </article>
+
+          <div className='blog-section-related'>
+            <h4>Related Posts:</h4>
+
+            <div className='container-fluid px-0'>
+              <div className='row gx-4'>
+                {(() => {
+                  if (isLoading) {
+                    return Array.from({ length: 3 }, (v, i) => (
+                      <div key={i} className='col-xs-12 col-md-4 g-4'>
+                        <RelatedPostSkeleton />
+                      </div>
+                    ))
                   }
 
-                  return (
-                    <Fragment key={tag.id}>
-                      <span>{tag.title}</span>,
-                    </Fragment>
-                  )
-                })}
-              </span>
+                  if (!Array.isArray(relatedPost) || !relatedPost.length)
+                    return null
 
-              <span className='blog-meta-detail blog-meta-time'>
-                <time>{new Date(updatedTimestamp).toDateString()}</time>
-              </span>
-
-              <span className='blog-meta-detail blog-meta-author'>
-                <Link href='#'>
-                  <a>
-                    <Image
-                      alt={name}
-                      src={getImageWeserv(linkAvatar, { w: 25, h: 25 })}
-                      width={25}
-                      height={25}
-                    />
-                  </a>
-                </Link>
-
-                <span>{name}</span>
-              </span>
-            </div>
-
-            <div className='blog-detail-content my-3'>
-              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                {content}
-              </ReactMarkdown>
-            </div>
-          </div>
-        </article>
-
-        <div className='blog-section-related'>
-          <h4>Related Posts:</h4>
-
-          <div className='container-fluid px-0'>
-            <div className='row gx-4'>
-              {(() => {
-                if (isLoading) {
-                  return Array.from({ length: 3 }, (v, i) => (
-                    <div key={i} className='col-xs-12 col-md-4 g-4'>
-                      <RelatedPostSkeleton />
+                  return relatedPost.map((post: IBlogItem) => (
+                    <div key={post.id} className='col-xs-12 col-md-4 g-4'>
+                      <RelatedPost key={post.id} post={post} />
                     </div>
                   ))
-                }
-
-                if (!Array.isArray(relatedPost) || !relatedPost.length)
-                  return null
-
-                return relatedPost.map((post: IBlogItem) => (
-                  <div key={post.id} className='col-xs-12 col-md-4 g-4'>
-                    <RelatedPost key={post.id} post={post} />
-                  </div>
-                ))
-              })()}
+                })()}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
