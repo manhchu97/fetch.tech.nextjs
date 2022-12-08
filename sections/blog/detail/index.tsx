@@ -46,12 +46,13 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
   } = post
   const { name, linkAvatar } = user || {}
 
-  const { data: relatedPostData } = useSWR(
-    id ? API_BLOG_RELATED(id) : null,
+  const { data: relatedPostData, error } = useSWR(
+    id ? API_BLOG_RELATED({ id, pageSize: 3 }) : null,
     (url: string) => fetcher(`${PORTAL_API}/${url}`),
   )
 
-  const relatedPost = relatedPostData?.data?.list.slice(0, 3) || []
+  const isLoading = !error && !relatedPostData
+  const relatedPost = relatedPostData?.data?.list || []
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -146,17 +147,24 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
 
           <div className='container-fluid px-0'>
             <div className='row gx-4'>
-              {relatedPost && relatedPost.length
-                ? relatedPost.map((post: IBlogItem) => (
-                    <div key={post.id} className='col-xs-12 col-md-4 g-3'>
-                      <RelatedPost key={post.id} post={post} />
-                    </div>
-                  ))
-                : Array.from({ length: 3 }, (v, i) => (
-                    <div key={i} className='col-xs-12 col-md-4 g-3'>
+              {(() => {
+                if (isLoading) {
+                  return Array.from({ length: 3 }, (v, i) => (
+                    <div key={i} className='col-xs-12 col-md-4 g-4'>
                       <RelatedPostSkeleton />
                     </div>
-                  ))}
+                  ))
+                }
+
+                if (!Array.isArray(relatedPost) || !relatedPost.length)
+                  return null
+
+                return relatedPost.map((post: IBlogItem) => (
+                  <div key={post.id} className='col-xs-12 col-md-4 g-4'>
+                    <RelatedPost key={post.id} post={post} />
+                  </div>
+                ))
+              })()}
             </div>
           </div>
         </div>

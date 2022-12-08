@@ -43,13 +43,21 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
             Tags:
             {tags.map((tag, index) => {
               if (index === tags.length - 1) {
-                return <span key={tag.title}>{tag.title}</span>
+                return (
+                  <Link key={tag.title} href={`/blog?tags=${tag.title}`}>
+                    <a>
+                      <span>{tag.title}</span>
+                    </a>
+                  </Link>
+                )
               }
 
               return (
-                <>
-                  <span key={tag.title}>{tag.title}</span>,
-                </>
+                <Link key={tag.title} href={`/blog?tags=${tag.title}`}>
+                  <a>
+                    <span>{tag.title}</span>,
+                  </a>
+                </Link>
               )
             })}
           </span>
