@@ -37,6 +37,7 @@ const Pagination = ({
   }
 
   const lastPage = paginationRange[paginationRange.length - 1]
+
   return (
     <nav aria-label='...'>
       <ul
