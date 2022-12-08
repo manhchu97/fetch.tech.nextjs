@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { PORTAL_API } from '@config/global'
 import { API_LIST_PUBLIC_BLOG } from '@routes/api'
@@ -6,6 +6,7 @@ import BlogItem from '@sections/blog/item'
 import { IListPostsResponse } from '@type/blog'
 import fetcher from '@utils/fetcher'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
 import Pagination from '@components/pagination'
@@ -18,21 +19,22 @@ interface IListBlog {
 }
 
 const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const router = useRouter()
+  const { page } = router.query
 
   const { data, error } = useSWR(
-    [API_LIST_PUBLIC_BLOG, currentPage],
+    page ? [API_LIST_PUBLIC_BLOG, page] : null,
     (url: string, currentPage: number) =>
-      fetcher(`${PORTAL_API}/${url}?pageSize=10&pageNumber=${currentPage}`),
+      fetcher(
+        `${PORTAL_API}/${url}?pageSize=10&pageNumber=${
+          Number(currentPage) || 1
+        }`,
+      ),
     { fallbackData: fallback },
   )
 
   const isLoading = !error && !data
   const { list: listPosts = [], total: totalRecord = 0 } = data?.data || {}
-
-  const handleChangePage = (page: number) => {
-    setCurrentPage(page)
-  }
 
   return (
     <section id='content' className={styles['blog-section']}>
@@ -68,9 +70,8 @@ const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
 
         {totalRecord > 0 && (
           <Pagination
-            onPageChange={handleChangePage}
             totalCount={totalRecord}
-            currentPage={currentPage}
+            currentPage={Number(page) || 1}
             pageSize={10}
           />
         )}

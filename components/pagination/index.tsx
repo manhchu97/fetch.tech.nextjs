@@ -2,11 +2,12 @@ import React from 'react'
 
 import { DOTS, usePagination } from '@hooks/usePagination'
 import clsx from 'clsx'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import styles from './Pagination.module.scss'
 
 interface IPaginationProps {
-  onPageChange: (page: number) => void
   totalCount: number
   siblingCount?: number
   currentPage: number
@@ -15,13 +16,15 @@ interface IPaginationProps {
 }
 
 const Pagination = ({
-  onPageChange,
   totalCount,
   siblingCount = 1,
   currentPage,
   pageSize,
   className,
 }: IPaginationProps) => {
+  const router = useRouter()
+  const { pathname } = router
+
   const paginationRange = usePagination({
     currentPage,
     totalCount,
@@ -31,14 +34,6 @@ const Pagination = ({
 
   if (currentPage === 0 || paginationRange.length < 2) {
     return null
-  }
-
-  const onNext = () => {
-    onPageChange(currentPage + 1)
-  }
-
-  const onPrevious = () => {
-    onPageChange(currentPage - 1)
   }
 
   const lastPage = paginationRange[paginationRange.length - 1]
@@ -57,14 +52,18 @@ const Pagination = ({
             'page-item': true,
             disabled: currentPage === 1,
           })}
-          onClick={onPrevious}
         >
           {currentPage === 1 ? (
             <span className='page-link'>Previous</span>
           ) : (
-            <a className='page-link' href='#'>
-              Previous
-            </a>
+            <Link
+              href={{
+                pathname,
+                query: { page: currentPage - 1 },
+              }}
+            >
+              <a className='page-link'>Previous</a>
+            </Link>
           )}
         </li>
 
@@ -84,11 +83,15 @@ const Pagination = ({
                 'page-item': true,
                 active: pageNumber === currentPage,
               })}
-              onClick={() => onPageChange(pageNumber as number)}
             >
-              <a className='page-link' href='#'>
-                {pageNumber}
-              </a>
+              <Link
+                href={{
+                  pathname,
+                  query: { page: pageNumber },
+                }}
+              >
+                <a className='page-link'>{pageNumber}</a>
+              </Link>
             </li>
           )
         })}
@@ -98,14 +101,18 @@ const Pagination = ({
             'page-item': true,
             disabled: currentPage === lastPage,
           })}
-          onClick={onNext}
         >
           {currentPage === lastPage ? (
             <span className='page-link'>Next</span>
           ) : (
-            <a className='page-link' href='#'>
-              Next
-            </a>
+            <Link
+              href={{
+                pathname,
+                query: { page: currentPage + 1 },
+              }}
+            >
+              <a className='page-link'>Next</a>
+            </Link>
           )}
         </li>
       </ul>
