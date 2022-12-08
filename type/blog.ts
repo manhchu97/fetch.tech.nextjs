@@ -11,6 +11,7 @@ export interface IMeta {
 }
 
 export interface ITag {
+  id?: string
   title: string
 }
 
@@ -40,4 +41,14 @@ interface IData {
 export interface IListPostsResponse {
   code: number
   data?: IData
+}
+
+interface IDetailData {
+  success: boolean
+  blog: IBlogItem
+}
+
+export interface IDetailPostResponse {
+  code: number
+  data?: IDetailData
 }

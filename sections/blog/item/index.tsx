@@ -34,7 +34,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
       <div className='blog-item-info'>
         <div className='blog-item-title'>
           <h2>
-            <Link href='/'>{title}</Link>
+            <Link href={`/blog/${slug}`}>{title}</Link>
           </h2>
         </div>
 
