@@ -1,0 +1,19 @@
+@import "@styles/_mixins.scss";
+
+.banner-company-container {
+  width: 100%;
+  position: relative;
+  height: 422px;
+
+  :global .desktop-image-container {
+    @include screen-down(md) {
+      display: none !important;
+    }
+  }
+
+  :global .mobile-image-container {
+    @include screen-up(md) {
+      display: none !important;
+    }
+  }
+}

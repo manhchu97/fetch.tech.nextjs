@@ -6,6 +6,7 @@ import { IListPostsResponse } from '@type/blog'
 import { InferGetStaticPropsType } from 'next'
 
 import Page from '@components/Page'
+import BannerCompany from '@components/banner/company'
 import BannerContact from '@components/banner/contact'
 
 export const getStaticProps = async () => {
@@ -26,6 +27,11 @@ const BlogPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Page title='Blog'>
+      <BannerCompany
+        desktopImgSrc='/images/CompanyHeaderBackground.svg'
+        mobileImgSrc='/images/CompanyHeaderBackgroundMobile.svg'
+      />
+
       <ListBlog fallback={fallback} />
 
       <BannerContact
