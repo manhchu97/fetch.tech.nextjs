@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { DOTS, usePagination } from '@hooks/usePagination'
+import { PATH_CONFIG } from '@routes/paths'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -23,8 +24,7 @@ const Pagination = ({
   className,
 }: IPaginationProps) => {
   const router = useRouter()
-  const { pathname, query } = router
-  const { tags } = query
+  const { tags } = router.query
 
   const paginationRange = usePagination({
     currentPage,
@@ -59,10 +59,10 @@ const Pagination = ({
             <span className='page-link'>Previous</span>
           ) : (
             <Link
-              href={{
-                pathname,
-                query: { page: currentPage - 1, tags: tags || '' },
-              }}
+              href={PATH_CONFIG.blog.query({
+                page: currentPage - 1,
+                ...(tags ? { tags: tags as string } : {}),
+              })}
             >
               <a className='page-link'>Previous</a>
             </Link>
@@ -87,10 +87,10 @@ const Pagination = ({
               })}
             >
               <Link
-                href={{
-                  pathname,
-                  query: { page: pageNumber, tags: tags || '' },
-                }}
+                href={PATH_CONFIG.blog.query({
+                  page: pageNumber,
+                  ...(tags ? { tags: tags as string } : {}),
+                })}
               >
                 <a className='page-link'>{pageNumber}</a>
               </Link>
@@ -108,10 +108,10 @@ const Pagination = ({
             <span className='page-link'>Next</span>
           ) : (
             <Link
-              href={{
-                pathname,
-                query: { page: currentPage + 1, tags: tags || '' },
-              }}
+              href={PATH_CONFIG.blog.query({
+                page: currentPage + 1,
+                ...(tags ? { tags: tags as string } : {}),
+              })}
             >
               <a className='page-link'>Next</a>
             </Link>

@@ -1,5 +1,6 @@
 import { PORTAL_API } from '@config/global'
 import { API_LIST_PUBLIC_BLOG } from '@routes/api'
+import { PATH_CONFIG } from '@routes/paths'
 import ListBlog from '@sections/blog/list'
 import { IListPostsResponse } from '@type/blog'
 import { InferGetStaticPropsType } from 'next'
@@ -31,7 +32,7 @@ const BlogPage = ({
         title='Find the perfect fit with Fetch'
         subTitle='Find the perfect fit with Fetch'
         buttonText='Sign Up'
-        linkTo='/contact'
+        linkTo={PATH_CONFIG.contact}
       />
     </Page>
   )

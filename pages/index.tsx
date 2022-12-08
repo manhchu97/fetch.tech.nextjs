@@ -1,3 +1,4 @@
+import { PATH_CONFIG } from '@routes/paths'
 import type { NextPage } from 'next'
 
 import Page from '@components/Page'
@@ -10,7 +11,7 @@ const Home: NextPage = () => {
         title='Find the perfect fit with Fetch'
         subTitle='Find the perfect fit with Fetch'
         buttonText='Sign Up'
-        linkTo='/contact'
+        linkTo={PATH_CONFIG.contact}
       />
     </Page>
   )

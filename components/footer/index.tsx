@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useToastContext } from '@context/ToastContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { API_SUBCRIBER_BY_EMAIL } from '@routes/api'
+import { PATH_CONFIG } from '@routes/paths'
 import { _postApi } from '@utils/axios'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -104,19 +105,19 @@ const Footer = () => {
 
         <div className='footer-nav-container col-xs-12 col-lg-4'>
           <div className='col-6'>
-            <Link href='/employees'>
+            <Link href={PATH_CONFIG.employees}>
               <a>
                 <span className='nav-title'>How It Works</span>
               </a>
             </Link>
 
-            <Link href='/company'>
+            <Link href={PATH_CONFIG.company}>
               <a>
                 <span className='nav-title'>For Company</span>
               </a>
             </Link>
 
-            <Link href='/ourstory'>
+            <Link href={PATH_CONFIG.ourStory}>
               <a>
                 <span className='nav-title'>Our Story</span>
               </a>
@@ -124,13 +125,13 @@ const Footer = () => {
           </div>
 
           <div className='col-6'>
-            <Link href='/successstories'>
+            <Link href={PATH_CONFIG.successStories}>
               <a>
                 <span className='nav-title'>Success Stories</span>
               </a>
             </Link>
 
-            <Link href='/faq'>
+            <Link href={PATH_CONFIG.faq}>
               <a>
                 <span className='nav-title'>FAQ</span>
               </a>

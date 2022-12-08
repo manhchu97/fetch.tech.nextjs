@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { PATH_CONFIG } from '@routes/paths'
 import { IBlogItem } from '@type/blog'
 import { getImageWeserv } from '@utils/getImageWeserv'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import styles from './BlogItem.module.scss'
 
@@ -13,8 +13,6 @@ interface BlogItemProps {
 }
 
 const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
-  const { pathname } = useRouter()
-
   const { title, slug, imageCover, description, tags, updatedTimestamp, user } =
     post
   const { name, linkAvatar } = user
@@ -37,7 +35,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
       <div className='blog-item-info'>
         <div className='blog-item-title'>
           <h2>
-            <Link href={`/blog/${slug}`}>{title}</Link>
+            <Link href={PATH_CONFIG.blog.view(slug)}>{title}</Link>
           </h2>
         </div>
 
@@ -49,10 +47,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
                 return (
                   <Link
                     key={tag.title}
-                    href={{
-                      pathname,
-                      query: { page: 1, tags: tag.title },
-                    }}
+                    href={PATH_CONFIG.blog.query({ tags: tag.title })}
                   >
                     <a>
                       <span>{tag.title}</span>
@@ -64,10 +59,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
               return (
                 <Link
                   key={tag.title}
-                  href={{
-                    pathname,
-                    query: { page: 1, tags: tag.title },
-                  }}
+                  href={PATH_CONFIG.blog.query({ tags: tag.title })}
                 >
                   <a>
                     <span>{tag.title}</span>,
@@ -108,7 +100,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
         </div>
 
         <div className='blog-item-control'>
-          <Link href={`/blog/${slug}`}>
+          <Link href={PATH_CONFIG.blog.view(slug)}>
             <a>
               <button className='btn btn-outline-warning styled-button'>
                 Continue Reading
