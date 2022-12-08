@@ -21,19 +21,19 @@ interface IListBlog {
 
 const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
   const router = useRouter()
-  const { page } = router.query
+  const { page, tags } = router.query
 
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
 
   const { data, error } = useSWR(
-    mounted ? [API_LIST_PUBLIC_BLOG, page] : null,
-    (url: string, currentPage: number) =>
+    mounted ? [API_LIST_PUBLIC_BLOG, page, tags] : null,
+    (url: string, currentPage: number, tags: string) =>
       fetcher(
         `${PORTAL_API}/${url}?pageSize=10&pageNumber=${
           Number(currentPage) || 1
-        }`,
+        }&tags=${tags || ''}`,
       ),
     { fallbackData: fallback },
   )

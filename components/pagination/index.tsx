@@ -23,7 +23,8 @@ const Pagination = ({
   className,
 }: IPaginationProps) => {
   const router = useRouter()
-  const { pathname } = router
+  const { pathname, query } = router
+  const { tags } = query
 
   const paginationRange = usePagination({
     currentPage,
@@ -60,7 +61,7 @@ const Pagination = ({
             <Link
               href={{
                 pathname,
-                query: { page: currentPage - 1 },
+                query: { page: currentPage - 1, tags: tags || '' },
               }}
             >
               <a className='page-link'>Previous</a>
@@ -88,7 +89,7 @@ const Pagination = ({
               <Link
                 href={{
                   pathname,
-                  query: { page: pageNumber },
+                  query: { page: pageNumber, tags: tags || '' },
                 }}
               >
                 <a className='page-link'>{pageNumber}</a>
@@ -109,7 +110,7 @@ const Pagination = ({
             <Link
               href={{
                 pathname,
-                query: { page: currentPage + 1 },
+                query: { page: currentPage + 1, tags: tags || '' },
               }}
             >
               <a className='page-link'>Next</a>

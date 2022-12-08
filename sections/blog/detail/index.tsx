@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ReactMarkdown from 'react-markdown'
 
 import { PORTAL_API } from '@config/global'
@@ -117,19 +117,45 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
                   Tags:
                   {tags.map((tag, index) => {
                     if (index === tags.length - 1) {
-                      return <span key={tag.id}>{tag.title}</span>
+                      return (
+                        <Link
+                          key={tag.title}
+                          href={{
+                            pathname: '/blog',
+                            query: { page: 1, tags: tag.title },
+                          }}
+                        >
+                          <a>
+                            <span>{tag.title}</span>
+                          </a>
+                        </Link>
+                      )
                     }
 
                     return (
-                      <Fragment key={tag.id}>
-                        <span>{tag.title}</span>,
-                      </Fragment>
+                      <Link
+                        key={tag.title}
+                        href={{
+                          pathname: '/blog',
+                          query: { page: 1, tags: tag.title },
+                        }}
+                      >
+                        <a>
+                          <span>{tag.title}</span>,
+                        </a>
+                      </Link>
                     )
                   })}
                 </span>
 
                 <span className='blog-meta-detail blog-meta-time'>
-                  <time>{new Date(updatedTimestamp).toDateString()}</time>
+                  <time>
+                    {new Date(updatedTimestamp).toLocaleDateString('en-us', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
                 </span>
 
                 <span className='blog-meta-detail blog-meta-author'>

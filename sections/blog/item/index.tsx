@@ -4,6 +4,7 @@ import { IBlogItem } from '@type/blog'
 import { getImageWeserv } from '@utils/getImageWeserv'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import styles from './BlogItem.module.scss'
 
@@ -12,7 +13,9 @@ interface BlogItemProps {
 }
 
 const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
-  const { title, slug, imageCover, description, tags, createdTimestamp, user } =
+  const { pathname } = useRouter()
+
+  const { title, slug, imageCover, description, tags, updatedTimestamp, user } =
     post
   const { name, linkAvatar } = user
 
@@ -44,7 +47,13 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
             {tags.map((tag, index) => {
               if (index === tags.length - 1) {
                 return (
-                  <Link key={tag.title} href={`/blog?tags=${tag.title}`}>
+                  <Link
+                    key={tag.title}
+                    href={{
+                      pathname,
+                      query: { page: 1, tags: tag.title },
+                    }}
+                  >
                     <a>
                       <span>{tag.title}</span>
                     </a>
@@ -53,7 +62,13 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
               }
 
               return (
-                <Link key={tag.title} href={`/blog?tags=${tag.title}`}>
+                <Link
+                  key={tag.title}
+                  href={{
+                    pathname,
+                    query: { page: 1, tags: tag.title },
+                  }}
+                >
                   <a>
                     <span>{tag.title}</span>,
                   </a>
@@ -63,7 +78,13 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
           </span>
 
           <span className='blog-meta-item blog-meta-time'>
-            <time>{new Date(createdTimestamp).toDateString()}</time>
+            <time>
+              {new Date(updatedTimestamp).toLocaleDateString('en-us', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              })}
+            </time>
           </span>
 
           <span className='blog-meta-item blog-meta-author'>
