@@ -1,5 +1,6 @@
 import React from 'react'
 
+import imagePlaceholder from '@public/images/image-placeholder.png'
 import Image from 'next/image'
 
 import styles from './RelatedPostSkeleton.module.scss'
@@ -10,9 +11,9 @@ const RelatedPostSkeleton = (): React.ReactElement => {
       <div className='placeholder-glow post-skeleton-thumbnail'>
         <Image
           alt='Image placeholder'
-          src='/images/image-placeholder.png'
-          width={600}
-          height={300}
+          src={imagePlaceholder}
+          width={700}
+          height={350}
         />
       </div>
 

@@ -2,7 +2,8 @@ import React, { Fragment } from 'react'
 import ReactMarkdown from 'react-markdown'
 
 import { PORTAL_API } from '@config/global'
-import { API_LIST_PUBLIC_BLOG } from '@routes/api'
+import { API_BLOG_RELATED, API_LIST_PUBLIC_BLOG } from '@routes/api'
+import RelatedPost from '@sections/blog/related'
 import { IBlogItem, IDetailPostResponse } from '@type/blog'
 import fetcher from '@utils/fetcher'
 import { getImageWeserv } from '@utils/getImageWeserv'
@@ -32,6 +33,26 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
     { fallbackData: fallback },
   )
 
+  const post: IBlogItem = data?.data?.blog || {}
+  const {
+    id,
+    title,
+    slug: postSlug,
+    imageCover,
+    content,
+    tags,
+    updatedTimestamp,
+    user,
+  } = post
+  const { name, linkAvatar } = user || {}
+
+  const { data: relatedPostData } = useSWR(
+    id ? API_BLOG_RELATED(id) : null,
+    (url: string) => fetcher(`${PORTAL_API}/${url}`),
+  )
+
+  const relatedPost = relatedPostData?.data?.list.slice(0, 3) || []
+
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
@@ -46,7 +67,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
             <div className='container px-0'>
               <div className='row gx-4'>
                 {Array.from({ length: 3 }, (v, i) => (
-                  <div key={i} className='col-sm-12 col-md-4 g-3'>
+                  <div key={i} className='col-xs-12 col-md-4 g-3'>
                     <RelatedPostSkeleton />
                   </div>
                 ))}
@@ -57,18 +78,6 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
       </section>
     )
   }
-
-  const post: IBlogItem = data?.data?.blog || {}
-  const {
-    title,
-    slug: postSlug,
-    imageCover,
-    content,
-    tags,
-    updatedTimestamp,
-    user,
-  } = post
-  const { name, linkAvatar } = user
 
   return (
     <section id='content' className={styles['blog-section']}>
@@ -137,11 +146,17 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
 
           <div className='container-fluid px-0'>
             <div className='row gx-4'>
-              {Array.from({ length: 3 }, (v, i) => (
-                <div key={i} className='col-sm-12 col-md-4 g-3'>
-                  <RelatedPostSkeleton />
-                </div>
-              ))}
+              {relatedPost && relatedPost.length
+                ? relatedPost.map((post: IBlogItem) => (
+                    <div key={post.id} className='col-xs-12 col-md-4 g-3'>
+                      <RelatedPost key={post.id} post={post} />
+                    </div>
+                  ))
+                : Array.from({ length: 3 }, (v, i) => (
+                    <div key={i} className='col-xs-12 col-md-4 g-3'>
+                      <RelatedPostSkeleton />
+                    </div>
+                  ))}
             </div>
           </div>
         </div>

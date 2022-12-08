@@ -23,9 +23,9 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
           <a>
             <Image
               alt={slug}
-              src={getImageWeserv(imageCover, { w: 900, h: 450 })}
-              width={900}
-              height={450}
+              src={getImageWeserv(imageCover, { w: 1000, h: 500 })}
+              width={1000}
+              height={500}
             />
           </a>
         </Link>
@@ -79,7 +79,7 @@ const BlogItem = ({ post }: BlogItemProps): React.ReactElement => {
         </div>
 
         <div className='blog-item-control'>
-          <Link href='/'>
+          <Link href={`/blog/${slug}`}>
             <a>
               <button className='btn btn-outline-warning styled-button'>
                 Continue Reading

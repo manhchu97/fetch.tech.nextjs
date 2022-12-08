@@ -8,11 +8,13 @@
   }
 
   &-list {
-    padding-top: 3rem;
+    max-width: 1000px;
+    padding: 3rem 0;
+    border-bottom: 1px dotted #ddd;
 
     :global .blog-section-header {
       h1 {
-        max-width: 900px;
+        max-width: 1000px;
         margin: 0 auto;
         color: var(--bs-warning);
       }

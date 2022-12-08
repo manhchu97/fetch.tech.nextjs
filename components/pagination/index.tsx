@@ -39,7 +39,7 @@ const Pagination = ({
   const lastPage = paginationRange[paginationRange.length - 1]
 
   return (
-    <nav aria-label='...'>
+    <nav aria-label='...' className={styles['pagination-wrapper']}>
       <ul
         className={clsx({
           pagination: true,
