@@ -13,6 +13,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import rehypeRaw from 'rehype-raw'
+import 'suneditor/dist/css/suneditor.min.css'
 import useSWR from 'swr'
 
 import DetailPostSkeleton from '@components/skeleton/post/detail'
@@ -174,8 +175,29 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
                 </span>
               </div>
 
-              <div className='blog-detail-content my-3'>
-                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+              <div
+                className={`blog-detail-content my-3 sun-editor-editable ${styles['sun-editor-editable']}`}
+              >
+                <ReactMarkdown
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    a: ({ ...rest }) => (
+                      <a
+                        href={rest?.href}
+                        {...rest}
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        {rest?.children}
+                      </a>
+                    ),
+                    div: ({ ...rest }) => (
+                      <div {...rest} suppressContentEditableWarning>
+                        {rest?.children}
+                      </div>
+                    ),
+                  }}
+                >
                   {content}
                 </ReactMarkdown>
               </div>
