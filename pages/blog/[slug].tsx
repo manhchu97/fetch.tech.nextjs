@@ -5,7 +5,6 @@ import { IBlogItem, IDetailPostResponse, IListPostsResponse } from '@type/blog'
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
 import Page from '@components/Page'
-import BannerCompany from '@components/banner/company'
 import BannerContact from '@components/banner/contact'
 
 type IPatch = {
@@ -54,11 +53,6 @@ const BlogDetailPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Page title='Blog Detail'>
-      <BannerCompany
-        desktopImgSrc='/images/CompanyHeaderBackground.svg'
-        mobileImgSrc='/images/CompanyHeaderBackgroundMobile.svg'
-      />
-
       <BlogDetail fallback={fallback} />
 
       <BannerContact
