@@ -193,6 +193,25 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
                         {rest?.children}
                       </div>
                     ),
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    img: (props: any) => {
+                      const [width = '768', height = '432'] = (
+                        props?.['origin-size'] || ''
+                      ).split(',')
+
+                      return (
+                        <Image
+                          alt={props?.alt}
+                          src={getImageWeserv(props.src || '', {
+                            w: Number(width),
+                            h: Number(height),
+                          })}
+                          width={width}
+                          height={height}
+                          {...props}
+                        />
+                      )
+                    },
                   }}
                 >
                   {content}
