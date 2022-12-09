@@ -13,7 +13,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import rehypeRaw from 'rehype-raw'
-import 'suneditor/dist/css/suneditor.min.css'
 import useSWR from 'swr'
 
 import DetailPostSkeleton from '@components/skeleton/post/detail'
@@ -66,7 +65,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
     return (
-      <section id='content' className={styles['blog-section']}>
+      <section className={styles['blog-section']}>
         <div className={clsx('container-fluid', styles['blog-section-detail'])}>
           <DetailPostSkeleton />
 
@@ -96,7 +95,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
         <meta name='keywords' content={metaKeyword || ''} />
       </Head>
 
-      <section id='content' className={styles['blog-section']}>
+      <section className={styles['blog-section']}>
         <div className={clsx('container-fluid', styles['blog-section-detail'])}>
           <article className='blog-detail'>
             <div className='blog-detail-thumbnail'>
@@ -175,9 +174,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
                 </span>
               </div>
 
-              <div
-                className={`blog-detail-content my-3 sun-editor-editable ${styles['sun-editor-editable']}`}
-              >
+              <div className='sun-editor-editable'>
                 <ReactMarkdown
                   rehypePlugins={[rehypeRaw]}
                   components={{
