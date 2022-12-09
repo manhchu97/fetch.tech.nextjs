@@ -23,6 +23,9 @@
       "@assets/*": [
         "assets/*"
       ],
+      "@public/*": [
+        "public/*"
+      ],
       "@components/*": [
         "components/*"
       ],
@@ -41,6 +44,15 @@
       "@config/*": [
         "config/*"
       ],
+      "@sections/*": [
+        "sections/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@type/*": [
+        "type/*"
+      ]
     }
   },
   "include": [

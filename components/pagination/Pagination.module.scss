@@ -1,0 +1,13 @@
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  & .styled-pagination {
+    --bs-pagination-color: var(--bs-warning);
+    --bs-pagination-hover-color: var(--bs-warning);
+    --bs-pagination-active-bg: var(--bs-warning);
+    --bs-pagination-active-border-color: var(--bs-warning);
+    --bs-pagination-focus-color: var(--bs-warning);
+    --bs-pagination-focus-box-shadow: transparent;
+  }
+}

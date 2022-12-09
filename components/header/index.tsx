@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { PATH_CONFIG } from '@routes/paths'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,7 +15,7 @@ const Header = () => {
 
   return (
     <div className={clsx('ft-full-screen', styles['header-container'])}>
-      <Link href='/'>
+      <Link href={PATH_CONFIG.root}>
         {/* https://github.com/vercel/next.js/issues/20434 */}
         <a className='header-logo-container'>
           <Image
@@ -34,13 +35,13 @@ const Header = () => {
       >
         <div className='nav-group'>
           <div className='nav-group__first-container'>
-            <Link href='/company'>
+            <Link href={PATH_CONFIG.company}>
               <a>
                 <MenuItem title='For Companies' />
               </a>
             </Link>
 
-            <Link href='/employees'>
+            <Link href={PATH_CONFIG.employees}>
               <a>
                 <MenuItem title='For Jobseekers' />
               </a>
@@ -61,7 +62,7 @@ const Header = () => {
               aria-labelledby='services'
             >
               <div className='dropdown-menu-container'>
-                <Link href='/services/1'>
+                <Link href={PATH_CONFIG.services.view(1)}>
                   <a>
                     <DropdownItem
                       title='Talent Acquisition'
@@ -71,7 +72,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href='/services/2'>
+                <Link href={PATH_CONFIG.services.view(2)}>
                   <a>
                     <DropdownItem
                       title='Services management'
@@ -81,7 +82,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href='/services/3'>
+                <Link href={PATH_CONFIG.services.view(3)}>
                   <a>
                     <DropdownItem
                       title='Payroll and compliances'
@@ -91,7 +92,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href='/services/4'>
+                <Link href={PATH_CONFIG.services.view(4)}>
                   <a>
                     <DropdownItem
                       title='Full-suite project consultancy'
@@ -120,7 +121,7 @@ const Header = () => {
               aria-labelledby='resources'
             >
               <div className='dropdown-menu-container'>
-                <Link href='/ourstory'>
+                <Link href={PATH_CONFIG.ourStory}>
                   <a>
                     <DropdownItem
                       title='Our story'
@@ -130,7 +131,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href='/case-studies'>
+                <Link href={PATH_CONFIG.caseStudy.accorplus}>
                   <a>
                     <DropdownItem
                       title='Case Studies'
@@ -140,7 +141,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href='/services/salary'>
+                <Link href={PATH_CONFIG.services.salary}>
                   <a>
                     <DropdownItem
                       title='Vietnam Calculator'
@@ -154,10 +155,16 @@ const Header = () => {
               <div className='upperArrow'></div>
             </div>
           </div>
+
+          <Link href={PATH_CONFIG.blog.root}>
+            <a>
+              <MenuItem title='Blogs' />
+            </a>
+          </Link>
         </div>
 
         <div className='header-contact-container'>
-          <Link href='/employees'>
+          <Link href={PATH_CONFIG.contact}>
             <a>
               <div role='button' className='header__contact-button'>
                 <span className='header__contact-button__content'>

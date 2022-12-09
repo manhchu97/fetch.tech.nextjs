@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 
+import { SWRConfigProvider } from '@components/SwrConfig'
+
 import '@styles/fonts.scss'
 import '@styles/globals.scss'
 import '@styles/toast.scss'
@@ -19,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <TrackingHeadScript id='GTM-WNH5KRZ' />
 
       <ToastProvider>
-        <Component {...pageProps} />
+        <SWRConfigProvider>
+          <Component {...pageProps} />
+        </SWRConfigProvider>
       </ToastProvider>
     </>
   )

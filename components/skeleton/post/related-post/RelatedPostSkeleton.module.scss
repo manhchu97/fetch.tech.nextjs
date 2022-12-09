@@ -1,0 +1,7 @@
+.post-skeleton-wrapper {
+  :global .post-skeleton-thumbnail {
+    & span {
+      border-radius: 10px;
+    }
+  }
+}
