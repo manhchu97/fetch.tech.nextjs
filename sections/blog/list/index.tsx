@@ -10,6 +10,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
+import BannerImageCover from '@components/banner/image-cover'
 import Pagination from '@components/pagination'
 import PostSkeleton from '@components/skeleton/post/single-post'
 
@@ -51,6 +52,12 @@ const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
           )} pages`}
         />
       </Head>
+
+      <BannerImageCover
+        imageSource='/images/CompanyHeaderBackground.png'
+        mobileImageSource='/images/CompanyHeaderBackgroundMobile.png'
+        hasMultipleSource
+      />
 
       <section id='content' className={styles['blog-section']}>
         <div className={clsx('container-fluid', styles['blog-section-list'])}>
