@@ -1,0 +1,48 @@
+@import '@styles/_mixins.scss';
+
+.service-header-container {
+  background: #ffbe16;
+
+  :global .service-header__inner {
+    padding: 20px 10%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+
+    &__left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding-bottom: 30%;
+      transform: translateY(40px);
+
+      &.payroll-compliances-service-container {
+        padding-top: 20px;
+        transform: translateY(20px);
+      }
+
+      &.management-service-container {
+        padding-top: 20px;
+        transform: translateY(10px);
+      }
+
+      &.full-suite-project-service-container {
+        padding-bottom: 25%;
+        transform: translateY(45px);
+      }
+
+      @include screen-down(lg) {
+        padding-bottom: 70%;
+      }
+    }
+  }
+}

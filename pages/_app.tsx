@@ -9,6 +9,7 @@ import { SWRConfigProvider } from '@components/SwrConfig'
 
 import '@styles/fonts.scss'
 import '@styles/globals.scss'
+import '@styles/heading.scss'
 import '@styles/toast.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {

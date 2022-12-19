@@ -141,7 +141,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href={PATH_CONFIG.services.salary}>
+                <Link href={PATH_CONFIG.salary}>
                   <a>
                     <DropdownItem
                       title='Vietnam Calculator'

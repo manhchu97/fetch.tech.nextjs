@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
+import BannerImageCover from '@components/banner/image-cover'
 import DetailPostSkeleton from '@components/skeleton/post/detail'
 import RelatedPostSkeleton from '@components/skeleton/post/related-post'
 
@@ -94,6 +95,12 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
         <meta name='description' content={metaDescription || ''} />
         <meta name='keywords' content={metaKeyword || ''} />
       </Head>
+
+      <BannerImageCover
+        imageSource='/images/CompanyHeaderBackground.png'
+        mobileImageSource='/images/CompanyHeaderBackgroundMobile.png'
+        hasMultipleSource
+      />
 
       <section className={styles['blog-section']}>
         <div className={clsx('container-fluid', styles['blog-section-detail'])}>

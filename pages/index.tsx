@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import Page from '@components/Page'
 import BannerContact from '@components/banner/contact'
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <Page title=''>
       <BannerContact
@@ -17,4 +17,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default HomePage

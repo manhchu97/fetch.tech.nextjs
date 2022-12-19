@@ -1,0 +1,25 @@
+@import '@styles/_mixins.scss';
+
+.banner-image-cover-container {
+  padding-top: 30px;
+
+  :global .image-cover-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 30%;
+  }
+
+  :global .image-larger-container {
+    @include screen-down(sm) {
+      display: none;
+    }
+  }
+
+  :global .image-small-container {
+    padding-bottom: 70%;
+
+    @include screen-up(sm) {
+      display: none;
+    }
+  }
+}
