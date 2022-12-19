@@ -1,22 +1,25 @@
 import React from 'react'
 
+import clsx from 'clsx'
 import Image from 'next/image'
 
 import styles from './ImageCover.module.scss'
 
 interface BannerImageCoverProps {
+  className?: string
   imageSource: string
   mobileImageSource?: string
   hasMultipleSource?: boolean
 }
 
 const BannerImageCover = ({
+  className = '',
   imageSource = '',
   mobileImageSource = '',
   hasMultipleSource = false,
 }: BannerImageCoverProps): React.ReactElement => {
   return (
-    <div className={styles['banner-image-cover-container']}>
+    <div className={clsx(className, styles['banner-image-cover-container'])}>
       {hasMultipleSource ? (
         <>
           <div className='image-cover-container image-larger-container'>
