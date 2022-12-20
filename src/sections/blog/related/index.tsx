@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { IBlogItem } from '@/types/blog'
-import { getImageWeserv } from '@/utils/getImageWeserv'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { IBlogItem } from '@/types/blog'
+
+import { getImageWeserv } from '@/utils/getImageWeserv'
 
 import styles from './RelatedPost.module.scss'
 

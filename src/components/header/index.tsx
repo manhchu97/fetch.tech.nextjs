@@ -1,11 +1,14 @@
 import { useState } from 'react'
 
-import DropdownItem from '@/components/nav/dropdown-item'
-import MenuItem from '@/components/nav/menu-item'
-import { PATH_CONFIG } from '@/routes/paths'
-import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import clsx from 'clsx'
+
+import DropdownItem from '@/components/nav/dropdown-item'
+import MenuItem from '@/components/nav/menu-item'
+
+import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Header.module.scss'
 

@@ -1,11 +1,16 @@
+import { InferGetStaticPropsType } from 'next'
+
+import { PORTAL_API } from '@/config/global'
+
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
-import { PORTAL_API } from '@/config/global'
+
 import { API_LIST_PUBLIC_BLOG } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
+
 import ListBlog from '@/sections/blog/list'
+
 import { IListPostsResponse } from '@/types/blog'
-import { InferGetStaticPropsType } from 'next'
 
 export const getStaticProps = async () => {
   const res = await fetch(

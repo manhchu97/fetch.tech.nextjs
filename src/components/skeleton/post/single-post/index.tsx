@@ -1,7 +1,8 @@
 import React from 'react'
 
-import imagePlaceholder from '@@/public/images/image-placeholder.png'
 import Image from 'next/image'
+
+import imagePlaceholder from '@@/public/images/image-placeholder.png'
 
 import styles from './PostSkeleton.module.scss'
 

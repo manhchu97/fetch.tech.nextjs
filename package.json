@@ -8,7 +8,7 @@
     }
   },
   "lint-staged": {
-    "components/*.{js,jsx,ts,tsx}": [
+    "./**/*.{js,jsx,ts,tsx}": [
       "npm run lint",
       "npm run format"
     ]
@@ -18,7 +18,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
-    "format": "prettier .prettierrc.json 'components/**/*.{js,jsx,ts,tsx}' --write",
+    "format": "prettier .prettierrc.json './**/*.{js,jsx,ts,tsx}' --write",
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {

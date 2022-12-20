@@ -1,15 +1,20 @@
+import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
+
+import { PORTAL_API } from '@/config/global'
+
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
-import { PORTAL_API } from '@/config/global'
+
 import { API_LIST_PUBLIC_BLOG } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
+
 import BlogDetail from '@/sections/blog/detail'
+
 import {
   IBlogItem,
   IDetailPostResponse,
   IListPostsResponse,
 } from '@/types/blog'
-import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
 type IPatch = {
   slug: string

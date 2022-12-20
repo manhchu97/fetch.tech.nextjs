@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ServiceHeader from '@/components/service-header'
+
 import { ServiceBodyProps, ServiceHeaderProps } from '@/types/services'
 
 interface ServiceProps {

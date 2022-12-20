@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
 
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+
+import clsx from 'clsx'
+import useSWR from 'swr'
+
+import { PORTAL_API } from '@/config/global'
+
 import BannerImageCover from '@/components/banner/image-cover'
 import Pagination from '@/components/pagination'
 import PostSkeleton from '@/components/skeleton/post/single-post'
-import { PORTAL_API } from '@/config/global'
+
 import { API_LIST_PUBLIC_BLOG } from '@/routes/api'
+
 import BlogItem from '@/sections/blog/item'
+
 import { IListPostsResponse } from '@/types/blog'
+
 import fetcher from '@/utils/fetcher'
-import clsx from 'clsx'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import useSWR from 'swr'
 
 import styles from './ListBlog.module.scss'
 

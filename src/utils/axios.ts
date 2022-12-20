@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HOST_API } from '@/config/global'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+
+import { HOST_API } from '@/config/global'
 
 const axiosInstance = axios.create({
   baseURL: HOST_API,

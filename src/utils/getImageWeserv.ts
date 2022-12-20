@@ -1,5 +1,6 @@
-import { CDN_IMAGE_SERVER } from '@/config/global'
 import qs from 'query-string'
+
+import { CDN_IMAGE_SERVER } from '@/config/global'
 
 interface IOptionProps {
   w?: number

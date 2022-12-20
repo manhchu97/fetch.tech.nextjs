@@ -1,14 +1,18 @@
 import { useForm } from 'react-hook-form'
 
-import { useToastContext } from '@/context/ToastContext'
-import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
-import { PATH_CONFIG } from '@/routes/paths'
-import { _postApi } from '@/utils/axios'
-import { yupResolver } from '@hookform/resolvers/yup'
-import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { yupResolver } from '@hookform/resolvers/yup'
+import clsx from 'clsx'
 import * as Yup from 'yup'
+
+import { useToastContext } from '@/context/ToastContext'
+
+import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
+import { PATH_CONFIG } from '@/routes/paths'
+
+import { _postApi } from '@/utils/axios'
 
 import styles from './Footer.module.scss'
 

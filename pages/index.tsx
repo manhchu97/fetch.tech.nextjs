@@ -1,7 +1,9 @@
+import type { NextPage } from 'next'
+
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
+
 import { PATH_CONFIG } from '@/routes/paths'
-import type { NextPage } from 'next'
 
 const HomePage: NextPage = () => {
   return (

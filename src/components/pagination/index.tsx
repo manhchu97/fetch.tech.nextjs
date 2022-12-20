@@ -1,10 +1,13 @@
 import React from 'react'
 
-import { DOTS, usePagination } from '@/hooks/usePagination'
-import { PATH_CONFIG } from '@/routes/paths'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+import clsx from 'clsx'
+
+import { DOTS, usePagination } from '@/hooks/usePagination'
+
+import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Pagination.module.scss'
 

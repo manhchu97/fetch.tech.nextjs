@@ -1,7 +1,8 @@
 import React from 'react'
 
-import clsx from 'clsx'
 import Link from 'next/link'
+
+import clsx from 'clsx'
 
 import styles from './Contact.module.scss'
 

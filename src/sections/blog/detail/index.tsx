@@ -1,22 +1,29 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 
-import BannerImageCover from '@/components/banner/image-cover'
-import DetailPostSkeleton from '@/components/skeleton/post/detail'
-import RelatedPostSkeleton from '@/components/skeleton/post/related-post'
-import { PORTAL_API } from '@/config/global'
-import { API_BLOG_RELATED, API_LIST_PUBLIC_BLOG } from '@/routes/api'
-import RelatedPost from '@/sections/blog/related'
-import { IBlogItem, IDetailPostResponse } from '@/types/blog'
-import fetcher from '@/utils/fetcher'
-import { getImageWeserv } from '@/utils/getImageWeserv'
-import clsx from 'clsx'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+import clsx from 'clsx'
 import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
+
+import { PORTAL_API } from '@/config/global'
+
+import BannerImageCover from '@/components/banner/image-cover'
+import DetailPostSkeleton from '@/components/skeleton/post/detail'
+import RelatedPostSkeleton from '@/components/skeleton/post/related-post'
+
+import { API_BLOG_RELATED, API_LIST_PUBLIC_BLOG } from '@/routes/api'
+
+import RelatedPost from '@/sections/blog/related'
+
+import { IBlogItem, IDetailPostResponse } from '@/types/blog'
+
+import fetcher from '@/utils/fetcher'
+import { getImageWeserv } from '@/utils/getImageWeserv'
 
 import styles from './BlogDetail.module.scss'
 

@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { ServiceHeaderProps } from '@/types/services'
-import clsx from 'clsx'
 import Image from 'next/image'
+
+import clsx from 'clsx'
+
+import { ServiceHeaderProps } from '@/types/services'
 
 import styles from './ServiceHeader.module.scss'
 
