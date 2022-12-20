@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Gilroy-SemiBold";
+  src: local("Gilroy-SemiBold"),
+   url("../../public/assets/fonts/Gilroy-SemiBold.ttf") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: local("Gilroy-Regular"),
+   url("../../public/assets/fonts/Gilroy-Regular.ttf") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: local("Gilroy-Light"),
+   url("../../public/assets/fonts/Gilroy-Light.ttf") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy-Medium";
+  src: local("Gilroy-Medium"),
+   url("../../public/assets/fonts/Gilroy-Medium.ttf") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Altone";
+  src: url("../../public/assets/fonts/Altone-Medium.ttf");
+  font-display: swap;
+}

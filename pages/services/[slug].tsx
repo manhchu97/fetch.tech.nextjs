@@ -1,12 +1,11 @@
+import Page from '@/components/Page'
 import {
   HEADER_CONFIG,
   SERVICE_BODY_CONFIG,
   SERVICE_TYPE,
-} from '@config/services'
-import ServiceSections from '@sections/services'
+} from '@/config/services'
+import ServiceSections from '@/sections/services'
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
-
-import Page from '@components/Page'
 
 type Prams = {
   params: {

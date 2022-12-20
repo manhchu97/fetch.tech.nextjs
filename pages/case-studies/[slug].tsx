@@ -1,10 +1,9 @@
-import { CASE_STUDIES_TYPE } from '@config/resources'
-import { PATH_CONFIG } from '@routes/paths'
+import Page from '@/components/Page'
+import BannerContact from '@/components/banner/contact'
+import BannerImageCover from '@/components/banner/image-cover'
+import { CASE_STUDIES_TYPE } from '@/config/resources'
+import { PATH_CONFIG } from '@/routes/paths'
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
-
-import Page from '@components/Page'
-import BannerContact from '@components/banner/contact'
-import BannerImageCover from '@components/banner/image-cover'
 
 type Prams = {
   params: {

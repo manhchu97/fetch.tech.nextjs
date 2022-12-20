@@ -1,9 +1,8 @@
-import { PATH_CONFIG } from '@routes/paths'
+import Page from '@/components/Page'
+import BannerContact from '@/components/banner/contact'
+import BannerImageCover from '@/components/banner/image-cover'
+import { PATH_CONFIG } from '@/routes/paths'
 import type { NextPage } from 'next'
-
-import Page from '@components/Page'
-import BannerContact from '@components/banner/contact'
-import BannerImageCover from '@components/banner/image-cover'
 
 const CompanyPage: NextPage = () => {
   return (

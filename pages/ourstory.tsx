@@ -1,6 +1,5 @@
+import Page from '@/components/Page'
 import type { NextPage } from 'next'
-
-import Page from '@components/Page'
 
 const OurstoryPage: NextPage = () => {
   return <Page title=''>Ourstory page</Page>
