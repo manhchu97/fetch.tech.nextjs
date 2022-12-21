@@ -1,6 +1,24 @@
 /*! purgecss start ignore */
 @import "@/styles/_mixins.scss";
 
+.blog-detail-thumbnail {
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 30%;
+
+  @include screen-down(xxl) {
+    padding-bottom: 40%;
+  }
+
+  @include screen-down(lg) {
+    padding-bottom: 45%;
+  }
+
+  @include screen-down(sm) {
+    padding-bottom: 50%;
+  }
+}
+
 .blog-section {
   padding: 0 10%;
 
@@ -14,17 +32,8 @@
     :global .blog-detail {
       padding-bottom: 48px;
 
-      & .blog-detail-thumbnail {
-        text-align: center;
-
-        & span {
-          border-radius: 10px;
-          cursor: pointer;
-        }
-      }
-
       & .blog-detail-info {
-        max-width: 800px;
+        max-width: 992px;
         margin-left: auto;
         margin-right: auto;
 

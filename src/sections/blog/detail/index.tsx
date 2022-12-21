@@ -12,7 +12,6 @@ import useSWR from 'swr'
 
 import { PORTAL_API } from '@/config/global'
 
-import BannerImageCover from '@/components/banner/image-cover'
 import DetailPostSkeleton from '@/components/skeleton/post/detail'
 import RelatedPostSkeleton from '@/components/skeleton/post/related-post'
 
@@ -67,6 +66,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
 
   const isLoading = !error && !relatedPostData
   const relatedPost = relatedPostData?.data?.list || []
+  const isEmptyRelatedPost = !Array.isArray(relatedPost) || !relatedPost.length
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -102,24 +102,19 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
         <meta name='keywords' content={metaKeyword || ''} />
       </Head>
 
-      <BannerImageCover
-        imageSource='/images/CompanyHeaderBackground.png'
-        mobileImageSource='/images/CompanyHeaderBackgroundMobile.png'
-        hasMultipleSource
-      />
+      <div className={styles['blog-detail-thumbnail']}>
+        <Image
+          alt={postSlug}
+          src={getImageWeserv(imageCover, { w: 1920, h: 1080 })}
+          layout='fill'
+          objectFit='cover'
+          priority
+        />
+      </div>
 
       <section className={styles['blog-section']}>
         <div className={clsx('container-fluid', styles['blog-section-detail'])}>
           <article className='blog-detail'>
-            <div className='blog-detail-thumbnail'>
-              <Image
-                alt={postSlug}
-                src={getImageWeserv(imageCover, { w: 1000, h: 500 })}
-                width={1000}
-                height={500}
-              />
-            </div>
-
             <div className='blog-detail-info'>
               <div className='blog-detail-title'>
                 <h2>{title}</h2>
@@ -215,7 +210,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
           </article>
 
           <div className='blog-section-related'>
-            <h4>Related Posts:</h4>
+            {!isEmptyRelatedPost && <h4>Related Posts:</h4>}
 
             <div className='container-fluid px-0'>
               <div className='row gx-4'>
@@ -228,8 +223,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
                     ))
                   }
 
-                  if (!Array.isArray(relatedPost) || !relatedPost.length)
-                    return null
+                  if (isEmptyRelatedPost) return null
 
                   return relatedPost.map((post: IBlogItem) => (
                     <div key={post.id} className='col-xs-12 col-md-4 g-4'>
