@@ -37,8 +37,11 @@ a {
 }
 
 .ft-container {
+  margin-left: auto;
+  margin-right: auto;
+
   @include screen(xs) {
-    width: 100%;
+    max-width: $max-width-xs;
   }
 
   @include screen(sm) {

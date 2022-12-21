@@ -1,7 +1,7 @@
 // https://getbootstrap.com/docs/5.0/layout/grid/#variables
 
 // breakpoints
-$xs: 0px;
+$xs: 575.98px;
 $sm: 576px;
 $md: 768px;
 $lg: 992px;
@@ -9,6 +9,7 @@ $xl: 1200px;
 $xxl: 1400px;
 
 // media max-width
+$max-width-xs: 351px;
 $max-width-sm: 540px;
 $max-width-md: 720px;
 $max-width-lg: 960px;
@@ -25,5 +26,3 @@ $breakpoints: (
   xxl: $xxl
 );
 
-$color-link: transparent;
-$spacing: 8px;
