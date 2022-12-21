@@ -87,10 +87,10 @@ const ClientInfoStep = (): React.ReactElement => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className='contact-header-container'>
-                <div className='c-h3-title'>
+                <div className='h3'>
                   We’re more than the words you’ve read so far
                 </div>
-                <p className='c-p-subtitle'>
+                <p>
                   It doesn’t matter what you require. Just select the right
                   option in our form and we will take it from there!
                 </p>

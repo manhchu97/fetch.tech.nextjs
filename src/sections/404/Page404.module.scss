@@ -26,10 +26,8 @@
     }
 
     .text-wrap {
-      .c-h1-title {
-        text-align: center;
-        color: #d1e3ee;
-      }
+      text-align: center;
+      color: #d1e3ee;
     }
 
     .img-container {
@@ -59,7 +57,8 @@
         }
 
         @include screen-down(lg) {
-          .fetch-yellow-container, .fetch-red-container {
+          .fetch-yellow-container,
+          .fetch-red-container {
             width: 55px;
             height: 33px;
           }
@@ -105,8 +104,7 @@
         justify-content: center;
         flex-direction: column;
 
-        .c-h6-title {
-          color: #17274E;
+        .h6 {
           text-align: center;
           margin-bottom: 24px;
 
@@ -126,7 +124,7 @@
             align-items: center;
             padding: 17px 25px;
 
-            border: 1px solid #FFBE16;
+            border: 1px solid #ffbe16;
             box-sizing: border-box;
             border-radius: 8px;
             background-color: transparent;
@@ -136,7 +134,7 @@
             line-height: 20px;
             letter-spacing: 0px;
             text-align: center;
-            color: #FFBE16;
+            color: #ffbe16;
             margin: 0 11px;
           }
         }

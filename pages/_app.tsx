@@ -11,7 +11,8 @@ import ToastProvider from '@/context/ToastContext'
 
 import '@/styles/fonts.scss'
 import '@/styles/globals.scss'
-import '@/styles/heading.scss'
+// overrides CSS
+import '@/styles/overrides/typography.scss'
 import '@/styles/toast.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {

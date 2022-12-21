@@ -23,6 +23,14 @@ $breakpoints: (
   md: $md,
   lg: $lg,
   xl: $xl,
-  xxl: $xxl
+  xxl: $xxl,
 );
 
+$color-link: transparent;
+$spacing: 8px;
+
+// color
+$primary-color: #fcbe17;
+$heading-color: #17264e;
+$p-color: #3e5476;
+$grey-color: #a4b7c8;

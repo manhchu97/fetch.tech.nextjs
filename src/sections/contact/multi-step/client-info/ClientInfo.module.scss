@@ -2,7 +2,7 @@
 @import '@/styles/_mixins.scss';
 
 .contact-container {
-  background-image: url("/images/contactBG1.png");
+  background-image: url('/images/contactBG1.png');
   background-repeat: no-repeat;
   background-origin: border-box;
   width: 100%;
@@ -21,7 +21,7 @@
     }
 
     .contact-body-inner {
-      border: 1px solid #DEE7F0;
+      border: 1px solid #dee7f0;
       box-shadow: 0px 30px 26px rgba(39, 58, 95, 0.15);
       border-radius: 12px;
       min-height: 500px;
@@ -47,9 +47,9 @@
             align-items: center;
           }
 
-          .c-p-subtitle {
+          p {
             margin-top: 24px;
-            color: #273A5F;
+            color: #273a5f;
           }
         }
 
@@ -60,16 +60,17 @@
 
           .form-group {
             > label {
-              color: #001C63;
+              color: #001c63;
             }
 
             .form-control {
               &:not(.is-invalid) {
-                border: 1px solid #D0D4EA;
+                border: 1px solid #d0d4ea;
               }
 
-              &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-                color: #ABB2D9;
+              &::placeholder {
+                /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #abb2d9;
                 opacity: 1; /* Firefox */
               }
             }
@@ -82,13 +83,13 @@
               font-family: 'Gilroy-Regular';
               font-size: 14px;
               line-height: 22px;
-              color: #AFC0CF;
+              color: #afc0cf;
             }
 
             .submit-button {
               color: #fff;
-              background: #FFBE16;
-              box-shadow: 0px 6px 10px #D2E2ED;
+              background: #ffbe16;
+              box-shadow: 0px 6px 10px #d2e2ed;
               border-radius: 8px;
               font-family: 'Gilroy-Medium';
               font-size: 24px;
@@ -101,7 +102,7 @@
     }
 
     .react-tel-input {
-      font-family: 'Roboto',sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-size: 15px;
       position: relative;
       width: 100%;
@@ -118,7 +119,7 @@
       .flag {
         width: 16px;
         height: 11px;
-        background-image: url('/images/country-icon.png')
+        background-image: url('/images/country-icon.png');
       }
 
       .ad {
@@ -1052,26 +1053,26 @@
 
       .form-control {
         position: relative;
-        letter-spacing: .01rem;
+        letter-spacing: 0.01rem;
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         padding-left: 48px;
         margin-left: 0;
-        background: #FFFFFF;
-        border: 1px solid #CACACA;
+        background: #ffffff;
+        border: 1px solid #cacaca;
         border-radius: 6px;
         line-height: 25px;
         outline: none;
 
         &.invalid-number {
           border: 1px solid #d79f9f;
-          background-color: #FAF0F0;
+          background-color: #faf0f0;
           border-left-color: #cacaca;
 
           &:focus {
             border: 1px solid #d79f9f;
             border-left-color: #cacaca;
-            background-color: #FAF0F0;
+            background-color: #faf0f0;
           }
         }
       }
@@ -1151,7 +1152,7 @@
         position: absolute;
         padding: 0;
         margin: 10px 0 10px -1px;
-        box-shadow: 1px 2px 10px rgba(0,0,0,0.35);
+        box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.35);
         background-color: white;
         width: 300px;
         max-height: 200px;
@@ -1213,7 +1214,7 @@
 
         .no-entries-message {
           padding: 7px 10px 11px;
-          opacity: .7;
+          opacity: 0.7;
         }
       }
 
@@ -1241,19 +1242,24 @@
       }
     }
 
-    .react-tel-input .fr,.react-tel-input .bl,.react-tel-input .mf {
+    .react-tel-input .fr,
+    .react-tel-input .bl,
+    .react-tel-input .mf {
       background-position: -48px -44px;
     }
 
-    .react-tel-input .nl,.react-tel-input .bq {
+    .react-tel-input .nl,
+    .react-tel-input .bq {
       background-position: -128px -99px;
     }
 
-    .react-tel-input .flag-dropdown:hover,.react-tel-input .flag-dropdown:focus {
+    .react-tel-input .flag-dropdown:hover,
+    .react-tel-input .flag-dropdown:focus {
       cursor: pointer;
     }
 
-    .react-tel-input .selected-flag:hover,.react-tel-input .selected-flag:focus {
+    .react-tel-input .selected-flag:hover,
+    .react-tel-input .selected-flag:focus {
       background-color: #fff;
     }
   }

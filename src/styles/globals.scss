@@ -1,4 +1,5 @@
 @import 'mixins';
+@import 'variables';
 
 html,
 body {
@@ -8,6 +9,15 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $heading-color;
 }
 
 p,
@@ -87,8 +97,8 @@ a {
   &.required {
     .control-label {
       &::after {
-        content:"*";
-        color:red;
+        content: '*';
+        color: red;
         position: absolute;
         margin-left: 4px;
       }
@@ -114,7 +124,12 @@ a {
 
 .form-check-input {
   &:checked {
-    background-color: #FFBE16;
-    border-color: #FFBE16;
+    background-color: #ffbe16;
+    border-color: #ffbe16;
   }
+}
+.div-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

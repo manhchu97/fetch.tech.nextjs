@@ -19,8 +19,8 @@ const ServiceHeader = ({
       <div className='service-header__inner row'>
         <div className='service-header__inner__left col-xs-12 col-lg-8'>
           <div>
-            <div className='c-h1-title'>{title}</div>
-            <div className='c-h6-subtitle'>{subTitle}</div>
+            <div className='h1'>{title}</div>
+            <div className='h6'>{subTitle}</div>
           </div>
         </div>
 
