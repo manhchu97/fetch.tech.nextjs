@@ -2,6 +2,7 @@ import type { InferGetStaticPropsType } from 'next'
 
 import { DEFAULT_PAGE_SIZE, PORTAL_API } from '@/config/global'
 
+import CustomerMessengerChat from '@/components/CustomerMessengerChat'
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
 
@@ -42,6 +43,8 @@ const ListJobPage = ({
         buttonText='Sign Up'
         linkTo={PATH_CONFIG.contact}
       />
+
+      <CustomerMessengerChat />
     </Page>
   )
 }
