@@ -15,6 +15,11 @@ import {
   DEFAULT_PAGE_SIZE,
   PORTAL_API,
 } from '@/config/global'
+import {
+  SearchToolbarAction,
+  SearchToolbarState,
+  SearchToolbarType,
+} from '@/config/job'
 
 import LocalPaging from '@/components/pagination/LocalPaging'
 
@@ -30,26 +35,14 @@ import {
 
 import fetcher from '@/utils/fetcher'
 
+import JobError from './JobError'
 import JobItem from './JobItem'
 import JobTableToolbar from './JobTableToolbar'
 import styles from './ListJob.module.scss'
 
 interface IListJobProps {
   fallback: IListJobResponse
-}
-
-enum SearchToolbarType {
-  CHANGE = 'CHANGE',
-}
-
-interface SearchToolbarAction {
-  type: SearchToolbarType
-  payload: SearchToolbarState
-}
-
-interface SearchToolbarState {
-  location: string
-  skill: string
+  listJobPaginate: IJobItem[]
 }
 
 function reducer(state: SearchToolbarState, action: SearchToolbarAction) {
@@ -65,10 +58,15 @@ function reducer(state: SearchToolbarState, action: SearchToolbarAction) {
   }
 }
 
-const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
+const ListJob = ({
+  fallback,
+  listJobPaginate,
+}: IListJobProps): React.ReactElement => {
   const [mounted, setMounted] = useState<boolean>(false)
   const [pageNumber, setPage] = useState<number>(DEFAULT_PAGE_NUMBER)
-  const [currentListJobs, setCurrentListJobs] = useState<IJobItem[]>([])
+  const [currentListJobs, setCurrentListJobs] = useState<IJobItem[]>(
+    listJobPaginate || [],
+  )
 
   const [searchFormValues, dispatch] = useReducer(reducer, {
     location: '',
@@ -83,11 +81,13 @@ const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
 
   useEffect(() => {
     const subscription = watch(({ location, skill }) => {
+      const skillString = skill?.map((item) => item?.value)?.join(',') || ''
+
       dispatch({
         type: SearchToolbarType.CHANGE,
         payload: {
           location: location || '',
-          skill: skill?.map((item) => item?.value)?.join(',') || '',
+          skill: skillString,
         },
       })
     })
@@ -122,7 +122,7 @@ const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
   )
 
   const listJobs: IJobItem[] = useMemo(
-    () => jobData?.data?.list || {},
+    () => jobData?.data?.list || [],
     [jobData],
   )
 
@@ -153,23 +153,13 @@ const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
 
   const getDataWithPagination = useCallback(
     (data: IJobItem[]) => {
-      let currentJobs = []
+      if (data.length <= DEFAULT_PAGE_SIZE)
+        return setCurrentListJobs(data || [])
 
-      if (data.length > 5) {
-        const lengthShowJob = Math.min(
-          pageNumber * DEFAULT_PAGE_SIZE,
-          data.length,
-        )
-        for (
-          let i = (pageNumber - 1) * DEFAULT_PAGE_SIZE;
-          i < lengthShowJob;
-          i++
-        ) {
-          currentJobs.push(data[i])
-        }
-      } else {
-        currentJobs = data
-      }
+      const currentJobs = data.slice(
+        (pageNumber - 1) * DEFAULT_PAGE_SIZE,
+        (pageNumber - 1) * DEFAULT_PAGE_SIZE + DEFAULT_PAGE_SIZE,
+      )
 
       setCurrentListJobs(currentJobs)
     },
@@ -179,6 +169,9 @@ const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
   useEffect(() => {
     getDataWithPagination(listJobs)
   }, [listJobs, getDataWithPagination])
+
+  const isEmptyCurrentListJobs =
+    !Array.isArray(currentListJobs) || !currentListJobs.length
 
   return (
     <div className={clsx(styles['line-header'], 'mt-4')}>
@@ -192,28 +185,24 @@ const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
             />
           </form>
 
-          <div className='job-section-header mb-4'>
-            <h2>All Open Positions</h2>
-          </div>
+          {!isEmptyCurrentListJobs && (
+            <div className='job-section-header mb-4'>
+              <h2>All Open Positions</h2>
+            </div>
+          )}
 
           <div className='row'>
             <main className='col-12'>
               <ul className='job-section-list'>
-                {(() => {
-                  if (
-                    !Array.isArray(currentListJobs) ||
-                    !currentListJobs.length
-                  )
-                    return <div>No Data</div>
-
-                  return (
-                    <>
-                      {currentListJobs?.map((job) => (
-                        <JobItem key={job.id} job={job} />
-                      ))}
-                    </>
-                  )
-                })()}
+                {isEmptyCurrentListJobs ? (
+                  <JobError />
+                ) : (
+                  <>
+                    {currentListJobs?.map((job) => (
+                      <JobItem key={job.id} job={job} />
+                    ))}
+                  </>
+                )}
               </ul>
             </main>
           </div>

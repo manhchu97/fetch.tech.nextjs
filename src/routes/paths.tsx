@@ -30,4 +30,7 @@ export const PATH_CONFIG = {
       path(ROOT_PATH, `blog?${qs.stringify(options)}`),
     view: (slug: string): string => path(ROOT_PATH, `blog/${slug}`),
   },
+  job: {
+    root: path(ROOT_PATH, 'job'),
+  },
 }

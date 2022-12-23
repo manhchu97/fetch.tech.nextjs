@@ -1,6 +1,6 @@
 import type { InferGetStaticPropsType } from 'next'
 
-import { PORTAL_API } from '@/config/global'
+import { DEFAULT_PAGE_SIZE, PORTAL_API } from '@/config/global'
 
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
@@ -16,19 +16,25 @@ export const getStaticProps = async () => {
   const res = await fetch(`${PORTAL_API}/${API_LIST_JOB}`)
   const data: IListJobResponse = await res.json()
 
+  const listJobs = data?.data?.list || []
+
+  const listJobPaginate = listJobs.slice(0, DEFAULT_PAGE_SIZE)
+
   return {
     props: {
       fallback: data,
+      listJobPaginate,
     },
   }
 }
 
 const ListJobPage = ({
   fallback,
+  listJobPaginate,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Page title='Job'>
-      <ListJob fallback={fallback} />
+      <ListJob fallback={fallback} listJobPaginate={listJobPaginate} />
 
       <BannerContact
         title='Find the perfect fit with Fetch'
