@@ -98,7 +98,7 @@ const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
 
           {totalRecord > 0 && (
             <Pagination
-              className='justify-content-center pagination-lg'
+              className='justify-content-end pagination-lg'
               totalCount={totalRecord}
               currentPage={Number(page) || 1}
               pageSize={10}

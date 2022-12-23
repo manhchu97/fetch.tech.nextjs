@@ -7,3 +7,6 @@ export const API_BLOG_RELATED = ({
   id: string
   pageSize: number
 }): string => `api/blog/${id}/related?pageSize=${pageSize}`
+export const API_LIST_JOB = 'api/jobs'
+export const API_LIST_SKILL = 'api/all/skill'
+export const API_LIST_LOCATION = 'api/location'
