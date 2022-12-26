@@ -2,7 +2,7 @@
 @import '@/styles/_mixins.scss';
 
 .contact-container {
-  background-image: url("../../../public/images/contactBG1.png");
+  background-image: url("/images/contactBG1.png");
   background-repeat: no-repeat;
   background-origin: border-box;
   width: 100%;
@@ -118,7 +118,7 @@
       .flag {
         width: 16px;
         height: 11px;
-        background-image: url('../../../public/images/country-icon.png')
+        background-image: url('/images/country-icon.png')
       }
 
       .ad {

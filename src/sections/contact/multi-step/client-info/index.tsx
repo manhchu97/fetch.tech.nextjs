@@ -7,9 +7,9 @@ import * as Yup from 'yup'
 
 import { PHONE_COUNTRIES } from '@/config/phone'
 
-import styles from './Contact.module.scss'
+import styles from './ClientInfo.module.scss'
 
-type ContactSubmitForm = {
+type ClientInfoSubmitForm = {
   companyName: string
   contactName: string
   email: string
@@ -23,7 +23,7 @@ type CountryData = {
   dialCode: string
 }
 
-const defaultValues: ContactSubmitForm = {
+const defaultValues: ClientInfoSubmitForm = {
   companyName: '',
   contactName: '',
   email: '',
@@ -31,7 +31,7 @@ const defaultValues: ContactSubmitForm = {
   acceptTerms: true,
 }
 
-const ContactSections = (): React.ReactElement => {
+const ClientInfoStep = (): React.ReactElement => {
   const [countryCode, setCountryCode] = useState('')
 
   const validationSchema = Yup.object().shape({
@@ -68,12 +68,12 @@ const ContactSections = (): React.ReactElement => {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<ContactSubmitForm>({
+  } = useForm<ClientInfoSubmitForm>({
     defaultValues,
     resolver: yupResolver(validationSchema),
   })
 
-  const onSubmit = (data: ContactSubmitForm) => {
+  const onSubmit = (data: ClientInfoSubmitForm) => {
     console.log(JSON.stringify(data, null, 2))
   }
 
@@ -226,4 +226,4 @@ const ContactSections = (): React.ReactElement => {
   )
 }
 
-export default ContactSections
+export default ClientInfoStep
