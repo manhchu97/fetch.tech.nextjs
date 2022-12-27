@@ -1,0 +1,15 @@
+.client-message-container {
+  max-width: 780px;
+  margin: 32px auto 0;
+  padding: 0 15px;
+
+  :global .client-message-section-container {
+    background-color: #fbffce;
+    padding: 24px;
+    border-radius: 20px;
+
+    .client-message-content {
+      color: #212529;
+    }
+  }
+}

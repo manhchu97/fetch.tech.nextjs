@@ -31,6 +31,7 @@
     "bootstrap-icons": "^1.10.2",
     "clsx": "^1.2.1",
     "cross-env": "^7.0.3",
+    "lodash.clonedeep": "^4.5.0",
     "next": "12.3.3",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.8.3",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",
+    "@types/lodash.clonedeep": "^4.5.7",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",

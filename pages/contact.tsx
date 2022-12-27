@@ -1,13 +1,40 @@
-import type { NextPage } from 'next'
+import React, { useMemo } from 'react'
+
+import type { InferGetStaticPropsType } from 'next'
+
+import { questions } from '@/config/contact'
 
 import Page from '@/components/Page'
 
-import ContactSections from '@/sections/contact/multi-step/client-info'
+import FormStepProvider from '@/context/FormStepContext'
 
-const ContactPage: NextPage = () => {
+import ContactMultiStep from '@/sections/contact'
+
+import { ComponentList } from '@/types/contact'
+
+import { buildMultiStep } from '@/utils/multiStep'
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      questions,
+    },
+  }
+}
+
+function ContactPage({
+  questions,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const componentList: ComponentList[] = useMemo(
+    () => buildMultiStep(questions),
+    [questions],
+  )
+
   return (
     <Page title=''>
-      <ContactSections />
+      <FormStepProvider>
+        <ContactMultiStep componentList={componentList} />
+      </FormStepProvider>
     </Page>
   )
 }

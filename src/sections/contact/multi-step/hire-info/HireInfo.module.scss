@@ -1,3 +1,140 @@
+@import '@/styles/_mixins.scss';
+
+$background-color-hover: #ffbe16cc;
+
 .hire-info-container {
-  width: 100%;
+  :global .hire-container {
+    max-width: 1210px;
+    margin: 0 auto;
+    padding: 0;
+    @include screen-down(xl) {
+      padding: 0;
+    }
+
+    .hire-container-question {
+      font-size: 1.5rem;
+      margin: 32px 0;
+      margin-left: 32px;
+
+      @include screen-down(xl) {
+        padding: 0 10%;
+        margin-left: 0;
+      }
+
+      @include screen-down(md) {
+        padding: 0 16px;
+      }
+    }
+  }
+
+  :global .hire-list {
+    --bs-gutter-x: 0;
+    --bs-gutten-y: 0;
+    justify-content: center;
+
+    .hire-card {
+      background-color: #eee;
+      max-height: 400px;
+      border: 1px #e3e3e3 solid;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.25s;
+
+      @include screen-down(lg) {
+        max-height: unset;
+        min-height: auto;
+        padding: 48px;
+      }
+
+      @include screen-down(md) {
+        padding: 24px;
+        height: auto;
+      }
+
+      @include screen-down(sm) {
+        padding: 48px;
+      }
+
+      &:hover {
+        background: $background-color-hover;
+        color: #fff;
+        cursor: pointer;
+        .hire-card-image {
+          filter: brightness(0) invert(1);
+        }
+      }
+
+      &.active {
+        background: $background-color-hover;
+        color: #fff;
+        cursor: pointer;
+        .hire-card-image {
+          filter: brightness(0) invert(1);
+        }
+      }
+
+      .hire-card-banner {
+        width: 100%;
+        min-height: 96px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 36px 24px;
+
+        @include screen-down(md) {
+          padding: 0 36px 24px;
+        }
+
+        @include screen-down(sm) {
+          flex-direction: column-reverse;
+          align-items: flex-start;
+          padding: 0 0 24px;
+        }
+      }
+
+      .hire-card-title {
+        font-family: 'Gilroy-SemiBold';
+        margin-right: 8px;
+        font-size: 1.5rem;
+
+        @include screen-down(sm) {
+          font-size: 1.5rem;
+          font-weight: 500;
+          margin-top: 8px;
+        }
+      }
+
+      .hire-card-desc {
+        font-family: 'Gilroy-Regular';
+        text-align: center;
+        font-size: 1.25rem;
+        line-height: 36px;
+
+        @include screen-down(lg) {
+          margin-top: 18px;
+          font-size: 1.5rem;
+        }
+
+        @include screen-down(md) {
+          margin-top: 0;
+          font-size: 1.25rem;
+        }
+
+        @include screen-down(sm) {
+          margin-top: 16px;
+          text-align: left;
+        }
+      }
+
+      .hire-card-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 60px;
+        min-height: 60px;
+      }
+    }
+  }
 }
