@@ -2,11 +2,20 @@
 @import '@/styles/_mixins.scss';
 
 .contact-container {
-  background-image: url('/images/contactBG1.png');
+  background-image: url('/images/ContactBG.png');
   background-repeat: no-repeat;
   background-origin: border-box;
   width: 100%;
-  background-size: cover;
+  background-size: 500px 500px;
+  background-position: right;
+
+  @include screen-down(xl) {
+    background-size: 400px 400px;
+  }
+
+  @include screen-down(lg) {
+    background-image: none;
+  }
 
   :global .contact-body-container {
     display: flex;
