@@ -8,9 +8,7 @@ const Page404 = (): React.ReactElement => {
   return (
     <div className={styles['not-found-container']}>
       <div className='ft-container'>
-        <div className='text-wrap'>
-          <div className='c-h1-title'>It’s a</div>
-        </div>
+        <div className='text-wrap h1'>It’s a</div>
 
         <div className='row img-container'>
           <div className='col-12 col-md-8 image-inner-container'>
@@ -38,7 +36,7 @@ const Page404 = (): React.ReactElement => {
 
         <div className='row body-container'>
           <div className='col-12 col-md-6 body-inner-container'>
-            <div className='c-h6-title'>
+            <div className='h6'>
               Oh no! The page you’re looking for is currently unavailable.
               Please try again later.
             </div>

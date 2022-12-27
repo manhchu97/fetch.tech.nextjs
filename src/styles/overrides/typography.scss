@@ -1,0 +1,118 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.h1 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 54px;
+  line-height: 60px;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+
+  @include screen-down(lg) {
+    font-size: 48px !important;
+    line-height: 55px !important;
+  }
+
+  @include screen-down(sm) {
+    font-size: 32px !important;
+    line-height: 135% !important;
+  }
+}
+
+.h2 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 48px;
+  line-height: 55px;
+
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: -1px;
+
+  @include screen-down(md) {
+    font-size: 36px !important;
+    line-height: 45px !important;
+  }
+
+  @include screen-down(sm) {
+    font-size: 22px !important;
+    line-height: 30px !important;
+    letter-spacing: -0.25px;
+  }
+}
+
+.h3 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 36px;
+  line-height: 45px;
+
+  @include screen-down(md) {
+    font-size: 22px !important;
+    line-height: 30px !important;
+    letter-spacing: -0.25px;
+
+    &--maintain {
+      font-size: 36px !important;
+      line-height: 125% !important;
+    }
+  }
+}
+
+.h4 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 32px;
+  line-height: 43px;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+
+  @include screen-down(sm) {
+    font-size: 22px !important;
+  }
+}
+
+.h5 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.25px;
+
+  @include screen-down(sm) {
+    font-family: 'Gilroy-Regular';
+    font-size: 20px !important;
+    line-height: 145% !important;
+    color: $grey-color;
+
+    &--maintain {
+      font-size: 22px !important;
+      font-family: 'Gilroy-SemiBold' !important;
+      line-height: 135% !important;
+      color: $heading-color;
+    }
+
+    &--bold {
+      font-family: 'Gilroy-SemiBold' !important;
+    }
+  }
+}
+
+.h6 {
+  font-family: 'Gilroy-Regular';
+  font-size: 20px;
+  line-height: 145%;
+}
+
+.h6-p-color {
+  @extend .h6;
+  color: $p-color;
+}
+
+.h6-grey-color {
+  @extend .h6;
+  color: $grey-color;
+}
+
+.subtitle1 {
+  font-family: 'Gilroy-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: $p-color;
+}
