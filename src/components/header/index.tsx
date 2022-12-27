@@ -25,6 +25,7 @@ const Header = () => {
             alt='Picture of the author'
             width={126}
             height={54}
+            priority
           />
         </a>
       </Link>
@@ -196,6 +197,7 @@ const Header = () => {
             alt='open'
             width={21}
             height={14}
+            priority
           />
         )}
       </div>
