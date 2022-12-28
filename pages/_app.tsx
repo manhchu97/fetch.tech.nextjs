@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app'
 import Script from 'next/script'
 
 import { TrackingHeadScript } from '@phntms/next-gtm'
+import 'animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 

@@ -2,8 +2,14 @@ import type { NextPage } from 'next'
 
 import Page from '@/components/Page'
 
-const OurstoryPage: NextPage = () => {
-  return <Page title=''>Ourstory page</Page>
+import OurStory from '@/sections/resources/our-story'
+
+const OurStoryPage: NextPage = () => {
+  return (
+    <Page title=''>
+      <OurStory />
+    </Page>
+  )
 }
 
-export default OurstoryPage
+export default OurStoryPage

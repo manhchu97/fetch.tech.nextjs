@@ -1,0 +1,169 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.our-story-contain {
+  max-width: 1140px;
+
+  @include screen-down(xl) {
+    max-width: 960px;
+  }
+
+  @include screen-down(lg) {
+    max-width: 720px;
+  }
+
+  @include screen-down(md) {
+    max-width: 540px;
+  }
+
+  :global .our-story-section {
+    .wrap-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: rgba(255, 190, 22, 0.2);
+      margin: auto;
+      margin-bottom: 95px;
+
+      @include screen-down(lg) {
+        margin-bottom: 75px;
+      }
+
+      @include screen-down(md) {
+        margin-bottom: 55px;
+      }
+    }
+
+    .our-story-section__top {
+      padding: 120px 0;
+      text-align: center;
+
+      .content {
+        position: relative;
+
+        .horizon-line {
+          background: linear-gradient(
+            360deg,
+            #ffbd14 2.73%,
+            #ffffff 50.1%,
+            #fff2d0 100%
+          );
+          width: 6px;
+          z-index: -1;
+          position: absolute;
+          bottom: -120px;
+          left: calc(50% - 3px);
+          top: -95px;
+
+          @include screen-down(lg) {
+            top: -75px;
+          }
+
+          @include screen-down(md) {
+            top: -55px;
+          }
+        }
+      }
+    }
+
+    .our-story-section__center {
+      background-image: url('/images/resources/our-story/bg_block.png');
+      background-origin: content-box;
+      background-repeat: no-repeat;
+      background-position-y: -90px;
+      position: relative;
+      padding-bottom: 53px;
+      padding-top: 90px;
+
+      @include screen-down(xl) {
+        background-image: none;
+      }
+
+      .label-btn {
+        width: 142px;
+        height: 46px;
+        background: $primary-color;
+        border-radius: 32px;
+        margin: auto;
+
+        .h6 {
+          color: #fff;
+          line-height: 24px;
+          font-weight: 600;
+          margin-top: 8px;
+        }
+      }
+
+      .list-card {
+        padding: 32px 0;
+        align-items: flex-start;
+
+        &__right {
+          margin-top: 150px;
+        }
+
+        .road-left {
+          border: 6px solid #ffbe16;
+          border-bottom-right-radius: 32px;
+          border-top: none;
+          border-left: none;
+          height: 200px;
+          margin-right: -6px;
+        }
+
+        .road-right {
+          border: 6px solid #ffbe16;
+          border-bottom-left-radius: 32px;
+          border-top: none;
+          border-right: none;
+          height: 200px;
+          margin-top: 150px;
+        }
+
+        @include screen-down(xl) {
+          background-image: none;
+        }
+
+        @include screen-down(md) {
+          flex-direction: column;
+          align-items: center;
+
+          &__right {
+            margin-top: 50px;
+          }
+
+          .road-left,
+          .road-right {
+            display: none;
+          }
+        }
+      }
+
+      .horizon-line {
+        position: absolute;
+        width: 6px;
+        background: $primary-color;
+        top: 0;
+        left: calc(50% - 3px);
+        bottom: 300px;
+        z-index: -2;
+      }
+    }
+
+    .our-story-section__bottom {
+      padding-bottom: 53px;
+
+      &__content {
+        background: #091738;
+        color: #fff !important;
+        border-radius: 12px;
+        padding: 61px 75px 43px;
+        text-align: center;
+
+        @include screen-down(lg) {
+          padding: 50px 24px 50px;
+        }
+      }
+    }
+  }
+}
