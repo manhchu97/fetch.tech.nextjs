@@ -10,34 +10,37 @@ import ClientMessage from '@/components/client-message'
 
 import { useFormStepContext } from '@/context/FormStepContext'
 
-import { Answer, SectionComponentProps } from '@/types/contact'
+import { Answer, INextQuestionValue } from '@/types/contact'
 
 import styles from './HireInfo.module.scss'
 
-const HireInfoStep = ({
-  next,
-  inputData,
-}: SectionComponentProps): React.ReactElement => {
-  const { setStep } = useFormStepContext()
-  const listQuestions: Answer[] = inputData?.Answers || []
+const HireInfoStep = (): React.ReactElement => {
+  const { handleNextStep, updateAnswerByQuestion, getNextQuestionValue } =
+    useFormStepContext()
 
-  const handleNextStep = useCallback(() => {
-    if (!next) return
+  const data: INextQuestionValue | null = getNextQuestionValue()
+  const { currentStep = 0, resultAnswer } = data || {}
+  const { title: questionTitle = '', answers: listAnswers = [] } =
+    resultAnswer?.inputData || {}
 
-    setStep(next())
-  }, [next, setStep])
+  const handleSubmit = useCallback(() => {
+    updateAnswerByQuestion({
+      currentStep,
+      answer: '8e3863f4-7cea-4ca1-b6ff-127a88756abf',
+    })
+
+    handleNextStep()
+  }, [handleNextStep, updateAnswerByQuestion, currentStep])
 
   return (
     <div className={styles['hire-info-container']}>
       <ClientMessage />
 
       <div className={clsx('ft-full-screen', 'hire-container')}>
-        <div className='hire-container-question h4'>
-          What role would you like to hire?
-        </div>
+        <div className='hire-container-question h4'>{questionTitle}</div>
 
         <div className='hire-list row'>
-          {listQuestions.map(
+          {listAnswers.map(
             (
               { title = '', description = '', image = '' }: Answer,
               index: React.Key | null | undefined,
@@ -50,7 +53,7 @@ const HireInfoStep = ({
                   } col-lg-4 col-sm-6 col-xs-12`,
                 )}
                 key={index}
-                onClick={handleNextStep}
+                onClick={handleSubmit}
               >
                 <div className='hire-card-banner'>
                   <div className='hire-card-title'>{title}</div>

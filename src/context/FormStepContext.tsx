@@ -1,20 +1,162 @@
-import React, { createContext, useMemo, useState } from 'react'
+import React, { createContext, useCallback, useMemo, useState } from 'react'
+
+import { COMPONENT_TYPE } from '@/config/contact'
+
+import {
+  INextQuestionValue,
+  IUpdateAnswerByQuestion,
+  QuestionAnswers,
+  ResultAnswer,
+} from '@/types/contact'
 
 type FormStepContextType = {
-  step: number
-  setStep: React.Dispatch<React.SetStateAction<number>>
+  // setStep: React.Dispatch<React.SetStateAction<number>>
+  questions: QuestionAnswers[]
+  listResultAnswers: ResultAnswer[]
+  componentType: string
+  handleNextStep: () => undefined
+  updateAnswerByQuestion: ({
+    currentStep,
+    answer,
+  }: IUpdateAnswerByQuestion) => void
+  getNextQuestionValue: () => INextQuestionValue | null
 }
 
 const FormStepContext = createContext<FormStepContextType | null>(null)
 
 interface IFormStepProvider {
   children: React.ReactNode
+  questions: QuestionAnswers[]
 }
 
-const FormStepProvider = ({ children }: IFormStepProvider) => {
-  const [step, setStep] = useState<number>(0)
+const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
+  const [currentPriority, setCurrentPriority] = useState<number>(0)
+  const [listResultAnswers, setListResultAnsers] = useState<ResultAnswer[]>([])
+  const [componentType, setComponentType] = useState<string>(
+    COMPONENT_TYPE.INIT,
+  )
 
-  const ctx = useMemo(() => ({ step, setStep }), [step, setStep])
+  const getNextQuestionValue = useCallback((): INextQuestionValue | null => {
+    const length = listResultAnswers.length
+
+    if (!length) return null
+
+    return {
+      currentStep: length - 1,
+      resultAnswer: listResultAnswers?.[length - 1],
+    }
+  }, [listResultAnswers])
+
+  const updateAnswerByQuestion = useCallback(
+    ({ currentStep, answer }: IUpdateAnswerByQuestion): void => {
+      listResultAnswers[currentStep] = {
+        ...listResultAnswers[currentStep],
+        answer,
+      }
+      setListResultAnsers(listResultAnswers)
+    },
+    [listResultAnswers],
+  )
+
+  const handleNextStep = useCallback((): undefined => {
+    const length = listResultAnswers.length
+
+    // INITIAL
+    if (!length) {
+      const currentQuestion: QuestionAnswers = questions[0]
+
+      if (!currentQuestion) return
+
+      const { type = '', priority = 0, id: questionId = '' } = currentQuestion
+      const resultAnswer: ResultAnswer = {
+        questionId,
+        inputData: currentQuestion,
+      }
+
+      setComponentType(type)
+      setCurrentPriority(priority)
+      setListResultAnsers((prev) => [...prev, resultAnswer])
+
+      return
+    }
+
+    const currentQuestion: ResultAnswer = listResultAnswers[length - 1]
+
+    if (!currentQuestion) return
+
+    const { questionId = '', answer = '', inputData } = currentQuestion
+
+    const { answers = [] } = inputData
+
+    // answers = []
+    if (!answers.length) {
+      const nextQuestion = questions.find(
+        ({ priority }) => priority === currentPriority + 1,
+      )
+
+      if (!nextQuestion) return
+
+      const { type = '', priority = 0, id } = nextQuestion
+      const resultAnswer: ResultAnswer = {
+        questionId: id,
+        inputData: nextQuestion,
+      }
+
+      setComponentType(type)
+      setCurrentPriority(priority)
+      setListResultAnsers((prev) => [...prev, resultAnswer])
+      return
+    }
+
+    const selectedAnswer = answers.find(
+      ({ question_id, id }) => questionId === question_id && answer === id,
+    )
+
+    if (!selectedAnswer) return
+
+    const { next_question_id } = selectedAnswer
+
+    // next_question_id = NULL
+    if (!next_question_id) {
+      setComponentType(COMPONENT_TYPE.LABEL)
+      setCurrentPriority((prev) => prev + 1)
+
+      return
+    }
+
+    const nextQuestion = questions.find(({ id }) => next_question_id === id)
+
+    if (!nextQuestion) return
+
+    const { type = '', priority = 0, id } = nextQuestion
+    const resultAnswer: ResultAnswer = {
+      questionId: id,
+      inputData: nextQuestion,
+    }
+
+    setComponentType(type)
+    setCurrentPriority(priority)
+    setListResultAnsers((prev) => [...prev, resultAnswer])
+  }, [listResultAnswers, questions, currentPriority])
+
+  const ctx = useMemo(
+    () => ({
+      questions,
+      listResultAnswers,
+      componentType,
+      handleNextStep,
+      updateAnswerByQuestion,
+      getNextQuestionValue,
+    }),
+    [
+      questions,
+      listResultAnswers,
+      componentType,
+      handleNextStep,
+      updateAnswerByQuestion,
+      getNextQuestionValue,
+    ],
+  )
 
   return (
     <FormStepContext.Provider value={ctx}>{children}</FormStepContext.Provider>

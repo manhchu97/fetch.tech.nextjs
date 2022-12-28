@@ -18,19 +18,21 @@ export interface QuestionAnswers {
   priority: number
   created_timestamp: string
   updated_timestamp: string
-  Answers: Answer[] | []
+  answers: Answer[] | []
 }
 
-export interface ComponentList {
+export interface ResultAnswer {
+  questionId: string
+  answer?: string | null
+  inputData: QuestionAnswers
+}
+
+export interface IUpdateAnswerByQuestion {
   currentStep: number
-  previous: ((data?: string) => number) | null
-  next: ((data?: string) => number) | null
-  componentName: string
-  inputData?: QuestionAnswers | null
+  answer: string | null
 }
 
-export interface SectionComponentProps {
-  previous?: ((data?: string) => number) | null
-  next?: ((data?: string) => number) | null
-  inputData?: QuestionAnswers | null
+export interface INextQuestionValue {
+  currentStep?: number
+  resultAnswer?: ResultAnswer
 }

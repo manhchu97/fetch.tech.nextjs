@@ -9,8 +9,6 @@ import { PHONE_COUNTRIES } from '@/config/phone'
 
 import { useFormStepContext } from '@/context/FormStepContext'
 
-import { SectionComponentProps } from '@/types/contact'
-
 import styles from './ClientInfo.module.scss'
 
 type ClientInfoSubmitForm = {
@@ -35,10 +33,8 @@ const defaultValues: ClientInfoSubmitForm = {
   acceptTerms: true,
 }
 
-const ClientInfoStep = ({
-  next,
-}: SectionComponentProps): React.ReactElement => {
-  const { setStep } = useFormStepContext()
+const ClientInfoStep = (): React.ReactElement => {
+  const { handleNextStep } = useFormStepContext()
   const [countryCode, setCountryCode] = useState('')
 
   const validationSchema = Yup.object().shape({
@@ -82,9 +78,7 @@ const ClientInfoStep = ({
 
   const onSubmit = (data: ClientInfoSubmitForm) => {
     console.log(JSON.stringify(data, null, 2))
-    if (!next) return
-
-    setStep(next())
+    handleNextStep()
   }
 
   return (

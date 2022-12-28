@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import type { InferGetStaticPropsType } from 'next'
 
@@ -10,9 +10,9 @@ import FormStepProvider from '@/context/FormStepContext'
 
 import ContactMultiStep from '@/sections/contact'
 
-import { ComponentList } from '@/types/contact'
+// import { ComponentList } from '@/types/contact'
 
-import { buildMultiStep } from '@/utils/multiStep'
+// import { buildMultiStep } from '@/utils/multiStep'
 
 export const getStaticProps = async () => {
   return {
@@ -25,15 +25,15 @@ export const getStaticProps = async () => {
 function ContactPage({
   questions,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const componentList: ComponentList[] = useMemo(
-    () => buildMultiStep(questions),
-    [questions],
-  )
+  // const componentList: ComponentList[] = useMemo(
+  //   () => buildMultiStep(questions),
+  //   [questions],
+  // )
 
   return (
     <Page title=''>
-      <FormStepProvider>
-        <ContactMultiStep componentList={componentList} />
+      <FormStepProvider questions={questions}>
+        <ContactMultiStep />
       </FormStepProvider>
     </Page>
   )
