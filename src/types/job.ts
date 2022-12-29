@@ -78,3 +78,73 @@ export type JobToolbarFormValue = {
   location: string
   skill: ISkillOption[]
 }
+
+export type JobApplyFormValue = {
+  name: string
+  phone: string
+  email: string
+  message: string
+  skill: ISkillOption[]
+  nameFile: string
+  idJob: string
+  linkPortfolio: string
+  captcha: string
+  file: FileList
+}
+
+interface IDetailLocation {
+  id: string
+  name: string
+  address: string
+  office: string
+  descLocation: string
+  linkMap: string
+  createdAt: string
+  updatedAt: string
+}
+
+interface IDetailClient {
+  id: number
+  name: string
+  about: string
+  background: string
+  token: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface IDetailTagItem {
+  id: number
+  title: string
+  background: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface IJobDetail {
+  id: string
+  title: string
+  type: string
+  salary: string
+  jobStatus: string
+  aboutFetch: string
+  niceToHave: string
+  responsibilities: string
+  requirement: string
+  benefit: string
+  time: string
+  metaJob: string
+  titlePage: string
+  arr_skill_required: string[]
+  arr_skill: string[]
+  location: IDetailLocation
+  client: IDetailClient
+  description: string
+  externalRecruiter: boolean
+  tags: IDetailTagItem[]
+}
+
+export type IJobDetailResponse = {
+  code: number
+  data: IJobDetail
+}

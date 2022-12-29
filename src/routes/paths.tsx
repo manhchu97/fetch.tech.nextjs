@@ -32,5 +32,6 @@ export const PATH_CONFIG = {
   },
   job: {
     root: path(ROOT_PATH, 'job'),
+    view: (slug: string): string => path(ROOT_PATH, `job/${slug}`),
   },
 }

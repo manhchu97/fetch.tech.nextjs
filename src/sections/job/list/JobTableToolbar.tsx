@@ -4,6 +4,8 @@ import Select from 'react-select'
 
 import clsx from 'clsx'
 
+import { FORM_FIELD_JOB_TOOLBAR } from '@/config/job'
+
 import { ILocationOption, ISkillOption, JobToolbarFormValue } from '@/types/job'
 
 const colourStyles = {
@@ -38,7 +40,7 @@ export const JobTableToolbar = ({
 
         <div className='select'>
           <Controller
-            name='location'
+            name={FORM_FIELD_JOB_TOOLBAR.LOCATION}
             control={control}
             render={({ field: { onChange, value, name } }) => (
               <Select
@@ -61,7 +63,7 @@ export const JobTableToolbar = ({
 
         <div className='select'>
           <Controller
-            name='skill'
+            name={FORM_FIELD_JOB_TOOLBAR.SKILL}
             control={control}
             render={({ field: { onChange, name } }) => (
               <Select

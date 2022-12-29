@@ -12,6 +12,7 @@ import ToastProvider from '@/context/ToastContext'
 
 import '@/styles/fonts.scss'
 import '@/styles/globals.scss'
+import '@/styles/modal.scss'
 // overrides CSS
 import '@/styles/overrides/typography.scss'
 import '@/styles/toast.scss'

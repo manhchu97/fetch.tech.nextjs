@@ -1,0 +1,160 @@
+/*! purgecss start ignore */
+
+@import '@/styles/_mixins.scss';
+
+.line-header {
+  border-top: 2px solid #fccc4b;
+
+  :global .job-detail-container {
+    .contain-job-detail-content {
+      width: 100%;
+      margin: 0 auto;
+      padding-bottom: 30px;
+
+      @include screen-up(xxl) {
+        max-width: 1140px;
+      }
+
+      .job-detail-title {
+        display: flex;
+        align-items: baseline;
+
+        .content-detail-title {
+          h1 {
+            font-family: 'Gilroy-Medium';
+            font-size: 30px;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+          }
+        }
+
+        .job-detail-tag {
+          font-family: 'Gilroy-Regular';
+          padding-left: 6px;
+          display: flex;
+          flex-wrap: wrap;
+
+          .tag-item {
+            padding: 6px 10px 2px;
+            margin: 2px;
+            color: #fff;
+            background: #ff9e34;
+            border-radius: 8px;
+          }
+        }
+      }
+
+      .job-detail-type {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        .detail-type {
+          font-family: 'Gilroy-Regular';
+          font-size: 14px;
+          color: #777;
+          display: flex;
+          padding-top: 5px;
+        }
+      }
+
+      .job-detail-info {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .overview-detail-info {
+          font-family: 'Gilroy-Regular';
+          display: flex;
+          font-size: 14px;
+          color: #777;
+          padding-top: 10px;
+          padding-right: 45px;
+
+          .detail-info-icon {
+            margin-right: 8px;
+            color: var(--bs-warning);
+          }
+        }
+      }
+
+      .job-detail-apply {
+        font-family: 'Gilroy-SemiBold';
+        margin-top: 40px;
+        background-color: #fccc4b;
+        color: #fff;
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+    }
+
+    .line-detail {
+      border: 0.5px solid #e2e2e2;
+      box-shadow: 0 1px 2px #e2e2e2;
+    }
+
+    .job-description-container {
+      @include screen-up(xxl) {
+        max-width: 1140px;
+      }
+
+      .job-description {
+        font-family: 'Gilroy-SemiBold';
+        font-size: 16px;
+
+        .markdown-container {
+          width: 100%;
+
+          p,
+          li {
+            font-family: 'Gilroy-Regular';
+          }
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+
+      .job-description-sub-info {
+        .job-description-sub-info-wrapper + .job-description-sub-info-wrapper {
+          margin-top: 40px;
+        }
+
+        .job-description-sub-info-title {
+          font-size: 18px;
+          font-family: 'Gilroy-SemiBold';
+        }
+
+        .job-content-container {
+          display: flex;
+          flex-wrap: wrap;
+          font-family: 'Gilroy-Regular';
+          font-size: 14px;
+
+          .job-detail-skill-item {
+            border: 1px solid var(--bs-warning);
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-top: 10px;
+            padding: 3px 9px;
+            background-color: var(--bs-warning);
+            cursor: pointer;
+            color: #fff;
+            font-size: 14px;
+          }
+
+          label {
+            padding-top: 10px;
+            line-height: 25px;
+          }
+        }
+      }
+    }
+  }
+}
+/*! purgecss end ignore */

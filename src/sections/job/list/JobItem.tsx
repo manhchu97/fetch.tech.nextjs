@@ -1,25 +1,38 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 
 import Link from 'next/link'
 
 import rehypeRaw from 'rehype-raw'
 
+import { PATH_CONFIG } from '@/routes/paths'
+
 import { IJobItem } from '@/types/job'
 
 interface JobItemProps {
   job: IJobItem
+  handleShowPopup: (job: IJobItem) => void
 }
 
-const JobItem = ({ job }: JobItemProps): React.ReactElement => {
-  const { Location, Tags, salary, title, type, description } = job
+const JobItem = ({
+  job,
+  handleShowPopup,
+}: JobItemProps): React.ReactElement => {
+  const { Location, Tags, salary, title, type, description, id, slug } = job
   const { office } = Location
+
+  const jobSlug = useMemo(() => {
+    const slugArray = slug.split('-')
+    slugArray[slugArray.length - 1] = id
+
+    return slugArray.join('-')
+  }, [slug, id])
 
   return (
     <li className={'job-item-container'}>
       <div className='row'>
         <div className='col-md-9'>
-          <Link href='#'>
+          <Link href={PATH_CONFIG.job.view(jobSlug)}>
             <a>
               <div className='row'>
                 <div className='col-md-9'>
@@ -67,7 +80,13 @@ const JobItem = ({ job }: JobItemProps): React.ReactElement => {
 
         <div className='col-md-3 apply-btn-container'>
           <div className='apply-btn'>
-            <button className='btn btn-warning'>Apply Now</button>
+            <button
+              className='btn btn-warning'
+              type='button'
+              onClick={() => handleShowPopup(job)}
+            >
+              Apply Now
+            </button>
           </div>
         </div>
       </div>

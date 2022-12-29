@@ -16,29 +16,26 @@ let promise: Promise<any>
 const CustomerMessengerChat = (): null => {
   const addFBChatPlugin = useCallback(
     (FB: { XFBML: { parse: () => void } }) => {
-      // Initialize Facebook widget(s) in 2 seconds after the component is mounted.
-      setTimeout(() => {
-        const el = document.createElement('div')
-        el.className = 'fb-customerchat'
-        el.setAttribute('attribution', 'setup_tool')
-        el.setAttribute('page_id', FACEBOOK_PAGE_ID)
+      const el = document.createElement('div')
+      el.className = 'fb-customerchat'
+      el.setAttribute('attribution', 'setup_tool')
+      el.setAttribute('page_id', FACEBOOK_PAGE_ID)
 
-        document.body.appendChild(el)
-        FB.XFBML.parse()
-      }, 1000)
+      document.body.appendChild(el)
+      FB.XFBML.parse()
     },
     [],
   )
 
   useEffect(() => {
-    if (promise) {
-      promise.then(addFBChatPlugin)
-      return
-    }
+    setTimeout(() => {
+      if (promise) {
+        promise.then(addFBChatPlugin)
+        return
+      }
 
-    promise = new Promise((resolve) => {
-      // https://developers.facebook.com/docs/javascript/reference/FB.init
-      setTimeout(() => {
+      promise = new Promise((resolve) => {
+        // https://developers.facebook.com/docs/javascript/reference/FB.init
         window.fbAsyncInit = () => {
           window.FB.init({
             appId: FACEBOOK_APP_ID,
@@ -56,10 +53,10 @@ const CustomerMessengerChat = (): null => {
         script.src = `https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js`
 
         document.head.appendChild(script)
-      }, 1000)
-    })
+      })
 
-    promise.then(addFBChatPlugin)
+      promise.then(addFBChatPlugin)
+    }, 1000)
   }, [addFBChatPlugin])
 
   return null
