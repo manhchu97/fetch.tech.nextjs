@@ -109,22 +109,23 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
     }
 
     const selectedAnswer = answers.find(
-      ({ question_id, id }) => questionId === question_id && answer === id,
+      ({ questionId: question_id, id }) =>
+        question_id === questionId && answer === id,
     )
 
     if (!selectedAnswer) return
 
-    const { next_question_id } = selectedAnswer
+    const { nextQuestionId } = selectedAnswer
 
     // next_question_id = NULL
-    if (!next_question_id) {
+    if (!nextQuestionId) {
       setComponentType(COMPONENT_TYPE.LABEL)
       setCurrentPriority((prev) => prev + 1)
 
       return
     }
 
-    const nextQuestion = questions.find(({ id }) => next_question_id === id)
+    const nextQuestion = questions.find(({ id }) => nextQuestionId === id)
 
     if (!nextQuestion) return
 

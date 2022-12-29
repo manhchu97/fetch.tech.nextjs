@@ -3,11 +3,11 @@ export interface Answer {
   title: string
   description?: string | null
   image?: string | null
-  question_id: string
-  next_question_id: string | null
+  questionId: string
+  nextQuestionId: string | null
   priority: number
-  created_timestamp: string
-  updated_timestamp: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface QuestionAnswers {
@@ -16,9 +16,19 @@ export interface QuestionAnswers {
   slug: string
   type: string
   priority: number
-  created_timestamp: string
-  updated_timestamp: string
+  createdAt: string
+  updatedAt: string
   answers: Answer[] | []
+}
+
+interface IQuestionResponseData {
+  list: QuestionAnswers[]
+  success: boolean
+}
+
+export interface IListQuestionsResponse {
+  code: number
+  data?: IQuestionResponseData
 }
 
 export interface ResultAnswer {

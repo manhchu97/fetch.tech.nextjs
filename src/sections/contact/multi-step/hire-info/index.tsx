@@ -23,14 +23,17 @@ const HireInfoStep = (): React.ReactElement => {
   const { title: questionTitle = '', answers: listAnswers = [] } =
     resultAnswer?.inputData || {}
 
-  const handleSubmit = useCallback(() => {
-    updateAnswerByQuestion({
-      currentStep,
-      answer: '8e3863f4-7cea-4ca1-b6ff-127a88756abf',
-    })
+  const handleSubmit = useCallback(
+    (answerId: string) => () => {
+      updateAnswerByQuestion({
+        currentStep,
+        answer: answerId,
+      })
 
-    handleNextStep()
-  }, [handleNextStep, updateAnswerByQuestion, currentStep])
+      handleNextStep()
+    },
+    [handleNextStep, updateAnswerByQuestion, currentStep],
+  )
 
   return (
     <div className={styles['hire-info-container']}>
@@ -42,7 +45,12 @@ const HireInfoStep = (): React.ReactElement => {
         <div className='hire-list row'>
           {listAnswers.map(
             (
-              { title = '', description = '', image = '' }: Answer,
+              {
+                title = '',
+                description = '',
+                image = '',
+                id: answerId = '',
+              }: Answer,
               index: React.Key | null | undefined,
             ) => (
               <div
@@ -53,7 +61,7 @@ const HireInfoStep = (): React.ReactElement => {
                   } col-lg-4 col-sm-6 col-xs-12`,
                 )}
                 key={index}
-                onClick={handleSubmit}
+                onClick={handleSubmit(answerId)}
               >
                 <div className='hire-card-banner'>
                   <div className='hire-card-title'>{title}</div>
