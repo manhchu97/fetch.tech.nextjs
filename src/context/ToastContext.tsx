@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useMemo } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 type ToastContextType = {
   successToast: (message: string) => string | number
