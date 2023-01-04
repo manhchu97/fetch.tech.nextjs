@@ -47,6 +47,7 @@ const colourStyles = {
 
 interface IApplyPopupProps {
   isShowPopup: boolean
+  codeBitly?: string
   chosenJob?: IJobItem | IJobDetail | null
   skillOptions?: ISkillOption[]
   handleClosePopup: () => void
@@ -54,6 +55,7 @@ interface IApplyPopupProps {
 
 const ApplyPopup = ({
   isShowPopup,
+  codeBitly = 'false',
   chosenJob,
   skillOptions,
   handleClosePopup,
@@ -120,6 +122,7 @@ const ApplyPopup = ({
           skill?.map((item) => item.label).toString() || '',
         [FORM_FIELD_VALUES.NAME_FILE]: nameFile,
         [FORM_FIELD_VALUES.ID_JOB]: id || '',
+        [FORM_FIELD_VALUES.CODE_BITLY]: codeBitly,
       }
 
       const response = await _uploadApi(API_APPLY_JOB, formData)
