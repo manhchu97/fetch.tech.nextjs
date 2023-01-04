@@ -44,8 +44,14 @@ export const _deleteApi = (url: string): Promise<AxiosResponse<any>> =>
 export const _uploadApi = (
   url: string,
   data: any,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<any>> =>
-  axiosInstance.post(url, data, options).then((response) => response.data)
+): Promise<AxiosResponse<any>> => {
+  return axiosInstance
+    .post(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => response.data)
+}
 
 export default axiosInstance
