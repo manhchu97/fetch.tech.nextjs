@@ -23,6 +23,7 @@ export enum FORM_FIELD_VALUES {
   FILE = 'file',
   NAME_FILE = 'nameFile',
   ID_JOB = 'idJob',
+  CODE_BITLY = 'codeBitly',
 }
 
 export enum FORM_FIELD_JOB_TOOLBAR {

@@ -40,6 +40,7 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
 
   const { query } = useRouter()
   const idJob = query.slug?.slice(-36) || ''
+  const codeBitly = (query.slug?.slice(-47, -37) as string) || 'false'
 
   useEffect(() => setMounted(true), [])
 
@@ -259,6 +260,7 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
       {isShowPopup && (
         <ApplyPopup
           isShowPopup
+          codeBitly={codeBitly}
           chosenJob={jobDetail}
           skillOptions={skillOptions}
           handleClosePopup={handleClosePopup}
