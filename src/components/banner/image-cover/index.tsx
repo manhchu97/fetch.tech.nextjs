@@ -49,6 +49,7 @@ const BannerImageCover = ({
             src={imageSource}
             layout='fill'
             objectFit='cover'
+            priority
           />
         </div>
       )}
