@@ -6,6 +6,8 @@ import BannerImageCover from '@/components/banner/image-cover'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
+import Employee from '@/sections/employees'
+
 const EmployeesPage: NextPage = () => {
   return (
     <Page title=''>
@@ -13,6 +15,7 @@ const EmployeesPage: NextPage = () => {
         imageSource='/images/bannerEmployees.png'
         className='company-banner-img-container'
       />
+      <Employee />
 
       <BannerContact
         title='Build your career with Fetch'

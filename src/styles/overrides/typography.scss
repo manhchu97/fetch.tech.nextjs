@@ -15,7 +15,12 @@
 
   @include screen-down(sm) {
     font-size: 32px !important;
-    line-height: 135% !important;
+    line-height: 44px !important;
+  }
+
+  @include screen-down(xs) {
+    font-size: 36px;
+    line-height: 45px;
   }
 }
 
@@ -45,6 +50,11 @@
   font-size: 36px;
   line-height: 45px;
 
+  @include screen-down(xl) {
+    font-size: 26px !important;
+    line-height: 30px;
+  }
+
   @include screen-down(md) {
     font-size: 22px !important;
     line-height: 30px !important;
@@ -52,7 +62,7 @@
 
     &--maintain {
       font-size: 36px !important;
-      line-height: 125% !important;
+      line-height: 45px !important;
     }
   }
 }
@@ -78,13 +88,12 @@
   @include screen-down(sm) {
     font-family: 'Gilroy-Regular';
     font-size: 20px !important;
-    line-height: 145% !important;
-    color: $grey-color;
+    line-height: 28px !important;
 
     &--maintain {
       font-size: 22px !important;
       font-family: 'Gilroy-SemiBold' !important;
-      line-height: 135% !important;
+      line-height: 30px !important;
       color: $heading-color;
     }
 
@@ -94,10 +103,15 @@
   }
 }
 
+.h5-bold {
+  @extend .h5;
+  font-family: 'Gilroy-SemiBold';
+}
+
 .h6 {
   font-family: 'Gilroy-Regular';
   font-size: 20px;
-  line-height: 145%;
+  line-height: 28px;
 }
 
 .h6-p-color {
@@ -107,6 +121,17 @@
 
 .h6-grey-color {
   @extend .h6;
+  color: $grey-color;
+}
+
+.par {
+  font-family: 'Gilroy-Regular';
+  font-size: 16px;
+  line-height: 1.33em;
+}
+
+.par-grey-color {
+  @extend .par;
   color: $grey-color;
 }
 

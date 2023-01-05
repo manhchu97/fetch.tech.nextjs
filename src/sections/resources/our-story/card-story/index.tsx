@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 import Image from 'next/image'
 
 import clsx from 'clsx'
+
+import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 
 import styles from './CardStory.module.scss'
 
@@ -23,45 +25,27 @@ const CardStory = (props: IProps) => {
     animateClassName = '',
   } = props
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef() as any
-
-  const [animate, setAnimate] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => {
-      const top = ref.current.getBoundingClientRect().top
-      const bottom = ref.current.getBoundingClientRect().bottom
-      const heightElement = bottom - top
-
-      if (top + heightElement >= window.innerHeight) return
-
-      setAnimate(true)
-    }
-
-    window.addEventListener('scroll', onScroll)
-
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [])
-
   return (
-    <div
-      className={clsx(animate && animateClassName, styles['card-story'])}
-      ref={ref}
-    >
-      <div className='wrap-icon div-center'>
-        <Image
-          src={srcIcon}
-          alt='icon'
-          width={width}
-          height={height}
-          objectFit='contain'
-        />
-      </div>
-      <div className='subtitle1'>{content}</div>
-    </div>
+    <AnimatiopnOnScrollWrap
+      ratio={0}
+      render={(ref, animate) => (
+        <div
+          className={clsx(animate && animateClassName, styles['card-story'])}
+          ref={ref}
+        >
+          <div className='wrap-icon div-center'>
+            <Image
+              src={srcIcon}
+              alt='icon'
+              width={width}
+              height={height}
+              objectFit='contain'
+            />
+          </div>
+          <div className='subtitle1'>{content}</div>
+        </div>
+      )}
+    />
   )
 }
 
