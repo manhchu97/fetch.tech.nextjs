@@ -4,13 +4,14 @@ import { COMPONENT_TYPE } from '@/config/contact'
 
 import {
   INextQuestionValue,
+  ISkillResponse,
   IUpdateAnswerByQuestion,
   QuestionAnswers,
   ResultAnswer,
 } from '@/types/contact'
 
 type FormStepContextType = {
-  // setStep: React.Dispatch<React.SetStateAction<number>>
+  skills: ISkillResponse
   questions: QuestionAnswers[]
   listResultAnswers: ResultAnswer[]
   componentType: string
@@ -20,6 +21,7 @@ type FormStepContextType = {
     answer,
   }: IUpdateAnswerByQuestion) => void
   getNextQuestionValue: () => INextQuestionValue | null
+  handlePreviousStep: () => void | undefined
 }
 
 const FormStepContext = createContext<FormStepContextType | null>(null)
@@ -27,9 +29,14 @@ const FormStepContext = createContext<FormStepContextType | null>(null)
 interface IFormStepProvider {
   children: React.ReactNode
   questions: QuestionAnswers[]
+  skills: ISkillResponse
 }
 
-const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
+const FormStepProvider = ({
+  children,
+  questions,
+  skills,
+}: IFormStepProvider) => {
   const [currentPriority, setCurrentPriority] = useState<number>(0)
   const [listResultAnswers, setListResultAnsers] = useState<ResultAnswer[]>([])
   const [componentType, setComponentType] = useState<string>(
@@ -57,6 +64,22 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
     },
     [listResultAnswers],
   )
+
+  const handlePreviousStep = useCallback((): void | undefined => {
+    // Removes the last element from an array
+    listResultAnswers.pop()
+
+    const length = listResultAnswers.length
+
+    if (!length) return
+
+    const lastQuestion = listResultAnswers[length - 1]
+    const { type = '', priority = 0 } = lastQuestion?.inputData || {}
+
+    setComponentType(type)
+    setCurrentPriority(priority)
+    setListResultAnsers(listResultAnswers)
+  }, [listResultAnswers])
 
   const handleNextStep = useCallback((): undefined => {
     const length = listResultAnswers.length
@@ -143,19 +166,23 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
   const ctx = useMemo(
     () => ({
       questions,
+      skills,
       listResultAnswers,
       componentType,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
+      handlePreviousStep,
     }),
     [
       questions,
+      skills,
       listResultAnswers,
       componentType,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
+      handlePreviousStep,
     ],
   )
 

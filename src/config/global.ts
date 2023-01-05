@@ -14,3 +14,9 @@ export const DEFAULT_PAGE_NUMBER = 1
 
 // COLOR
 export const PRIMARY_COLOR = '#ffbe16'
+// Regex detect special chars: ., *, +, ?, ^, $, {, }, (, ), |, [, ], \
+export const REGEX_SPECIAL_CHARS = /[.*+?^${}()|[\]\\]/g
+
+// Add '\' charater to the beginning of the string
+// Ex: '.*' => '\.\*'
+export const REGEX_WHOLE_MATCH = '\\$&'

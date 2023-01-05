@@ -20,8 +20,9 @@ const HireInfoStep = (): React.ReactElement => {
 
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
+  const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '', answers: listAnswers = [] } =
-    resultAnswer?.inputData || {}
+    inputData || {}
 
   const handleSubmit = useCallback(
     (answerId: string) => () => {
@@ -56,6 +57,7 @@ const HireInfoStep = (): React.ReactElement => {
               <div
                 className={clsx(
                   'hire-card',
+                  answerId === answer && 'active',
                   `col-xxl-${
                     12 / TOTAL_COLUMN_PER_ROW
                   } col-lg-4 col-sm-6 col-xs-12`,

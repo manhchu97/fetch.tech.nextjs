@@ -25,6 +25,7 @@ const ClientAction = ({
         {action || (
           <>
             <button
+              type='button'
               className='action-btn action-btn-outlined'
               onClick={onClickPreviousButton}
             >

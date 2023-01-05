@@ -25,6 +25,7 @@ const sectionComponents = {
   [COMPONENT_TYPE.INIT]: ClientInfo,
   [COMPONENT_TYPE.GRID]: HireInfo,
   [COMPONENT_TYPE.RADIO]: QuestionAnswer,
+  [COMPONENT_TYPE.RADIO_FLEX_LABEL]: QuestionAnswer,
   [COMPONENT_TYPE.LABEL]: CustomerSupport,
   [COMPONENT_TYPE.TREE]: SkillRequire,
   [COMPONENT_TYPE.TEXT]: AboutClient,

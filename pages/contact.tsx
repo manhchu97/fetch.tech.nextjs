@@ -10,11 +10,11 @@ import Page from '@/components/Page'
 
 import FormStepProvider from '@/context/FormStepContext'
 
-import { API_LIST_QUESTIONS } from '@/routes/api'
+import { API_LIST_QUESTIONS, API_TECH } from '@/routes/api'
 
 import ContactMultiStep from '@/sections/contact'
 
-import { IListQuestionsResponse } from '@/types/contact'
+import { IListQuestionsResponse, ISkillResponse } from '@/types/contact'
 
 import fetcher from '@/utils/fetcher'
 
@@ -23,15 +23,21 @@ export const getStaticProps = async () => {
 
   const data: IListQuestionsResponse = await res.json()
 
+  const skillResponse = await fetch(`${PORTAL_STAGING_API}/${API_TECH}`)
+
+  const skillData: ISkillResponse = await skillResponse.json()
+
   return {
     props: {
       fallback: data,
+      fallbackSkill: skillData,
     },
   }
 }
 
 function ContactPage({
   fallback,
+  fallbackSkill,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSWR(
     `${PORTAL_STAGING_API}/${API_LIST_QUESTIONS}`,
@@ -39,12 +45,20 @@ function ContactPage({
     { fallbackData: fallback },
   )
 
+  const { data: skillData } = useSWR(
+    `${PORTAL_STAGING_API}/${API_TECH}`,
+    fetcher,
+    { fallbackData: fallbackSkill },
+  )
+
   const dataQuestion: IListQuestionsResponse = data as IListQuestionsResponse
   const { list: questions = [] } = dataQuestion?.data || {}
 
+  const dataSkill: ISkillResponse = skillData as ISkillResponse
+
   return (
     <Page title=''>
-      <FormStepProvider questions={questions}>
+      <FormStepProvider questions={questions} skills={dataSkill}>
         <ContactMultiStep />
       </FormStepProvider>
     </Page>

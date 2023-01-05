@@ -46,3 +46,30 @@ export interface INextQuestionValue {
   currentStep?: number
   resultAnswer?: ResultAnswer
 }
+
+// Skill require types
+
+export interface ISkillTreeData {
+  [key: string]: ISkillTreeData
+}
+
+export interface ISkillResponse {
+  success: boolean
+  data: ISkillTreeData
+  skill: string[]
+}
+export interface ISkillParentFormat {
+  id: string
+  title: string
+  children: ISkillChildFormat
+}
+
+export interface ISkillChildFormat {
+  parentTitle: string
+  data: ISkillParentFormat[] | null
+}
+
+export interface ISkillOption {
+  label: string
+  value: string
+}

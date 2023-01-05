@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import ClientAction from '@/components/client-action'
@@ -15,8 +15,12 @@ type QuestionAnswerSubmitForm = {
 }
 
 const QuestionAnswerStep = (): React.ReactElement => {
-  const { handleNextStep, updateAnswerByQuestion, getNextQuestionValue } =
-    useFormStepContext()
+  const {
+    handleNextStep,
+    updateAnswerByQuestion,
+    getNextQuestionValue,
+    handlePreviousStep,
+  } = useFormStepContext()
 
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
@@ -24,10 +28,12 @@ const QuestionAnswerStep = (): React.ReactElement => {
   const { title: questionTitle = '', answers: listAnswers = [] } =
     inputData || {}
 
-  const { register, handleSubmit, resetField } =
-    useForm<QuestionAnswerSubmitForm>({
-      defaultValues: { answer: answer || '' },
-    })
+  const { register, handleSubmit, resetField, setValue } =
+    useForm<QuestionAnswerSubmitForm>()
+
+  useEffect(() => {
+    setValue('answer', answer || '')
+  }, [answer, setValue])
 
   const handleSubmitQuestion = useCallback(
     (data: QuestionAnswerSubmitForm) => {
@@ -45,8 +51,8 @@ const QuestionAnswerStep = (): React.ReactElement => {
   )
 
   const handlePreviousQuestion = useCallback(() => {
-    console.log('handle previous quetion')
-  }, [])
+    handlePreviousStep()
+  }, [handlePreviousStep])
 
   return (
     <div className={styles['question-answer-step-container']}>

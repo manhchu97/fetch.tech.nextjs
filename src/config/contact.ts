@@ -6,6 +6,7 @@ export const COMPONENT_TYPE: ObjProps = {
   INIT: 'init',
   GRID: 'grid',
   RADIO: 'radio',
+  RADIO_FLEX_LABEL: 'radio_flex_label',
   TREE: 'tree',
   TEXT: 'text',
   CHECKBOX_REPONSIBILITY: 'checkbox_responsibilities',
