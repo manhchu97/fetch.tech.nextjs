@@ -28,9 +28,6 @@
   font-family: 'Gilroy-SemiBold';
   font-size: 48px;
   line-height: 55px;
-
-  display: flex;
-  align-items: flex-end;
   letter-spacing: -1px;
 
   @include screen-down(md) {
@@ -112,6 +109,11 @@
   font-family: 'Gilroy-Regular';
   font-size: 20px;
   line-height: 28px;
+}
+
+.h6-bold {
+  @extend .h6;
+  font-family: 'Gilroy-SemiBold';
 }
 
 .h6-p-color {

@@ -19,7 +19,7 @@ export const PATH_CONFIG = {
   salary: path(ROOT_PATH, 'salary'),
   caseStudy: {
     root: path(ROOT_PATH, 'case-studies'),
-    accorplus: path(ROOT_PATH, 'case-studies/accorplus'),
+    view: (slug: string): string => path(ROOT_PATH, `case-studies/${slug}`),
   },
   contact: path(ROOT_PATH, 'contact'),
   faq: path(ROOT_PATH, 'faq'),
