@@ -17,12 +17,6 @@ interface ServiceProps {
   serviceBody: ServiceBodyProps[]
 }
 
-type ServiceItem = {
-  featureTheme: string
-  featureTitle: string
-  featureSubtitle: string
-}
-
 const ServiceSections = ({
   header,
   serviceBody,
@@ -126,7 +120,7 @@ const ServiceSections = ({
               <div className='sidebar-title h5'>{title}</div>
 
               <div className='sidebar-options'>
-                {serviceBody?.map((serviceItem: ServiceItem, index) => (
+                {serviceBody?.map((serviceItem: ServiceBodyProps, index) => (
                   <Link key={index} href={`#a${index}`}>
                     <a
                       data-option={`a${index}`}
@@ -146,8 +140,14 @@ const ServiceSections = ({
         </div>
 
         <div className='service-body__right col-lg-8'>
-          {serviceBody?.map((serviceItem: ServiceItem, index) => {
-            const { featureTheme, featureTitle, featureSubtitle } = serviceItem
+          {serviceBody?.map((serviceItem: ServiceBodyProps, index) => {
+            const {
+              featureTheme,
+              featureTitle,
+              featureSubtitle,
+              width,
+              height,
+            } = serviceItem
             const fadePostion =
               index % 2 === 0
                 ? 'animate__fadeInLeft'
@@ -202,8 +202,8 @@ const ServiceSections = ({
                     <Image
                       src={featureTheme}
                       alt={featureTitle}
-                      layout='fill'
-                      objectFit='contain'
+                      width={width}
+                      height={height}
                       quality={100}
                     />
                   </div>

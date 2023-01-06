@@ -9,4 +9,6 @@ export interface ServiceBodyProps {
   featureSubtitle: string
   featureTheme: string
   featureTitle: string
+  width: number
+  height: number
 }
