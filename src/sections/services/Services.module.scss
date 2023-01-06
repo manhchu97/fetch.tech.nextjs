@@ -1,0 +1,139 @@
+@import '@/styles/_mixins.scss';
+
+.service-body-container {
+  padding: 100px 10%;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  :global .service-body__left {
+    @include screen-up(lg) {
+      position: relative;
+    }
+
+    .sidebar {
+      background: #ffffff;
+      border: 1px solid #bac9d7;
+      box-sizing: border-box;
+      box-shadow: 0px 22px 29px rgba(6, 49, 115, 0.15);
+      border-radius: 12px;
+      padding: 50px 20px;
+      width: calc(100% + 8px);
+      min-height: 350px;
+      max-width: 400px;
+
+      @include screen-down(lg) {
+        display: none;
+      }
+
+      @include screen-up(lg) {
+        &.sidebar--fixed {
+          position: fixed;
+          top: 100px;
+          left: calc(10% + 12px);
+          width: 25%;
+          max-width: 400px;
+        }
+
+        &.sidebar--bottom {
+          position: absolute;
+          bottom: 80px;
+          width: calc(100% - 18px);
+          max-width: 400px;
+        }
+      }
+
+      .sidebar-title {
+        margin-bottom: 40px;
+      }
+
+      .sidebar-options {
+        display: flex;
+        flex-direction: column;
+
+        .sidebar-option-container {
+          padding: 16px 0;
+          position: relative;
+
+          &.scrolled {
+            a {
+              color: #17274e;
+            }
+          }
+
+          &:hover,
+          &.active {
+            background: #eef3f8;
+            border-radius: 6px;
+
+            a {
+              color: #3e5476;
+              font-family: 'Gilroy-SemiBold';
+            }
+
+            .a-wrapper {
+              transform: translateX(30px);
+            }
+          }
+
+          .sidebar-option {
+            text-decoration: none;
+            color: #a4b7c8;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+          }
+
+          .a-wrapper {
+            max-width: calc(100% - 30px);
+          }
+        }
+      }
+    }
+  }
+
+  :global .service-body__right {
+    .service-feature {
+      margin: 60px 0px;
+
+      @include screen-up(lg) {
+        &:nth-child(even) {
+          .service-feature__inner {
+            flex-direction: row-reverse;
+          }
+        }
+      }
+
+      &__inner {
+        margin: 0;
+
+        @include screen-down(lg) {
+          flex-direction: column-reverse;
+        }
+
+        .service-feature__text-side {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .service-feature__title {
+            color: #17274e;
+          }
+
+          .service-feature__subtitle {
+            color: #000000;
+          }
+        }
+
+        .service-feature__right {
+          position: relative;
+          padding: 20px 0 30% 0;
+
+          @include screen-down(lg) {
+            margin-bottom: 60px;
+          }
+        }
+      }
+    }
+  }
+}
