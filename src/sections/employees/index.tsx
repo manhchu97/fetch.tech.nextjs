@@ -164,7 +164,7 @@ const Employee = () => {
                       <div className='check-icon-wrap'>
                         <Image
                           className='check-icon'
-                          src='/images/tick15.svg'
+                          src='/images/employee/tick15.svg'
                           alt='check'
                           width={16}
                           height={16}
@@ -195,7 +195,7 @@ const Employee = () => {
                     >
                       <div className='check-icon-wrap'>
                         <Image
-                          src='/images/tick15.svg'
+                          src='/images/employee/tick15.svg'
                           alt='check'
                           width={16}
                           height={16}
@@ -228,7 +228,7 @@ const Employee = () => {
                       })}
                     >
                       <Image
-                        src='/images/FrameUsp.png'
+                        src='/images/employee/FrameUsp.png'
                         alt='usp'
                         layout='fill'
                         objectFit='contain'
@@ -254,7 +254,7 @@ const Employee = () => {
                       })}
                     >
                       <Image
-                        src='/images/healthcare.png'
+                        src='/images/employee/healthcare.png'
                         alt='healthcare'
                         layout='fill'
                         objectFit='contain'
@@ -295,7 +295,7 @@ const Employee = () => {
                       <div className='check-icon-wrap'>
                         <Image
                           className='check-icon'
-                          src='/images/tick15.svg'
+                          src='/images/employee/tick15.svg'
                           alt='check'
                           width={16}
                           height={16}
@@ -326,7 +326,7 @@ const Employee = () => {
                     >
                       <div className='check-icon-wrap'>
                         <Image
-                          src='/images/tick15.svg'
+                          src='/images/employee/tick15.svg'
                           alt='check'
                           width={16}
                           height={16}
@@ -391,7 +391,7 @@ const Employee = () => {
                       })}
                     >
                       <Image
-                        src='/images/findMore.png'
+                        src='/images/employee/findMore.png'
                         alt='usp'
                         layout='fill'
                         objectFit='contain'
@@ -410,7 +410,7 @@ const Employee = () => {
               <div className='col col-sm-12 col-md-10 col-xl-6'>
                 <div className='heart-img mx-auto'>
                   <Image
-                    src='/images/heart.png'
+                    src='/images/employee/heart.png'
                     width={96}
                     height={96}
                     alt='heart'
@@ -459,7 +459,7 @@ const Employee = () => {
                     >
                       <div className='emp-img'>
                         <Image
-                          src={'/images/avt1.jpg'}
+                          src='/images/employee/avt1.jpg'
                           width={540}
                           height={720}
                           objectFit='contain'
@@ -501,7 +501,7 @@ const Employee = () => {
                     >
                       <div className='emp-img'>
                         <Image
-                          src={'/images/avt2.jpg'}
+                          src='/images/employee/avt2.jpg'
                           width={540}
                           height={720}
                           objectFit='contain'

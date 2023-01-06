@@ -42,7 +42,7 @@ const CaseStudiesPage = ({
   return (
     <Page title=''>
       <BannerImageCover
-        imageSource='/images/bannerEmployees.png'
+        imageSource='/images/employee/bannerEmployees.png'
         className='company-banner-img-container'
       />
 
