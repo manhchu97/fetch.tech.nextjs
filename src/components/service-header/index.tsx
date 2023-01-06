@@ -30,7 +30,14 @@ const ServiceHeader = ({
             'service-header__inner__right col-xs-12 col-lg-4',
           )}
         >
-          <Image alt='' src={imageSource} layout='fill' objectFit='contain' />
+          <Image
+            alt=''
+            src={imageSource}
+            layout='fill'
+            objectFit='contain'
+            priority
+            quality={100}
+          />
         </div>
       </div>
     </div>
