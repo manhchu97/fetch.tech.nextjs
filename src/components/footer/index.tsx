@@ -121,7 +121,7 @@ const Footer = () => {
               </a>
             </Link>
 
-            <Link href={PATH_CONFIG.ourStory}>
+            <Link href={PATH_CONFIG.resources.ourStory}>
               <a>
                 <span className='nav-title'>Our Story</span>
               </a>

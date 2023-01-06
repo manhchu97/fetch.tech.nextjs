@@ -126,7 +126,7 @@ const Header = () => {
               aria-labelledby='resources'
             >
               <div className='dropdown-menu-container'>
-                <Link href={PATH_CONFIG.ourStory}>
+                <Link href={PATH_CONFIG.resources.ourStory}>
                   <a>
                     <DropdownItem
                       title='Our story'
@@ -137,7 +137,9 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  href={PATH_CONFIG.caseStudy.view(CASE_STUDIES_TYPE.ACCORPLUS)}
+                  href={PATH_CONFIG.resources.caseStudies.view(
+                    CASE_STUDIES_TYPE.ACCORPLUS,
+                  )}
                 >
                   <a>
                     <DropdownItem
@@ -148,7 +150,7 @@ const Header = () => {
                   </a>
                 </Link>
 
-                <Link href={PATH_CONFIG.salary}>
+                <Link href={PATH_CONFIG.resources.calculator}>
                   <a>
                     <DropdownItem
                       title='Vietnam Calculator'

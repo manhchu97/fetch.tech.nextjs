@@ -50,7 +50,10 @@ const CaseStudiesSection = ({
                   const isActive = slug === type
 
                   return (
-                    <Link href={PATH_CONFIG.caseStudy.view(type)} key={index}>
+                    <Link
+                      href={PATH_CONFIG.resources.caseStudies.view(type)}
+                      key={index}
+                    >
                       <a
                         className={clsx({
                           'subtitle1 tab-title': true,

@@ -15,11 +15,15 @@ export const PATH_CONFIG = {
     salary: path(ROOT_PATH, 'services/salary'),
     view: (id: number): string => path(ROOT_PATH, `services/${id}`),
   },
-  ourStory: path(ROOT_PATH, 'ourstory'),
-  salary: path(ROOT_PATH, 'salary'),
-  caseStudy: {
-    root: path(ROOT_PATH, 'case-studies'),
-    view: (slug: string): string => path(ROOT_PATH, `case-studies/${slug}`),
+  resources: {
+    root: path(ROOT_PATH, 'resources'),
+    ourStory: path(ROOT_PATH, 'resources/ourstory'),
+    caseStudies: {
+      root: path(ROOT_PATH, 'resources/case-studies'),
+      view: (slug: string): string =>
+        path(ROOT_PATH, `resources/case-studies/${slug}`),
+    },
+    calculator: path(ROOT_PATH, 'resources/calculator'),
   },
   contact: path(ROOT_PATH, 'contact'),
   faq: path(ROOT_PATH, 'faq'),
