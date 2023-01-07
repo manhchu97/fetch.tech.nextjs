@@ -9,13 +9,13 @@
   margin-bottom: 16px;
 
   @include screen-down(lg) {
-    font-size: 48px !important;
-    line-height: 55px !important;
+    font-size: 48px;
+    line-height: 55px;
   }
 
   @include screen-down(sm) {
-    font-size: 32px !important;
-    line-height: 44px !important;
+    font-size: 32px;
+    line-height: 44px;
   }
 
   @include screen-down(xs) {
@@ -31,13 +31,13 @@
   letter-spacing: -1px;
 
   @include screen-down(md) {
-    font-size: 36px !important;
-    line-height: 45px !important;
+    font-size: 36px;
+    line-height: 45px;
   }
 
   @include screen-down(sm) {
-    font-size: 22px !important;
-    line-height: 30px !important;
+    font-size: 22px;
+    line-height: 30px;
     letter-spacing: -0.25px;
   }
 }
@@ -48,18 +48,18 @@
   line-height: 45px;
 
   @include screen-down(xl) {
-    font-size: 26px !important;
+    font-size: 26px;
     line-height: 30px;
   }
 
   @include screen-down(md) {
-    font-size: 22px !important;
-    line-height: 30px !important;
+    font-size: 22px;
+    line-height: 30px;
     letter-spacing: -0.25px;
 
     &--maintain {
-      font-size: 36px !important;
-      line-height: 45px !important;
+      font-size: 36px;
+      line-height: 45px;
     }
   }
 }
@@ -72,7 +72,7 @@
   margin-bottom: 24px;
 
   @include screen-down(sm) {
-    font-size: 22px !important;
+    font-size: 22px;
   }
 }
 
@@ -84,18 +84,18 @@
 
   @include screen-down(sm) {
     font-family: 'Gilroy-Regular';
-    font-size: 20px !important;
-    line-height: 28px !important;
+    font-size: 20px;
+    line-height: 28px;
 
     &--maintain {
-      font-size: 22px !important;
-      font-family: 'Gilroy-SemiBold' !important;
-      line-height: 30px !important;
+      font-size: 22px;
+      font-family: 'Gilroy-SemiBold';
+      line-height: 30px;
       color: $heading-color;
     }
 
     &--bold {
-      font-family: 'Gilroy-SemiBold' !important;
+      font-family: 'Gilroy-SemiBold';
     }
   }
 }
