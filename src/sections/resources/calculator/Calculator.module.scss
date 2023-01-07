@@ -1,0 +1,51 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.calculator-contain {
+  :global .calculator-section {
+    background-color: #f9fbfe;
+
+    .ft-container {
+      @include screen-up(xl) {
+        max-width: $max-width-xl;
+      }
+    }
+
+    .calculator-section__footer {
+      background-color: #fff;
+      margin-bottom: 64px;
+
+      .slogan {
+        padding-top: 70px;
+        padding-bottom: 70px;
+
+        @include screen-up(sm) {
+          padding-top: 80px;
+          padding-bottom: 80px;
+        }
+
+        @include screen-up(lg) {
+          padding-top: 120px;
+        }
+
+        .div-center {
+          margin: 0;
+
+          .h2 {
+            margin-bottom: 32px;
+
+            @include screen-down(lg) {
+              font-size: 36px;
+            }
+
+            @include screen-down(sm) {
+              font-size: 32px;
+              line-height: 43px;
+              letter-spacing: -0.5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

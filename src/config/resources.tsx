@@ -6,6 +6,15 @@ export const CASE_STUDIES_TYPE: CaseStudiesTypeProps = {
   CHART_DESK: 'chartdesk',
 }
 
+export const CACULATOR_SLICK_DATA = {
+  srcAvatar: '/images/resources/calculator/avatar.png',
+  name: 'Aleksandar Nikolic',
+  role: 'Freelance Developer',
+  location: 'Hanoi, Vietnam',
+  desc: 'Change the color to match your brand or vision, add your logo, choose the perfect thumbnail, remove the playbar.',
+  features: ['Showcase and embed your work', 'Publish across social channels'],
+}
+
 // Our Story
 export const DATA_OUR_STORY_PAGE = {
   header: {
