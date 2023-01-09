@@ -94,6 +94,12 @@ const Autocomplete = ({
             onFocus={handleFocusInput}
             value={searchValue}
             onChange={handleChangeSearchInput}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddOption()
+                e.preventDefault()
+              }
+            }}
             autoComplete='off'
           />
 

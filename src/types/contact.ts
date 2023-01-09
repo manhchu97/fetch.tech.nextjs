@@ -1,3 +1,10 @@
+export interface IStorageQuizData {
+  currentPriority: number
+  clientId: number | string
+  type: string
+  listResultAnswers: ResultAnswer[]
+}
+
 export interface Answer {
   id: string
   title: string
@@ -15,6 +22,7 @@ export interface QuestionAnswers {
   title: string
   slug: string
   type: string
+  flexLabel: boolean
   priority: number
   createdAt: string
   updatedAt: string
@@ -34,12 +42,14 @@ export interface IListQuestionsResponse {
 export interface ResultAnswer {
   questionId: string
   answer?: string | null
+  answerRaw?: string[] | null
   inputData: QuestionAnswers
 }
 
 export interface IUpdateAnswerByQuestion {
   currentStep: number
   answer: string | null
+  answerRaw: string | null
 }
 
 export interface INextQuestionValue {

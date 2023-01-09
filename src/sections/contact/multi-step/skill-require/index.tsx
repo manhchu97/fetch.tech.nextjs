@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
+import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
+import * as Yup from 'yup'
 
 import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
@@ -22,7 +24,7 @@ import { replaceAll } from '@/utils/replace'
 import styles from './SkillRequire.module.scss'
 
 type SkillRequiredForm = {
-  skill: { label: string; value: string }[]
+  skills: { label: string; value: string }[]
 }
 
 const SkillRequireStep = (): React.ReactElement => {
@@ -30,6 +32,7 @@ const SkillRequireStep = (): React.ReactElement => {
     skills,
     listResultAnswers,
     handleNextStep,
+    saveAnswerByQuestion,
     updateAnswerByQuestion,
     getNextQuestionValue,
     handlePreviousStep,
@@ -69,14 +72,34 @@ const SkillRequireStep = (): React.ReactElement => {
     }))
   }, [listAllSkill])
 
-  const { handleSubmit, watch, control, setValue, getValues, reset } =
-    useForm<SkillRequiredForm>({
-      defaultValues: {
-        skill: [],
-      },
-    })
+  const validationSchema = Yup.object().shape({
+    skills: Yup.array()
+      .of(
+        Yup.object().shape({
+          value: Yup.string(),
+          label: Yup.string(),
+        }),
+      )
+      .min(1, 'Please select your skills requirement!'),
+  })
 
-  const selectedSkills = watch('skill')
+  const {
+    handleSubmit,
+    watch,
+    control,
+    setValue,
+    getValues,
+    reset,
+    clearErrors,
+    formState: { errors },
+  } = useForm<SkillRequiredForm>({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      skills: [],
+    },
+  })
+
+  const selectedSkills = watch('skills')
 
   const handleSelectSkillMenuItem = (
     isParent: boolean,
@@ -90,16 +113,18 @@ const SkillRequireStep = (): React.ReactElement => {
 
         return prev
       })
+
       return
     }
 
-    setValue('skill', [...getValues('skill'), { value: id, label: title }])
+    clearErrors()
+    setValue('skills', [...getValues('skills'), { value: id, label: title }])
   }
 
   const handleRemoveSkillSelected = (item: ISkillOption) => {
     setValue(
-      'skill',
-      getValues('skill').filter((skill) => skill.value !== item.value),
+      'skills',
+      getValues('skills').filter((skill) => skill.value !== item.value),
     )
   }
 
@@ -117,24 +142,42 @@ const SkillRequireStep = (): React.ReactElement => {
 
   const handleSubmitQuestion = useCallback(
     (data: SkillRequiredForm) => {
-      const { skill } = data
+      const { skills } = data
+
+      const skillsFormat = skills.map((item) => item.label).toString() || ''
 
       updateAnswerByQuestion({
         currentStep,
-        answer: skill.map((item) => item.label).toString() || '',
+        answer: skillsFormat,
+        answerRaw: skillsFormat,
       })
 
-      handleNextStep()
-      reset()
+      try {
+        saveAnswerByQuestion()
+
+        handleNextStep()
+        reset()
+      } catch (error) {
+        errorToast(
+          (error as Error)?.message || 'Fail to submit quiz! Please try again',
+        )
+      }
     },
-    [handleNextStep, updateAnswerByQuestion, currentStep, reset],
+    [
+      saveAnswerByQuestion,
+      handleNextStep,
+      updateAnswerByQuestion,
+      currentStep,
+      reset,
+      errorToast,
+    ],
   )
 
   useEffect(() => {
     if (!answer) return
 
     setValue(
-      'skill',
+      'skills',
       answer.split(',').map((label: string) => ({
         label,
         value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
@@ -146,13 +189,19 @@ const SkillRequireStep = (): React.ReactElement => {
   const isSelectedSkillScrollable = selectedSkills.length > 8
 
   return (
-    <div
-      className={styles['skill-require-step-container']}
-      onSubmit={handleSubmit(handleSubmitQuestion)}
-    >
-      <form className='answer-form-container'>
+    <div className={styles['skill-require-step-container']}>
+      <form
+        onSubmit={handleSubmit(handleSubmitQuestion)}
+        className='answer-form-container'
+      >
         <div className='question-answers-container mb-5'>
           <div className='container'>
+            {!!errors?.skills?.message && (
+              <div className='alert alert-danger' role='alert'>
+                {errors?.skills?.message}
+              </div>
+            )}
+
             <div className='h5 question-content'>
               {questionTitle ||
                 'What skills would you like to see in your new hire?'}
@@ -163,7 +212,7 @@ const SkillRequireStep = (): React.ReactElement => {
                 <div className='answers-container mb-4'>
                   <div className='answers-helper'>
                     <Controller
-                      name='skill'
+                      name='skills'
                       control={control}
                       render={({ field: { onChange, value } }) => (
                         <Autocomplete

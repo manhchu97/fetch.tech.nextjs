@@ -20,3 +20,5 @@ export const REGEX_SPECIAL_CHARS = /[.*+?^${}()|[\]\\]/g
 // Add '\' charater to the beginning of the string
 // Ex: '.*' => '\.\*'
 export const REGEX_WHOLE_MATCH = '\\$&'
+
+export const REGEX_REMOVE_HTML = /(<([^>]+)>)/gi

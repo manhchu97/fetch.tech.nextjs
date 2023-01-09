@@ -8,6 +8,11 @@ import * as Yup from 'yup'
 import { PHONE_COUNTRIES } from '@/config/phone'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
+
+import { API_SUBMIT_CLIENT_INFO } from '@/routes/api'
+
+import { _postApi } from '@/utils/axios'
 
 import styles from './ClientInfo.module.scss'
 
@@ -30,11 +35,12 @@ const defaultValues: ClientInfoSubmitForm = {
   contactName: '',
   email: '',
   phone: '65',
-  acceptTerms: true,
+  acceptTerms: false,
 }
 
 const ClientInfoStep = (): React.ReactElement => {
-  const { handleNextStep } = useFormStepContext()
+  const { errorToast } = useToastContext()
+  const { handleNextStep, handleGetClientAnswers } = useFormStepContext()
   const [countryCode, setCountryCode] = useState('')
 
   const validationSchema = Yup.object().shape({
@@ -76,9 +82,30 @@ const ClientInfoStep = (): React.ReactElement => {
     resolver: yupResolver(validationSchema),
   })
 
-  const onSubmit = (data: ClientInfoSubmitForm) => {
-    console.log(JSON.stringify(data, null, 2))
-    handleNextStep()
+  const onSubmit = async (data: ClientInfoSubmitForm) => {
+    try {
+      const { companyName } = data
+      const response = await _postApi(API_SUBMIT_CLIENT_INFO, {
+        ...data,
+        name: companyName,
+      })
+
+      const { data: clientData } = response || {}
+      const { success, clientId, result, message } = clientData
+
+      if (!success) {
+        throw new Error(message)
+      }
+
+      handleGetClientAnswers(clientId, result)
+
+      if (!result) handleNextStep()
+    } catch (error) {
+      errorToast(
+        (error as Error).message ||
+          'Something went wrong! Please try again later',
+      )
+    }
   }
 
   return (

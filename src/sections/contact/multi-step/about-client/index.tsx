@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import dynamic from 'next/dynamic'
@@ -7,9 +7,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 
+import { REGEX_REMOVE_HTML } from '@/config/global'
+
 import ClientAction from '@/components/client-action'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
+
+import { INextQuestionValue } from '@/types/contact'
 
 import styles from './AboutClient.module.scss'
 
@@ -24,15 +29,27 @@ const defaultValues: EditorSubmitForm = {
 }
 
 const AboutClientStep = (): React.ReactElement => {
-  const [isEditorContentEmpty, setIsEditorContentEmpty] =
-    useState<boolean>(false)
-  const { handleNextStep } = useFormStepContext()
+  const { errorToast } = useToastContext()
+  const {
+    handleNextStep,
+    handlePreviousStep,
+    getNextQuestionValue,
+    updateAnswerByQuestion,
+    saveAnswerByQuestion,
+  } = useFormStepContext()
+
+  const data: INextQuestionValue | null = getNextQuestionValue()
+  const { currentStep = 0, resultAnswer } = data || {}
+  const { answerRaw, inputData } = resultAnswer || {}
+  const { title: questionTitle = '' } = inputData || {}
 
   const EditorShema = Yup.object().shape({
     content: Yup.string().required('Content is required'),
   })
 
   const {
+    setValue,
+    reset,
     handleSubmit,
     control,
     formState: { errors },
@@ -41,13 +58,46 @@ const AboutClientStep = (): React.ReactElement => {
     resolver: yupResolver(EditorShema),
   })
 
-  const onSubmit = (data: EditorSubmitForm) => {
-    setIsEditorContentEmpty(
-      data.content.replace(/<(.|\n)*?>/g, '').trim().length === 0,
-    )
+  const onSubmit = useCallback(
+    (data: EditorSubmitForm) => {
+      const { content } = data
 
-    handleNextStep()
-  }
+      updateAnswerByQuestion({
+        currentStep,
+        answer: content.replace(REGEX_REMOVE_HTML, ''),
+        answerRaw: content || '',
+      })
+
+      try {
+        saveAnswerByQuestion()
+        
+        handleNextStep()
+        reset()
+      } catch (error) {
+        errorToast(
+          (error as Error)?.message || 'Fail to submit quiz! Please try again',
+        )
+      }
+    },
+    [
+      saveAnswerByQuestion,
+      handleNextStep,
+      updateAnswerByQuestion,
+      currentStep,
+      reset,
+      errorToast,
+    ],
+  )
+
+  const handlePreviousQuestion = useCallback(() => {
+    handlePreviousStep()
+  }, [handlePreviousStep])
+
+  useEffect(() => {
+    if (!answerRaw) return
+
+    setValue('content', answerRaw[0])
+  }, [answerRaw, setValue])
 
   return (
     <div className={clsx('ft-full-screen', styles['about-client-container'])}>
@@ -55,19 +105,18 @@ const AboutClientStep = (): React.ReactElement => {
         onSubmit={handleSubmit(onSubmit)}
         className='about-client-form-container'
       >
-          <div className='about-client-title h5'>
-            Can you describe a little bit about your company and the project you
-            need to hire by Fetch?
-          </div>    
+        {!!errors?.content?.message && (
+          <div className='alert alert-danger' role='alert'>
+            {errors?.content?.message}
+          </div>
+        )}
 
-        <div
-          className={clsx(
-            { 'editor-section': true },
-            {
-              'is-invalid': errors?.content || isEditorContentEmpty,
-            },
-          )}
-        >
+        <div className='about-client-title h5'>
+          {questionTitle ||
+            'Can you describe a little bit about your company and the project you need to hire by Fetch?'}
+        </div>
+
+        <div className='editor-section'>
           <Controller
             name='content'
             control={control}
@@ -82,17 +131,7 @@ const AboutClientStep = (): React.ReactElement => {
           />
         </div>
 
-        <div
-          className={
-            errors?.content || isEditorContentEmpty
-              ? 'invalid-content'
-              : 'valid-content'
-          }
-        >
-          {errors.content?.message || 'Content is required'}
-        </div>
-
-        <ClientAction />
+        <ClientAction onClickPreviousButton={handlePreviousQuestion} />
       </form>
     </div>
   )

@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
 
 import ClientAction from '@/components/client-action'
 import ClientMessage from '@/components/client-message'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
 
 import { Answer, INextQuestionValue } from '@/types/contact'
 
@@ -15,7 +19,10 @@ type QuestionAnswerSubmitForm = {
 }
 
 const QuestionAnswerStep = (): React.ReactElement => {
+  const { errorToast } = useToastContext()
   const {
+    listResultAnswers,
+    saveAnswerByQuestion,
     handleNextStep,
     updateAnswerByQuestion,
     getNextQuestionValue,
@@ -25,11 +32,36 @@ const QuestionAnswerStep = (): React.ReactElement => {
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
   const { answer, inputData } = resultAnswer || {}
-  const { title: questionTitle = '', answers: listAnswers = [] } =
-    inputData || {}
+  const {
+    title: questionTitle = '',
+    answers: listAnswers = [],
+    flexLabel,
+  } = inputData || {}
 
-  const { register, handleSubmit, resetField, setValue } =
-    useForm<QuestionAnswerSubmitForm>()
+  const gridQuestionResult = listResultAnswers[0]
+
+  const gridAnswerResult = useMemo(
+    () =>
+      gridQuestionResult.inputData.answers.find(
+        (answer) => answer.id === gridQuestionResult.answer,
+      ),
+    [gridQuestionResult],
+  )
+
+  const validationSchema = Yup.object().shape({
+    answer: Yup.string().nullable().required('Please select your answer!'),
+  })
+
+  const {
+    register,
+    clearErrors,
+    handleSubmit,
+    resetField,
+    setValue,
+    formState: { errors },
+  } = useForm<QuestionAnswerSubmitForm>({
+    resolver: yupResolver(validationSchema),
+  })
 
   useEffect(() => {
     setValue('answer', answer || '')
@@ -42,17 +74,34 @@ const QuestionAnswerStep = (): React.ReactElement => {
       updateAnswerByQuestion({
         currentStep,
         answer: answerId,
+        answerRaw: answerId,
       })
 
-      handleNextStep()
-      resetField('answer')
+      try {
+        saveAnswerByQuestion()
+
+        handleNextStep()
+        resetField('answer')
+      } catch (error) {
+        errorToast(
+          (error as Error)?.message || 'Fail to submit quiz! Please try again',
+        )
+      }
     },
-    [handleNextStep, updateAnswerByQuestion, currentStep, resetField],
+    [
+      handleNextStep,
+      updateAnswerByQuestion,
+      currentStep,
+      resetField,
+      saveAnswerByQuestion,
+      errorToast,
+    ],
   )
 
   const handlePreviousQuestion = useCallback(() => {
+    clearErrors()
     handlePreviousStep()
-  }, [handlePreviousStep])
+  }, [clearErrors, handlePreviousStep])
 
   return (
     <div className={styles['question-answer-step-container']}>
@@ -62,12 +111,30 @@ const QuestionAnswerStep = (): React.ReactElement => {
         className='answers-form-container'
         onSubmit={handleSubmit(handleSubmitQuestion)}
       >
-        <div className={'question-answers-container'}>
-          <div className='h5 question-content'>{questionTitle}</div>
+        <div className='question-answers-container'>
+          {!!errors?.answer?.message && (
+            <div className='alert alert-danger' role='alert'>
+              {errors?.answer?.message}
+            </div>
+          )}
+
+          <div className='h5 question-content'>
+            {questionTitle}
+            {flexLabel && (
+              <span className='question-flex-content'>
+                {`${gridAnswerResult?.title.toLocaleLowerCase()}?`}
+              </span>
+            )}
+          </div>
 
           <div className='answers-list'>
             {(listAnswers || []).map(
-              ({ priority, title: answerTitle, id: answerId = '' }: Answer) => (
+              ({
+                priority,
+                title: answerTitle,
+                description,
+                id: answerId = '',
+              }: Answer) => (
                 <div className='answers-item' key={priority}>
                   <input
                     id={`answers.${priority}`}
@@ -81,7 +148,7 @@ const QuestionAnswerStep = (): React.ReactElement => {
                     htmlFor={`answers.${priority}`}
                     className='answers-label'
                   >
-                    {answerTitle}
+                    {`${answerTitle} ${description ? `(${description})` : ''}`}
                   </label>
                 </div>
               ),

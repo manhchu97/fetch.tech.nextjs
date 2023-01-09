@@ -1,6 +1,14 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
-import { COMPONENT_TYPE } from '@/config/contact'
+import { COMPONENT_TYPE, QUIZ_RESULT_KEY } from '@/config/contact'
+
+import { API_SUBMIT_QUIZ } from '@/routes/api'
 
 import {
   INextQuestionValue,
@@ -10,18 +18,25 @@ import {
   ResultAnswer,
 } from '@/types/contact'
 
+import { _postApi } from '@/utils/axios'
+import { getDataFromStorage, saveDataToStorage } from '@/utils/storage'
+
 type FormStepContextType = {
   skills: ISkillResponse
   questions: QuestionAnswers[]
+  clientId: string | number
   listResultAnswers: ResultAnswer[]
   componentType: string
   handleNextStep: () => undefined
   updateAnswerByQuestion: ({
     currentStep,
     answer,
+    answerRaw,
   }: IUpdateAnswerByQuestion) => void
   getNextQuestionValue: () => INextQuestionValue | null
   handlePreviousStep: () => void | undefined
+  handleGetClientAnswers: (id: string | number, result?: ResultAnswer[]) => void
+  saveAnswerByQuestion: () => void
 }
 
 const FormStepContext = createContext<FormStepContextType | null>(null)
@@ -37,11 +52,22 @@ const FormStepProvider = ({
   questions,
   skills,
 }: IFormStepProvider) => {
+  const [clientId, setClientId] = useState<string | number>('')
   const [currentPriority, setCurrentPriority] = useState<number>(0)
-  const [listResultAnswers, setListResultAnsers] = useState<ResultAnswer[]>([])
+  const [listResultAnswers, setListResultAnswers] = useState<ResultAnswer[]>([])
   const [componentType, setComponentType] = useState<string>(
     COMPONENT_TYPE.INIT,
   )
+
+  useEffect(() => {
+    const { clientId, currentPriority, listResultAnswers, questionType } =
+      getDataFromStorage(QUIZ_RESULT_KEY) || {}
+
+    setClientId(clientId || '')
+    setCurrentPriority(currentPriority || 0)
+    setListResultAnswers(listResultAnswers || [])
+    setComponentType(questionType || COMPONENT_TYPE.INIT)
+  }, [])
 
   const getNextQuestionValue = useCallback((): INextQuestionValue | null => {
     const length = listResultAnswers.length
@@ -55,15 +81,33 @@ const FormStepProvider = ({
   }, [listResultAnswers])
 
   const updateAnswerByQuestion = useCallback(
-    ({ currentStep, answer }: IUpdateAnswerByQuestion): void => {
+    ({ currentStep, answer, answerRaw }: IUpdateAnswerByQuestion): void => {
       listResultAnswers[currentStep] = {
         ...listResultAnswers[currentStep],
         answer,
+        answerRaw: [answerRaw || ''],
       }
-      setListResultAnsers(listResultAnswers)
+      setListResultAnswers(listResultAnswers)
     },
     [listResultAnswers],
   )
+
+  const saveAnswerByQuestion = useCallback(async () => {
+    saveDataToStorage(QUIZ_RESULT_KEY, {
+      currentPriority: currentPriority,
+      clientId,
+      questionType:
+        listResultAnswers[listResultAnswers.length - 1].inputData.type,
+      listResultAnswers,
+    })
+
+    const response = await _postApi(API_SUBMIT_QUIZ, {
+      clientId,
+      result: listResultAnswers,
+    })
+
+    if (!response?.data?.success) throw new Error(response?.data?.message)
+  }, [clientId, listResultAnswers, currentPriority])
 
   const handlePreviousStep = useCallback((): void | undefined => {
     // Removes the last element from an array
@@ -78,7 +122,7 @@ const FormStepProvider = ({
 
     setComponentType(type)
     setCurrentPriority(priority)
-    setListResultAnsers(listResultAnswers)
+    setListResultAnswers(listResultAnswers)
   }, [listResultAnswers])
 
   const handleNextStep = useCallback((): undefined => {
@@ -98,7 +142,7 @@ const FormStepProvider = ({
 
       setComponentType(type)
       setCurrentPriority(priority)
-      setListResultAnsers((prev) => [...prev, resultAnswer])
+      setListResultAnswers((prev) => [...prev, resultAnswer])
 
       return
     }
@@ -127,7 +171,7 @@ const FormStepProvider = ({
 
       setComponentType(type)
       setCurrentPriority(priority)
-      setListResultAnsers((prev) => [...prev, resultAnswer])
+      setListResultAnswers((prev) => [...prev, resultAnswer])
       return
     }
 
@@ -160,29 +204,58 @@ const FormStepProvider = ({
 
     setComponentType(type)
     setCurrentPriority(priority)
-    setListResultAnsers((prev) => [...prev, resultAnswer])
+    setListResultAnswers((prev) => [...prev, resultAnswer])
   }, [listResultAnswers, questions, currentPriority])
+
+  const handleGetClientAnswers = useCallback(
+    (id: string | number, answers?: ResultAnswer[]) => {
+      setClientId(id)
+
+      if (answers) {
+        const { inputData } = answers[answers.length - 1]
+        const { priority, type } = inputData
+
+        setListResultAnswers(answers)
+        setCurrentPriority(priority)
+        setComponentType(type)
+
+        saveDataToStorage(QUIZ_RESULT_KEY, {
+          currentPriority: priority,
+          clientId: id,
+          questionType: type,
+          listResultAnswers: answers,
+        })
+      }
+    },
+    [],
+  )
 
   const ctx = useMemo(
     () => ({
       questions,
       skills,
+      clientId,
       listResultAnswers,
       componentType,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
       handlePreviousStep,
+      handleGetClientAnswers,
+      saveAnswerByQuestion,
     }),
     [
       questions,
       skills,
+      clientId,
       listResultAnswers,
       componentType,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
       handlePreviousStep,
+      handleGetClientAnswers,
+      saveAnswerByQuestion,
     ],
   )
 

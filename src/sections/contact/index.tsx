@@ -1,17 +1,35 @@
 import React from 'react'
 
+import dynamic from 'next/dynamic'
+
 import { COMPONENT_TYPE } from '@/config/contact'
 
 import { useFormStepContext } from '@/context/FormStepContext'
 
-import AboutClient from '@/sections/contact/multi-step/about-client'
 import ClientInfo from '@/sections/contact/multi-step/client-info'
-import CustomerSupport from '@/sections/contact/multi-step/customer-support'
-import HireInfo from '@/sections/contact/multi-step/hire-info'
-import QuestionAnswer from '@/sections/contact/multi-step/question-answer'
-import RequirementStep from '@/sections/contact/multi-step/requirement'
-import ResponsibiliteStep from '@/sections/contact/multi-step/responsibilite'
-import SkillRequire from '@/sections/contact/multi-step/skill-require'
+
+const AboutClient = dynamic(
+  () => import('@/sections/contact/multi-step/about-client'),
+)
+const CustomerSupport = dynamic(
+  () => import('@/sections/contact/multi-step/customer-support'),
+)
+const HireInfo = dynamic(
+  () => import('@/sections/contact/multi-step/hire-info'),
+)
+const QuestionAnswer = dynamic(
+  () => import('@/sections/contact/multi-step/question-answer'),
+)
+const ResponsibiliteStep = dynamic(
+  () => import('@/sections/contact/multi-step/responsibilite'),
+)
+const SkillRequire = dynamic(
+  () => import('@/sections/contact/multi-step/skill-require'),
+)
+
+const RequirementStep = dynamic(
+  () => import('@/sections/contact/multi-step/requirement'),
+)
 
 type sectionInstances =
   | typeof ClientInfo
@@ -25,7 +43,6 @@ const sectionComponents = {
   [COMPONENT_TYPE.INIT]: ClientInfo,
   [COMPONENT_TYPE.GRID]: HireInfo,
   [COMPONENT_TYPE.RADIO]: QuestionAnswer,
-  [COMPONENT_TYPE.RADIO_FLEX_LABEL]: QuestionAnswer,
   [COMPONENT_TYPE.LABEL]: CustomerSupport,
   [COMPONENT_TYPE.TREE]: SkillRequire,
   [COMPONENT_TYPE.TEXT]: AboutClient,

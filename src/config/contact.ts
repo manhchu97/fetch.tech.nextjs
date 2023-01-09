@@ -6,7 +6,6 @@ export const COMPONENT_TYPE: ObjProps = {
   INIT: 'init',
   GRID: 'grid',
   RADIO: 'radio',
-  RADIO_FLEX_LABEL: 'radio_flex_label',
   TREE: 'tree',
   TEXT: 'text',
   CHECKBOX_REPONSIBILITY: 'checkbox_responsibilities',
@@ -31,3 +30,5 @@ export const ADDITIONAL_COMPONENTS: ObjProps = {
 }
 
 export const TOTAL_COLUMN_PER_ROW = 3
+
+export const QUIZ_RESULT_KEY = 'QUIZ_RESULT'

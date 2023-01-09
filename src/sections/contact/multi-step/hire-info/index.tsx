@@ -9,14 +9,20 @@ import { TOTAL_COLUMN_PER_ROW } from '@/config/contact'
 import ClientMessage from '@/components/client-message'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
 
 import { Answer, INextQuestionValue } from '@/types/contact'
 
 import styles from './HireInfo.module.scss'
 
 const HireInfoStep = (): React.ReactElement => {
-  const { handleNextStep, updateAnswerByQuestion, getNextQuestionValue } =
-    useFormStepContext()
+  const { errorToast } = useToastContext()
+  const {
+    saveAnswerByQuestion,
+    handleNextStep,
+    updateAnswerByQuestion,
+    getNextQuestionValue,
+  } = useFormStepContext()
 
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
@@ -29,11 +35,25 @@ const HireInfoStep = (): React.ReactElement => {
       updateAnswerByQuestion({
         currentStep,
         answer: answerId,
+        answerRaw: answerId,
       })
 
-      handleNextStep()
+      try {
+        saveAnswerByQuestion()
+        handleNextStep()
+      } catch (error) {
+        errorToast(
+          (error as Error)?.message || 'Fail to submit quiz! Please try again',
+        )
+      }
     },
-    [handleNextStep, updateAnswerByQuestion, currentStep],
+    [
+      handleNextStep,
+      updateAnswerByQuestion,
+      saveAnswerByQuestion,
+      errorToast,
+      currentStep,
+    ],
   )
 
   return (
