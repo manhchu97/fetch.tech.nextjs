@@ -66,7 +66,7 @@ const Employee = () => {
                   <div
                     ref={ref}
                     className={clsx({
-                      'par-grey-color': true,
+                      h6: true,
                       animate__animated: true,
                       animate__fast: true,
                       animate__lightSpeedInLeft: animate,
@@ -373,7 +373,7 @@ const Employee = () => {
                         Pursue your profession with us today
                       </div>
 
-                      <button className='btn-find-more'>Learn More</button>
+                      <button className='btn-find-more'>Find out more</button>
                     </div>
                   )}
                 />
