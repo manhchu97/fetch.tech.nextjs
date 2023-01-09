@@ -5,6 +5,9 @@
   margin-bottom: 60px;
 
   :global .container {
+    padding-left: 16px;
+    padding-right: 16px;
+
     @include screen-up(xl) {
       max-width: $max-width-xl;
     }
@@ -43,6 +46,7 @@
         font-size: 20px;
         line-height: 30px;
         margin-bottom: 40px;
+        margin-top: 30px;
         color: $grey-color;
 
         @include screen-down(lg) {
@@ -56,12 +60,28 @@
         color: #17274e;
       }
 
+      .h3 {
+        @include screen-down(md) {
+          font-size: 26px;
+          line-height: 30px;
+        }
+      }
+
       .h2 {
         margin-bottom: 16px;
+
+        @include screen-down(sm) {
+          font-size: 36px;
+          line-height: 45px;
+        }
       }
 
       .h5 {
         margin-bottom: 40px;
+
+        @include screen-down(md) {
+          font-size: 22px;
+        }
       }
 
       .customer-info-container {
