@@ -47,7 +47,7 @@ const ServiceDetailPage = ({
   serviceBody,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title=''>
+    <Page title='' overrideHeaderColor>
       <ServiceSections header={header} serviceBody={serviceBody} />
     </Page>
   )
