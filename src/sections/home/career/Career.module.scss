@@ -1,0 +1,213 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.Career {
+  &__search {
+    margin: 0 10%;
+    padding: 0 50px;
+    background: #ffffff;
+    border-radius: 15px;
+    height: 184px;
+    position: relative;
+    top: -92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    filter: drop-shadow(0px 6px 12px rgba(19, 42, 151, 0.1));
+
+    &__img {
+      position: relative;
+      bottom: -30px;
+      width: 300px;
+    }
+
+    &__content {
+      width: calc(100% - 300px - 125px);
+
+      h6 {
+        color: rgb(9, 23, 56);
+        margin-top: 16px;
+        font-size: 19px;
+      }
+
+      h3 {
+        font-size: 36px;
+        line-height: 125%;
+      }
+    }
+
+    button {
+      padding: 17px 25px;
+      outline: none;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Gilroy-SemiBold';
+      font-size: 18px;
+      line-height: 20px;
+      text-align: center;
+      background: #091738;
+      color: #ffffff;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    @include screen-down(lg) {
+      flex-direction: column;
+      height: auto;
+      top: 0;
+      margin: 16px 25px 65px;
+      padding: 40px 13px;
+      text-align: center;
+
+      &__img {
+        bottom: unset;
+        width: auto;
+        margin-bottom: 20px;
+      }
+
+      &__content {
+        width: 100%;
+      }
+
+      button {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &__review {
+    margin-bottom: 60px;
+
+    > h6 {
+      color: #a4b7c8;
+      margin-bottom: 50px;
+    }
+
+    &__content {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      font-size: 36px;
+      line-height: 125%;
+    }
+  }
+
+  &__info {
+    margin: 50px 10%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include screen-down(md) {
+      margin: 150px 12px;
+      height: 450px;
+    }
+
+    &__top {
+      max-width: 540px;
+      text-align: center;
+      margin: 0 auto 25px;
+
+      h3 {
+        margin-bottom: 25px;
+      }
+
+      h6 {
+        color: rgb(164, 183, 200);
+        font-size: 19px;
+      }
+    }
+
+    &__bottom {
+      &__item {
+        background-color: #fff;
+        box-shadow: 0px 30px 25px rgb(23 39 78 / 11%);
+        border-radius: 12px;
+        text-align: center;
+        overflow: hidden;
+
+        h2 {
+          font-family: Gilroy-Light;
+          line-height: 95px;
+          text-align: center;
+          letter-spacing: -1px;
+          color: #273a5f;
+          // override global css
+          display: block !important;
+        }
+
+        h6 {
+          font-size: 19px;
+          margin-bottom: 25px;
+        }
+
+        &--mobile {
+          min-height: 207px;
+          display: flex !important;
+          flex-direction: column;
+          text-align: center;
+          justify-content: center;
+          margin: 0px 30px 50px;
+          width: unset !important;
+
+          h6 {
+            margin: unset;
+          }
+
+          h2 {
+            font-size: 48px !important;
+            line-height: 95px !important;
+          }
+        }
+      }
+    }
+  }
+  //override dot in react slick
+  :global(li.slick-active) div {
+    background-color: #17274e !important;
+  }
+}
+
+.card {
+  height: 517px;
+  border-radius: 18px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  margin: 0 25px 50px;
+  overflow: hidden;
+
+  @media (min-width: $lg) and (max-width: 1170px) {
+    height: 600px;
+  }
+
+  @include screen-down(sm) {
+    height: 600px;
+  }
+
+  &__top {
+    background-color: #eef6fa;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__bottom {
+    padding: 40px 12px 22px;
+    height: calc(100% - 200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h6 {
+      font-size: 15px;
+      line-height: 23px;
+      letter-spacing: 0.1px;
+    }
+  }
+}

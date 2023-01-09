@@ -13,10 +13,24 @@ const ReactSlick = ({
   settings,
   ...other
 }: IReactSlickProp): React.ReactElement => {
+  const defaultSettings = {
+    customPaging: () => (
+      <div
+        style={{
+          width: '16px',
+          height: '16px',
+          borderRadius: '50%',
+          backgroundColor: '#a4b7c8',
+        }}
+      ></div>
+    ),
+    ...settings,
+  }
+
   return (
     <div className={styles['react-slick-container']} {...other}>
       <div className='react-slick-inner'>
-        <Slider {...settings}>{children}</Slider>
+        <Slider {...defaultSettings}>{children}</Slider>
       </div>
     </div>
   )

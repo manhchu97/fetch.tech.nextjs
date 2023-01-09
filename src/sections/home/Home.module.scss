@@ -1,0 +1,68 @@
+@import '@/styles/_variables.scss';
+@import '@/styles/_mixins.scss';
+
+@mixin button {
+  padding: 17px 25px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Gilroy-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  @content;
+}
+
+.banner {
+  padding: 100px 10%;
+
+  @include screen-down(md) {
+    padding: 40px 16px;
+  }
+
+  &__left {
+    margin: auto 0;
+
+    h1 {
+      max-width: 80%;
+      margin-bottom: 24px;
+      @include screen-down(sm) {
+        font-size: 32px;
+        line-height: 135%;
+      }
+    }
+
+    h6 {
+      line-height: 30px;
+      margin-bottom: 25px;
+      max-width: 80%;
+    }
+
+    h1,
+    h6 {
+      @include screen-down(lg) {
+        max-width: none;
+      }
+    }
+
+    h1 {
+      @include screen-down(lg) {
+        margin-top: 30px;
+      }
+    }
+
+    button {
+      @include button;
+      color: #ffffff;
+      background-color: #ffbe16;
+      box-shadow: 0px 6px 10px #d2e2ed;
+    }
+  }
+}

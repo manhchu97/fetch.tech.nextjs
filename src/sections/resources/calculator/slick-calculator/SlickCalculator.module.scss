@@ -251,26 +251,10 @@
       margin-bottom: 0 !important;
       margin-top: 38px !important;
 
-      li {
-        width: 16px !important;
-        height: 16px !important;
-        border-radius: 50% !important;
-        background-color: #a4b7c8;
-
-        button {
-          display: block !important;
-          background-color: transparent !important;
-          width: 100% !important;
-          height: 100% !important;
-
-          &::before {
-            color: transparent;
-          }
-        }
-      }
-
       .slick-active {
-        background-color: #17274e !important;
+        > div {
+          background-color: #17274e !important;
+        }
       }
     }
   }
