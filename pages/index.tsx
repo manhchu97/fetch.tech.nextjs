@@ -5,9 +5,13 @@ import BannerContact from '@/components/banner/contact'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
+import HomeSection from '@/sections/home'
+
 const HomePage: NextPage = () => {
   return (
     <Page title=''>
+      <HomeSection />
+
       <BannerContact
         title='Find the perfect fit with Fetch'
         subTitle='Find the perfect fit with Fetch'
