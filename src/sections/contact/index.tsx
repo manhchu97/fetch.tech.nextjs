@@ -33,6 +33,8 @@ const RequirementStep = dynamic(
 
 const Preview = dynamic(() => import('@/sections/contact/multi-step/preview'))
 
+const FinishStep = dynamic(() => import('./multi-step/finish-step'))
+
 type sectionInstances =
   | typeof ClientInfo
   | typeof HireInfo
@@ -40,6 +42,7 @@ type sectionInstances =
   | typeof CustomerSupport
   | typeof SkillRequire
   | typeof AboutClient
+  | typeof FinishStep
 
 const sectionComponents = {
   [COMPONENT_TYPE.INIT]: ClientInfo,
@@ -52,6 +55,7 @@ const sectionComponents = {
   [COMPONENT_TYPE.CHECKBOX_REPONSIBILITY]: ResponsibilitiesStep,
   [COMPONENT_TYPE.CHECKBOX_REQUIREMENT]: RequirementStep,
   [COMPONENT_TYPE.PREVIEW]: Preview,
+  [COMPONENT_TYPE.FINISH]: FinishStep,
 } as {
   [key: string]: sectionInstances
 }

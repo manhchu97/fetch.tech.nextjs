@@ -13,6 +13,7 @@ export const COMPONENT_TYPE: ObjProps = {
   CHECKBOX_REQUIREMENT: 'checkbox_requirements',
   LABEL: 'label',
   PREVIEW: 'preview',
+  FINISH: 'finish',
 }
 
 export const QUESTION_COMPONENTS: ObjProps = {

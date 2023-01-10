@@ -1,6 +1,6 @@
 @import '@/styles/_mixins.scss';
 
-.customer-support-container {
+.client-label-container {
   max-width: 1170px;
   padding: 0 100px;
   margin: 72px auto;
@@ -21,14 +21,18 @@
     background-image: none;
   }
 
-  :global .customer-support-title {
+  :global .client-label-title {
     margin-bottom: 72px;
   }
 
-  :global .customer-support-message {
+  :global .client-label-message {
     font-family: 'Gilroy-Regular';
     font-size: 1.5rem;
     margin-bottom: 160px;
     max-width: 700px;
+  }
+
+  :global .hr {
+    border-top: 1px dashed;
   }
 }
