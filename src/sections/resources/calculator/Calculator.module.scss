@@ -11,8 +11,20 @@
       }
     }
 
+    .calculator-section__header {
+      .service-header__inner__left {
+        & > div {
+          max-width: 570px;
+
+          @include screen-down(xl) {
+            max-width: 480px;
+          }
+        }
+      }
+    }
+
     .calculator-section__main {
-      padding-top: 64px;
+      padding: 64px 0;
       max-width: 1140px;
       margin: auto;
       justify-content: space-between;
@@ -47,6 +59,10 @@
           background-color: #fff;
           color: $heading-color;
         }
+      }
+
+      .flipY-animation {
+        animation: flipInY 0.6s linear;
       }
 
       .btn-selected {
@@ -126,6 +142,8 @@
             border: none;
             border-bottom: 2px solid $grey-color;
             border-radius: 0;
+            outline: none;
+            width: 100%;
 
             &:focus {
               box-shadow: none;

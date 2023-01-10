@@ -148,3 +148,26 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   appearance: textfield;
 }
+
+// color
+.h-color {
+  color: $heading-color;
+}
+
+.p-color {
+  color: $p-color;
+}
+
+.grey-color {
+  color: $grey-color;
+}
+
+// override flipInY
+@keyframes flipInY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
