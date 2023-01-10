@@ -92,12 +92,16 @@ const TalentInfo = () => {
 
 const Talents = () => {
   return (
-    <div
-      className={style['talents']}
-      style={{
-        backgroundImage: 'url("/images/home-page/Map.png")',
-      }}
-    >
+    <div className={style['talents']}>
+      <div className={style['talents__background']}>
+        <Image
+          alt='background'
+          src='/images/home-page/Map.png'
+          layout='fill'
+          objectFit='cover'
+        />
+      </div>
+
       <AnimatiopnOnScrollWrap
         render={(ref, animate) => (
           <div

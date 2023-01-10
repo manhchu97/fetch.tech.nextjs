@@ -126,12 +126,15 @@ const CareerInfo = () => {
   }
 
   return (
-    <div
-      className={clsx(style['Career__info'])}
-      style={{
-        backgroundImage: 'url("/images/home-page/AboutTheme.png")',
-      }}
-    >
+    <div className={clsx(style['Career__info'])}>
+      <Image
+        alt='background'
+        src='/images/home-page/AboutTheme.png'
+        layout='fill'
+        objectFit='cover'
+        objectPosition='top left'
+      />
+
       <div className={clsx(style['Career__info__top'])}>
         <h3 className='h3'>A leader in tech</h3>
 
@@ -352,7 +355,6 @@ const Career = () => {
                 alt='Search Career'
                 width={277}
                 height={184}
-                priority
               />
             </div>
 
@@ -368,7 +370,6 @@ const Career = () => {
                 alt='Search Career'
                 width={68}
                 height={68}
-                priority
               />
             </div>
 

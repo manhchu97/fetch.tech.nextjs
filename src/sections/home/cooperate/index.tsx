@@ -99,7 +99,6 @@ const Cooperate = () => {
                     src='/images/home-page/Customer1.png'
                     width={93}
                     height={46}
-                    priority
                     alt='customer'
                   />
                 </div>
@@ -111,7 +110,6 @@ const Cooperate = () => {
                     src='/images/home-page/Customer2.png'
                     width={55}
                     height={46}
-                    priority
                     alt='customer'
                   />
                 </div>
@@ -123,7 +121,6 @@ const Cooperate = () => {
                     src='/images/home-page/Customer3.png'
                     width={99}
                     height={27}
-                    priority
                     alt='customer'
                   />
                 </div>
@@ -135,7 +132,6 @@ const Cooperate = () => {
                     src='/images/home-page/Customer4.png'
                     width={91}
                     height={89}
-                    priority
                     alt='customer'
                   />
                 </div>
@@ -147,7 +143,6 @@ const Cooperate = () => {
                     src='/images/home-page/Customer5.png'
                     width={71}
                     height={47}
-                    priority
                     alt='customer'
                   />
                 </div>
@@ -159,7 +154,6 @@ const Cooperate = () => {
                     src='/images/home-page/Customer6.png'
                     width={103}
                     height={35}
-                    priority
                     alt='customer'
                   />
                 </div>
