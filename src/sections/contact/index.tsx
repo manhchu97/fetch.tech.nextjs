@@ -20,8 +20,8 @@ const HireInfo = dynamic(
 const QuestionAnswer = dynamic(
   () => import('@/sections/contact/multi-step/question-answer'),
 )
-const ResponsibiliteStep = dynamic(
-  () => import('@/sections/contact/multi-step/responsibilite'),
+const ResponsibilitiesStep = dynamic(
+  () => import('@/sections/contact/multi-step/responsibilities'),
 )
 const SkillRequire = dynamic(
   () => import('@/sections/contact/multi-step/skill-require'),
@@ -30,6 +30,8 @@ const SkillRequire = dynamic(
 const RequirementStep = dynamic(
   () => import('@/sections/contact/multi-step/requirement'),
 )
+
+const Preview = dynamic(() => import('@/sections/contact/multi-step/preview'))
 
 type sectionInstances =
   | typeof ClientInfo
@@ -43,11 +45,13 @@ const sectionComponents = {
   [COMPONENT_TYPE.INIT]: ClientInfo,
   [COMPONENT_TYPE.GRID]: HireInfo,
   [COMPONENT_TYPE.RADIO]: QuestionAnswer,
+  [COMPONENT_TYPE.RADIO_FLEX_LABEL]: QuestionAnswer,
   [COMPONENT_TYPE.LABEL]: CustomerSupport,
   [COMPONENT_TYPE.TREE]: SkillRequire,
   [COMPONENT_TYPE.TEXT]: AboutClient,
-  [COMPONENT_TYPE.CHECKBOX_REPONSIBILITY]: ResponsibiliteStep,
+  [COMPONENT_TYPE.CHECKBOX_REPONSIBILITY]: ResponsibilitiesStep,
   [COMPONENT_TYPE.CHECKBOX_REQUIREMENT]: RequirementStep,
+  [COMPONENT_TYPE.PREVIEW]: Preview,
 } as {
   [key: string]: sectionInstances
 }

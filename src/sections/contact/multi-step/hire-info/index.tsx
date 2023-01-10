@@ -35,7 +35,7 @@ const HireInfoStep = (): React.ReactElement => {
       updateAnswerByQuestion({
         currentStep,
         answer: answerId,
-        answerRaw: answerId,
+        answerRaw: [answerId],
       })
 
       try {

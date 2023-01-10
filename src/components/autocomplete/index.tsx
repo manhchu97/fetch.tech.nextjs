@@ -2,24 +2,21 @@ import React, { useMemo, useState } from 'react'
 
 import clsx from 'clsx'
 
+import { IOption } from '@/types/contact'
+
 import { replaceAll } from '@/utils/replace'
 
 import styles from './Autocomplete.module.scss'
 
-interface IRequirement {
-  value: number | string
-  label: string
-}
-
 type IAutocompleteProps = {
   placeholder?: string
-  options: IRequirement[]
-  listOptionDisabled?: IRequirement[]
-  onSelectOption?: (option: IRequirement) => void
+  options: IOption[]
+  listOptionDisabled?: IOption[]
+  onSelectOption?: (option: IOption) => void
 } & (
   | {
       isAddOption: true
-      onAddOption: (option: IRequirement) => void
+      onAddOption: (option: IOption) => void
     }
   | {
       isAddOption?: false
@@ -52,7 +49,7 @@ const Autocomplete = ({
     setSearchValue(e.target.value)
   }
 
-  const handleSelectOption = (option: IRequirement) => {
+  const handleSelectOption = (option: IOption) => {
     setSearchValue('')
     if (onSelectOption) onSelectOption(option)
     handleCloseDropdown()
@@ -78,7 +75,7 @@ const Autocomplete = ({
         .filter(
           (item) =>
             !listOptionDisabled.find(
-              (itemDisabled) => itemDisabled.label === item.label,
+              (itemDisabled) => itemDisabled.value === item.value,
             ),
         ),
     [options, searchValue, listOptionDisabled],
@@ -179,7 +176,7 @@ interface IDropdownItemProps {
   title: string
   value: number | string
   disabled?: boolean
-  onSelectOption: (item: IRequirement) => void
+  onSelectOption: (item: IOption) => void
 }
 
 const DropdownItem = ({

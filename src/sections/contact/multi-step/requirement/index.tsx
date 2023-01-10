@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-// import RequirementList from './RequirementList'
 import dynamic from 'next/dynamic'
 
 import clsx from 'clsx'
@@ -9,106 +8,215 @@ import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
+
+import { INextQuestionValue, IOption } from '@/types/contact'
+
+import { replaceAll } from '@/utils/replace'
 
 import styles from './Requirement.module.scss'
+import { ACTION_TYPE, SECTIONS } from './config'
 
-const RequirementList = dynamic(() => import('./RequirementList'), {
+const DroppableSection = dynamic(() => import('@/components/drag-drop'), {
   ssr: false,
 })
 
 const RequirementStep = (): React.ReactElement => {
-  const { handleNextStep } = useFormStepContext()
+  const { errorToast } = useToastContext()
 
-  const listRequirementOptions = [
-    'Solid knowledge of modern web development technologies & frameworks based on JavaScript, HTML, CSS.',
-    'Experience of building systems with high data protection requirements, anonymous data and data encryption. ',
-    'Experience in design and implement REST, GraphQL APIs.',
-    'Willing to learn new technology, product mind-set.',
-    'HTML, CSS',
-    'Interested in Cryptocurrency and Blockchain.',
-    'Strong background in Linux / Unix, preferably with experience in NixOS.',
-    '1',
-    'Experience with SQL and NoSQL database. ',
-    'Participate in software architecture design and data structure.',
-    'Understanding of CI/CD and experience with one of the major cloud providers (preferably AWS), as well as orchestration and cluster management experience; Infrastructure-as-Code mentality.',
-    'Build & maintain successfully CI/CD in our software environment.',
-    'Define and monitor system metrics to ensure predefined SLA, SLO. ',
-    'Expert in Node.js, preferably experience in TypeScript extensions.',
-    '4+ years experience in DevOps engineering environment.',
-    'Write code features according to operational needs, docker, message queue, database (MySQL, Mongo ...), API, CI/CD …',
-    'Design and deploy cloud platform capabilities - full stack network, load balancing, caching, DNS, security, databases, etc.',
-    'Collaborate with software engineers to understand the software architecture, main components, current obstacles and provide solutions.',
-    'More than 4 years of working experience with Express, Angular/ReactJS, Node technology stack.',
-    'Perform advanced technical troubleshooting for public, private and hybrid cloud environments.',
-    'The title will be adjusted accordingly based on assessment during the interview process.',
-    'Optimize the system to process large data.',
-    'Write clean, clear, easy-to-maintain code',
-    'Experience building / consuming OpenAPI and GraphQL specifications.',
-    'Good working knowledge on design patterns and hands on experience with REST APIs or GraphQL.',
-    'Research and apply techniques that ensure user requirements.',
-    'Have experienced with GCP, AWS or Hetzner.',
-    'Deploy code on server test and production.',
-    'Fully familiar with Software development lifecycle.',
-    'Experience working on AWS or other cloud stacks and Docker.',
-    'React, Redux',
-    'On time, hard working',
-    'Strong grasp of Docker and Kubernetes fundamentals.',
-    'Building management backend (server-side) for systems operating: monitoring system, reporting system, data integration …',
-    'Support development team to setup and configure the development environment.',
-    'Must have good unit testing experience.',
-    'Experience in backend development, including experience as a Node.JS Developer.',
-    'Javascript',
-    'Must be familiar with NoSQL databases such as MongoDB or CouchDB, Web services, SOA patterns.',
-    'Experience of building microservices systems and testing them.',
-    'Develop automation tools, including shell scripts to automate necessary tasks.',
-    'Strong problem solving and time management skills.',
-  ].map((item, index) => ({
+  const [listRequirements, setListRequirements] = useState<IOption[]>([])
+  const [listNiceToHave, setListNiceToHave] = useState<IOption[]>([])
+  const [sectionSelected, setSectionSelected] = useState<string>(
+    SECTIONS.REQUIREMENT,
+  )
+  const [isError, setIsError] = useState<boolean>(false)
+
+  const {
+    handlePreviousStep,
+    handlePreview,
+    requirements,
+    saveAnswerByQuestion,
+    updateAnswerByQuestion,
+    getNextQuestionValue,
+  } = useFormStepContext()
+
+  const data: INextQuestionValue | null = getNextQuestionValue()
+  const { currentStep = 0, resultAnswer } = data || {}
+  const { answer, inputData } = resultAnswer || {}
+  const { title: questionTitle = '' } = inputData || {}
+
+  const listRequirementOptions = requirements.map((item, index) => ({
     value: index,
     label: item,
   }))
 
-  const listOptionDisabled = [
-    {
-      value: 1,
-      label:
-        'Strong programming skills in at least one common language such as Java or Javascript.',
-    },
-  ]
+  const onSelectOption = (item: IOption) => {
+    if (sectionSelected === SECTIONS.REQUIREMENT) {
+      setListRequirements(listRequirements.concat(item))
+      return
+    }
 
-  // const onDragEnd = (result: { destination: unknown }) => {
-  //   console.log(result)
-  //   if (!result.destination) return
+    setListNiceToHave(listNiceToHave.concat(item))
+  }
 
-  //   // const newListCerti = [...listRequirementOptions]
+  const onAddOption = (requirement: IOption) => {
+    if (sectionSelected === SECTIONS.REQUIREMENT) {
+      setListRequirements(listRequirements.concat(requirement))
+      return
+    }
 
-  //   // const [moveItem] = newListCerti.splice(result.source.index, 1)
+    setListNiceToHave(listNiceToHave.concat(requirement))
+  }
 
-  //   // newListCerti.splice(result.destination.index, 0, moveItem)
+  const onUpdateOption = (
+    index: number | string,
+    label: string,
+    type: string,
+  ) => {
+    const updateList =
+      sectionSelected === SECTIONS.REQUIREMENT
+        ? setListRequirements
+        : setListNiceToHave
 
-  //   // setValue(FORM_FIELDS.CERTIFICATE, newListCerti)
-  // }
+    if (type === ACTION_TYPE.DELETE) {
+      updateList((prevState) =>
+        prevState.filter((item) => item.value !== index),
+      )
+      return
+    }
+
+    updateList((prevState: IOption[]) => {
+      return prevState
+        .map((option) => {
+          if (option.value === index) {
+            return {
+              ...option,
+              label,
+            }
+          }
+
+          return option
+        })
+        .filter((option) => option.label)
+    })
+  }
+
+  const onUpdateDrag = (listOption: IOption[]) => {
+    const updateList =
+      sectionSelected === SECTIONS.REQUIREMENT
+        ? setListRequirements
+        : setListNiceToHave
+
+    updateList(listOption)
+  }
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    if (listRequirements.length < 4) {
+      setIsError(true)
+      return
+    }
+
+    setIsError(false)
+
+    const requirementFormat = listRequirements.map((item) => item.label)
+
+    const requirementFormatHtml = listRequirements
+      .map(
+        (item) =>
+          `<li style="margin-top: 0.5em; margin-bottom: 0.5em">${item.label}</li>`,
+      )
+      .join('')
+
+    const niceToHaveFormat = listNiceToHave.map((item) => item.label)
+
+    const niceToHaveFormatHtml = listNiceToHave
+      .map(
+        (item) =>
+          `<li style="margin-top: 0.5em; margin-bottom: 0.5em">${item.label}</li>`,
+      )
+      .join('')
+
+    updateAnswerByQuestion({
+      currentStep,
+      answer: [requirementFormat, niceToHaveFormat],
+      answerRaw: [requirementFormatHtml, niceToHaveFormatHtml],
+    })
+
+    try {
+      saveAnswerByQuestion()
+
+      handlePreview()
+    } catch (error) {
+      errorToast(
+        (error as Error)?.message || 'Fail to submit quiz! Please try again',
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (!answer || !answer.length) return
+
+    setListRequirements(
+      (answer[0] as []).map((label: string) => ({
+        label,
+        value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
+      })) || [],
+    )
+
+    setListNiceToHave(
+      (answer[1] as []).map((label: string) => ({
+        label,
+        value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
+      })) || [],
+    )
+  }, [answer])
 
   return (
     <div
       className={clsx('ft-full-screen', styles['requirement-step-container'])}
     >
       <div className='requirement-container-title h5'>
-        What are your requirements for candidates?
+        {questionTitle || 'What are your requirements for candidates?'}
+      </div>
+
+      <div className='requirement-container-subtitle'>
+        (You need to select at least 4 requirements to be next page)
       </div>
 
       <Autocomplete
         options={listRequirementOptions}
-        listOptionDisabled={listOptionDisabled}
+        listOptionDisabled={listRequirements.concat(listNiceToHave)}
+        onSelectOption={onSelectOption}
+        isAddOption={true}
+        onAddOption={onAddOption}
       />
 
-      <section className='requirement-edit-section'>
-        <div className='requirement-edit-title h5'>Requirements</div>
+      <DroppableSection
+        id={SECTIONS.REQUIREMENT}
+        title='Requirements'
+        list={listRequirements}
+        sectionSelected={sectionSelected}
+        onUpdateOption={onUpdateOption}
+        onUpdateDrag={onUpdateDrag}
+        setSectionSelected={setSectionSelected}
+        style={{ marginBottom: 32 }}
+        isError={isError}
+        validation
+      />
 
-        <RequirementList />
-      </section>
+      <DroppableSection
+        id={SECTIONS.NICE_TO_HAVE}
+        title='Nice to have'
+        list={listNiceToHave}
+        sectionSelected={sectionSelected}
+        onUpdateOption={onUpdateOption}
+        onUpdateDrag={onUpdateDrag}
+        setSectionSelected={setSectionSelected}
+      />
 
-      <form onSubmit={handleNextStep} className='requirement-form-container'>
-        <ClientAction />
+      <form onSubmit={handleSubmit} className='requirement-form-container'>
+        <ClientAction nextButtonText='Preview' onClickPreviousButton={handlePreviousStep} />
       </form>
     </div>
   )

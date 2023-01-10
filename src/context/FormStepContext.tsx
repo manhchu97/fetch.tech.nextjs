@@ -25,6 +25,8 @@ type FormStepContextType = {
   skills: ISkillResponse
   questions: QuestionAnswers[]
   clientId: string | number
+  requirements: string[]
+  responsibilities: string[]
   listResultAnswers: ResultAnswer[]
   componentType: string
   handleNextStep: () => undefined
@@ -37,6 +39,8 @@ type FormStepContextType = {
   handlePreviousStep: () => void | undefined
   handleGetClientAnswers: (id: string | number, result?: ResultAnswer[]) => void
   saveAnswerByQuestion: () => void
+  handlePreview: () => void
+  handleBackFromPreview: () => void
 }
 
 const FormStepContext = createContext<FormStepContextType | null>(null)
@@ -45,12 +49,16 @@ interface IFormStepProvider {
   children: React.ReactNode
   questions: QuestionAnswers[]
   skills: ISkillResponse
+  requirements: string[]
+  responsibilities: string[]
 }
 
 const FormStepProvider = ({
   children,
   questions,
   skills,
+  requirements,
+  responsibilities,
 }: IFormStepProvider) => {
   const [clientId, setClientId] = useState<string | number>('')
   const [currentPriority, setCurrentPriority] = useState<number>(0)
@@ -85,7 +93,7 @@ const FormStepProvider = ({
       listResultAnswers[currentStep] = {
         ...listResultAnswers[currentStep],
         answer,
-        answerRaw: [answerRaw || ''],
+        answerRaw,
       }
       setListResultAnswers(listResultAnswers)
     },
@@ -230,11 +238,21 @@ const FormStepProvider = ({
     [],
   )
 
+  const handlePreview = useCallback(() => {
+    setComponentType(COMPONENT_TYPE.PREVIEW)
+  }, [])
+
+  const handleBackFromPreview = useCallback(() => {
+    setComponentType(COMPONENT_TYPE.CHECKBOX_REQUIREMENT)
+  }, [])
+
   const ctx = useMemo(
     () => ({
       questions,
       skills,
       clientId,
+      requirements,
+      responsibilities,
       listResultAnswers,
       componentType,
       handleNextStep,
@@ -243,11 +261,15 @@ const FormStepProvider = ({
       handlePreviousStep,
       handleGetClientAnswers,
       saveAnswerByQuestion,
+      handlePreview,
+      handleBackFromPreview,
     }),
     [
       questions,
       skills,
       clientId,
+      requirements,
+      responsibilities,
       listResultAnswers,
       componentType,
       handleNextStep,
@@ -256,6 +278,8 @@ const FormStepProvider = ({
       handlePreviousStep,
       handleGetClientAnswers,
       saveAnswerByQuestion,
+      handlePreview,
+      handleBackFromPreview,
     ],
   )
 

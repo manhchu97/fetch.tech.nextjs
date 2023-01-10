@@ -149,7 +149,7 @@ const SkillRequireStep = (): React.ReactElement => {
       updateAnswerByQuestion({
         currentStep,
         answer: skillsFormat,
-        answerRaw: skillsFormat,
+        answerRaw: [skillsFormat],
       })
 
       try {
@@ -178,7 +178,7 @@ const SkillRequireStep = (): React.ReactElement => {
 
     setValue(
       'skills',
-      answer.split(',').map((label: string) => ({
+      (answer as string).split(',').map((label: string) => ({
         label,
         value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
       })) || [],

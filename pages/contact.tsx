@@ -10,11 +10,20 @@ import Page from '@/components/Page'
 
 import FormStepProvider from '@/context/FormStepContext'
 
-import { API_LIST_QUESTIONS, API_TECH } from '@/routes/api'
+import {
+  API_LIST_JOB_DESC_ATTRIBUTES,
+  API_LIST_QUESTIONS,
+  API_TECH,
+} from '@/routes/api'
 
 import ContactMultiStep from '@/sections/contact'
 
-import { IListQuestionsResponse, ISkillResponse } from '@/types/contact'
+import {
+  IListQuestionsResponse,
+  IRequirementResponse,
+  IResponsibilitiesResponse,
+  ISkillResponse,
+} from '@/types/contact'
 
 import fetcher from '@/utils/fetcher'
 
@@ -27,10 +36,25 @@ export const getStaticProps = async () => {
 
   const skillData: ISkillResponse = await skillResponse.json()
 
+  const requirementResponse = await fetch(
+    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
+  )
+
+  const requirementData: IRequirementResponse = await requirementResponse.json()
+
+  const responsibilitiesResponse = await fetch(
+    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
+  )
+
+  const responsibilitiesData: IResponsibilitiesResponse =
+    await responsibilitiesResponse.json()
+
   return {
     props: {
       fallback: data,
       fallbackSkill: skillData,
+      fallbackRequirement: requirementData,
+      fallbackResponsibilities: responsibilitiesData,
     },
   }
 }
@@ -38,6 +62,8 @@ export const getStaticProps = async () => {
 function ContactPage({
   fallback,
   fallbackSkill,
+  fallbackRequirement,
+  fallbackResponsibilities,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSWR(
     `${PORTAL_STAGING_API}/${API_LIST_QUESTIONS}`,
@@ -51,14 +77,39 @@ function ContactPage({
     { fallbackData: fallbackSkill },
   )
 
+  const { data: requirementData } = useSWR(
+    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
+    fetcher,
+    { fallbackData: fallbackRequirement },
+  )
+
+  const { data: responsibilitiesData } = useSWR(
+    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
+    fetcher,
+    { fallbackData: fallbackResponsibilities },
+  )
+
   const dataQuestion: IListQuestionsResponse = data as IListQuestionsResponse
   const { list: questions = [] } = dataQuestion?.data || {}
 
   const dataSkill: ISkillResponse = skillData as ISkillResponse
 
+  const dataRequirement: IRequirementResponse =
+    requirementData as IRequirementResponse
+  const { list: requirements = [] } = dataRequirement?.data || {}
+
+  const dataResponsibilities: IResponsibilitiesResponse =
+    responsibilitiesData as IResponsibilitiesResponse
+  const { list: responsibilities = [] } = dataResponsibilities?.data || {}
+
   return (
     <Page title=''>
-      <FormStepProvider questions={questions} skills={dataSkill}>
+      <FormStepProvider
+        questions={questions}
+        skills={dataSkill}
+        requirements={requirements}
+        responsibilities={responsibilities}
+      >
         <ContactMultiStep />
       </FormStepProvider>
     </Page>

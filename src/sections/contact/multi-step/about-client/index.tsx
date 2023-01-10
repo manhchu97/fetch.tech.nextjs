@@ -65,12 +65,11 @@ const AboutClientStep = (): React.ReactElement => {
       updateAnswerByQuestion({
         currentStep,
         answer: content.replace(REGEX_REMOVE_HTML, ''),
-        answerRaw: content || '',
+        answerRaw: [content],
       })
 
       try {
         saveAnswerByQuestion()
-        
         handleNextStep()
         reset()
       } catch (error) {

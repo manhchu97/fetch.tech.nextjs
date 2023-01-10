@@ -64,7 +64,9 @@ const QuestionAnswerStep = (): React.ReactElement => {
   })
 
   useEffect(() => {
-    setValue('answer', answer || '')
+    if (!answer) return
+
+    setValue('answer', (answer as string) || '')
   }, [answer, setValue])
 
   const handleSubmitQuestion = useCallback(
@@ -74,7 +76,7 @@ const QuestionAnswerStep = (): React.ReactElement => {
       updateAnswerByQuestion({
         currentStep,
         answer: answerId,
-        answerRaw: answerId,
+        answerRaw: [answerId],
       })
 
       try {

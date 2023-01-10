@@ -41,15 +41,15 @@ export interface IListQuestionsResponse {
 
 export interface ResultAnswer {
   questionId: string
-  answer?: string | null
+  answer?: string | string[] | string[][] | null
   answerRaw?: string[] | null
   inputData: QuestionAnswers
 }
 
 export interface IUpdateAnswerByQuestion {
   currentStep: number
-  answer: string | null
-  answerRaw: string | null
+  answer: string | string[] | string[][] | null
+  answerRaw: string[] | null
 }
 
 export interface INextQuestionValue {
@@ -82,4 +82,31 @@ export interface ISkillChildFormat {
 export interface ISkillOption {
   label: string
   value: string
+}
+
+// Requirement types
+
+export interface IRequirementResponse {
+  success: boolean
+  data: IListRequirementResponse
+}
+
+export interface IListRequirementResponse {
+  list: string[]
+}
+
+export interface IOption {
+  value: number | string
+  label: string
+}
+
+//Responsibilities types
+
+export interface IResponsibilitiesResponse {
+  success: boolean
+  data: IListResponsibilitiesResponse
+}
+
+export interface IListResponsibilitiesResponse {
+  list: string[]
 }
