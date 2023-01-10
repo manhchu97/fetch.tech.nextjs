@@ -1,5 +1,5 @@
 /*! purgecss start ignore */
-@import '@/styles/_mixins.scss';
+@import "@/styles/_mixins.scss";
 
 .header-container {
   display: flex;
@@ -54,13 +54,14 @@
       }
 
       .menu-item-container {
-        font-family: 'Gilroy-Regular';
+        font-family: "Gilroy-Regular";
         font-size: 16px;
         line-height: 24px;
         white-space: nowrap;
         margin-right: 30px;
         display: inline-block;
         align-items: center;
+        color: #a4b7c8;
 
         &.show {
           .menu-icon {
@@ -199,6 +200,8 @@
         justify-content: center;
         align-items: center;
         padding: 17px 25px;
+        background: #ffbe16;
+        box-shadow: 0px 6px 10px #d2e2ed;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -209,10 +212,11 @@
         }
 
         &__content {
-          font-family: 'Gilroy-SemiBold';
+          font-family: "Gilroy-SemiBold";
           font-size: 18px;
           line-height: 20px;
           text-align: center;
+          color: #ffffff;
           flex: none;
           order: 0;
           flex-grow: 0;
@@ -236,7 +240,7 @@
       background-color: transparent;
       border: 1px solid transparent;
       border-radius: 0.25rem;
-      transition: box-shadow 0.15s ease-in-out;
+      transition: box-shadow .15s ease-in-out;
     }
   }
 }

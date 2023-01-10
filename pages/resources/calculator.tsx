@@ -6,7 +6,7 @@ import Calculator from '@/sections/resources/calculator'
 
 const CalculatorPage: NextPage = () => {
   return (
-    <Page title='' overrideHeaderColor>
+    <Page title=''>
       <Calculator />
     </Page>
   )

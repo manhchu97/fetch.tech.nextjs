@@ -5,16 +5,11 @@ interface MenuItemProps {
   id?: string
   target?: string
   hasIcon?: boolean
-  overrideHeaderColor?: boolean
 }
 
-const MenuItem = ({
-  id = '',
-  title = '',
-  target = '',
-  hasIcon = false,
-  overrideHeaderColor = false,
-}: MenuItemProps): React.ReactElement => {
+const MenuItem = (props: MenuItemProps): React.ReactElement => {
+  const { id = '', title = '', target = '', hasIcon = false } = props
+
   return (
     <div
       role='button'
@@ -26,12 +21,7 @@ const MenuItem = ({
     >
       {title}
       {hasIcon && (
-        <div
-          className='menu-icon-container'
-          style={{
-            filter: overrideHeaderColor ? 'brightness(0) invert(1)' : '',
-          }}
-        >
+        <div className='menu-icon-container'>
           <Image
             className='menu-icon'
             src='/images/Vector_15.png'

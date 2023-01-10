@@ -14,28 +14,14 @@ import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Header.module.scss'
 
-interface IHeaderProps {
-  overrideHeaderColor: boolean
-}
-
-const Header = ({ overrideHeaderColor = false }: IHeaderProps) => {
+const Header = () => {
   const [isExpandContent, setIsExpandContent] = useState<boolean>(false)
 
   return (
-    <div
-      className={clsx('ft-full-screen', styles['header-container'])}
-      style={{
-        background: overrideHeaderColor ? '#ffbe16' : '#fff',
-      }}
-    >
+    <div className={clsx('ft-full-screen', styles['header-container'])}>
       <Link href={PATH_CONFIG.root}>
         {/* https://github.com/vercel/next.js/issues/20434 */}
-        <a
-          className='header-logo-container'
-          style={{
-            filter: overrideHeaderColor ? 'brightness(0) invert(1)' : '',
-          }}
-        >
+        <a className='header-logo-container'>
           <Image
             src='/images/LogoDefault.svg'
             alt='Picture of the author'
@@ -52,28 +38,17 @@ const Header = ({ overrideHeaderColor = false }: IHeaderProps) => {
           isExpandContent && 'show-nav-container',
         )}
       >
-        <div
-          className='nav-group'
-          style={{
-            color: overrideHeaderColor ? '#fff' : '#a4b7c8',
-          }}
-        >
+        <div className='nav-group'>
           <div className='nav-group__first-container'>
             <Link href={PATH_CONFIG.company}>
               <a>
-                <MenuItem
-                  title='For Companies'
-                  overrideHeaderColor={overrideHeaderColor}
-                />
+                <MenuItem title='For Companies' />
               </a>
             </Link>
 
             <Link href={PATH_CONFIG.employees}>
               <a>
-                <MenuItem
-                  title='For Jobseekers'
-                  overrideHeaderColor={overrideHeaderColor}
-                />
+                <MenuItem title='For Jobseekers' />
               </a>
             </Link>
           </div>
@@ -83,7 +58,6 @@ const Header = ({ overrideHeaderColor = false }: IHeaderProps) => {
               title='Services'
               id='services'
               target='servicesMenu'
-              overrideHeaderColor={overrideHeaderColor}
               hasIcon
             />
 
@@ -143,7 +117,6 @@ const Header = ({ overrideHeaderColor = false }: IHeaderProps) => {
               title='Resources'
               id='resources'
               target='resourcesMenu'
-              overrideHeaderColor={overrideHeaderColor}
               hasIcon
             />
 
@@ -194,10 +167,7 @@ const Header = ({ overrideHeaderColor = false }: IHeaderProps) => {
 
           <Link href={PATH_CONFIG.blog.root}>
             <a>
-              <MenuItem
-                title='Blogs'
-                overrideHeaderColor={overrideHeaderColor}
-              />
+              <MenuItem title='Blogs' />
             </a>
           </Link>
         </div>
@@ -205,20 +175,8 @@ const Header = ({ overrideHeaderColor = false }: IHeaderProps) => {
         <div className='header-contact-container'>
           <Link href={PATH_CONFIG.contact}>
             <a>
-              <div
-                role='button'
-                className='header__contact-button'
-                style={{
-                  background: overrideHeaderColor ? '#fff' : '#ffbe16',
-                  boxShadow: overrideHeaderColor ? '' : '0px 6px 10px #d2e2ed',
-                }}
-              >
-                <span
-                  className='header__contact-button__content'
-                  style={{
-                    color: overrideHeaderColor ? '#ffbe16' : '#fff',
-                  }}
-                >
+              <div role='button' className='header__contact-button'>
+                <span className='header__contact-button__content'>
                   Contact Us
                 </span>
               </div>
