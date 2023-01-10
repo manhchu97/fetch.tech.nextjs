@@ -1,5 +1,6 @@
 /*! purgecss start ignore */
-@import "@/styles/_mixins.scss";
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
 
 .header-container {
   display: flex;
@@ -7,6 +8,61 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 20px;
+  padding-bottom: 20px;
+
+  &.header-theme-container {
+    :global .header-logo-container {
+      filter: brightness(0) invert(1);
+    }
+
+    :global .nav-container {
+      .header-contact-container {
+        .header__contact-button {
+          background-color: #fff;
+          box-shadow: 0px 6px 12px rgb(19 42 151 / 10%);
+
+          &__content {
+            color: $primary-color;
+          }
+        }
+      }
+
+      .nav-group {
+        .dropdown {
+          @include screen-down(md) {
+            .menu-item-container {
+              color: #fff;
+            }
+          }
+
+          .dropdown-menu {
+            background-color: $primary-color;
+
+            .header__dropdown-item__content__text {
+              color: #fff;
+            }
+          }
+        }
+
+        .menu-item-container {
+          color: #fff;
+          font-family: Gilroy-Medium;
+
+          .menu-icon {
+            filter: brightness(0) invert(1);
+          }
+
+          &:hover {
+            color: #708deb;
+          }
+        }
+      }
+    }
+
+    :global .nav-toggler {
+      filter: brightness(0) invert(1);
+    }
+  }
 
   @include screen-down(lg) {
     flex-direction: column;
@@ -54,7 +110,7 @@
       }
 
       .menu-item-container {
-        font-family: "Gilroy-Regular";
+        font-family: 'Gilroy-Regular';
         font-size: 16px;
         line-height: 24px;
         white-space: nowrap;
@@ -212,7 +268,7 @@
         }
 
         &__content {
-          font-family: "Gilroy-SemiBold";
+          font-family: 'Gilroy-SemiBold';
           font-size: 18px;
           line-height: 20px;
           text-align: center;
@@ -240,7 +296,7 @@
       background-color: transparent;
       border: 1px solid transparent;
       border-radius: 0.25rem;
-      transition: box-shadow .15s ease-in-out;
+      transition: box-shadow 0.15s ease-in-out;
     }
   }
 }

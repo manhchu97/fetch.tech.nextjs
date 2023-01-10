@@ -10,6 +10,8 @@ import Page from '@/components/Page'
 
 import ServiceSections from '@/sections/services'
 
+import variables from '@/styles/variables.module.scss'
+
 type Prams = {
   params: {
     slug: string
@@ -47,7 +49,7 @@ const ServiceDetailPage = ({
   serviceBody,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title=''>
+    <Page title='' themeColor={variables.primaryColor}>
       <ServiceSections header={header} serviceBody={serviceBody} />
     </Page>
   )

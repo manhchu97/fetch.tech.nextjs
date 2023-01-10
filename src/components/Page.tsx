@@ -6,9 +6,14 @@ import Header from '@/components/header'
 interface PageProps {
   children: React.ReactNode
   title: string
+  themeColor?: string
 }
 
-const Page = ({ children, title = '' }: PageProps): React.ReactElement => {
+const Page = ({
+  children,
+  title = '',
+  themeColor = '',
+}: PageProps): React.ReactElement => {
   return (
     <>
       <Head>
@@ -27,7 +32,7 @@ const Page = ({ children, title = '' }: PageProps): React.ReactElement => {
       </Head>
 
       <>
-        <Header />
+        <Header themeColor={themeColor} />
         {children}
         <Footer />
       </>

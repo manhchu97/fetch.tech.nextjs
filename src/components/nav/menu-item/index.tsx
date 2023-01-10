@@ -1,4 +1,8 @@
+import React, { useEffect, useMemo, useState } from 'react'
+
 import Image from 'next/image'
+
+import ldDebounce from 'lodash.debounce'
 
 interface MenuItemProps {
   title: string
@@ -9,13 +13,45 @@ interface MenuItemProps {
 
 const MenuItem = (props: MenuItemProps): React.ReactElement => {
   const { id = '', title = '', target = '', hasIcon = false } = props
+  const [isMobileScreen, setIsMobileScreen] = useState(false)
+
+  useEffect(() => {
+    let unmounted = false
+
+    const handleResize = ldDebounce(() => {
+      // https://stackoverflow.com/a/8876069
+      const width = Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0,
+      )
+
+      if (unmounted) return
+
+      // md screen
+      setIsMobileScreen(width < 768)
+    }, 100)
+
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      unmounted = true
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  const toggleValue = useMemo(
+    () => (!isMobileScreen && hasIcon ? 'dropdown' : ''),
+    [hasIcon, isMobileScreen],
+  )
 
   return (
     <div
       role='button'
       id={id}
       className='menu-item-container'
-      data-bs-toggle={`${hasIcon ? 'dropdown' : ''}`}
+      data-bs-toggle={toggleValue}
       data-bs-target={`#${target}`}
       aria-expanded='false'
     >
