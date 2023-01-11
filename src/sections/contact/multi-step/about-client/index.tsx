@@ -31,6 +31,8 @@ const defaultValues: EditorSubmitForm = {
 const AboutClientStep = (): React.ReactElement => {
   const { errorToast } = useToastContext()
   const {
+    isAnimatedComponent,
+    animation,
     handleNextStep,
     handlePreviousStep,
     getNextQuestionValue,
@@ -99,7 +101,14 @@ const AboutClientStep = (): React.ReactElement => {
   }, [answerRaw, setValue])
 
   return (
-    <div className={clsx('ft-full-screen', styles['about-client-container'])}>
+    <div
+      className={clsx({
+        'ft-full-screen': true,
+        [styles['about-client-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
+    >
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='about-client-form-container'

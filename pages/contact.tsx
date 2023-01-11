@@ -1,6 +1,7 @@
 import React from 'react'
 
 import type { InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
 
 import useSWR from 'swr'
 
@@ -103,16 +104,22 @@ function ContactPage({
   const { list: responsibilities = [] } = dataResponsibilities?.data || {}
 
   return (
-    <Page title=''>
-      <FormStepProvider
-        questions={questions}
-        skills={dataSkill}
-        requirements={requirements}
-        responsibilities={responsibilities}
-      >
-        <ContactMultiStep />
-      </FormStepProvider>
-    </Page>
+    <>
+      <Head>
+        <meta name='description' content='Contact pages' />
+      </Head>
+
+      <Page title=''>
+        <FormStepProvider
+          questions={questions}
+          skills={dataSkill}
+          requirements={requirements}
+          responsibilities={responsibilities}
+        >
+          <ContactMultiStep />
+        </FormStepProvider>
+      </Page>
+    </>
   )
 }
 

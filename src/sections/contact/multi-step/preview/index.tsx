@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 
+import clsx from 'clsx'
 import rehypeRaw from 'rehype-raw'
 
 import {
@@ -32,6 +33,8 @@ const PreviewStep = (): React.ReactElement => {
   const {
     clientId,
     listResultAnswers,
+    isAnimatedComponent,
+    animation,
     handleBackFromPreview,
     handleFinishStep,
   } = useFormStepContext()
@@ -104,7 +107,13 @@ const PreviewStep = (): React.ReactElement => {
   }
 
   return (
-    <div className={styles['preview-step-container']}>
+    <div
+      className={clsx({
+        [styles['preview-step-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
+    >
       <form onSubmit={handleSubmit}>
         <div className='container '>
           <div className='h4 preview-header'>Job Description Preview</div>

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import clsx from 'clsx'
+
 import { QUIZ_RESULT_KEY, TYPE_SUBMIT_FINISH } from '@/config/contact'
 
 import ClientAction from '@/components/client-action'
@@ -15,7 +17,7 @@ import { removeDataFromStorage } from '@/utils/storage'
 
 const CustomerSupportStep = (): React.ReactElement => {
   const { successToast, errorToast } = useToastContext()
-  const { clientId } = useFormStepContext()
+  const { clientId, isAnimatedComponent, animation } = useFormStepContext()
 
   const handleSubmit = async () => {
     try {
@@ -34,7 +36,13 @@ const CustomerSupportStep = (): React.ReactElement => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className={clsx({
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
+    >
       <ClientLabel
         action={
           <ClientAction

@@ -2,7 +2,7 @@
 
 .ft-modal-container {
   position: relative;
-  z-index: 1050;
+  z-index: 11111;
 
   :global .ft-modal {
     position: fixed;
@@ -10,7 +10,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1050;
+    z-index: 11111;
     overflow-y: auto;
     overflow-x: hidden;
     transition: opacity 0.15s linear;
@@ -63,7 +63,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1040;
+    z-index: 11110;
     width: 100vw;
     height: 100vh;
     background-color: #000;

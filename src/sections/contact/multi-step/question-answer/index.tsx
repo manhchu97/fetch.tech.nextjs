@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -31,6 +31,7 @@ const QuestionAnswerStep = (): React.ReactElement => {
     isAnimatedComponent,
     animation,
   } = useFormStepContext()
+  const [isAnimated, setIsAnimated] = useState<boolean>(false)
 
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
@@ -85,6 +86,7 @@ const QuestionAnswerStep = (): React.ReactElement => {
       try {
         saveAnswerByQuestion()
 
+        setIsAnimated(false)
         handleNextStep()
         resetField('answer')
       } catch (error) {
@@ -104,9 +106,14 @@ const QuestionAnswerStep = (): React.ReactElement => {
   )
 
   const handlePreviousQuestion = useCallback(() => {
+    setIsAnimated(false)
     clearErrors()
     handlePreviousStep()
   }, [clearErrors, handlePreviousStep])
+
+  useEffect(() => {
+    setIsAnimated(isAnimatedComponent)
+  }, [isAnimated, isAnimatedComponent])
 
   return (
     <div className={styles['question-answer-step-container']}>
@@ -119,8 +126,8 @@ const QuestionAnswerStep = (): React.ReactElement => {
         <div
           className={clsx({
             'question-answers-container': true,
-            animate__animated: isAnimatedComponent,
-            [`${animation}`]: isAnimatedComponent,
+            animate__animated: isAnimated,
+            [`${animation}`]: isAnimated,
           })}
         >
           {!!errors?.answer?.message && (
@@ -167,9 +174,9 @@ const QuestionAnswerStep = (): React.ReactElement => {
           </div>
 
           <hr />
-
-          <ClientAction onClickPreviousButton={handlePreviousQuestion} />
         </div>
+
+        <ClientAction onClickPreviousButton={handlePreviousQuestion} />
       </form>
     </div>
   )

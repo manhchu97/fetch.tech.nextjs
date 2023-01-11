@@ -34,6 +34,8 @@ const ResponsibilitiesStep = (): React.ReactElement => {
     saveAnswerByQuestion,
     updateAnswerByQuestion,
     getNextQuestionValue,
+    isAnimatedComponent,
+    animation,
   } = useFormStepContext()
 
   const data: INextQuestionValue | null = getNextQuestionValue()
@@ -145,10 +147,12 @@ const ResponsibilitiesStep = (): React.ReactElement => {
 
   return (
     <div
-      className={clsx(
-        'ft-full-screen',
-        styles['responsibilities-step-container'],
-      )}
+      className={clsx({
+        'ft-full-screen': true,
+        [styles['responsibilities-step-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
     >
       <div className='responsibilities-container-title h5'>
         {questionTitle ||

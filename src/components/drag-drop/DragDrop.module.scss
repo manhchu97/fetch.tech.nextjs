@@ -43,6 +43,13 @@
         border-radius: 8px;
         margin: 6px 0;
 
+        .draggable-item-wrapper {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
         &:focus {
           outline: none;
         }

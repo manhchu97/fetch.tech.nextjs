@@ -9,6 +9,14 @@
   background-size: 500px 500px;
   background-position: right;
 
+  @include screen(xs) {
+    :global .ft-container {
+      max-width: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
   @include screen-down(xl) {
     background-size: 400px 400px;
   }
@@ -25,7 +33,6 @@
     padding: 72px 0 132px 0;
 
     @include screen-down(md) {
-      margin-top: 50px;
       margin-bottom: 72px;
     }
 
@@ -103,7 +110,7 @@
               font-family: 'Gilroy-Medium';
               font-size: 24px;
               line-height: 20px;
-              padding: 17px 25px;
+              padding: 16px 22px;
             }
           }
         }

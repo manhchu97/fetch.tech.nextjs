@@ -284,6 +284,7 @@ const FormStepProvider = ({
   }, [])
 
   const handleBackFromPreview = useCallback(() => {
+    setAnimatedActionType(AnimatedActionType.PREVIOUS)
     setComponentType(COMPONENT_TYPE.CHECKBOX_REQUIREMENT)
   }, [])
 

@@ -38,6 +38,8 @@ const RequirementStep = (): React.ReactElement => {
     saveAnswerByQuestion,
     updateAnswerByQuestion,
     getNextQuestionValue,
+    isAnimatedComponent,
+    animation,
   } = useFormStepContext()
 
   const data: INextQuestionValue | null = getNextQuestionValue()
@@ -182,7 +184,12 @@ const RequirementStep = (): React.ReactElement => {
 
   return (
     <div
-      className={clsx('ft-full-screen', styles['requirement-step-container'])}
+      className={clsx({
+        'ft-full-screen': true,
+        [styles['requirement-step-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
     >
       <div className='requirement-container-title h5'>
         {questionTitle || 'What are your requirements for candidates?'}

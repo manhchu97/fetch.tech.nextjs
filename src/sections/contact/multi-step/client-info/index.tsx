@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form'
 import PhoneInput from 'react-phone-input-2'
 
 import { yupResolver } from '@hookform/resolvers/yup'
+import clsx from 'clsx'
 import * as Yup from 'yup'
 
 import { PHONE_COUNTRIES } from '@/config/phone'
@@ -40,7 +41,12 @@ const defaultValues: ClientInfoSubmitForm = {
 
 const ClientInfoStep = (): React.ReactElement => {
   const { errorToast } = useToastContext()
-  const { handleNextStep, handleGetClientAnswers } = useFormStepContext()
+  const {
+    isAnimatedComponent,
+    animation,
+    handleNextStep,
+    handleGetClientAnswers,
+  } = useFormStepContext()
   const [countryCode, setCountryCode] = useState('')
 
   const validationSchema = Yup.object().shape({
@@ -109,7 +115,13 @@ const ClientInfoStep = (): React.ReactElement => {
   }
 
   return (
-    <div className={styles['contact-container']}>
+    <div
+      className={clsx({
+        [styles['contact-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
+    >
       <div className='ft-container'>
         <div className='contact-body-container row'>
           <div className='col-12 col-md-10 col-lg-8 contact-body-inner'>
@@ -217,6 +229,7 @@ const ClientInfoStep = (): React.ReactElement => {
                     <div className='col-8 col-sm-9 col-md-10'>
                       <div className='form-check'>
                         <input
+                          id='acceptTerms'
                           type='checkbox'
                           {...register('acceptTerms')}
                           className={`form-check-input ${

@@ -31,6 +31,8 @@ const SkillRequireStep = (): React.ReactElement => {
   const {
     skills,
     listResultAnswers,
+    isAnimatedComponent,
+    animation,
     handleNextStep,
     saveAnswerByQuestion,
     updateAnswerByQuestion,
@@ -189,7 +191,13 @@ const SkillRequireStep = (): React.ReactElement => {
   const isSelectedSkillScrollable = selectedSkills.length > 8
 
   return (
-    <div className={styles['skill-require-step-container']}>
+    <div
+      className={clsx({
+        [styles['skill-require-step-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
+    >
       <form
         onSubmit={handleSubmit(handleSubmitQuestion)}
         className='answer-form-container'

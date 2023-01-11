@@ -2,15 +2,27 @@ import React from 'react'
 
 import Link from 'next/link'
 
+import clsx from 'clsx'
+
 import ClientLabel from '@/components/client-label'
+
+import { useFormStepContext } from '@/context/FormStepContext'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Finish.module.scss'
 
 const FinishStep = (): React.ReactElement => {
+  const { isAnimatedComponent, animation } = useFormStepContext()
+
   return (
-    <div className={styles['finish-step-container']}>
+    <div
+      className={clsx({
+        [styles['finish-step-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [`${animation}`]: isAnimatedComponent,
+      })}
+    >
       <ClientLabel
         action={
           <div className='action-container'>
