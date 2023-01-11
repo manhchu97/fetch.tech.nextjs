@@ -18,7 +18,7 @@ const ServiceSections = ({
     subTitle = '',
     imageSource = '',
     className: imgClassName = '',
-  } = header
+  } = header || {}
   console.log('serviceBody', serviceBody)
 
   return (

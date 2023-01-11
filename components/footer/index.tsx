@@ -103,8 +103,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='footer-nav-container col-xs-12 col-lg-4'>
-          <div className='col-6'>
+        <div className='footer-nav-container col-xs-12 col-lg-5'>
+          <div className='col-0 col-lg-1'></div>
+
+          <div className='col-6 col-lg-5'>
             <Link href={PATH_CONFIG.employees}>
               <a>
                 <span className='nav-title'>How It Works</span>
@@ -124,7 +126,7 @@ const Footer = () => {
             </Link>
           </div>
 
-          <div className='col-6'>
+          <div className='col-6 col-lg-5'>
             <Link href={PATH_CONFIG.successStories}>
               <a>
                 <span className='nav-title'>Success Stories</span>
@@ -137,11 +139,17 @@ const Footer = () => {
               </a>
             </Link>
           </div>
+
+          <div className='col-0 col-lg-1'></div>
         </div>
 
-        <div className='footer-social-container col-xs-12 col-lg-3'>
-          <Link href='https://www.facebook.com/Fetch.Technology'>
-            <a className='img-social-container'>
+        <div className='footer-social-container col-xs-12 col-lg-2'>
+          <Link href='https://www.facebook.com/Fetch.Technology' passHref>
+            <a
+              className='img-social-container'
+              target='_blank'
+              rel='noreferrer'
+            >
               <div className='img-social'>
                 <Image
                   src='/images/BigFacebook.svg'
@@ -155,8 +163,15 @@ const Footer = () => {
             </a>
           </Link>
 
-          <Link href='https://www.linkedin.com/company/fetchtechnology/'>
-            <a className='img-social-container'>
+          <Link
+            href='https://www.linkedin.com/company/fetchtechnology/'
+            passHref
+          >
+            <a
+              className='img-social-container'
+              target='_blank'
+              rel='noreferrer'
+            >
               <div className='img-social'>
                 <Image
                   className='img-social'
@@ -168,6 +183,42 @@ const Footer = () => {
               </div>
 
               <div className='img-title'>Linkedin</div>
+            </a>
+          </Link>
+
+          <Link href='tel:+6589334200' passHref>
+            <a className='img-social-container' rel='noreferrer'>
+              <div className='img-social'>
+                <Image
+                  className='img-social'
+                  src='/images/BigWhatsapp.svg'
+                  alt='tel'
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </div>
+
+              <div className='img-title'>+65 8933 4200</div>
+            </a>
+          </Link>
+
+          <Link href='mailto:sales@fetch.tech' passHref>
+            <a
+              className='img-social-container'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <div className='img-social'>
+                <Image
+                  className='img-social'
+                  src='/images/BigMail.svg'
+                  alt='mail'
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </div>
+
+              <div className='img-title'>sales@fetch.tech</div>
             </a>
           </Link>
         </div>
