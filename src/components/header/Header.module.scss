@@ -38,8 +38,10 @@
           .dropdown-menu {
             background-color: $primary-color;
 
-            .header__dropdown-item__content__text {
-              color: #fff;
+            @include screen-down(md) {
+              .header__dropdown-item__content__text {
+                color: #fff;
+              }
             }
           }
         }
