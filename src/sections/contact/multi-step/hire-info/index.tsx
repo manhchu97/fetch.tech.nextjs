@@ -22,8 +22,9 @@ const HireInfoStep = (): React.ReactElement => {
     handleNextStep,
     updateAnswerByQuestion,
     getNextQuestionValue,
+    isAnimatedComponent,
+    animation,
   } = useFormStepContext()
-
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
   const { answer, inputData } = resultAnswer || {}
@@ -63,7 +64,14 @@ const HireInfoStep = (): React.ReactElement => {
       <div className={clsx('ft-full-screen', 'hire-container')}>
         <div className='hire-container-question h4'>{questionTitle}</div>
 
-        <div className='hire-list row'>
+        <div
+          className={clsx({
+            'hire-list': true,
+            row: true,
+            animate__animated: isAnimatedComponent,
+            [`${animation}`]: isAnimatedComponent,
+          })}
+        >
           {listAnswers.map(
             (
               {

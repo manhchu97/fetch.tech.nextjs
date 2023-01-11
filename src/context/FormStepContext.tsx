@@ -6,7 +6,11 @@ import React, {
   useState,
 } from 'react'
 
-import { COMPONENT_TYPE, QUIZ_RESULT_KEY } from '@/config/contact'
+import {
+  ANIMATED_COMPONENT,
+  COMPONENT_TYPE,
+  QUIZ_RESULT_KEY,
+} from '@/config/contact'
 
 import { API_SUBMIT_QUIZ } from '@/routes/api'
 
@@ -29,6 +33,8 @@ type FormStepContextType = {
   responsibilities: string[]
   listResultAnswers: ResultAnswer[]
   componentType: string
+  isAnimatedComponent: boolean
+  animation: string
   handleNextStep: () => undefined
   updateAnswerByQuestion: ({
     currentStep,
@@ -54,6 +60,17 @@ interface IFormStepProvider {
   responsibilities: string[]
 }
 
+enum AnimatedActionType {
+  PREVIOUS = 'Previous',
+  NEXT = 'Next',
+}
+
+enum AnimationType {
+  ZOOM_IN = 'animate__zoomIn',
+  BOUNCE_IN_LEFT = 'animate__bounceInLeft',
+  BOUNCE_IN_RIGHT = 'animate__bounceInRight',
+}
+
 const FormStepProvider = ({
   children,
   questions,
@@ -67,6 +84,27 @@ const FormStepProvider = ({
   const [componentType, setComponentType] = useState<string>(
     COMPONENT_TYPE.INIT,
   )
+  const [animatedActionType, setAnimatedActionType] =
+    useState<AnimatedActionType>(AnimatedActionType.NEXT)
+  const [animation, setAnimation] = useState<AnimationType>(
+    AnimationType.BOUNCE_IN_LEFT,
+  )
+
+  const isAnimatedComponent = ANIMATED_COMPONENT.includes(componentType)
+
+  useEffect(() => {
+    if (componentType === COMPONENT_TYPE.GRID) {
+      setAnimation(AnimationType.ZOOM_IN)
+      return
+    }
+
+    if (animatedActionType === AnimatedActionType.PREVIOUS) {
+      setAnimation(AnimationType.BOUNCE_IN_LEFT)
+      return
+    }
+
+    setAnimation(AnimationType.BOUNCE_IN_RIGHT)
+  }, [animatedActionType, componentType])
 
   useEffect(() => {
     const { clientId, currentPriority, listResultAnswers, questionType } =
@@ -132,10 +170,12 @@ const FormStepProvider = ({
     setComponentType(type)
     setCurrentPriority(priority)
     setListResultAnswers(listResultAnswers)
+    setAnimatedActionType(AnimatedActionType.PREVIOUS)
   }, [listResultAnswers])
 
   const handleNextStep = useCallback((): undefined => {
     const length = listResultAnswers.length
+    setAnimatedActionType(AnimatedActionType.NEXT)
 
     // INITIAL
     if (!length) {
@@ -260,6 +300,8 @@ const FormStepProvider = ({
       responsibilities,
       listResultAnswers,
       componentType,
+      isAnimatedComponent,
+      animation,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
@@ -278,6 +320,8 @@ const FormStepProvider = ({
       responsibilities,
       listResultAnswers,
       componentType,
+      isAnimatedComponent,
+      animation,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,

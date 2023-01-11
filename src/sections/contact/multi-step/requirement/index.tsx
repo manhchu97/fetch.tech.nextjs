@@ -60,6 +60,14 @@ const RequirementStep = (): React.ReactElement => {
   }
 
   const onAddOption = (requirement: IOption) => {
+    const listOption = listRequirements.concat(listNiceToHave)
+    const isExist = listOption.some((item) => item.value === requirement.value)
+
+    if (isExist) {
+      errorToast('Requirement already added')
+      return
+    }
+
     if (sectionSelected === SECTIONS.REQUIREMENT) {
       setListRequirements(listRequirements.concat(requirement))
       return
@@ -216,7 +224,10 @@ const RequirementStep = (): React.ReactElement => {
       />
 
       <form onSubmit={handleSubmit} className='requirement-form-container'>
-        <ClientAction nextButtonText='Preview' onClickPreviousButton={handlePreviousStep} />
+        <ClientAction
+          nextButtonText='Preview'
+          onClickPreviousButton={handlePreviousStep}
+        />
       </form>
     </div>
   )

@@ -50,6 +50,19 @@ const ResponsibilitiesStep = (): React.ReactElement => {
     setListResponsibilities(listResponsibilities.concat(item))
   }
 
+  const onAddOption = (responsibility: IOption) => {
+    const isExist = listResponsibilities.some(
+      (item) => item.value === responsibility.value,
+    )
+
+    if (isExist) {
+      errorToast('Responsibility already added')
+      return
+    }
+
+    setListResponsibilities(listResponsibilities.concat(responsibility))
+  }
+
   const onUpdateOption = (
     index: number | string,
     label: string,
@@ -151,7 +164,7 @@ const ResponsibilitiesStep = (): React.ReactElement => {
         listOptionDisabled={listResponsibilities}
         onSelectOption={onSelectOption}
         isAddOption={true}
-        onAddOption={onSelectOption}
+        onAddOption={onAddOption}
       />
 
       <DroppableSection

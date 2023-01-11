@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { yupResolver } from '@hookform/resolvers/yup'
+import clsx from 'clsx'
 import * as Yup from 'yup'
 
 import ClientAction from '@/components/client-action'
@@ -27,6 +28,8 @@ const QuestionAnswerStep = (): React.ReactElement => {
     updateAnswerByQuestion,
     getNextQuestionValue,
     handlePreviousStep,
+    isAnimatedComponent,
+    animation,
   } = useFormStepContext()
 
   const data: INextQuestionValue | null = getNextQuestionValue()
@@ -113,7 +116,13 @@ const QuestionAnswerStep = (): React.ReactElement => {
         className='answers-form-container'
         onSubmit={handleSubmit(handleSubmitQuestion)}
       >
-        <div className='question-answers-container'>
+        <div
+          className={clsx({
+            'question-answers-container': true,
+            animate__animated: isAnimatedComponent,
+            [`${animation}`]: isAnimatedComponent,
+          })}
+        >
           {!!errors?.answer?.message && (
             <div className='alert alert-danger' role='alert'>
               {errors?.answer?.message}
