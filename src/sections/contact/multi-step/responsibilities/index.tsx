@@ -104,7 +104,7 @@ const ResponsibilitiesStep = (): React.ReactElement => {
 
     updateAnswerByQuestion({
       currentStep,
-      answer: [responsibilitiesFormat],
+      answer: responsibilitiesFormat,
       answerRaw: [responsibilitiesFormatHtml],
     })
 
@@ -123,7 +123,7 @@ const ResponsibilitiesStep = (): React.ReactElement => {
     if (!answer) return
 
     setListResponsibilities(
-      (answer[0] as []).map((label: string) => ({
+      (answer as []).map((label: string) => ({
         label,
         value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
       })) || [],

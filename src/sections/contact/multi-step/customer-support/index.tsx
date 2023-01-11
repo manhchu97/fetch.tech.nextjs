@@ -1,11 +1,36 @@
 import React from 'react'
 
+import { QUIZ_RESULT_KEY, TYPE_SUBMIT_FINISH } from '@/config/contact'
+
 import ClientAction from '@/components/client-action'
 import ClientLabel from '@/components/client-label'
 
+import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
+
+import { API_FINISH_SURVEY } from '@/routes/api'
+
+import { _postApi } from '@/utils/axios'
+import { removeDataFromStorage } from '@/utils/storage'
+
 const CustomerSupportStep = (): React.ReactElement => {
-  const handleSubmit = () => {
-    console.log('submit')
+  const { successToast, errorToast } = useToastContext()
+  const { clientId } = useFormStepContext()
+
+  const handleSubmit = async () => {
+    try {
+      const response = await _postApi(API_FINISH_SURVEY, {
+        clientId,
+        type: TYPE_SUBMIT_FINISH.SEND_INFO,
+      })
+
+      if (!response?.data?.success) throw new Error(response?.data?.message)
+
+      successToast('Submit survey success! Our specialist will call you soon')
+      removeDataFromStorage(QUIZ_RESULT_KEY)
+    } catch (error) {
+      errorToast((error as Error).message || 'Fail to submit! Please try again')
+    }
   }
 
   return (

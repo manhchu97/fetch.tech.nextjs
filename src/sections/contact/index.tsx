@@ -43,6 +43,8 @@ type sectionInstances =
   | typeof SkillRequire
   | typeof AboutClient
   | typeof FinishStep
+  | typeof Preview
+  | typeof ResponsibilitiesStep
 
 const sectionComponents = {
   [COMPONENT_TYPE.INIT]: ClientInfo,

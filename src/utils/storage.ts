@@ -7,3 +7,7 @@ export function getDataFromStorage(key: string) {
   const data = !!value ? JSON.parse(value) : undefined
   return data
 }
+
+export function removeDataFromStorage(key: string) {
+  localStorage.removeItem(key)
+}

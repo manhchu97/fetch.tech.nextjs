@@ -32,6 +32,11 @@ export const ADDITIONAL_COMPONENTS: ObjProps = {
   THANKYOU_PAGE: 'ThankyouPage',
 }
 
+export enum TYPE_SUBMIT_FINISH {
+  ADD_JOB = 'addJob',
+  SEND_INFO = 'sendInfo',
+}
+
 export const TOTAL_COLUMN_PER_ROW = 3
 
 export const QUIZ_RESULT_KEY = 'QUIZ_RESULT'
@@ -56,5 +61,7 @@ export const getRequirement = (content: string) => {
 }
 
 export const getNiceToHave = (content: string) => {
-  return `<h4><span style="font-size: 16px"><strong>*** Nice to have</strong></span></h4><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
+  return content
+    ? `<h4><span style="font-size: 16px"><strong>*** Nice to have</strong></span></h4><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
+    : ''
 }

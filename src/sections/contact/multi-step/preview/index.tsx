@@ -5,6 +5,8 @@ import rehypeRaw from 'rehype-raw'
 
 import {
   COMPONENT_TYPE,
+  QUIZ_RESULT_KEY,
+  TYPE_SUBMIT_FINISH,
   aboutFetch,
   getAboutClient,
   getNiceToHave,
@@ -16,19 +18,30 @@ import {
 import ClientAction from '@/components/client-action'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
+
+import { API_FINISH_SURVEY } from '@/routes/api'
+
+import { _postApi } from '@/utils/axios'
+import { removeDataFromStorage } from '@/utils/storage'
 
 import styles from './Preview.module.scss'
 
 const PreviewStep = (): React.ReactElement => {
-  const { listResultAnswers, handleBackFromPreview } = useFormStepContext()
+  const { successToast, errorToast } = useToastContext()
+  const {
+    clientId,
+    listResultAnswers,
+    handleBackFromPreview,
+    handleFinishStep,
+  } = useFormStepContext()
 
   const skillsRequiredAnswer = useMemo(() => {
     const skills = listResultAnswers.find(
       (item) => item.inputData.type === COMPONENT_TYPE.TREE,
     )
 
-    const skillTagsFormat = (skills?.answer as string)
-      .split(',')
+    const skillTagsFormat = (skills?.answer as [])
       .map((skill) => `<div className="skill-tag-item">${skill}</div>`)
       .join('')
 
@@ -73,8 +86,21 @@ const PreviewStep = (): React.ReactElement => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(listResultAnswers)
-    // call API finish
+
+    try {
+      const response = await _postApi(API_FINISH_SURVEY, {
+        clientId,
+        type: TYPE_SUBMIT_FINISH.ADD_JOB,
+      })
+
+      if (!response?.data?.success) throw new Error(response?.data?.message)
+
+      successToast('Submit survey success!')
+      removeDataFromStorage(QUIZ_RESULT_KEY)
+      handleFinishStep()
+    } catch (error) {
+      errorToast((error as Error).message || 'Fail to submit survey!')
+    }
   }
 
   return (

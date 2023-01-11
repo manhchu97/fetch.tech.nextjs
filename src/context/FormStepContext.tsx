@@ -41,6 +41,7 @@ type FormStepContextType = {
   saveAnswerByQuestion: () => void
   handlePreview: () => void
   handleBackFromPreview: () => void
+  handleFinishStep: () => void
 }
 
 const FormStepContext = createContext<FormStepContextType | null>(null)
@@ -246,6 +247,10 @@ const FormStepProvider = ({
     setComponentType(COMPONENT_TYPE.CHECKBOX_REQUIREMENT)
   }, [])
 
+  const handleFinishStep = useCallback(() => {
+    setComponentType(COMPONENT_TYPE.FINISH)
+  }, [])
+
   const ctx = useMemo(
     () => ({
       questions,
@@ -263,6 +268,7 @@ const FormStepProvider = ({
       saveAnswerByQuestion,
       handlePreview,
       handleBackFromPreview,
+      handleFinishStep,
     }),
     [
       questions,
@@ -280,6 +286,7 @@ const FormStepProvider = ({
       saveAnswerByQuestion,
       handlePreview,
       handleBackFromPreview,
+      handleFinishStep,
     ],
   )
 
