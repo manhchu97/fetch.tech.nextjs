@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 
-import Page from '@/components/Page'
+import { PRIMARY_COLOR } from '@/config/global'
 
-import variables from '@/styles/variables.module.scss'
+import Page from '@/components/Page'
 
 const FAQPage: NextPage = () => {
   return (
-    <Page title='' themeColor={variables.primaryColor}>
+    <Page title='' themeColor={PRIMARY_COLOR}>
       FAQ Page
     </Page>
   )

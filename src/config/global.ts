@@ -9,3 +9,6 @@ export const CDN_IMAGE_SERVER = `${IMAGE_WESERV_URL}?url=${PORTAL_API}`
 // PAGING
 export const DEFAULT_PAGE_SIZE = 10
 export const DEFAULT_PAGE_NUMBER = 1
+
+// COLOR
+export const PRIMARY_COLOR = '#ffbe16'

@@ -1,14 +1,14 @@
 import type { NextPage } from 'next'
 
+import { PRIMARY_COLOR } from '@/config/global'
+
 import Page from '@/components/Page'
 
 import Calculator from '@/sections/resources/calculator'
 
-import variables from '@/styles/variables.module.scss'
-
 const CalculatorPage: NextPage = () => {
   return (
-    <Page title='' themeColor={variables.primaryColor}>
+    <Page title='' themeColor={PRIMARY_COLOR}>
       <Calculator />
     </Page>
   )
