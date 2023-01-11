@@ -1,4 +1,4 @@
-@import "@/styles/_mixins.scss";
+@import '@/styles/_mixins.scss';
 
 .footer-container {
   display: flex;
@@ -28,7 +28,7 @@
 
         .text-form-input {
           color: rgb(62, 84, 118);
-          font-family: "Gilroy-Regular";
+          font-family: 'Gilroy-Regular';
           font-size: 16px;
           line-height: 150%;
           margin-bottom: 24px;
@@ -98,7 +98,7 @@
       }
 
       .nav-title {
-        font-family: "Gilroy-Regular";
+        font-family: 'Gilroy-Regular';
         font-size: 16px;
         line-height: 150%;
         margin-bottom: 24px;
@@ -109,7 +109,6 @@
     .footer-social-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
 
       @include screen-down(lg) {
         flex-direction: row;
@@ -118,13 +117,13 @@
       .img-social-container {
         display: flex;
         align-items: center;
-        width: 50%;
 
         @include screen-down(lg) {
           width: auto;
+          margin-right: 32px;
 
-          &:first-child {
-            margin-right: 32px;
+          &:last-child {
+            margin-right: 0;
           }
         }
 
@@ -141,7 +140,7 @@
 
         .img-title {
           margin-left: 10px;
-          font-family: "Gilroy-Regular";
+          font-family: 'Gilroy-Regular';
           font-size: 14px;
           line-height: 32px;
           color: #000000;
@@ -155,7 +154,7 @@
   }
 
   :global .footer-copy-right {
-    font-family: "Gilroy-Regular";
+    font-family: 'Gilroy-Regular';
     font-size: 16px;
     line-height: 150%;
     color: #a4b7c8;
