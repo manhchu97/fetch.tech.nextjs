@@ -17,8 +17,8 @@ export const HEADER_CONFIG = [
       subTitle: 'Utilise your preferred talent for your projects.',
       imageSource: '/images/service/ServiceTheme1.png',
       className: 'talent-acquisition-service-container',
-      width: 310,
-      height: 299,
+      imgWidth: 432,
+      imgHeight: 417,
     }),
   },
   {
@@ -28,8 +28,8 @@ export const HEADER_CONFIG = [
       subTitle: 'Run your remote team and leave the HR aspects to us.',
       imageSource: '/images/service/ServiceTheme2.png',
       className: 'management-service-container',
-      width: 310,
-      height: 299,
+      imgWidth: 361,
+      imgHeight: 394,
     }),
   },
   {
@@ -39,8 +39,8 @@ export const HEADER_CONFIG = [
       subTitle: 'Experience a seamless contracting and payroll process.',
       imageSource: '/images/service/ServiceTheme3.png',
       className: 'payroll-compliances-service-container',
-      width: 310,
-      height: 299,
+      imgWidth: 355,
+      imgHeight: 406,
     }),
   },
   {
@@ -51,8 +51,8 @@ export const HEADER_CONFIG = [
         'Enjoy carefully curated management for your project from start to finish.',
       imageSource: '/images/service/ServiceTheme4.png',
       className: 'full-suite-project-service-container',
-      width: 310,
-      height: 299,
+      imgWidth: 518,
+      imgHeight: 319,
     }),
   },
 ]

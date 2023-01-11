@@ -6,6 +6,8 @@ import Image from 'next/image'
 
 import clsx from 'clsx'
 
+import { CALCULATOR_HEADER_DATA } from '@/config/resources'
+
 import ServiceHeader from '@/components/service-header'
 
 import SlickCalculator from '@/sections/resources/calculator/slick-calculator'
@@ -71,11 +73,7 @@ const Calculator = (): React.ReactElement => {
     <div className={clsx(styles['calculator-contain'])}>
       <div className='calculator-section'>
         <div className='calculator-section__header'>
-          <ServiceHeader
-            title='Salary calculator'
-            subTitle="Try our live-quote calculator to evaluate the approximate costs for the talent you're looking to hire or for the estimated income you'll receive while working with Fetch."
-            imageSource='/images/resources/calculator/calculator.png'
-          />
+          <ServiceHeader headerConfig={CALCULATOR_HEADER_DATA} />
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
