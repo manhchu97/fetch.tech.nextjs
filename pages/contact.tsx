@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 import useSWR from 'swr'
 
-import { PORTAL_STAGING_API } from '@/config/global'
+import { HOST_API } from '@/config/global'
 
 import Page from '@/components/Page'
 
@@ -29,22 +29,22 @@ import {
 import fetcher from '@/utils/fetcher'
 
 export const getStaticProps = async () => {
-  const res = await fetch(`${PORTAL_STAGING_API}/${API_LIST_QUESTIONS}`)
+  const res = await fetch(`${HOST_API}/${API_LIST_QUESTIONS}`)
 
   const data: IListQuestionsResponse = await res.json()
 
-  const skillResponse = await fetch(`${PORTAL_STAGING_API}/${API_TECH}`)
+  const skillResponse = await fetch(`${HOST_API}/${API_TECH}`)
 
   const skillData: ISkillResponse = await skillResponse.json()
 
   const requirementResponse = await fetch(
-    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
   )
 
   const requirementData: IRequirementResponse = await requirementResponse.json()
 
   const responsibilitiesResponse = await fetch(
-    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
   )
 
   const responsibilitiesData: IResponsibilitiesResponse =
@@ -66,26 +66,22 @@ function ContactPage({
   fallbackRequirement,
   fallbackResponsibilities,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data } = useSWR(
-    `${PORTAL_STAGING_API}/${API_LIST_QUESTIONS}`,
-    fetcher,
-    { fallbackData: fallback },
-  )
+  const { data } = useSWR(`${HOST_API}/${API_LIST_QUESTIONS}`, fetcher, {
+    fallbackData: fallback,
+  })
 
-  const { data: skillData } = useSWR(
-    `${PORTAL_STAGING_API}/${API_TECH}`,
-    fetcher,
-    { fallbackData: fallbackSkill },
-  )
+  const { data: skillData } = useSWR(`${HOST_API}/${API_TECH}`, fetcher, {
+    fallbackData: fallbackSkill,
+  })
 
   const { data: requirementData } = useSWR(
-    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
     fetcher,
     { fallbackData: fallbackRequirement },
   )
 
   const { data: responsibilitiesData } = useSWR(
-    `${PORTAL_STAGING_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
     fetcher,
     { fallbackData: fallbackResponsibilities },
   )
