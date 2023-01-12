@@ -37,6 +37,8 @@ export const getStaticProps = async ({ params }: Prams) => {
 
   return {
     props: {
+      // https://stackoverflow.com/questions/68773115/next-js-routing-from-pages-slug-js-not-working
+      key: slug,
       header,
       serviceBody,
     },
