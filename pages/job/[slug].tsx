@@ -1,6 +1,6 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
-import { DEFAULT_PAGE_SIZE, PORTAL_API } from '@/config/global'
+import { DEFAULT_PAGE_SIZE, HOST_API } from '@/config/global'
 
 import CustomerMessengerChat from '@/components/CustomerMessengerChat'
 import Page from '@/components/Page'
@@ -22,7 +22,7 @@ type IPrams = {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${PORTAL_API}/${API_LIST_JOB}`)
+  const res = await fetch(`${HOST_API}/${API_LIST_JOB}`)
   const data: IListJobResponse = await res.json()
 
   const listJobs = data?.data?.list || []
@@ -47,7 +47,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps = async ({ params }: IPrams) => {
   const idJob = params.slug.slice(-36)
 
-  const res = await fetch(`${PORTAL_API}/${API_JOB_DETAIL}/${idJob}`)
+  const res = await fetch(`${HOST_API}/${API_JOB_DETAIL}/${idJob}`)
   const data: IJobDetailResponse = await res.json()
 
   return {

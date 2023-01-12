@@ -15,7 +15,7 @@ import useSWR from 'swr'
 import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
-  PORTAL_API,
+  HOST_API,
 } from '@/config/global'
 import {
   SearchToolbarAction,
@@ -109,23 +109,23 @@ const ListJob = ({
     (url: string, location: string, skill: string) => {
       if (location) {
         return fetcher(
-          `${PORTAL_API}/${url}/location/${location}?skills=${skill}`,
+          `${HOST_API}/${url}/location/${location}?skills=${skill}`,
         )
       }
 
-      return fetcher(`${PORTAL_API}/${url}?skills=${skill}`)
+      return fetcher(`${HOST_API}/${url}?skills=${skill}`)
     },
     { fallbackData: fallback },
   )
 
   const { data: locationData } = useSWR(
     mounted ? [API_LIST_LOCATION] : null,
-    (url: string) => fetcher(`${PORTAL_API}/${url}`),
+    (url: string) => fetcher(`${HOST_API}/${url}`),
   )
 
   const { data: skillData } = useSWR(
     mounted ? [API_LIST_SKILL] : null,
-    (url: string) => fetcher(`${PORTAL_API}/${url}`),
+    (url: string) => fetcher(`${HOST_API}/${url}`),
   )
 
   const listJobs: IJobItem[] = useMemo(

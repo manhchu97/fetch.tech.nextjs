@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import useSWR from 'swr'
 
-import { PORTAL_API } from '@/config/global'
+import { HOST_API } from '@/config/global'
 
 import BannerImageCover from '@/components/banner/image-cover'
 import Pagination from '@/components/pagination'
@@ -38,7 +38,7 @@ const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
     mounted ? [API_LIST_PUBLIC_BLOG, page, tags] : null,
     (url: string, currentPage: number, tags: string) =>
       fetcher(
-        `${PORTAL_API}/${url}?pageSize=10&pageNumber=${
+        `${HOST_API}/${url}?pageSize=10&pageNumber=${
           Number(currentPage) || 1
         }&tags=${tags || ''}`,
       ),

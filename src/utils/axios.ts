@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-import { HOST_API } from '@/config/global'
+import { FETCH_TECH_API_V3, HOST_API } from '@/config/global'
 
 const axiosInstance = axios.create({
   baseURL: HOST_API,
+  headers: {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Access-Control-Allow-Origin': '*',
+  },
+})
+
+export const axiosV3Instance = axios.create({
+  baseURL: FETCH_TECH_API_V3,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',

@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
-import { PORTAL_API } from '@/config/global'
+import { HOST_API } from '@/config/global'
 
 import { API_JOB_DETAIL, API_LIST_SKILL } from '@/routes/api'
 
@@ -46,13 +46,13 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
 
   const { data } = useSWR(
     mounted ? [API_JOB_DETAIL, idJob] : null,
-    (url: string, idJob: string) => fetcher(`${PORTAL_API}/${url}/${idJob}`),
+    (url: string, idJob: string) => fetcher(`${HOST_API}/${url}/${idJob}`),
     { fallbackData: fallback },
   )
 
   const { data: skillData } = useSWR(
     mounted ? [API_LIST_SKILL] : null,
-    (url: string) => fetcher(`${PORTAL_API}/${url}`),
+    (url: string) => fetcher(`${HOST_API}/${url}`),
   )
 
   const skillOptions = useMemo(

@@ -1,6 +1,6 @@
 import type { InferGetStaticPropsType } from 'next'
 
-import { DEFAULT_PAGE_SIZE, PORTAL_API } from '@/config/global'
+import { DEFAULT_PAGE_SIZE, HOST_API } from '@/config/global'
 
 import CustomerMessengerChat from '@/components/CustomerMessengerChat'
 import Page from '@/components/Page'
@@ -14,7 +14,7 @@ import ListJob from '@/sections/job/list'
 import { IListJobResponse } from '@/types/job'
 
 export const getStaticProps = async () => {
-  const res = await fetch(`${PORTAL_API}/${API_LIST_JOB}`)
+  const res = await fetch(`${HOST_API}/${API_LIST_JOB}`)
   const data: IListJobResponse = await res.json()
 
   const listJobs = data?.data?.list || []

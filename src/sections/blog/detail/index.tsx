@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
-import { PORTAL_API } from '@/config/global'
+import { HOST_API } from '@/config/global'
 
 import DetailPostSkeleton from '@/components/skeleton/post/detail'
 import RelatedPostSkeleton from '@/components/skeleton/post/related-post'
@@ -36,7 +36,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
 
   const { data } = useSWR(
     slug ? [API_LIST_PUBLIC_BLOG, slug] : null,
-    (url: string, slug: string) => fetcher(`${PORTAL_API}/${url}/${slug}`),
+    (url: string, slug: string) => fetcher(`${HOST_API}/${url}/${slug}`),
     { fallbackData: fallback },
   )
 
@@ -61,7 +61,7 @@ const BlogDetail = ({ fallback }: IBlogDetail): React.ReactElement => {
 
   const { data: relatedPostData, error } = useSWR(
     id ? API_BLOG_RELATED({ id, pageSize: 3 }) : null,
-    (url: string) => fetcher(`${PORTAL_API}/${url}`),
+    (url: string) => fetcher(`${HOST_API}/${url}`),
   )
 
   const isLoading = !error && !relatedPostData
