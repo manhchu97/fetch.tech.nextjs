@@ -1,0 +1,66 @@
+@import '@/styles/_mixins.scss';
+
+.employee-header {
+  text-align: center;
+  padding-right: calc(100vw * 0.1 - 12px);
+  padding-left: calc(100vw * 0.1 - 12px);
+
+  @include screen-up(sm) {
+    margin-bottom: 100px;
+  }
+
+  @include screen-up(md) {
+    margin-bottom: 120px;
+  }
+
+  @include screen-up(lg) {
+    margin-bottom: 150px;
+  }
+
+  @include screen-up(xl) {
+    margin-bottom: 200px;
+  }
+
+  @include screen-down(xs) {
+    text-align: left;
+  }
+
+  :global .h6-p-color {
+    margin-bottom: 24px;
+
+    @include screen-up(sm) {
+      margin-bottom: 0;
+      margin-left: calc(-1 * var(--padding-x));
+      margin-right: calc(-1 * var(--padding-x));
+      text-align: center;
+    }
+  }
+
+  :global .btn-learn-more {
+    @include screen-up(sm) {
+      display: none;
+    }
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 54px;
+    background: #273a5f;
+    box-shadow: 0px 6px 10px #d2e2ed;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 49px;
+
+    font-family: Gilroy-SemiBold;
+    font-size: 18px;
+    line-height: 20px;
+    color: #ffffff;
+    opacity: 1;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
