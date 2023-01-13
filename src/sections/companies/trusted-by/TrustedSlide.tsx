@@ -15,7 +15,6 @@ const TrustedSlide = (): React.ReactElement => {
     autoplay: true,
     centerMode: true,
     centerPadding: '0px',
-    responsive: [],
   }
 
   return (
@@ -23,7 +22,7 @@ const TrustedSlide = (): React.ReactElement => {
       <div className='slick-card'>
         <div className='brand-wrap'>
           <Image
-            src='/images/company/Cus1.svg'
+            src='/images/company/Cus1.png'
             width={93}
             height={46}
             alt='customer1'
@@ -34,10 +33,10 @@ const TrustedSlide = (): React.ReactElement => {
       <div className='slick-card'>
         <div className='brand-wrap'>
           <Image
-            src='/images/company/Cus2.svg'
+            src='/images/company/Cus2.png'
             width={54}
             height={46}
-            alt='customer1'
+            alt='customer2'
           />
         </div>
       </div>
@@ -45,10 +44,10 @@ const TrustedSlide = (): React.ReactElement => {
       <div className='slick-card'>
         <div className='brand-wrap'>
           <Image
-            src='/images/company/Cus3.svg'
+            src='/images/company/Cus3.png'
             width={99}
             height={27}
-            alt='customer1'
+            alt='customer3'
           />
         </div>
       </div>
@@ -56,10 +55,10 @@ const TrustedSlide = (): React.ReactElement => {
       <div className='slick-card'>
         <div className='brand-wrap'>
           <Image
-            src='/images/company/Cus4.svg'
+            src='/images/company/Cus4.png'
             width={91}
             height={89}
-            alt='customer1'
+            alt='customer4'
           />
         </div>
       </div>
@@ -67,10 +66,10 @@ const TrustedSlide = (): React.ReactElement => {
       <div className='slick-card'>
         <div className='brand-wrap'>
           <Image
-            src='/images/company/Cus5.svg'
+            src='/images/company/Cus5.png'
             width={71}
             height={47}
-            alt='customer1'
+            alt='customer5'
           />
         </div>
       </div>

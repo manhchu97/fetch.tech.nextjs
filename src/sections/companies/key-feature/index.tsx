@@ -23,7 +23,7 @@ const KeyFeature = (): React.ReactElement => (
               })}
             >
               <Image
-                src='/images/company/Theme1.svg'
+                src='/images/company/Theme1.png'
                 alt='theme1'
                 layout='fill'
                 objectFit='contain'

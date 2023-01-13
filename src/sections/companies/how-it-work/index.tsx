@@ -18,7 +18,7 @@ const HowItWork = (): React.ReactElement => {
         <div className='col-xs-12 col-sm-12 col-lg-8 col-xl-8'>
           <div className='img-wrap mx-auto'>
             <Image
-              src='/images/company/CompanyPic1.svg'
+              src='/images/company/CompanyPic1.png'
               width={96}
               height={96}
               alt='heart'
@@ -107,28 +107,28 @@ const HowItWork = (): React.ReactElement => {
             <div className='row g-4'>
               <FeatureCell
                 feature='Talent acquisition'
-                icon='/images/company/Feature1.svg'
+                icon='/images/company/Feature1.png'
                 color='black'
                 bgColor='#D2E2ED'
               />
 
               <FeatureCell
                 feature='Services management'
-                icon='/images/company/Feature3.svg'
+                icon='/images/company/Feature3.png'
                 color='white'
                 bgColor='#FF6847'
               />
 
               <FeatureCell
                 feature='Payroll and compliances'
-                icon='/images/company/Feature2.svg'
+                icon='/images/company/Feature2.png'
                 color='white'
                 bgColor='#17274E'
               />
 
               <FeatureCell
                 feature='Full-suite project consultancy'
-                icon='/images/company/Feature4.svg'
+                icon='/images/company/Feature4.png'
                 color='white'
                 bgColor='#FFBE16'
               />

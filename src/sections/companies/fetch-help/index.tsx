@@ -13,7 +13,7 @@ const FetchHelp = () => (
     <div className='banner'>
       <Image
         className='banner__img-container'
-        src='/images/company/Theme2.svg'
+        src='/images/company/Theme2.png'
         alt='company example'
         layout='fill'
         objectFit='cover'
@@ -74,13 +74,11 @@ const FetchHelp = () => (
         <div className='divider d-md-none '></div>
 
         <div
-          className='collaspe-toggle d-md-none collapsed'
+          className='collaspe-toggle d-md-none collapsed wrapper-collaspe-toggle'
           data-toggle='collapse'
-          data-bs-toggle={'collapse'}
-          data-bs-target='#chartdesk-info'
-          data-target='#chartdesk-info'
-          aria-expanded='false'
-          aria-controls='chartdesk-info'
+          data-bs-toggle='collapse'
+          data-bs-target='#chartdesk-info-container'
+          data-target='#chartdesk-info-container'
         >
           <div className='h6-bold'>About Chart Desk</div>
 
@@ -92,7 +90,10 @@ const FetchHelp = () => (
           />
         </div>
 
-        <div id='chartdesk-info' className='collapse d-md-block mb-4'>
+        <div
+          id='chartdesk-info-container'
+          className='collapse d-md-block mb-4 wrapper-collaspe-toggle'
+        >
           <AnimatiopnOnScrollWrap
             render={(ref, animate) => (
               <div
@@ -133,13 +134,11 @@ const FetchHelp = () => (
         <div className='divider d-md-none '></div>
 
         <div
-          className='collaspe-toggle d-md-none collapsed'
+          className='collaspe-toggle d-md-none collapsed wrapper-collaspe-toggle'
           data-toggle='collapse'
-          data-bs-toggle={'collapse'}
-          data-bs-target='#how-we-tackled'
-          data-target='#how-we-tackled'
-          aria-expanded='false'
-          aria-controls='how-we-tackled'
+          data-bs-toggle='collapse'
+          data-bs-target='#how-we-tackled-container'
+          data-target='#how-we-tackled-container'
         >
           <div className='h6-bold'>How we tackled</div>
 
@@ -151,7 +150,10 @@ const FetchHelp = () => (
           />
         </div>
 
-        <div className='collapse d-md-block ' id='how-we-tackled'>
+        <div
+          className='collapse d-md-block wrapper-collaspe-toggle'
+          id='how-we-tackled-container'
+        >
           <AnimatiopnOnScrollWrap
             render={(ref, animate) => (
               <div
