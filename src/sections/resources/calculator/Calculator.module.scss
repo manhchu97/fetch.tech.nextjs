@@ -45,6 +45,14 @@
         max-width: 540px;
       }
 
+      @include screen-down(sm) {
+        max-width: 330px;
+      }
+
+      .letter-spacing-1 {
+        letter-spacing: 1px;
+      }
+
       .img-inactive {
         filter: sepia(1);
       }
@@ -104,16 +112,43 @@
         .calculator-gr-btn,
         .amount-gr-btn {
           margin-bottom: 32px;
+
+          @include screen-down(sm) {
+            margin-bottom: 56px;
+          }
         }
 
         .employment-gr-btn {
           button {
             padding: 28px 24px;
+
+            @include screen-down(sm) {
+              padding: 16px 12px;
+
+              .h6 {
+                font-size: 14px;
+                line-height: 20px;
+              }
+
+              .circle-img-81 {
+                width: 52px;
+                min-width: 52px;
+                height: 52px;
+              }
+            }
           }
 
           .circle-img {
             background: #eef3f8;
-            font-size: 42px;
+            position: relative;
+
+            span {
+              margin: 20px !important;
+
+              @include screen-down(sm) {
+                margin: 14px !important;
+              }
+            }
           }
 
           .circle-img-selected {
@@ -134,6 +169,10 @@
           button {
             border-color: #fcbe17;
             background-color: #fff9ea;
+
+            @include screen-down(sm) {
+              padding: 16px 8px;
+            }
           }
 
           input {
@@ -163,6 +202,17 @@
           @include screen-down(lg) {
             margin-bottom: 32px;
           }
+
+          @include screen-down(sm) {
+            margin-bottom: 64px;
+          }
+
+          button {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 20px;
+            line-height: 30px;
+          }
         }
       }
 
@@ -175,9 +225,23 @@
         &-top {
           padding: 32px;
 
+          @include screen-down(sm) {
+            padding: 18px;
+          }
+
           .group-btn-for {
             justify-content: space-around;
             margin-bottom: 32px;
+
+            @include screen-down(sm) {
+              justify-content: space-between;
+
+              button {
+                width: 46%;
+                padding: 20px 8px;
+                font-size: 16px;
+              }
+            }
           }
 
           .group-btn-currency {
@@ -186,6 +250,11 @@
             button {
               padding: 12px;
               margin-right: 32px;
+
+              @include screen-down(sm) {
+                width: 30%;
+                margin-right: 0;
+              }
             }
 
             img {
@@ -206,6 +275,16 @@
         &-bottom {
           padding: 32px;
           display: flex;
+
+          @include screen-down(sm) {
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+
+            button {
+              padding: 16px;
+            }
+          }
         }
       }
     }

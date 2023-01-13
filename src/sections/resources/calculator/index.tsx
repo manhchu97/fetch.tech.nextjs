@@ -12,7 +12,11 @@ import ServiceHeader from '@/components/service-header'
 
 import SlickCalculator from '@/sections/resources/calculator/slick-calculator'
 
-import { calculationSalary } from '@/utils/convertSalary.util'
+import {
+  calculationSalary,
+  convertExchangeRate,
+  convertToVND,
+} from '@/utils/convertSalary.util'
 
 import styles from './Calculator.module.scss'
 import {
@@ -51,14 +55,34 @@ const Calculator = (): React.ReactElement => {
     CalculationSalaryResponse[] | null
   >(null)
 
+  const getDataCalculationSalary = (payload: IDataPage) => {
+    const { amount, currency, currencyAmount } = payload
+
+    const amountVND = convertToVND(currencyAmount, amount)
+    const getDataCalculationSalary = calculationSalary({
+      ...payload,
+      amount: amountVND,
+    })
+
+    const currencyResult =
+      getDataCalculationSalary?.map((item) => ({
+        ...item,
+        amount: convertExchangeRate(currency, item.amount),
+      })) || null
+
+    return currencyResult
+  }
+
   const onSubmit = (data: IDataPage) => {
-    setDataCalculationSalary(calculationSalary(data))
+    const salaryData = getDataCalculationSalary(data)
+    setDataCalculationSalary(salaryData)
   }
 
   const onUpdateData = () => {
-    if (dataCalculationSalary) {
-      setDataCalculationSalary(calculationSalary(getValues()))
-    }
+    if (!dataCalculationSalary) return
+
+    const salaryData = getDataCalculationSalary(getValues())
+    setDataCalculationSalary(salaryData)
   }
 
   const handleChangeCurrency = (
@@ -102,16 +126,18 @@ const Calculator = (): React.ReactElement => {
                           'circle-img-selected',
                       )}
                     >
-                      <i
-                        className={clsx(
-                          'bi bi-person-fill mt-1',
-                          watch('employmentType') === item
-                            ? 'text-light'
-                            : 'text-dark',
-                        )}
+                      <Image
+                        src={
+                          item === 'Full time'
+                            ? '/images/resources/calculator/person_icon.png'
+                            : '/images/resources/calculator/calendar_icon.png'
+                        }
+                        alt='icon'
+                        layout='fill'
+                        objectFit='inherit'
                       />
                     </div>
-                    {item}
+                    <div className='h6'>{item}</div>
                   </button>
                 ))}
               </div>
@@ -187,7 +213,7 @@ const Calculator = (): React.ReactElement => {
               <div className='div-center btn-active'>
                 <button
                   type='submit'
-                  className='btn btn-warning text-light fw-bold'
+                  className='btn btn-warning text-light h6-bold'
                 >
                   Active
                 </button>
@@ -202,7 +228,7 @@ const Calculator = (): React.ReactElement => {
                       key={item}
                       type='button'
                       className={clsx(
-                        'btn btn-outline-secondary btn-lg btn-effect',
+                        'btn btn-outline-secondary btn-lg btn-effect h6',
                         watch('role') === item && 'btn-selected',
                       )}
                       onClick={() => {
@@ -218,7 +244,7 @@ const Calculator = (): React.ReactElement => {
                 <div className='group-btn-currency'>
                   <div className='subtitle2 fw-bold mb-3'>Currency</div>
 
-                  <div className='div-center justify-content-start'>
+                  <div className='div-center justify-content-between justify-content-sm-start'>
                     {CURRENCY_TYPE.map((item) => (
                       <button
                         key={item}
@@ -273,7 +299,7 @@ const Calculator = (): React.ReactElement => {
                             </span>
                           )}
                         </div>
-                        <div className='h6 fw-semibold'>
+                        <div className='h6 fw-semibold letter-spacing-1'>
                           <span className='me-2'>{watch('currency')}</span>
                           {`${item.amount.toFixed(2)}`.replace(
                             /\B(?=(\d{3})+(?!\d))/g,
@@ -288,7 +314,7 @@ const Calculator = (): React.ReactElement => {
               <hr />
 
               <div className='calculator-section__main__right-bottom'>
-                <div className='circle-img-81 me-4'>
+                <div className='circle-img-81 mb-3 mb-sm-0 me-sm-4'>
                   <Image
                     src='/images/resources/calculator/avatar.png'
                     alt='image'
@@ -298,14 +324,16 @@ const Calculator = (): React.ReactElement => {
                 </div>
 
                 <div>
-                  <div className='h5'>Hiring someone from Vietnam soon?</div>
+                  <div className='h5-bold'>
+                    Hiring someone from Vietnam soon?
+                  </div>
                   <div className='subtitle2 mb-3'>
                     Check out some of the better candidates that have passed our
                     evaluation.
                   </div>
                   <button
                     type='button'
-                    className='btn btn-warning btn-lg w-75 text-light'
+                    className='btn btn-warning btn-lg w-75 text-light h5-bold'
                   >
                     View candidates
                   </button>

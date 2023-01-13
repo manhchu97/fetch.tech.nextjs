@@ -326,21 +326,9 @@ const convertFromGross = (
 export const calculationSalary = (
   params: ParamsCalculationSalary,
 ): CalculationSalaryResponse[] | null => {
-  const {
-    amount,
-    employmentType,
-    role: roleType,
-    calculationType,
-    currency,
-    currencyAmount,
-  } = params
+  const { amount, employmentType, role: roleType, calculationType } = params
 
-  const convertExchangeRateAmount =
-    currency === currencyAmount
-      ? amount
-      : convertExchangeRate(currency, convertToVND(currencyAmount, amount))
-
-  if (convertExchangeRateAmount <= 0)
+  if (amount <= 0)
     return convertFromGross({
       amount: 0,
       employmentType,
@@ -352,7 +340,7 @@ export const calculationSalary = (
   switch (calculationType) {
     case 'Gross':
       return convertFromGross({
-        amount: convertExchangeRateAmount,
+        amount: amount,
         employmentType,
         roleType,
       })
@@ -368,19 +356,16 @@ export const calculationSalary = (
        * gross = (salary - percentTax* 11 * 10 ** 6 - reductionAmount - (percentTax - 1) * 29.8 * 10 ** 6 * taxHI_UI) / (1 - percentTax + (percentTax - 1) * taxUI)
        */
 
-      const grossUnder298 = convertExchangeRateAmount * (1 - totalTax)
+      const grossUnder298 = amount * (1 - totalTax)
       const grossUnder298Arr = Object.values(taxableIncomeArr).map(
         ({ reductionAmount, reductionPercent }) =>
-          (convertExchangeRateAmount -
-            11 * 10 ** 6 * reductionPercent -
-            reductionAmount) /
+          (amount - 11 * 10 ** 6 * reductionPercent - reductionAmount) /
           (1 - reductionPercent + (reductionPercent - 1) * totalTax),
       )
-      const grossUpper298 =
-        (convertExchangeRateAmount + 29.8 * 10 ** 6 * taxHI_UI) / (1 - taxUI)
+      const grossUpper298 = (amount + 29.8 * 10 ** 6 * taxHI_UI) / (1 - taxUI)
       const grossUpper298Arr = Object.values(taxableIncomeArr).map(
         ({ reductionAmount, reductionPercent }) =>
-          (convertExchangeRateAmount -
+          (amount -
             11 * 10 ** 6 * reductionPercent -
             reductionAmount -
             (reductionPercent - 1) * 29.8 * 10 ** 6 * taxHI_UI) /
@@ -397,8 +382,8 @@ export const calculationSalary = (
       let minGrossIndex = 0
       grossArr.forEach((item, index) => {
         if (
-          checkFromGross(item, convertExchangeRateAmount) <
-          checkFromGross(grossArr[minGrossIndex], convertExchangeRateAmount)
+          checkFromGross(item, amount) <
+          checkFromGross(grossArr[minGrossIndex], amount)
         )
           minGrossIndex = index
       })
@@ -414,36 +399,22 @@ export const calculationSalary = (
       const totalTaxEmployer = SI + HI + UI + TU
       const taxSI_HI_TU = SI + HI + TU
 
-      const convertPVIExchangeRateAmount =
-        currency === currencyAmount ? PVI : convertExchangeRate(currency, PVI)
-
       // < 29.8
-      const grossUnder296 =
-        (convertExchangeRateAmount - convertPVIExchangeRateAmount) /
-        (1 - totalTaxEmployer)
+      const grossUnder296 = (amount - PVI) / (1 + totalTaxEmployer)
 
       // >= 29.8
       const grossUpper296 =
-        (convertExchangeRateAmount -
-          convertPVIExchangeRateAmount -
-          29.8 * 10 ** 6 * taxSI_HI_TU) /
-        (1 - UI)
+        (amount - PVI - 29.8 * 10 ** 6 * taxSI_HI_TU) / (1 + UI)
       const grossLargest =
-        convertExchangeRateAmount -
-        convertPVIExchangeRateAmount -
-        83.6 * 10 ** 6 * UI -
-        29.8 * 10 ** 6 * taxSI_HI_TU
+        amount - PVI - 83.6 * 10 ** 6 * UI - 29.8 * 10 ** 6 * taxSI_HI_TU
 
       const grossArrTotal = [grossUnder296, grossLargest, grossUpper296]
 
       let minGrossTotalIndex = 0
       grossArrTotal.forEach((item, index) => {
         if (
-          checkTotalFromGross(item, convertExchangeRateAmount) <
-          checkTotalFromGross(
-            grossArrTotal[minGrossTotalIndex],
-            convertExchangeRateAmount,
-          )
+          checkTotalFromGross(item, amount) <
+          checkTotalFromGross(grossArrTotal[minGrossTotalIndex], amount)
         )
           minGrossTotalIndex = index
       })
