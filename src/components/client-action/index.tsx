@@ -31,7 +31,7 @@ const ClientAction = ({
             >
               <div className='action-icon action-btn-back'>
                 <Image
-                  src='/images/IconArrowBack.svg'
+                  src='/images/contact/IconArrowBack.svg'
                   alt='Icon back question'
                   width={12}
                   height={12}
@@ -44,7 +44,7 @@ const ClientAction = ({
             <button className='action-btn action-btn-contained' type='submit'>
               <div className='action-icon action-btn-next'>
                 <Image
-                  src='/images/IconArrowNext.svg'
+                  src='/images/contact/IconArrowNext.svg'
                   alt='Icon next question'
                   width={12}
                   height={12}
