@@ -1,0 +1,59 @@
+@import '@/styles/_mixins.scss';
+
+.company-key-feature-container {
+  background-color: #f9fbfe;
+
+  :global .left {
+    @include screen-up(xxl) {
+      height: 800px;
+    }
+
+    @include screen-down(md) {
+      height: 100%;
+    }
+
+    .img-container {
+      position: relative !important;
+      width: 100%;
+      height: 100%;
+
+      @include screen-down(md) {
+        height: 450px;
+        weight: 465px;
+        margin-bottom: 50px;
+      }
+    }
+  }
+
+  :global .right {
+    margin-top: auto;
+    margin-bottom: auto;
+
+    @include screen-up(lg) {
+      padding-left: 50px;
+      padding-right: 10%;
+    }
+
+    .h2 {
+      @include screen-up(xl) {
+        font-size: 42px;
+      }
+
+      @include screen-up(md) {
+        font-size: 36px;
+      }
+
+      @include screen-up(sm) {
+        font-size: 26px !important;
+      }
+    }
+
+    .h5-bold {
+      margin-bottom: 16px;
+    }
+
+    .par-grey-color {
+      line-height: 24px;
+    }
+  }
+}

@@ -1,0 +1,155 @@
+@import '@/styles/_mixins.scss';
+
+.fetch-help-container {
+  margin: 0 5%;
+
+  @include screen-down(md) {
+    margin: 0;
+  }
+
+  :global .banner {
+    background-color: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      ),
+      linear-gradient(
+        180deg,
+        rgba(179, 208, 234, 0.8) 0%,
+        rgba(64, 126, 249, 0.8) 73.96%
+      );
+    border-radius: 15px;
+    padding: 0px 5%;
+    position: relative;
+
+    @include screen-down(md) {
+      padding-top: 50px;
+      border-radius: 0;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    &__img-container {
+      z-index: 1;
+
+      @include screen-up(md) {
+        border-radius: 15px;
+      }
+    }
+
+    &__inner {
+      z-index: 2;
+      position: relative;
+
+      .left {
+        color: white;
+        display: flex;
+        flex-direction: column;
+
+        @include screen-up(md) {
+          margin-top: 8%;
+        }
+
+        .h2 {
+          margin-bottom: 30px;
+
+          @include screen-down(sm) {
+            font-size: 32px;
+            line-height: 43px;
+          }
+        }
+      }
+
+      .right {
+        @include screen-down(md) {
+          margin-top: 8%;
+        }
+
+        .right-rec {
+          padding: 80px 50px 50px 50px;
+          background: #ffffff;
+          border: 1px solid #a4b7c8;
+          box-sizing: border-box;
+          box-shadow: 0px 18px 29px rgba(164, 183, 200, 0.16);
+          border-radius: 19px;
+          height: calc(100%);
+          width: 100%;
+          transform: translateY(20%);
+
+          @include screen-down(md) {
+            transform: translateY(40%);
+            padding: 40px 24px;
+          }
+
+          .big-text {
+            font-family: 'Gilroy-Light';
+            font-size: 110px;
+            line-height: 95px;
+            letter-spacing: -1px;
+            color: #273a5f;
+            margin-bottom: 56px;
+          }
+
+          .h5-bold {
+            margin-bottom: 35px;
+          }
+        }
+      }
+    }
+  }
+
+  :global .content {
+    padding: 50px 0;
+
+    @include screen-down(md) {
+      padding: 100px 0;
+      flex-wrap: wrap-reverse;
+    }
+
+    .divider {
+      border-top: 1px solid #a4b7c8;
+      margin: 0 -10%;
+    }
+
+    .left {
+      @include screen-up(md) {
+        padding-right: 10%;
+      }
+
+      .h5-bold {
+        margin-bottom: 50px;
+      }
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .collaspe-toggle {
+      color: #3e5476;
+      padding-top: 24px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .collaspe-toggle:not(.collapsed) {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    .how-we-tackled {
+      background: #091738;
+      border-radius: 14px;
+      padding: 47px 33px 32px 10%;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+  }
+}

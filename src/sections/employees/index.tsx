@@ -163,7 +163,6 @@ const Employee = () => {
                     >
                       <div className='check-icon-wrap'>
                         <Image
-                          
                           src='/images/employee/tick15.svg'
                           alt='check'
                           width={16}
@@ -294,7 +293,6 @@ const Employee = () => {
                     >
                       <div className='check-icon-wrap'>
                         <Image
-                          
                           src='/images/employee/tick15.svg'
                           alt='check'
                           width={16}
