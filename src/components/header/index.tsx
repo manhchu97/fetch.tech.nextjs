@@ -85,7 +85,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Talent Acquisition'
                         text='Procure talents from Vietnam'
-                        imageSrc='/images/TalentAcquisition.png'
+                        imageSrc='/images/nav/TalentAcquisition.png'
                       />
                     </a>
                   </Link>
@@ -95,7 +95,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Services management'
                         text='Employee directives and administration'
-                        imageSrc='/images/ServiceManageMent.png'
+                        imageSrc='/images/nav/ServiceManageMent.png'
                       />
                     </a>
                   </Link>
@@ -105,7 +105,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Payroll and compliances'
                         text='Streamlined contracting and payroll process'
-                        imageSrc='/images/Payroll.png'
+                        imageSrc='/images/nav/Payroll.png'
                       />
                     </a>
                   </Link>
@@ -115,7 +115,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Full-suite project consultancy'
                         text='Comprehensive projects management'
-                        imageSrc='/images/FullSuite.png'
+                        imageSrc='/images/nav/FullSuite.png'
                       />
                     </a>
                   </Link>
@@ -144,7 +144,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Our story'
                         text='Learn more about us'
-                        imageSrc='/images/OurStory.png'
+                        imageSrc='/images/nav/OurStory.png'
                       />
                     </a>
                   </Link>
@@ -158,7 +158,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Case Studies'
                         text='Case studies'
-                        imageSrc='/images/CaseStudies.png'
+                        imageSrc='/images/nav/CaseStudies.png'
                       />
                     </a>
                   </Link>
@@ -168,7 +168,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                       <DropdownItem
                         title='Vietnam Calculator'
                         text='Assess estimated costs'
-                        imageSrc='/images/Calculator.png'
+                        imageSrc='/images/nav/Calculator.png'
                       />
                     </a>
                   </Link>

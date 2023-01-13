@@ -60,7 +60,7 @@ const MenuItem = (props: MenuItemProps): React.ReactElement => {
         <div className='menu-icon-container'>
           <Image
             className='menu-icon'
-            src='/images/Vector_15.png'
+            src='/images/nav/Vector_15.png'
             alt='arrow'
             width={10}
             height={5}

@@ -159,7 +159,7 @@ const Footer = () => {
             >
               <div className='img-social'>
                 <Image
-                  src='/images/BigFacebook.svg'
+                  src='/images/footer/BigFacebook.svg'
                   alt='facebook'
                   layout='fill'
                   objectFit='cover'
@@ -182,7 +182,7 @@ const Footer = () => {
               <div className='img-social'>
                 <Image
                   className='img-social'
-                  src='/images/BigLinkedin.svg'
+                  src='/images/footer/BigLinkedin.svg'
                   alt='linkedin'
                   layout='fill'
                   objectFit='cover'
@@ -198,7 +198,7 @@ const Footer = () => {
               <div className='img-social'>
                 <Image
                   className='img-social'
-                  src='/images/BigWhatsapp.svg'
+                  src='/images/footer/BigWhatsapp.svg'
                   alt='tel'
                   layout='fill'
                   objectFit='cover'
@@ -218,7 +218,7 @@ const Footer = () => {
               <div className='img-social'>
                 <Image
                   className='img-social'
-                  src='/images/BigMail.svg'
+                  src='/images/footer/BigMail.svg'
                   alt='mail'
                   layout='fill'
                   objectFit='cover'
