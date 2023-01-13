@@ -29,9 +29,9 @@ const ClientAction = ({
               className='action-btn action-btn-outlined'
               onClick={onClickPreviousButton}
             >
-              <div className='action-icon'>
+              <div className='action-icon action-btn-back'>
                 <Image
-                  src={'/images/IconArrowBack.svg'}
+                  src='/images/IconArrowBack.svg'
                   alt='Icon back question'
                   width={12}
                   height={12}
@@ -42,9 +42,9 @@ const ClientAction = ({
             </button>
 
             <button className='action-btn action-btn-contained' type='submit'>
-              <div className='action-icon'>
+              <div className='action-icon action-btn-next'>
                 <Image
-                  src={'/images/IconArrowNext.svg'}
+                  src='/images/IconArrowNext.svg'
                   alt='Icon next question'
                   width={12}
                   height={12}

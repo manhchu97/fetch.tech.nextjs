@@ -4,34 +4,45 @@ import dynamic from 'next/dynamic'
 
 import { COMPONENT_TYPE } from '@/config/contact'
 
+import QuestionSkeleton from '@/components/skeleton/question-answer'
+
 import { useFormStepContext } from '@/context/FormStepContext'
 
 import ClientInfo from '@/sections/contact/multi-step/client-info'
 
 const AboutClient = dynamic(
   () => import('@/sections/contact/multi-step/about-client'),
+  { loading: () => <QuestionSkeleton /> },
 )
 const CustomerSupport = dynamic(
   () => import('@/sections/contact/multi-step/customer-support'),
+  { loading: () => <QuestionSkeleton /> },
 )
 const HireInfo = dynamic(
   () => import('@/sections/contact/multi-step/hire-info'),
+  { loading: () => <QuestionSkeleton /> },
 )
 const QuestionAnswer = dynamic(
   () => import('@/sections/contact/multi-step/question-answer'),
+  { loading: () => <QuestionSkeleton /> },
 )
 const ResponsibilitiesStep = dynamic(
   () => import('@/sections/contact/multi-step/responsibilities'),
+  { loading: () => <QuestionSkeleton /> },
 )
 const SkillRequire = dynamic(
   () => import('@/sections/contact/multi-step/skill-require'),
+  { loading: () => <QuestionSkeleton /> },
 )
 
 const RequirementStep = dynamic(
   () => import('@/sections/contact/multi-step/requirement'),
+  { loading: () => <QuestionSkeleton /> },
 )
 
-const Preview = dynamic(() => import('@/sections/contact/multi-step/preview'))
+const Preview = dynamic(() => import('@/sections/contact/multi-step/preview'), {
+  loading: () => <QuestionSkeleton />,
+})
 
 const FinishStep = dynamic(() => import('./multi-step/finish-step'))
 

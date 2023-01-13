@@ -5,11 +5,11 @@ import Image from 'next/image'
 
 import clsx from 'clsx'
 
+import { ACTION_TYPE } from '@/config/contact'
+
 import Modal from '@/components/modal/Modal'
 
 import useAutosizeTextArea from '@/hooks/useAutosizeTextArea'
-
-import { ACTION_TYPE } from '@/sections/contact/multi-step/requirement/config'
 
 import { IOption } from '@/types/contact'
 
@@ -40,11 +40,11 @@ const DraggableItem = ({
     setIsOpen(false)
   }
 
-  const handleOpenEdit = () => {
+  const handleOpenEditOption = () => {
     setIsEditOption(true)
   }
 
-  const handleCloseEdit = () => {
+  const handleCloseEditOption = () => {
     setIsEditOption(false)
     onUpdateOption(item.value, labelOptionValue, ACTION_TYPE.EDIT)
   }
@@ -62,21 +62,25 @@ const DraggableItem = ({
   const handlePressOut = (e: {
     currentTarget: { className: string | string[]; focus: () => void }
   }) => {
-    if (e.currentTarget.className.includes('is-edit')) return
+    if (e.currentTarget?.className?.includes('is-edit')) return
 
-    e.currentTarget.focus()
+    e.currentTarget?.focus()
   }
 
   useAutosizeTextArea(textAreaRef.current)
 
   useEffect(() => {
-    const endText = textAreaRef.current?.value.length || 0
-    if (!textAreaRef.current) return
-    const scrollHeight = textAreaRef?.current.scrollHeight
+    const element = textAreaRef.current
 
-    textAreaRef.current.style.height = scrollHeight + 'px'
-    textAreaRef.current?.setSelectionRange(endText, endText)
-    textAreaRef.current?.focus()
+    if (!element) return
+
+    const endText = element.value.length || 0
+
+    const scrollHeight = element.scrollHeight
+
+    element.style.height = scrollHeight + 'px'
+    element.setSelectionRange(endText, endText)
+    element.focus()
   })
 
   return (
@@ -88,18 +92,18 @@ const DraggableItem = ({
       >
         {(provided, snapshot) => (
           <div
-            className={clsx(
-              { 'draggable-item': true },
-              { 'is-dragging': snapshot.isDragging },
-              { 'is-edit': isEditOption },
-            )}
+            className={clsx({
+              'draggable-item': true,
+              'is-dragging': snapshot.isDragging,
+              'is-edit': isEditOption,
+            })}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             onMouseDown={handlePressOut}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleCloseEdit()
+                handleCloseEditOption()
                 e.preventDefault()
               }
             }}
@@ -114,7 +118,7 @@ const DraggableItem = ({
               <div className='draggable-item-content'>
                 <Image
                   alt='Icon menu'
-                  src='/images/IconMenuDragDrop.svg'
+                  src='/images/contact/IconMenuDragDrop.svg'
                   width={18}
                   height={18}
                 />
@@ -125,7 +129,7 @@ const DraggableItem = ({
                     value={labelOptionValue}
                     ref={textAreaRef}
                     onChange={handleChangeLabelOption}
-                    onBlur={handleCloseEdit}
+                    onBlur={handleCloseEditOption}
                     rows={1}
                   />
                 ) : (
@@ -137,24 +141,24 @@ const DraggableItem = ({
                 {isEditOption ? (
                   <Image
                     alt='Icon save item'
-                    src='/images/IconSaveDragDrop.svg'
+                    src='/images/contact/IconSaveDragDrop.svg'
                     width={18}
                     height={18}
-                    onClick={handleCloseEdit}
+                    onClick={handleCloseEditOption}
                   />
                 ) : (
                   <Image
                     alt='Icon edit item'
-                    src='/images/IconEditDragDrop.svg'
+                    src='/images/contact/IconEditDragDrop.svg'
                     width={18}
                     height={18}
-                    onClick={handleOpenEdit}
+                    onClick={handleOpenEditOption}
                   />
                 )}
 
                 <Image
                   alt='Icon delete item'
-                  src='/images/IconDeleteDragDrop.svg'
+                  src='/images/contact/IconDeleteDragDrop.svg'
                   width={18}
                   height={18}
                   onClick={handleOpenConfirmModal}
@@ -165,38 +169,38 @@ const DraggableItem = ({
         )}
       </Draggable>
 
-      <Modal
-        onClose={handleCloseConfirmModal}
-        isOpen={isOpen}
-        header={
-          <div className='d-flex justify-content-end'>
-            <span className='px-3 py-2' onClick={handleCloseConfirmModal}>
-              <i className='bi bi-x-lg'></i>
-            </span>
+      {isOpen && (
+        <Modal
+          className='confirm-delete-modal'
+          onClose={handleCloseConfirmModal}
+          isOpen
+          header={
+            <div className='d-flex justify-content-end confirm-delete-modal-header'>
+              <span className='px-3 py-2' onClick={handleCloseConfirmModal}>
+                <i className='bi bi-x-lg'></i>
+              </span>
+            </div>
+          }
+          footer={
+            <div className='d-flex justify-content-end p-3 confirm-delete-modal-footer'>
+              <button
+                className='btn btn-light'
+                onClick={handleCloseConfirmModal}
+              >
+                Cancel
+              </button>
+
+              <button className='btn btn-warning' onClick={handleDeleteOption}>
+                Delete
+              </button>
+            </div>
+          }
+        >
+          <div className='modal-content h6'>
+            Are you sure you want to delete this item?
           </div>
-        }
-        footer={
-          <div className='d-flex justify-content-end p-3'>
-            <button
-              className='btn btn-light '
-              onClick={handleCloseConfirmModal}
-            >
-              Cancel
-            </button>
-            <button
-              className='btn btn-warning'
-              style={{ color: '#fff', marginLeft: '8px' }}
-              onClick={handleDeleteOption}
-            >
-              Delete
-            </button>
-          </div>
-        }
-      >
-        <div className='modal-content h6'>
-          Are you sure you want to delete this item?
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </>
   )
 }

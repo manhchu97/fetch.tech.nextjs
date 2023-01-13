@@ -76,17 +76,6 @@ const PreviewStep = (): React.ReactElement => {
     )}`
   }, [listResultAnswers])
 
-  const content = useMemo(
-    () =>
-      `${aboutFetch}${aboutClientAnswer}${responsibilitiesAnswer}${requirementAnswer}${skillsRequiredAnswer}`,
-    [
-      aboutClientAnswer,
-      responsibilitiesAnswer,
-      skillsRequiredAnswer,
-      requirementAnswer,
-    ],
-  )
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -111,7 +100,7 @@ const PreviewStep = (): React.ReactElement => {
       className={clsx({
         [styles['preview-step-container']]: true,
         animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
+        [animation]: isAnimatedComponent,
       })}
     >
       <form onSubmit={handleSubmit}>
@@ -123,7 +112,7 @@ const PreviewStep = (): React.ReactElement => {
               <div className='card prevew-content'>
                 <div className='card-body'>
                   <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                    {content}
+                    {`${aboutFetch}${aboutClientAnswer}${responsibilitiesAnswer}${requirementAnswer}${skillsRequiredAnswer}`}
                   </ReactMarkdown>
                 </div>
               </div>

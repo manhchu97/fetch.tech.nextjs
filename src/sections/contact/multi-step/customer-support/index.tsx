@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
+
 import clsx from 'clsx'
 
 import { QUIZ_RESULT_KEY, TYPE_SUBMIT_FINISH } from '@/config/contact'
@@ -11,6 +13,7 @@ import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
 import { API_FINISH_SURVEY } from '@/routes/api'
+import { PATH_CONFIG } from '@/routes/paths'
 
 import { _postApi } from '@/utils/axios'
 import { removeDataFromStorage } from '@/utils/storage'
@@ -18,8 +21,11 @@ import { removeDataFromStorage } from '@/utils/storage'
 const CustomerSupportStep = (): React.ReactElement => {
   const { successToast, errorToast } = useToastContext()
   const { clientId, isAnimatedComponent, animation } = useFormStepContext()
+  const router = useRouter()
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+
     try {
       const response = await _postApi(API_FINISH_SURVEY, {
         clientId,
@@ -28,8 +34,10 @@ const CustomerSupportStep = (): React.ReactElement => {
 
       if (!response?.data?.success) throw new Error(response?.data?.message)
 
+      router.push(PATH_CONFIG.root)
       successToast('Submit survey success! Our specialist will call you soon')
       removeDataFromStorage(QUIZ_RESULT_KEY)
+      router.push(PATH_CONFIG.root)
     } catch (error) {
       errorToast((error as Error).message || 'Fail to submit! Please try again')
     }
@@ -40,7 +48,7 @@ const CustomerSupportStep = (): React.ReactElement => {
       onSubmit={handleSubmit}
       className={clsx({
         animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
+        [animation]: isAnimatedComponent,
       })}
     >
       <ClientLabel

@@ -41,12 +41,8 @@ const defaultValues: ClientInfoSubmitForm = {
 
 const ClientInfoStep = (): React.ReactElement => {
   const { errorToast } = useToastContext()
-  const {
-    isAnimatedComponent,
-    animation,
-    handleNextStep,
-    handleGetClientAnswers,
-  } = useFormStepContext()
+  const { isAnimatedComponent, animation, handleGetClientAnswers } =
+    useFormStepContext()
   const [countryCode, setCountryCode] = useState('')
 
   const validationSchema = Yup.object().shape({
@@ -104,8 +100,6 @@ const ClientInfoStep = (): React.ReactElement => {
       }
 
       handleGetClientAnswers(clientId, result)
-
-      if (!result) handleNextStep()
     } catch (error) {
       errorToast(
         (error as Error).message ||
@@ -119,7 +113,7 @@ const ClientInfoStep = (): React.ReactElement => {
       className={clsx({
         [styles['contact-container']]: true,
         animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
+        [animation]: isAnimatedComponent,
       })}
     >
       <div className='ft-container'>

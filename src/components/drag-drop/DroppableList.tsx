@@ -15,16 +15,13 @@ const DroppableList = ({
   onUpdateOption = () => {},
   onUpdateDrag = () => {},
 }: IDroppableListProps) => {
-
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return
 
     const newListDrag = [...list]
-
     const [moveItem] = newListDrag.splice(result.source.index, 1)
 
     newListDrag.splice(result.destination.index, 0, moveItem)
-
     onUpdateDrag(newListDrag)
   }
 

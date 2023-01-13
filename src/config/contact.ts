@@ -6,7 +6,6 @@ export const COMPONENT_TYPE: ObjProps = {
   INIT: 'init',
   GRID: 'grid',
   RADIO: 'radio',
-  RADIO_FLEX_LABEL: 'radio_flex_label',
   TREE: 'tree',
   TEXT: 'text',
   CHECKBOX_REPONSIBILITY: 'checkbox_responsibilities',
@@ -19,7 +18,6 @@ export const COMPONENT_TYPE: ObjProps = {
 export const ANIMATED_COMPONENT = [
   COMPONENT_TYPE.GRID,
   COMPONENT_TYPE.RADIO,
-  COMPONENT_TYPE.RADIO_FLEX_LABEL,
   COMPONENT_TYPE.TREE,
   COMPONENT_TYPE.TEXT,
   COMPONENT_TYPE.CHECKBOX_REPONSIBILITY,
@@ -74,4 +72,30 @@ export const getNiceToHave = (content: string) => {
   return content
     ? `<h4><span style="font-size: 16px"><strong>*** Nice to have</strong></span></h4><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
     : ''
+}
+
+export const ACTION_TYPE = {
+  DELETE: 'DELETE',
+  EDIT: 'EDIT',
+}
+
+export const SECTIONS = {
+  REQUIREMENT: 'requirement',
+  NICE_TO_HAVE: 'niceToHave',
+}
+
+export const MIN_SELECTED_OPTION = 4
+
+export const JOB_DESC_TYPES = {
+  REQUIREMENT: 'requirement',
+  RESPONSIBILITIES: 'responsibilities',
+}
+
+export const JOB_DESC_PARAMS = {
+  REQUIREMENT: {
+    type: JOB_DESC_TYPES.REQUIREMENT,
+  },
+  RESPONSIBILITIES: {
+    type: JOB_DESC_TYPES.RESPONSIBILITIES,
+  },
 }

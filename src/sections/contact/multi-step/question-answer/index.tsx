@@ -127,7 +127,7 @@ const QuestionAnswerStep = (): React.ReactElement => {
           className={clsx({
             'question-answers-container': true,
             animate__animated: isAnimated,
-            [`${animation}`]: isAnimated,
+            [animation]: isAnimated,
           })}
         >
           {!!errors?.answer?.message && (
@@ -138,10 +138,15 @@ const QuestionAnswerStep = (): React.ReactElement => {
 
           <div className='h5 question-content'>
             {questionTitle}
+
             {flexLabel && (
-              <span className='question-flex-content'>
-                {`${gridAnswerResult?.title.toLocaleLowerCase()}?`}
-              </span>
+              <>
+                <span className='question-flex-content'>
+                  {`${gridAnswerResult?.title.toLocaleLowerCase()}`}
+                </span>
+
+                <span className='question-flex-symbol'>?</span>
+              </>
             )}
           </div>
 

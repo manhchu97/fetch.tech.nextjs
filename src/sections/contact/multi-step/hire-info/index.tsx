@@ -69,7 +69,7 @@ const HireInfoStep = (): React.ReactElement => {
             'hire-list': true,
             row: true,
             animate__animated: isAnimatedComponent,
-            [`${animation}`]: isAnimatedComponent,
+            [animation]: isAnimatedComponent,
           })}
         >
           {listAnswers.map(

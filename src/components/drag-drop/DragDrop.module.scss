@@ -4,6 +4,7 @@
   :global .droppable-title {
     padding: 16px 8px 0;
     color: $primary-color;
+
     .asterisk {
       margin-left: 4px;
       color: #dc3545;
@@ -19,10 +20,6 @@
     &.selected {
       box-shadow: 0 0 0 4px #fcbe1740;
       border: 1px solid $primary-color;
-    }
-
-    &.error {
-      border-color: #dc3545;
     }
 
     .droppable-list {
@@ -62,7 +59,6 @@
         .draggable-item-content {
           display: flex;
           align-items: center;
-          gap: 10px;
           width: 100%;
 
           & > span {
@@ -76,6 +72,7 @@
           padding-right: 12px;
           word-break: break-word;
           white-space: break-spaces;
+          margin-left: 10px;
         }
 
         .draggable-item-input {
@@ -86,11 +83,11 @@
           padding-right: 12px;
           overflow: hidden;
           word-break: break-word;
+          margin-left: 10px;
         }
 
         .draggable-item-action {
           display: flex;
-          gap: 10px;
           position: relative;
           right: 0;
 
@@ -98,16 +95,33 @@
             min-width: 18px;
             min-height: 18px;
             cursor: pointer;
+            margin-right: 8px !important;
+          }
+        }
+      }
+
+      .confirm-delete-modal {
+        .ft-modal-dialog {
+          width: 600px;
+        }
+
+        &-header {
+          span {
+            cursor: pointer;
+
+            &:hover {
+              opacity: 0.7;
+            }
+          }
+        }
+
+        &-footer {
+          button:last-child {
+            color: #fff;
+            margin-left: 8px;
           }
         }
       }
     }
-  }
-
-  :global .error-message {
-    margin-top: 4px;
-    margin-left: 6px;
-    color: #dc3545;
-    font-size: 14px;
   }
 }

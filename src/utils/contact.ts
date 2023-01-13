@@ -1,6 +1,6 @@
-import { ISkillParentFormat, ISkillTreeData } from '@/types/contact'
+import { paramCase } from 'param-case'
 
-import { replaceAll } from './replace'
+import { ISkillParentFormat, ISkillTreeData } from '@/types/contact'
 
 export function formatSkillTree(
   tree: ISkillTreeData | undefined,
@@ -11,7 +11,7 @@ export function formatSkillTree(
 
   if (keys.length) {
     return keys.map((key) => ({
-      id: `${replaceAll(key.trim().toLowerCase(), ' ', '-')}`,
+      id: paramCase(key),
       title: key,
       children: {
         parentTitle: key,

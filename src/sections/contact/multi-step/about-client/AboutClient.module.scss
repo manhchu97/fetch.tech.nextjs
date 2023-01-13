@@ -2,7 +2,7 @@
 
 .about-client-container {
   max-width: 1200px;
-  margin: 64px auto 0;
+  margin: 64px auto 120px;
 
   :global .about-client-form-container {
     max-width: 850px;
@@ -26,6 +26,7 @@
       --bs-alert-bg: rgba(255, 99, 71, 0.4);
     }
     /*! purgecss end ignore */
+
     .is-invalid {
       border: 1px solid #dc3545;
       border-radius: 8px;
@@ -44,5 +45,9 @@
       display: none;
     }
 
+    .hr {
+      margin: 64px 0;
+      border-top: 1px dashed;
+    }
   }
 }

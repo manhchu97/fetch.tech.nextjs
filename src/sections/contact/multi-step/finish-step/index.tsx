@@ -20,7 +20,7 @@ const FinishStep = (): React.ReactElement => {
       className={clsx({
         [styles['finish-step-container']]: true,
         animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
+        [animation]: isAnimatedComponent,
       })}
     >
       <ClientLabel

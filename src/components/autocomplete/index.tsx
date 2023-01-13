@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react'
 
+import Image from 'next/image'
+
 import clsx from 'clsx'
+import { paramCase } from 'param-case'
 
 import { IOption } from '@/types/contact'
-
-import { replaceAll } from '@/utils/replace'
 
 import styles from './Autocomplete.module.scss'
 
@@ -32,15 +33,15 @@ const Autocomplete = ({
   onSelectOption,
   onAddOption,
 }: IAutocompleteProps): React.ReactElement => {
-  const [isShowDropDown, setIsShowDropdown] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [searchValue, setSearchValue] = useState<string>('')
 
   const handleFocusInput = () => {
-    setIsShowDropdown(true)
+    setIsOpen(true)
   }
 
-  const handleCloseDropdown = () => {
-    setIsShowDropdown(false)
+  const handleClose = () => {
+    setIsOpen(false)
   }
 
   const handleChangeSearchInput = (e: {
@@ -51,19 +52,19 @@ const Autocomplete = ({
 
   const handleSelectOption = (option: IOption) => {
     setSearchValue('')
-    if (onSelectOption) onSelectOption(option)
-    handleCloseDropdown()
+    onSelectOption?.(option)
+    handleClose()
   }
 
   const handleAddOption = () => {
-    if (isAddOption && onAddOption) {
-      onAddOption({
-        value: replaceAll(searchValue.trim().toLowerCase(), ' ', '-'),
+    if (isAddOption) {
+      onAddOption?.({
+        value: paramCase(searchValue),
         label: searchValue,
       })
     }
     setSearchValue('')
-    handleCloseDropdown()
+    handleClose()
   }
 
   const listFilterOptions = useMemo(
@@ -74,7 +75,7 @@ const Autocomplete = ({
         )
         .filter(
           (item) =>
-            !listOptionDisabled.find(
+            !listOptionDisabled.some(
               (itemDisabled) => itemDisabled.value === item.value,
             ),
         ),
@@ -93,8 +94,10 @@ const Autocomplete = ({
             onChange={handleChangeSearchInput}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleAddOption()
                 e.preventDefault()
+                e.currentTarget.blur()
+
+                handleAddOption()
               }
             }}
             autoComplete='off'
@@ -104,65 +107,58 @@ const Autocomplete = ({
             className='btn btn-outline-primary autocomplete-search-icon'
             type='button'
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24px'
-              height='24px'
-              preserveAspectRatio='xMidYMid meet'
-              viewBox='0 0 24 24'
-            >
-              <path
-                fill='currentColor'
-                d='m18.9 20.3l-5.6-5.6q-.75.6-1.725.95Q10.6 16 9.5 16q-2.725 0-4.612-1.887Q3 12.225 3 9.5q0-2.725 1.888-4.613Q6.775 3 9.5 3t4.613 1.887Q16 6.775 16 9.5q0 1.1-.35 2.075q-.35.975-.95 1.725l5.625 5.625q.275.275.275.675t-.3.7q-.275.275-.7.275q-.425 0-.7-.275ZM9.5 14q1.875 0 3.188-1.312Q14 11.375 14 9.5q0-1.875-1.312-3.188Q11.375 5 9.5 5Q7.625 5 6.312 6.312Q5 7.625 5 9.5q0 1.875 1.312 3.188Q7.625 14 9.5 14Z'
-              />
-            </svg>
+            <Image
+              alt='Icon search option'
+              src='/images/contact/IconSearchAutocomplete.svg'
+              width={22}
+              height={22}
+            />
           </button>
         </div>
 
         <div className='dropdown-container'>
           <div
-            className={clsx(
-              { 'dropdown-backdrop': true },
-              { active: isShowDropDown },
-            )}
-            onClick={handleCloseDropdown}
+            className={clsx({ 'dropdown-backdrop': true, active: isOpen })}
+            onClick={handleClose}
           ></div>
 
-          <div
-            className={clsx(
-              { 'dropdown-content': true },
-              { active: isShowDropDown },
-            )}
-          >
-            <>
-              {listFilterOptions.map(({ value, label }) => (
-                <DropdownItem
-                  key={value}
-                  title={label}
-                  value={value}
-                  onSelectOption={handleSelectOption}
-                  disabled={listOptionDisabled?.some(
-                    (item) => item.label === label,
-                  )}
-                />
-              ))}
+          <div className={clsx({ 'dropdown-content': true, active: isOpen })}>
+            {(() => {
+              if (!listFilterOptions.length) {
+                if (!isAddOption)
+                  return (
+                    <li className='dropdown-item-no-options'>No options</li>
+                  )
 
-              {!listFilterOptions.length && isAddOption && (
-                <li className='dropdown-item-add'>
-                  <button
-                    type='button'
-                    className='btn-add-option'
-                    onClick={handleAddOption}
-                  >
-                    Add
-                  </button>
-                </li>
-              )}
+                return (
+                  <li className='dropdown-item-add'>
+                    <button
+                      type='button'
+                      className='btn-add-option'
+                      onClick={handleAddOption}
+                    >
+                      Add
+                    </button>
+                  </li>
+                )
+              }
 
-              {!listFilterOptions.length && !isAddOption && (
-                <li className='dropdown-item-no-options'>No options</li>
-              )}
-            </>
+              return listFilterOptions.map(({ value, label }) => {
+                const disabled = listOptionDisabled?.some(
+                  (item) => item.label === label,
+                )
+
+                return (
+                  <DropdownItem
+                    key={value}
+                    title={label}
+                    value={value}
+                    onSelectOption={handleSelectOption}
+                    disabled={disabled}
+                  />
+                )
+              })
+            })()}
           </div>
         </div>
       </section>
@@ -187,7 +183,7 @@ const DropdownItem = ({
 }: IDropdownItemProps) => {
   return (
     <div
-      className={clsx({ 'dropdown-item': true }, { disabled: disabled })}
+      className={clsx({ 'dropdown-item': true, disabled: disabled })}
       onClick={() => onSelectOption({ value, label: title })}
     >
       <p className='dropdown-item-title'>{title}</p>

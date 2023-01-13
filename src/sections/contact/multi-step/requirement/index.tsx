@@ -3,22 +3,24 @@ import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 import clsx from 'clsx'
+import { paramCase } from 'param-case'
+
+import { ACTION_TYPE, MIN_SELECTED_OPTION, SECTIONS } from '@/config/contact'
 
 import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
+import QuestionSkeleton from '@/components/skeleton/question-answer'
 
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
 import { INextQuestionValue, IOption } from '@/types/contact'
 
-import { replaceAll } from '@/utils/replace'
-
 import styles from './Requirement.module.scss'
-import { ACTION_TYPE, SECTIONS } from './config'
 
 const DroppableSection = dynamic(() => import('@/components/drag-drop'), {
   ssr: false,
+  loading: () => <QuestionSkeleton style={{ height: 300, marginTop: 32 }} />,
 })
 
 const RequirementStep = (): React.ReactElement => {
@@ -122,7 +124,8 @@ const RequirementStep = (): React.ReactElement => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
-    if (listRequirements.length < 4) {
+
+    if (listRequirements.length < MIN_SELECTED_OPTION) {
       setIsError(true)
       return
     }
@@ -167,19 +170,22 @@ const RequirementStep = (): React.ReactElement => {
   useEffect(() => {
     if (!answer || !answer.length) return
 
-    setListRequirements(
-      (answer[0] as []).map((label: string) => ({
+    const [requirements, niceToHave] = answer
+
+    const listRequirementOptions = (requirements as []).map(
+      (label: string) => ({
         label,
-        value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
-      })) || [],
+        value: paramCase(label),
+      }),
     )
 
-    setListNiceToHave(
-      (answer[1] as []).map((label: string) => ({
-        label,
-        value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
-      })) || [],
-    )
+    const listNiceToHave = (niceToHave as []).map((label: string) => ({
+      label,
+      value: paramCase(label),
+    }))
+
+    setListRequirements(listRequirementOptions || [])
+    setListNiceToHave(listNiceToHave || [])
   }, [answer])
 
   return (
@@ -187,55 +193,69 @@ const RequirementStep = (): React.ReactElement => {
       className={clsx({
         'ft-full-screen': true,
         [styles['requirement-step-container']]: true,
-        animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
       })}
     >
-      <div className='requirement-container-title h5'>
-        {questionTitle || 'What are your requirements for candidates?'}
-      </div>
+      <div
+        className={clsx({
+          animate__animated: isAnimatedComponent,
+          [animation]: isAnimatedComponent,
+        })}
+      >
+        {isError && (
+          <div className='error-container'>
+            <div className='alert alert-danger'>
+              You must have chosen at least 4 requirements
+            </div>
+          </div>
+        )}
 
-      <div className='requirement-container-subtitle'>
-        (You need to select at least 4 requirements to be next page)
-      </div>
+        <div className='requirement-container-title h5'>
+          {questionTitle || 'What are your requirements for candidates?'}
+        </div>
 
-      <Autocomplete
-        options={listRequirementOptions}
-        listOptionDisabled={listRequirements.concat(listNiceToHave)}
-        onSelectOption={onSelectOption}
-        isAddOption={true}
-        onAddOption={onAddOption}
-      />
+        <div className='requirement-container-subtitle'>
+          (You need to select at least 4 requirements to be next page)
+        </div>
 
-      <DroppableSection
-        id={SECTIONS.REQUIREMENT}
-        title='Requirements'
-        list={listRequirements}
-        sectionSelected={sectionSelected}
-        onUpdateOption={onUpdateOption}
-        onUpdateDrag={onUpdateDrag}
-        setSectionSelected={setSectionSelected}
-        style={{ marginBottom: 32 }}
-        isError={isError}
-        validation
-      />
-
-      <DroppableSection
-        id={SECTIONS.NICE_TO_HAVE}
-        title='Nice to have'
-        list={listNiceToHave}
-        sectionSelected={sectionSelected}
-        onUpdateOption={onUpdateOption}
-        onUpdateDrag={onUpdateDrag}
-        setSectionSelected={setSectionSelected}
-      />
-
-      <form onSubmit={handleSubmit} className='requirement-form-container'>
-        <ClientAction
-          nextButtonText='Preview'
-          onClickPreviousButton={handlePreviousStep}
+        <Autocomplete
+          options={listRequirementOptions}
+          listOptionDisabled={listRequirements.concat(listNiceToHave)}
+          onSelectOption={onSelectOption}
+          isAddOption={true}
+          onAddOption={onAddOption}
         />
-      </form>
+
+        <DroppableSection
+          id={SECTIONS.REQUIREMENT}
+          title='Requirements'
+          list={listRequirements}
+          sectionSelected={sectionSelected}
+          onUpdateOption={onUpdateOption}
+          onUpdateDrag={onUpdateDrag}
+          setSectionSelected={setSectionSelected}
+          style={{ marginBottom: 32 }}
+          validation
+        />
+
+        <DroppableSection
+          id={SECTIONS.NICE_TO_HAVE}
+          title='Nice to have'
+          list={listNiceToHave}
+          sectionSelected={sectionSelected}
+          onUpdateOption={onUpdateOption}
+          onUpdateDrag={onUpdateDrag}
+          setSectionSelected={setSectionSelected}
+        />
+
+        <hr className='hr' />
+
+        <form onSubmit={handleSubmit} className='requirement-form-container'>
+          <ClientAction
+            nextButtonText='Preview'
+            onClickPreviousButton={handlePreviousStep}
+          />
+        </form>
+      </div>
     </div>
   )
 }

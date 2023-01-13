@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
+import { paramCase } from 'param-case'
 import * as Yup from 'yup'
 
 import Autocomplete from '@/components/autocomplete'
@@ -19,7 +20,6 @@ import {
 } from '@/types/contact'
 
 import { formatSkillTree } from '@/utils/contact'
-import { replaceAll } from '@/utils/replace'
 
 import styles from './SkillRequire.module.scss'
 
@@ -70,7 +70,7 @@ const SkillRequireStep = (): React.ReactElement => {
   const listAllSkillOptions = useMemo(() => {
     return listAllSkill?.map((skill) => ({
       label: skill,
-      value: `${replaceAll(skill.trim().toLowerCase(), ' ', '-')}`,
+      value: paramCase(skill),
     }))
   }, [listAllSkill])
 
@@ -178,200 +178,207 @@ const SkillRequireStep = (): React.ReactElement => {
   useEffect(() => {
     if (!answer) return
 
-    setValue(
-      'skills',
-      (answer as []).map((label: string) => ({
-        label,
-        value: replaceAll(label.trim().toLowerCase(), ' ', '-'),
-      })) || [],
-    )
+    const selectedSkills = (answer as []).map((label: string) => ({
+      label,
+      value: paramCase(label),
+    }))
+
+    setValue('skills', selectedSkills || [])
   }, [answer, setValue])
 
   const isMenuScrollable = current.data && current?.data?.length > 6
   const isSelectedSkillScrollable = selectedSkills.length > 8
 
   return (
-    <div
-      className={clsx({
-        [styles['skill-require-step-container']]: true,
-        animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
-      })}
-    >
-      <form
-        onSubmit={handleSubmit(handleSubmitQuestion)}
-        className='answer-form-container'
+    <div className={styles['skill-require-step-container']}>
+      <div
+        className={clsx({
+          animate__animated: isAnimatedComponent,
+          [animation]: isAnimatedComponent,
+        })}
       >
-        <div className='question-answers-container mb-5'>
-          <div className='container'>
-            {!!errors?.skills?.message && (
-              <div className='alert alert-danger' role='alert'>
-                {errors?.skills?.message}
-              </div>
-            )}
-
-            <div className='h5 question-content'>
-              {questionTitle ||
-                'What skills would you like to see in your new hire?'}
-            </div>
-
-            <div className='row'>
-              <div className='col'>
-                <div className='answers-container mb-4'>
-                  <div className='answers-helper'>
-                    <Controller
-                      name='skills'
-                      control={control}
-                      render={({ field: { onChange, value } }) => (
-                        <Autocomplete
-                          placeholder='Desired areas of expertise (e.g., UX, UI, App Design, Wireframing, Branding, etc.)'
-                          isAddOption
-                          options={listAllSkillOptions || []}
-                          listOptionDisabled={value}
-                          onSelectOption={(option) => {
-                            const isExist = value.some(
-                              (item) => item.value === option.value,
-                            )
-
-                            onChange(
-                              isExist
-                                ? value.filter(
-                                    (item) => item.value !== option.value,
-                                  )
-                                : [...value, option],
-                            )
-                          }}
-                          onAddOption={(option) => {
-                            const isExist = value.some(
-                              (item) => item.value === option.value,
-                            )
-
-                            if (isExist) {
-                              errorToast('Skill already added')
-                              return
-                            }
-
-                            onChange([...value, option])
-                          }}
-                        />
-                      )}
-                    />
-                  </div>
+        <form
+          onSubmit={handleSubmit(handleSubmitQuestion)}
+          className='answer-form-container'
+        >
+          <div className='question-answers-container mb-5'>
+            <div className='container'>
+              {!!errors?.skills?.message && (
+                <div className='alert alert-danger' role='alert'>
+                  {errors?.skills?.message}
                 </div>
+              )}
+
+              <div className='h5 question-content'>
+                {questionTitle ||
+                  'What skills would you like to see in your new hire?'}
               </div>
-            </div>
 
-            <div className='row gy-2'>
-              <div className='col-md'>
-                <div className='card answer-list'>
-                  <div className='card-title'>
-                    {history.length > 1 && (
-                      <span className='card-menu-back' onClick={handleBackMenu}>
-                        <i className='bi bi-chevron-left'></i>
-                      </span>
-                    )}
+              <div className='row'>
+                <div className='col'>
+                  <div className='answers-container mb-4'>
+                    <div className='answers-helper'>
+                      <Controller
+                        name='skills'
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                          <Autocomplete
+                            placeholder='Desired areas of expertise (e.g., UX, UI, App Design, Wireframing, Branding, etc.)'
+                            isAddOption
+                            options={listAllSkillOptions || []}
+                            listOptionDisabled={value}
+                            onSelectOption={(option) => {
+                              const isExist = value.some(
+                                (item) => item.value === option.value,
+                              )
 
-                    {current.parentTitle}
-                  </div>
+                              onChange(
+                                isExist
+                                  ? value.filter(
+                                      (item) => item.value !== option.value,
+                                    )
+                                  : [...value, option],
+                              )
+                            }}
+                            onAddOption={(option) => {
+                              const isExist = value.some(
+                                (item) => item.value === option.value,
+                              )
 
-                  <div
-                    className='card-body'
-                    style={{ ...(isMenuScrollable && { overflowY: 'scroll' }) }}
-                  >
-                    <div className='card-content'>
-                      {(current.data || []).map((item) => {
-                        const isParent = !!item?.children?.data
-                        const isSelected =
-                          !isParent &&
-                          selectedSkills.some(
-                            (skill) =>
-                              skill.value === item.id ||
-                              skill.label === item.title,
-                          )
+                              if (isExist) {
+                                errorToast('Skill already added')
+                                return
+                              }
 
-                        return (
-                          <div
-                            key={item.id}
-                            className={clsx({
-                              'answer-item': true,
-                              'answer-item-hover': !isSelected,
-                              'my-3': true,
-                              'justify-content-start': !isParent,
-                              disabled: isSelected,
-                            })}
-                            onClick={() =>
-                              !isSelected &&
-                              handleSelectSkillMenuItem(isParent, item)
-                            }
-                          >
-                            {!isParent && (
-                              <span className='answer-item-icon spacing'>
-                                <i className='bi bi-plus-circle'></i>
-                              </span>
-                            )}
-
-                            <span className='answer-item-title'>
-                              {item.title}
-                            </span>
-
-                            {isParent && (
-                              <span className='answer-item-icon'>
-                                <i className='bi bi-chevron-right'></i>
-                              </span>
-                            )}
-                          </div>
-                        )
-                      })}
+                              onChange([...value, option])
+                            }}
+                          />
+                        )}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className='col-md-1'>
-                <div className='d-flex justify-content-center align-items-center answer-direction'>
-                  <div className='d-flex justify-content-center align-items-center answer-direction-icon'>
-                    <i className='bi bi-chevron-right'></i>
+              <div className='row gy-2'>
+                <div className='col-md'>
+                  <div className='card answer-list'>
+                    <div className='card-title'>
+                      {history.length > 1 && (
+                        <span
+                          className='card-menu-back'
+                          onClick={handleBackMenu}
+                        >
+                          <i className='bi bi-chevron-left'></i>
+                        </span>
+                      )}
+
+                      {current.parentTitle}
+                    </div>
+
+                    <div
+                      className='card-body'
+                      style={{
+                        ...(isMenuScrollable && { overflowY: 'scroll' }),
+                      }}
+                    >
+                      <div className='card-content'>
+                        {(current.data || []).map((item) => {
+                          const isParent = !!item?.children?.data
+                          const isSelected =
+                            !isParent &&
+                            selectedSkills.some(
+                              (skill) =>
+                                skill.value === item.id ||
+                                skill.label === item.title,
+                            )
+
+                          return (
+                            <div
+                              key={item.id}
+                              className={clsx({
+                                'answer-item': true,
+                                'answer-item-hover': !isSelected,
+                                'my-3': true,
+                                'justify-content-start': !isParent,
+                                disabled: isSelected,
+                              })}
+                              onClick={() =>
+                                !isSelected &&
+                                handleSelectSkillMenuItem(isParent, item)
+                              }
+                            >
+                              {!isParent && (
+                                <span className='answer-item-icon spacing'>
+                                  <i className='bi bi-plus-circle'></i>
+                                </span>
+                              )}
+
+                              <span className='answer-item-title'>
+                                {item.title}
+                              </span>
+
+                              {isParent && (
+                                <span className='answer-item-icon'>
+                                  <i className='bi bi-chevron-right'></i>
+                                </span>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className='col-md'>
-                <div className='card answer-list'>
-                  <div
-                    className='card-body'
-                    style={{
-                      ...(isSelectedSkillScrollable && { overflowY: 'scroll' }),
-                    }}
-                  >
-                    <div className='card-content answer-list-selected'>
-                      {selectedSkills.map((item) => (
-                        <div
-                          key={item.value}
-                          className='answer-item answer-item-hover answer-item-selected my-2'
-                        >
-                          <span className='answer-item-title'>
-                            {item.label}
-                          </span>
-                          <span
-                            className='answer-item-icon'
-                            onClick={() => handleRemoveSkillSelected(item)}
+                <div className='col-md-1'>
+                  <div className='d-flex justify-content-center align-items-center answer-direction'>
+                    <div className='d-flex justify-content-center align-items-center answer-direction-icon'>
+                      <i className='bi bi-chevron-right'></i>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='col-md'>
+                  <div className='card answer-list'>
+                    <div
+                      className='card-body'
+                      style={{
+                        ...(isSelectedSkillScrollable && {
+                          overflowY: 'scroll',
+                        }),
+                      }}
+                    >
+                      <div className='card-content answer-list-selected'>
+                        {selectedSkills.map((item) => (
+                          <div
+                            key={item.value}
+                            className='answer-item answer-item-hover answer-item-selected my-2'
                           >
-                            <i className='bi bi-x-lg'></i>
-                          </span>
-                        </div>
-                      ))}
+                            <span className='answer-item-title'>
+                              {item.label}
+                            </span>
+                            <span
+                              className='answer-item-icon'
+                              onClick={() => handleRemoveSkillSelected(item)}
+                            >
+                              <i className='bi bi-x-lg'></i>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <hr />
+          <hr />
 
-        <ClientAction onClickPreviousButton={handlePreviousQuestion} />
-      </form>
+          <ClientAction onClickPreviousButton={handlePreviousQuestion} />
+        </form>
+      </div>
     </div>
   )
 }

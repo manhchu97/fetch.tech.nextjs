@@ -67,8 +67,8 @@ enum AnimatedActionType {
 
 enum AnimationType {
   ZOOM_IN = 'animate__zoomIn',
-  BOUNCE_IN_LEFT = 'animate__bounceInLeft',
-  BOUNCE_IN_RIGHT = 'animate__bounceInRight',
+  FADE_IN_LEFT = 'animate__fadeInLeft',
+  FADE_IN_RIGHT = 'animate__fadeInRight',
 }
 
 const FormStepProvider = ({
@@ -87,7 +87,7 @@ const FormStepProvider = ({
   const [animatedActionType, setAnimatedActionType] =
     useState<AnimatedActionType>(AnimatedActionType.NEXT)
   const [animation, setAnimation] = useState<AnimationType>(
-    AnimationType.BOUNCE_IN_LEFT,
+    AnimationType.FADE_IN_LEFT,
   )
 
   const isAnimatedComponent = ANIMATED_COMPONENT.includes(componentType)
@@ -99,11 +99,11 @@ const FormStepProvider = ({
     }
 
     if (animatedActionType === AnimatedActionType.PREVIOUS) {
-      setAnimation(AnimationType.BOUNCE_IN_LEFT)
+      setAnimation(AnimationType.FADE_IN_LEFT)
       return
     }
 
-    setAnimation(AnimationType.BOUNCE_IN_RIGHT)
+    setAnimation(AnimationType.FADE_IN_RIGHT)
   }, [animatedActionType, componentType])
 
   useEffect(() => {
@@ -260,23 +260,26 @@ const FormStepProvider = ({
     (id: string | number, answers?: ResultAnswer[]) => {
       setClientId(id)
 
-      if (answers) {
-        const { inputData } = answers[answers.length - 1]
-        const { priority, type } = inputData
-
-        setListResultAnswers(answers)
-        setCurrentPriority(priority)
-        setComponentType(type)
-
-        saveDataToStorage(QUIZ_RESULT_KEY, {
-          currentPriority: priority,
-          clientId: id,
-          questionType: type,
-          listResultAnswers: answers,
-        })
+      if (!answers) {
+        handleNextStep()
+        return
       }
+
+      const { inputData } = answers[answers.length - 1]
+      const { priority, type } = inputData
+
+      setListResultAnswers(answers)
+      setCurrentPriority(priority)
+      setComponentType(type)
+
+      saveDataToStorage(QUIZ_RESULT_KEY, {
+        currentPriority: priority,
+        clientId: id,
+        questionType: type,
+        listResultAnswers: answers,
+      })
     },
-    [],
+    [handleNextStep],
   )
 
   const handlePreview = useCallback(() => {

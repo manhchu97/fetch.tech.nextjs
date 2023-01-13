@@ -3,8 +3,10 @@ import React from 'react'
 import type { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 
+import qs from 'query-string'
 import useSWR from 'swr'
 
+import { JOB_DESC_PARAMS } from '@/config/contact'
 import { HOST_API } from '@/config/global'
 
 import Page from '@/components/Page'
@@ -38,13 +40,17 @@ export const getStaticProps = async () => {
   const skillData: ISkillResponse = await skillResponse.json()
 
   const requirementResponse = await fetch(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
+      JOB_DESC_PARAMS.REQUIREMENT,
+    )}`,
   )
 
   const requirementData: IRequirementResponse = await requirementResponse.json()
 
   const responsibilitiesResponse = await fetch(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
+      JOB_DESC_PARAMS.RESPONSIBILITIES,
+    )}`,
   )
 
   const responsibilitiesData: IResponsibilitiesResponse =
@@ -75,13 +81,17 @@ function ContactPage({
   })
 
   const { data: requirementData } = useSWR(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=requirement`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
+      JOB_DESC_PARAMS.REQUIREMENT,
+    )}`,
     fetcher,
     { fallbackData: fallbackRequirement },
   )
 
   const { data: responsibilitiesData } = useSWR(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?type=responsibilities`,
+    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
+      JOB_DESC_PARAMS.RESPONSIBILITIES,
+    )}`,
     fetcher,
     { fallbackData: fallbackResponsibilities },
   )

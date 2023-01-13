@@ -10,6 +10,7 @@ import * as Yup from 'yup'
 import { REGEX_REMOVE_HTML } from '@/config/global'
 
 import ClientAction from '@/components/client-action'
+import QuestionSkeleton from '@/components/skeleton/question-answer'
 
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
@@ -18,7 +19,10 @@ import { INextQuestionValue } from '@/types/contact'
 
 import styles from './AboutClient.module.scss'
 
-const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
+const Editor = dynamic(() => import('@/components/editor'), {
+  ssr: false,
+  loading: () => <QuestionSkeleton style={{ height: 450 }} />,
+})
 
 type EditorSubmitForm = {
   content: string
@@ -55,6 +59,7 @@ const AboutClientStep = (): React.ReactElement => {
     handleSubmit,
     control,
     formState: { errors },
+    setError,
   } = useForm<EditorSubmitForm>({
     defaultValues,
     resolver: yupResolver(EditorShema),
@@ -64,9 +69,20 @@ const AboutClientStep = (): React.ReactElement => {
     (data: EditorSubmitForm) => {
       const { content } = data
 
+      const isEmptyContent =
+        content.replace(REGEX_REMOVE_HTML, '').trim().length === 0
+
+      if (isEmptyContent) {
+        setError('content', {
+          type: 'required',
+          message: 'Content is required',
+        })
+        return
+      }
+
       updateAnswerByQuestion({
         currentStep,
-        answer: content.replace(REGEX_REMOVE_HTML, ''),
+        answer: content,
         answerRaw: [content],
       })
 
@@ -87,6 +103,7 @@ const AboutClientStep = (): React.ReactElement => {
       currentStep,
       reset,
       errorToast,
+      setError,
     ],
   )
 
@@ -106,7 +123,7 @@ const AboutClientStep = (): React.ReactElement => {
         'ft-full-screen': true,
         [styles['about-client-container']]: true,
         animate__animated: isAnimatedComponent,
-        [`${animation}`]: isAnimatedComponent,
+        [animation]: isAnimatedComponent,
       })}
     >
       <form
@@ -138,6 +155,8 @@ const AboutClientStep = (): React.ReactElement => {
             )}
           />
         </div>
+
+        <hr className='hr' />
 
         <ClientAction onClickPreviousButton={handlePreviousQuestion} />
       </form>

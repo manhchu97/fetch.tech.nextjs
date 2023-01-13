@@ -1,7 +1,7 @@
 .responsibilities-step-container {
   font-family: 'Gilroy-Regular';
   max-width: 1200px;
-  margin: 64px auto 32px;
+  margin: 64px auto 120px;
 
   :global .responsibilities-container-title {
     margin-bottom: 0;
@@ -12,4 +12,21 @@
     color: #7b91a5;
     line-height: 20px;
   }
+
+  :global .hr {
+    margin: 64px 0;
+    border-top: 1px dashed;
+  }
+
+  /*! purgecss start ignore */
+  :global .alert.alert-danger {
+    margin-bottom: 48px;
+    --bs-alert-padding-y: 0.5rem;
+    --bs-alert-bg: rgba(255, 99, 71, 0.4);
+  }
+
+  :global .animate__animated {
+    animation-fill-mode: initial;
+  }
+  /*! purgecss end ignore */
 }

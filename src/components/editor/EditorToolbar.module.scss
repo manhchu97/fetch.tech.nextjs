@@ -1,11 +1,18 @@
 /*! purgecss start ignore */
 @import '@/styles/_variables.scss';
 
-$text-primary-color: #212b36;
-$text-disable: #637381;
-
 .editor-toolbar-wrapper {
   :global .editor-toolbar-container {
+    .editor-icon {
+      &-undo,
+      &-redo {
+        &:hover {
+          filter: invert(74%) sepia(36%) saturate(990%) hue-rotate(353deg)
+            brightness(101%) contrast(101%);
+        }
+      }
+    }
+
     .ql-snow.ql-toolbar button:hover .ql-fill,
     .ql-snow .ql-toolbar button:hover .ql-fill,
     .ql-snow.ql-toolbar button:focus .ql-fill,
