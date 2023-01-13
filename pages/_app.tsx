@@ -6,6 +6,8 @@ import 'animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import { GOOGLE_TAG_MANAGER_KEY } from '@/config/global'
+
 import { SWRConfigProvider } from '@/components/SwrConfig'
 
 import ToastProvider from '@/context/ToastContext'
@@ -24,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         id='bootstrap-cdn'
         src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'
       />
-      <TrackingHeadScript id='GTM-WNH5KRZ' />
+      <TrackingHeadScript id={GOOGLE_TAG_MANAGER_KEY} />
 
       <ToastProvider>
         <SWRConfigProvider>
