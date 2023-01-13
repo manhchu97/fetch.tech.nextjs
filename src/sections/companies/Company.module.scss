@@ -1,0 +1,53 @@
+@import '@/styles/_mixins.scss';
+
+.company {
+  margin-left: auto;
+  margin-right: auto;
+
+  :global .company-section {
+    max-width: 100%;
+    overflow-x: hidden;
+
+    .wrap-container {
+      width: 100%;
+      padding: 50px 10%;
+      margin-left: auto;
+      margin-right: auto;
+      height: fit-content;
+
+      .h6-p-color {
+        color: #a4b7c8;
+        font-size: 19px;
+
+        @include screen-up(sm) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .achieve-item {
+      display: flex;
+      margin-bottom: 40px;
+
+      @include screen-down(md) {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .text {
+        max-width: calc(100% - 56px);
+      }
+    }
+
+    .check-icon-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px !important;
+      height: 32px !important;
+      background: #ffbe16;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+  }
+}
