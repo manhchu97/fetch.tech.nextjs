@@ -1,31 +1,58 @@
 @import '@/styles/_mixins.scss';
 
 .question-answer-step-container {
+  max-width: 930px;
+  margin: 48px auto 100px;
+  padding: 0 15px;
+
+  background-image: url('/images/contact/QuestionBG.png');
+  background-repeat: no-repeat;
+  background-origin: border-box;
   width: 100%;
+  background-size: 250px 250px;
+  background-position: right;
+
+  @include screen-down(md) {
+    background-image: none;
+  }
 
   :global .question-answers-container {
     font-family: 'Gilroy-Regular';
-    margin-top: 32px;
-    max-width: 800px;
     display: flex;
     flex-direction: column;
+    padding: 0 16px;
+    margin-top: 68px;
 
     .question-content {
-      margin-bottom: 16px;
+      margin-bottom: 32px;
 
       @include screen-down(sm) {
         color: #212529;
         font-weight: bold;
       }
+
+      .question-flex-content {
+        margin: 0 4px;
+        text-decoration: underline;
+        color: var(--bs-warning);
+      }
     }
 
-    .answers-list {
+    /*! purgecss start ignore */
+    .alert.alert-danger {
       margin-bottom: 24px;
+      --bs-alert-padding-y: 0.5rem;
+      --bs-alert-bg: rgba(255, 99, 71, 0.4);
+    }
+    /*! purgecss end ignore */
+
+    .answers-list {
+      margin-bottom: 12px;
 
       .answers-item {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
         font-size: 20px;
       }
 

@@ -1,25 +1,53 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
-import { COMPONENT_TYPE } from '@/config/contact'
+import {
+  ANIMATED_COMPONENT,
+  COMPONENT_TYPE,
+  QUIZ_RESULT_KEY,
+} from '@/config/contact'
+
+import { API_SUBMIT_QUIZ } from '@/routes/api'
 
 import {
   INextQuestionValue,
+  ISkillResponse,
   IUpdateAnswerByQuestion,
   QuestionAnswers,
   ResultAnswer,
 } from '@/types/contact'
 
+import { _postApi } from '@/utils/axios'
+import { getDataFromStorage, saveDataToStorage } from '@/utils/storage'
+
 type FormStepContextType = {
-  // setStep: React.Dispatch<React.SetStateAction<number>>
+  skills: ISkillResponse
   questions: QuestionAnswers[]
+  clientId: string | number
+  requirements: string[]
+  responsibilities: string[]
   listResultAnswers: ResultAnswer[]
   componentType: string
+  isAnimatedComponent: boolean
+  animation: string
   handleNextStep: () => undefined
   updateAnswerByQuestion: ({
     currentStep,
     answer,
+    answerRaw,
   }: IUpdateAnswerByQuestion) => void
   getNextQuestionValue: () => INextQuestionValue | null
+  handlePreviousStep: () => void | undefined
+  handleGetClientAnswers: (id: string | number, result?: ResultAnswer[]) => void
+  saveAnswerByQuestion: () => void
+  handlePreview: () => void
+  handleBackFromPreview: () => void
+  handleFinishStep: () => void
 }
 
 const FormStepContext = createContext<FormStepContextType | null>(null)
@@ -27,14 +55,66 @@ const FormStepContext = createContext<FormStepContextType | null>(null)
 interface IFormStepProvider {
   children: React.ReactNode
   questions: QuestionAnswers[]
+  skills: ISkillResponse
+  requirements: string[]
+  responsibilities: string[]
 }
 
-const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
+enum AnimatedActionType {
+  PREVIOUS = 'Previous',
+  NEXT = 'Next',
+}
+
+enum AnimationType {
+  ZOOM_IN = 'animate__zoomIn',
+  FADE_IN_LEFT = 'animate__fadeInLeft',
+  FADE_IN_RIGHT = 'animate__fadeInRight',
+}
+
+const FormStepProvider = ({
+  children,
+  questions,
+  skills,
+  requirements,
+  responsibilities,
+}: IFormStepProvider) => {
+  const [clientId, setClientId] = useState<string | number>('')
   const [currentPriority, setCurrentPriority] = useState<number>(0)
-  const [listResultAnswers, setListResultAnsers] = useState<ResultAnswer[]>([])
+  const [listResultAnswers, setListResultAnswers] = useState<ResultAnswer[]>([])
   const [componentType, setComponentType] = useState<string>(
     COMPONENT_TYPE.INIT,
   )
+  const [animatedActionType, setAnimatedActionType] =
+    useState<AnimatedActionType>(AnimatedActionType.NEXT)
+  const [animation, setAnimation] = useState<AnimationType>(
+    AnimationType.FADE_IN_LEFT,
+  )
+
+  const isAnimatedComponent = ANIMATED_COMPONENT.includes(componentType)
+
+  useEffect(() => {
+    if (componentType === COMPONENT_TYPE.GRID) {
+      setAnimation(AnimationType.ZOOM_IN)
+      return
+    }
+
+    if (animatedActionType === AnimatedActionType.PREVIOUS) {
+      setAnimation(AnimationType.FADE_IN_LEFT)
+      return
+    }
+
+    setAnimation(AnimationType.FADE_IN_RIGHT)
+  }, [animatedActionType, componentType])
+
+  useEffect(() => {
+    const { clientId, currentPriority, listResultAnswers, questionType } =
+      getDataFromStorage(QUIZ_RESULT_KEY) || {}
+
+    setClientId(clientId || '')
+    setCurrentPriority(currentPriority || 0)
+    setListResultAnswers(listResultAnswers || [])
+    setComponentType(questionType || COMPONENT_TYPE.INIT)
+  }, [])
 
   const getNextQuestionValue = useCallback((): INextQuestionValue | null => {
     const length = listResultAnswers.length
@@ -48,18 +128,54 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
   }, [listResultAnswers])
 
   const updateAnswerByQuestion = useCallback(
-    ({ currentStep, answer }: IUpdateAnswerByQuestion): void => {
+    ({ currentStep, answer, answerRaw }: IUpdateAnswerByQuestion): void => {
       listResultAnswers[currentStep] = {
         ...listResultAnswers[currentStep],
         answer,
+        answerRaw,
       }
-      setListResultAnsers(listResultAnswers)
+      setListResultAnswers(listResultAnswers)
     },
     [listResultAnswers],
   )
 
+  const saveAnswerByQuestion = useCallback(async () => {
+    saveDataToStorage(QUIZ_RESULT_KEY, {
+      currentPriority: currentPriority,
+      clientId,
+      questionType:
+        listResultAnswers[listResultAnswers.length - 1].inputData.type,
+      listResultAnswers,
+    })
+
+    const response = await _postApi(API_SUBMIT_QUIZ, {
+      clientId,
+      result: listResultAnswers,
+    })
+
+    if (!response?.data?.success) throw new Error(response?.data?.message)
+  }, [clientId, listResultAnswers, currentPriority])
+
+  const handlePreviousStep = useCallback((): void | undefined => {
+    // Removes the last element from an array
+    listResultAnswers.pop()
+
+    const length = listResultAnswers.length
+
+    if (!length) return
+
+    const lastQuestion = listResultAnswers[length - 1]
+    const { type = '', priority = 0 } = lastQuestion?.inputData || {}
+
+    setComponentType(type)
+    setCurrentPriority(priority)
+    setListResultAnswers(listResultAnswers)
+    setAnimatedActionType(AnimatedActionType.PREVIOUS)
+  }, [listResultAnswers])
+
   const handleNextStep = useCallback((): undefined => {
     const length = listResultAnswers.length
+    setAnimatedActionType(AnimatedActionType.NEXT)
 
     // INITIAL
     if (!length) {
@@ -75,7 +191,7 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
 
       setComponentType(type)
       setCurrentPriority(priority)
-      setListResultAnsers((prev) => [...prev, resultAnswer])
+      setListResultAnswers((prev) => [...prev, resultAnswer])
 
       return
     }
@@ -104,27 +220,28 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
 
       setComponentType(type)
       setCurrentPriority(priority)
-      setListResultAnsers((prev) => [...prev, resultAnswer])
+      setListResultAnswers((prev) => [...prev, resultAnswer])
       return
     }
 
     const selectedAnswer = answers.find(
-      ({ question_id, id }) => questionId === question_id && answer === id,
+      ({ questionId: question_id, id }) =>
+        question_id === questionId && answer === id,
     )
 
     if (!selectedAnswer) return
 
-    const { next_question_id } = selectedAnswer
+    const { nextQuestionId } = selectedAnswer
 
     // next_question_id = NULL
-    if (!next_question_id) {
+    if (!nextQuestionId) {
       setComponentType(COMPONENT_TYPE.LABEL)
       setCurrentPriority((prev) => prev + 1)
 
       return
     }
 
-    const nextQuestion = questions.find(({ id }) => next_question_id === id)
+    const nextQuestion = questions.find(({ id }) => nextQuestionId === id)
 
     if (!nextQuestion) return
 
@@ -136,25 +253,88 @@ const FormStepProvider = ({ children, questions }: IFormStepProvider) => {
 
     setComponentType(type)
     setCurrentPriority(priority)
-    setListResultAnsers((prev) => [...prev, resultAnswer])
+    setListResultAnswers((prev) => [...prev, resultAnswer])
   }, [listResultAnswers, questions, currentPriority])
+
+  const handleGetClientAnswers = useCallback(
+    (id: string | number, answers?: ResultAnswer[]) => {
+      setClientId(id)
+
+      if (!answers) {
+        handleNextStep()
+        return
+      }
+
+      const { inputData } = answers[answers.length - 1]
+      const { priority, type } = inputData
+
+      setListResultAnswers(answers)
+      setCurrentPriority(priority)
+      setComponentType(type)
+
+      saveDataToStorage(QUIZ_RESULT_KEY, {
+        currentPriority: priority,
+        clientId: id,
+        questionType: type,
+        listResultAnswers: answers,
+      })
+    },
+    [handleNextStep],
+  )
+
+  const handlePreview = useCallback(() => {
+    setComponentType(COMPONENT_TYPE.PREVIEW)
+  }, [])
+
+  const handleBackFromPreview = useCallback(() => {
+    setAnimatedActionType(AnimatedActionType.PREVIOUS)
+    setComponentType(COMPONENT_TYPE.CHECKBOX_REQUIREMENT)
+  }, [])
+
+  const handleFinishStep = useCallback(() => {
+    setComponentType(COMPONENT_TYPE.FINISH)
+  }, [])
 
   const ctx = useMemo(
     () => ({
       questions,
+      skills,
+      clientId,
+      requirements,
+      responsibilities,
       listResultAnswers,
       componentType,
+      isAnimatedComponent,
+      animation,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
+      handlePreviousStep,
+      handleGetClientAnswers,
+      saveAnswerByQuestion,
+      handlePreview,
+      handleBackFromPreview,
+      handleFinishStep,
     }),
     [
       questions,
+      skills,
+      clientId,
+      requirements,
+      responsibilities,
       listResultAnswers,
       componentType,
+      isAnimatedComponent,
+      animation,
       handleNextStep,
       updateAnswerByQuestion,
       getNextQuestionValue,
+      handlePreviousStep,
+      handleGetClientAnswers,
+      saveAnswerByQuestion,
+      handlePreview,
+      handleBackFromPreview,
+      handleFinishStep,
     ],
   )
 

@@ -1,0 +1,38 @@
+@import '@/styles/_mixins.scss';
+
+.client-label-container {
+  max-width: 1170px;
+  padding: 0 100px;
+  margin: 72px auto;
+
+  background-image: url('/images/CustomerSupportBG.png');
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  width: 100%;
+  background-size: 400px 400px;
+  background-position-x: right;
+  background-position-y: top;
+
+  @include screen-down(xl) {
+    padding: 0 10%;
+  }
+
+  @include screen-down(md) {
+    background-image: none;
+  }
+
+  :global .client-label-title {
+    margin-bottom: 72px;
+  }
+
+  :global .client-label-message {
+    font-family: 'Gilroy-Regular';
+    font-size: 1.5rem;
+    margin-bottom: 160px;
+    max-width: 700px;
+  }
+
+  :global .hr {
+    border-top: 1px dashed;
+  }
+}

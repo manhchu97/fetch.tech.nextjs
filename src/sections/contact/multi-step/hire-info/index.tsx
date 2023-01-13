@@ -9,28 +9,53 @@ import { TOTAL_COLUMN_PER_ROW } from '@/config/contact'
 import ClientMessage from '@/components/client-message'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
 
 import { Answer, INextQuestionValue } from '@/types/contact'
 
 import styles from './HireInfo.module.scss'
 
 const HireInfoStep = (): React.ReactElement => {
-  const { handleNextStep, updateAnswerByQuestion, getNextQuestionValue } =
-    useFormStepContext()
-
+  const { errorToast } = useToastContext()
+  const {
+    saveAnswerByQuestion,
+    handleNextStep,
+    updateAnswerByQuestion,
+    getNextQuestionValue,
+    isAnimatedComponent,
+    animation,
+  } = useFormStepContext()
   const data: INextQuestionValue | null = getNextQuestionValue()
   const { currentStep = 0, resultAnswer } = data || {}
+  const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '', answers: listAnswers = [] } =
-    resultAnswer?.inputData || {}
+    inputData || {}
 
-  const handleSubmit = useCallback(() => {
-    updateAnswerByQuestion({
+  const handleSubmit = useCallback(
+    (answerId: string) => () => {
+      updateAnswerByQuestion({
+        currentStep,
+        answer: answerId,
+        answerRaw: [answerId],
+      })
+
+      try {
+        saveAnswerByQuestion()
+        handleNextStep()
+      } catch (error) {
+        errorToast(
+          (error as Error)?.message || 'Fail to submit quiz! Please try again',
+        )
+      }
+    },
+    [
+      handleNextStep,
+      updateAnswerByQuestion,
+      saveAnswerByQuestion,
+      errorToast,
       currentStep,
-      answer: '8e3863f4-7cea-4ca1-b6ff-127a88756abf',
-    })
-
-    handleNextStep()
-  }, [handleNextStep, updateAnswerByQuestion, currentStep])
+    ],
+  )
 
   return (
     <div className={styles['hire-info-container']}>
@@ -39,21 +64,34 @@ const HireInfoStep = (): React.ReactElement => {
       <div className={clsx('ft-full-screen', 'hire-container')}>
         <div className='hire-container-question h4'>{questionTitle}</div>
 
-        <div className='hire-list row'>
+        <div
+          className={clsx({
+            'hire-list': true,
+            row: true,
+            animate__animated: isAnimatedComponent,
+            [animation]: isAnimatedComponent,
+          })}
+        >
           {listAnswers.map(
             (
-              { title = '', description = '', image = '' }: Answer,
+              {
+                title = '',
+                description = '',
+                image = '',
+                id: answerId = '',
+              }: Answer,
               index: React.Key | null | undefined,
             ) => (
               <div
                 className={clsx(
                   'hire-card',
+                  answerId === answer && 'active',
                   `col-xxl-${
                     12 / TOTAL_COLUMN_PER_ROW
                   } col-lg-4 col-sm-6 col-xs-12`,
                 )}
                 key={index}
-                onClick={handleSubmit}
+                onClick={handleSubmit(answerId)}
               >
                 <div className='hire-card-banner'>
                   <div className='hire-card-title'>{title}</div>

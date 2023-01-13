@@ -1,3 +1,37 @@
+/*! purgecss start ignore */
+
 .preview-step-container {
   width: 100%;
+  max-width: 980px;
+  margin: 68px auto 100px;
+
+  :global .preview-header {
+    color: #ffbe16;
+  }
+
+  :global .prevew-content {
+    --bs-card-border-color: #ffbe16;
+    --bs-card-border-width: 2px;
+    --bs-card-spacer-y: 2rem;
+    --bs-card-spacer-x: 2rem;
+    max-height: 980px;
+    overflow-y: scroll;
+
+    .skill-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 16px;
+
+      .skill-tag-item {
+        margin-right: 8px;
+        margin-top: 16px;
+        padding: 4px 24px;
+        background-color: rgba(255, 190, 22, 0.1);
+        border: 2px solid #ffbe16;
+        border-radius: 50px;
+      }
+    }
+  }
 }
+
+/*! purgecss end ignore */

@@ -12,3 +12,5 @@ export const DEFAULT_PAGE_NUMBER = 1
 
 // COLOR
 export const PRIMARY_COLOR = '#ffbe16'
+
+export const REGEX_REMOVE_HTML = /(<([^>]+)>)/gi

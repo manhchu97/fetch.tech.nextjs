@@ -1,0 +1,14 @@
+.question-skeleton {
+  :global .question-skeleton-container {
+    max-width: 900px;
+    margin: 0 auto;
+
+    .question-skeleton-item {
+      width: 100%;
+      height: 700px;
+      border-radius: 8px;
+      margin-top: 64px;
+      background-color: transparent;
+    }
+  }
+}

@@ -3,11 +3,17 @@ import { Controller, useForm } from 'react-hook-form'
 import PhoneInput from 'react-phone-input-2'
 
 import { yupResolver } from '@hookform/resolvers/yup'
+import clsx from 'clsx'
 import * as Yup from 'yup'
 
 import { PHONE_COUNTRIES } from '@/config/phone'
 
 import { useFormStepContext } from '@/context/FormStepContext'
+import { useToastContext } from '@/context/ToastContext'
+
+import { API_SUBMIT_CLIENT_INFO } from '@/routes/api'
+
+import { _postApi } from '@/utils/axios'
 
 import styles from './ClientInfo.module.scss'
 
@@ -30,11 +36,13 @@ const defaultValues: ClientInfoSubmitForm = {
   contactName: '',
   email: '',
   phone: '65',
-  acceptTerms: true,
+  acceptTerms: false,
 }
 
 const ClientInfoStep = (): React.ReactElement => {
-  const { handleNextStep } = useFormStepContext()
+  const { errorToast } = useToastContext()
+  const { isAnimatedComponent, animation, handleGetClientAnswers } =
+    useFormStepContext()
   const [countryCode, setCountryCode] = useState('')
 
   const validationSchema = Yup.object().shape({
@@ -76,13 +84,38 @@ const ClientInfoStep = (): React.ReactElement => {
     resolver: yupResolver(validationSchema),
   })
 
-  const onSubmit = (data: ClientInfoSubmitForm) => {
-    console.log(JSON.stringify(data, null, 2))
-    handleNextStep()
+  const onSubmit = async (data: ClientInfoSubmitForm) => {
+    try {
+      const { companyName } = data
+      const response = await _postApi(API_SUBMIT_CLIENT_INFO, {
+        ...data,
+        name: companyName,
+      })
+
+      const { data: clientData } = response || {}
+      const { success, clientId, result, message } = clientData
+
+      if (!success) {
+        throw new Error(message)
+      }
+
+      handleGetClientAnswers(clientId, result)
+    } catch (error) {
+      errorToast(
+        (error as Error).message ||
+          'Something went wrong! Please try again later',
+      )
+    }
   }
 
   return (
-    <div className={styles['contact-container']}>
+    <div
+      className={clsx({
+        [styles['contact-container']]: true,
+        animate__animated: isAnimatedComponent,
+        [animation]: isAnimatedComponent,
+      })}
+    >
       <div className='ft-container'>
         <div className='contact-body-container row'>
           <div className='col-12 col-md-10 col-lg-8 contact-body-inner'>
@@ -190,6 +223,7 @@ const ClientInfoStep = (): React.ReactElement => {
                     <div className='col-8 col-sm-9 col-md-10'>
                       <div className='form-check'>
                         <input
+                          id='acceptTerms'
                           type='checkbox'
                           {...register('acceptTerms')}
                           className={`form-check-input ${
