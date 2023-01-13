@@ -1,12 +1,17 @@
 import React from 'react'
 
-import FetchHelp from '@/sections/companies/fetch-help'
+import dynamic from 'next/dynamic'
+
 import CompanyHeader from '@/sections/companies/header'
 import HowItWork from '@/sections/companies/how-it-work'
-import KeyFeature from '@/sections/companies/key-feature'
-import CompanyTrustedBy from '@/sections/companies/trusted-by'
 
 import styles from './Company.module.scss'
+
+const KeyFeature = dynamic(() => import('@/sections/companies/key-feature'))
+const CompanyTrustedBy = dynamic(
+  () => import('@/sections/companies/trusted-by'),
+)
+const FetchHelp = dynamic(() => import('@/sections/companies/fetch-help'))
 
 const Company = () => {
   return (

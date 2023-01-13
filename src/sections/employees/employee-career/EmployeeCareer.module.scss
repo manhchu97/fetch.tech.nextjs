@@ -1,0 +1,130 @@
+@import '@/styles/_mixins.scss';
+
+.employee-career {
+  padding-right: calc(100vw * 0.1 - 12px);
+  padding-left: calc(100vw * 0.1 - 12px);
+
+  :global .h2 {
+    @include screen-down(sm) {
+      margin-bottom: 32px;
+    }
+
+    @include screen-up(sm) {
+      margin-bottom: 24px;
+    }
+
+    @include screen-up(lg) {
+      margin-bottom: 16px;
+    }
+  }
+
+  :global .h6 {
+    color: #a4b7c8;
+  }
+
+  :global .list-wrap {
+    list-style-type: none;
+    padding: unset;
+    position: relative;
+  }
+
+  :global li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 68px;
+
+    @include screen-down(xs) {
+      padding-left: 0px;
+    }
+
+    @include screen-up(sm) {
+      padding-left: 0px;
+    }
+
+    @include screen-up(lg) {
+      padding-left: 28px;
+    }
+
+    @include screen-up(xl) {
+      padding-left: 32px;
+    }
+
+    .head {
+      flex: 0 0 46px;
+      height: 46px;
+      border-radius: 50%;
+      background-color: #ffbe16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include screen-down(xs) {
+        margin-right: 19px;
+      }
+
+      @include screen-up(sm) {
+        margin-right: 24px;
+      }
+      @include screen-up(md) {
+        margin-right: 36px;
+      }
+
+      @include screen-up(lg) {
+        margin-right: 48px;
+      }
+
+      @include screen-up(xl) {
+        margin-right: 55px;
+      }
+
+      span {
+        text-align: center;
+        font-family: Gilroy-Medium;
+        font-size: 20px;
+        line-height: 100%;
+        letter-spacing: 0px;
+        color: #000000;
+      }
+    }
+
+    .content {
+      .h5-bold {
+        margin-bottom: 16px;
+      }
+
+      @include screen-up(lg) {
+        max-width: 292px;
+      }
+    }
+  }
+
+  :global .horizontal-line {
+    position: absolute;
+    top: 36px;
+    bottom: 56px;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 190, 22, 1),
+      rgba(255, 190, 22, 0)
+    );
+    width: 4px;
+    border: none;
+    z-index: -1;
+
+    @include screen-down(xs) {
+      left: 23px - 2px;
+    }
+
+    @include screen-up(sm) {
+      left: 23px - 2px;
+    }
+
+    @include screen-up(lg) {
+      left: 49px;
+    }
+
+    @include screen-up(xl) {
+      left: 53px;
+    }
+  }
+}
