@@ -1,0 +1,28 @@
+.breadcrumb-container {
+  :global .breadcrumb-item + .breadcrumb-item {
+    &::before {
+      content: quote('>');
+    }
+  }
+
+  :global .breadcrumb-root {
+    font-family: Gilroy-SemiBold;
+    color: #17274e;
+    letter-spacing: 0px;
+
+    &:hover {
+      color: #40a9ff;
+    }
+  }
+
+  :global .breadcrumb-child {
+    letter-spacing: -0.25px;
+    color: #a4b7c8;
+
+    a {
+      &:hover {
+        color: #a4b7c8;
+      }
+    }
+  }
+}
