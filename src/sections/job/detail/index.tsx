@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import clsx from 'clsx'
@@ -110,6 +111,10 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
 
   return (
     <>
+      <Head>
+        <meta name='description' content='Detail job pages' />
+      </Head>
+
       <div className={clsx(styles['line-header'], 'my-4')}>
         <section id='job' className='job-detail-container mt-4'>
           {Object.keys(jobDetail).length ? (

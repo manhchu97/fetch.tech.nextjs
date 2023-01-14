@@ -1,4 +1,5 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
 
 import {
   CASE_STUDIES_TAB_BODY_CONFIG,
@@ -53,25 +54,31 @@ const CaseStudiesPage = ({
   tabBodyConfig,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title=''>
-      <BannerImageCover
-        imageSource='/images/employee/bannerEmployees.png'
-        className='company-banner-img-container'
-      />
+    <>
+      <Head>
+        <meta name='description' content='Resources Case studies pages' />
+      </Head>
 
-      <CaseStudiesSection
-        slug={slug}
-        tabHeaders={tabHeaders}
-        tabBodyConfig={tabBodyConfig}
-      />
+      <Page title=''>
+        <BannerImageCover
+          imageSource='/images/employee/bannerEmployees.png'
+          className='company-banner-img-container'
+        />
 
-      <BannerContact
-        title='Find the perfect fit with Fetch'
-        subTitle='Find the perfect fit with Fetch'
-        buttonText='Sign Up'
-        linkTo={PATH_CONFIG.contact}
-      />
-    </Page>
+        <CaseStudiesSection
+          slug={slug}
+          tabHeaders={tabHeaders}
+          tabBodyConfig={tabBodyConfig}
+        />
+
+        <BannerContact
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign Up'
+          linkTo={PATH_CONFIG.contact}
+        />
+      </Page>
+    </>
   )
 }
 

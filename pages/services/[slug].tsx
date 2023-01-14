@@ -1,4 +1,5 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
 
 import { PRIMARY_COLOR } from '@/config/global'
 import {
@@ -50,9 +51,15 @@ const ServiceDetailPage = ({
   serviceBody,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title='' themeColor={PRIMARY_COLOR}>
-      <ServiceSections header={header} serviceBody={serviceBody} />
-    </Page>
+    <>
+      <Head>
+        <meta name='description' content='Service pages' />
+      </Head>
+
+      <Page title='' themeColor={PRIMARY_COLOR}>
+        <ServiceSections header={header} serviceBody={serviceBody} />
+      </Page>
+    </>
   )
 }
 

@@ -8,6 +8,7 @@ import React, {
 import { useForm } from 'react-hook-form'
 
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 
 import clsx from 'clsx'
 import useSWR from 'swr'
@@ -192,6 +193,10 @@ const ListJob = ({
 
   return (
     <>
+      <Head>
+        <meta name='description' content='List jobs pages' />
+      </Head>
+
       <div className={clsx(styles['line-header'], 'mt-4')}>
         <section id='job' className='job-section-container mt-4'>
           <div className='container job-section-list-wrapper'>
