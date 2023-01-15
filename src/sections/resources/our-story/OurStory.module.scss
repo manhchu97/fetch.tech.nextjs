@@ -160,6 +160,18 @@
         padding: 61px 75px 43px;
         text-align: center;
 
+        .h2,
+        .h6 {
+          color: #fff;
+        }
+
+        .h2 {
+          @include screen-down(sm) {
+            font-size: 36px;
+            line-height: 45px;
+          }
+        }
+
         @include screen-down(lg) {
           padding: 50px 24px 50px;
         }
