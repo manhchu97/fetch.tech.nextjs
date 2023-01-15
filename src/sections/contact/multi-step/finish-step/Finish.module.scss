@@ -1,0 +1,28 @@
+@import '@/styles/_variables.scss';
+
+.finish-step-container {
+  :global .action-container {
+    font-family: 'Gilroy-SemiBold';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+
+    .action-btn-home {
+      min-width: 150px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background-color: $primary-color;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

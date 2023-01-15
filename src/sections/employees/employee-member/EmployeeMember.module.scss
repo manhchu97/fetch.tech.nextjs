@@ -1,0 +1,308 @@
+@import '@/styles/_mixins.scss';
+
+.employee-member {
+  padding-right: calc(100vw * 0.1 - 12px);
+  padding-left: calc(100vw * 0.1 - 12px);
+
+  :global .wrap-container {
+    @include screen-down(xs) {
+      background-color: #fdfefe;
+      padding-top: 133px;
+      padding-bottom: 169px;
+    }
+
+    @include screen-up(sm) {
+      background-color: #fdfefe;
+      padding-top: 133px;
+      padding-bottom: 169px;
+    }
+
+    @include screen-up(xl) {
+      background-image: url('/images/employee/memberBg.png');
+      background-repeat: no-repeat;
+      background-origin: content-box;
+      background-position-y: 173px - 129px;
+      padding-top: 129px;
+      padding-bottom: 194px;
+    }
+
+    .heart-img {
+      width: 96px;
+
+      @include screen-down(xs) {
+        margin-bottom: 32px;
+      }
+
+      @include screen-up(sm) {
+        margin-bottom: 32px;
+      }
+
+      @include screen-up(md) {
+        margin-bottom: 49px;
+      }
+
+      img#i1 {
+        padding-bottom: 15%;
+      }
+    }
+
+    .big-text {
+      font-family: Gilroy-Light;
+      text-align: center;
+      letter-spacing: -1px;
+      color: #273a5f;
+
+      @include screen-down(xs) {
+        font-size: 96px;
+        line-height: 95px;
+        margin-bottom: 20px;
+      }
+
+      @include screen-up(sm) {
+        font-size: 96px;
+        line-height: 95px;
+        margin-bottom: 20px;
+      }
+
+      @include screen-up(xl) {
+        font-size: 144px;
+        line-height: 95px;
+        margin-bottom: 49px;
+        margin-top: 14px;
+      }
+    }
+
+    .subtext {
+      font-family: Gilroy-SemiBold;
+      text-align: center;
+      color: #273a5f;
+
+      @include screen-down(xs) {
+        font-size: 22px;
+        line-height: 30px;
+        letter-spacing: -0.25px;
+        margin-bottom: 14px;
+      }
+
+      @include screen-up(sm) {
+        font-size: 22px;
+        line-height: 30px;
+        letter-spacing: -0.25px;
+        margin-bottom: 14px;
+      }
+
+      @include screen-up(xl) {
+        font-size: 36px;
+        line-height: 50px;
+        margin-bottom: 8px;
+        letter-spacing: -1px;
+      }
+    }
+
+    .paragraph {
+      font-family: Gilroy-Regular;
+      text-align: center;
+      color: #a4b7c8;
+      max-width: 528px;
+      letter-spacing: 0px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @include screen-down(xs) {
+        font-size: 19px;
+        line-height: 28px;
+        margin-bottom: 58px;
+      }
+
+      @include screen-up(sm) {
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 58px;
+      }
+
+      @include screen-up(lg) {
+        margin-bottom: 100px;
+      }
+
+      @include screen-up(xl) {
+        margin-bottom: 0;
+      }
+    }
+
+    .btn-learn-more {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      height: 54px;
+      border-radius: 8px;
+      margin-left: auto;
+      margin-right: auto;
+
+      font-family: Gilroy-SemiBold;
+      font-size: 18px;
+      line-height: 20px;
+      color: #ffffff;
+      opacity: 1;
+
+      @include screen-down(xs) {
+        box-shadow: none;
+        background-color: transparent;
+        border: 1px solid #273a5f;
+        margin-bottom: 76px;
+        color: #273a5f;
+      }
+
+      @include screen-up(sm) {
+        box-shadow: none;
+        background-color: transparent;
+        border: 1px solid #273a5f;
+        margin-bottom: 76px;
+        color: #273a5f;
+      }
+
+      @include screen-up(md) {
+        display: none;
+      }
+    }
+
+    .emp-row {
+      .emp-col:nth-child(1) {
+        .emp-wrap {
+          @include screen-up(md) {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+
+            .cmt {
+              flex: 1;
+            }
+          }
+
+          @include screen-up(xl) {
+            margin-top: 139px;
+            height: initial;
+            display: block;
+          }
+        }
+      }
+
+      .emp-col:nth-child(2) {
+        .emp-wrap {
+          @include screen-down(xs) {
+            margin-top: 67px;
+          }
+
+          @include screen-up(sm) {
+            margin-top: 67px;
+          }
+
+          @include screen-up(md) {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+
+            .cmt {
+              flex: 1;
+            }
+          }
+
+          @include screen-up(xl) {
+            height: initial;
+            display: block;
+            margin-top: 337px;
+          }
+        }
+      }
+
+      .emp-wrap {
+        max-width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .emp-img {
+          max-height: 210px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 14px 14px 0px 0px;
+        }
+
+        .quote-wrap {
+          background: #ffffff;
+          border: 1px solid #eeeeee;
+          box-sizing: border-box;
+          box-shadow: 0px 18px 25px rgba(0, 0, 0, 0.03);
+          border-bottom-left-radius: 18px;
+          border-bottom-right-radius: 18px;
+          text-align: left;
+          height: 100%;
+
+          @include screen-down(xs) {
+            padding: 24px;
+          }
+
+          @include screen-up(sm) {
+            padding: 24px;
+          }
+
+          @include screen-up(xl) {
+            padding: 48px;
+          }
+
+          .quote-text {
+            font-family: Gilroy-Regular;
+            color: #000000;
+            letter-spacing: 0px;
+
+            @include screen-down(xs) {
+              font-size: 16px;
+              line-height: 24px;
+              margin-bottom: 24px;
+            }
+
+            @include screen-up(sm) {
+              font-size: 16px;
+              line-height: 24px;
+              margin-bottom: 24px;
+            }
+
+            @include screen-up(xl) {
+              font-size: 24px;
+              line-height: 36px;
+              margin-bottom: 26px;
+            }
+          }
+
+          .sign {
+            font-family: Gilroy-Medium;
+            color: #000000;
+            margin-bottom: 0;
+
+            @include screen-down(xs) {
+              font-size: 15px;
+              line-height: 23px;
+              letter-spacing: 0.07717770338058472px;
+            }
+
+            @include screen-up(sm) {
+              font-size: 15px;
+              line-height: 23px;
+              letter-spacing: 0.07717770338058472px;
+            }
+
+            @include screen-up(xl) {
+              font-size: 20px;
+              line-height: 30px;
+              letter-spacing: 0.1px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

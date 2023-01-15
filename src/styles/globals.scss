@@ -1,0 +1,179 @@
+@import 'mixins';
+@import 'variables';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  color: $heading-color;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--bs-warning);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ft-container {
+  margin-left: auto;
+  margin-right: auto;
+
+  @include screen(xs) {
+    max-width: $max-width-xs;
+  }
+
+  @include screen(sm) {
+    max-width: $max-width-sm;
+  }
+
+  @include screen(md) {
+    max-width: $max-width-md;
+  }
+
+  @include screen(lg) {
+    max-width: $max-width-lg;
+  }
+
+  @include screen(xl) {
+    max-width: $max-width-xl;
+  }
+
+  @include screen(xxl) {
+    max-width: $max-width-xxl;
+  }
+}
+
+.ft-full-screen {
+  width: 100%;
+  background-color: #fff;
+  padding: 0 10%;
+
+  @include screen-down(md) {
+    padding: 0 16px;
+  }
+}
+
+.company-banner-img-container {
+  .image-cover-container {
+    padding-bottom: 38% !important;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+  &.required {
+    .control-label {
+      &::after {
+        content: '*';
+        color: red;
+        position: absolute;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  > label {
+    font-family: 'Gilroy-Medium';
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.25px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.form-control {
+  padding: 12px 16px;
+  font-family: 'Gilroy-Regular';
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 6px;
+}
+
+.form-check-input {
+  &:checked {
+    background-color: #ffbe16;
+    border-color: #ffbe16;
+  }
+}
+
+.div-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// hide arrow input number
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  appearance: textfield;
+}
+
+// color
+.h-color {
+  color: $heading-color;
+}
+
+.p-color {
+  color: $p-color;
+}
+
+.grey-color {
+  color: $grey-color;
+}
+
+// override flipInY
+@keyframes flipInY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}

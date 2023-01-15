@@ -1,0 +1,115 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.case-studies-container {
+  margin-bottom: 60px;
+
+  :global .container {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    @include screen-up(xl) {
+      max-width: $max-width-xl;
+    }
+
+    .tab-nav-container {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      overflow-x: auto;
+      justify-content: center;
+      border-bottom: 1px solid #ddd;
+
+      .tab-title {
+        display: inline-block;
+        margin: 0;
+        padding: 25px;
+        min-width: 180px;
+        text-align: center;
+        font-family: Gilroy-SemiBold;
+        color: #bbb;
+
+        &.active {
+          color: #555;
+          border: 1px solid #ddd;
+          border-top: 2px solid orange;
+          border-bottom: 1px solid #fff;
+        }
+      }
+    }
+
+    .tab-content-container {
+      margin-top: 60px;
+
+      .p-text {
+        font-family: 'Gilroy-Regular';
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 40px;
+        margin-top: 30px;
+        color: $grey-color;
+
+        @include screen-down(lg) {
+          font-size: 18px;
+          line-height: 24px;
+        }
+      }
+
+      .h2,
+      .h5 {
+        color: #17274e;
+      }
+
+      .h3 {
+        @include screen-down(md) {
+          font-size: 26px;
+          line-height: 30px;
+        }
+      }
+
+      .h2 {
+        margin-bottom: 16px;
+
+        @include screen-down(sm) {
+          font-size: 36px;
+          line-height: 45px;
+        }
+      }
+
+      .h5 {
+        margin-bottom: 40px;
+
+        @include screen-down(md) {
+          font-size: 22px;
+        }
+      }
+
+      .customer-info-container {
+        margin-bottom: 40px;
+
+        .customer-detail-info {
+          display: flex;
+          justify-content: space-between;
+          border-radius: 8px;
+          background-color: #fccc4b;
+          margin-bottom: 16px;
+          padding: 16px;
+          box-shadow: 0px 6px 10px #d2e2ed;
+        }
+
+        .customer-img-container {
+          position: relative;
+          padding-bottom: 22%;
+
+          @include screen-down(lg) {
+            display: none;
+          }
+        }
+      }
+
+      .fetch-team-info-container {
+        margin-bottom: 40px;
+      }
+    }
+  }
+}

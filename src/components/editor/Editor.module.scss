@@ -1,0 +1,30 @@
+/*! purgecss start ignore */
+@import '@/styles/_mixins.scss';
+
+$default-font-size-editor: 16px;
+
+.client-editor {
+  background-color: transparent;
+  padding: 0;
+
+  :global .client-editor-container {
+    border-radius: 8px;
+    border: 1px solid #919eab52;
+
+    .quill {
+      .ql-container.ql-snow {
+        border: none !important;
+      }
+    }
+
+    .ql-editor {
+      min-height: 200px;
+      max-height: 400px;
+
+      p {
+        font-size: $default-font-size-editor;
+      }
+    }
+  }
+}
+/*! purgecss end ignore */

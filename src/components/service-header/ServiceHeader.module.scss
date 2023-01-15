@@ -1,0 +1,54 @@
+@import '@/styles/_mixins.scss';
+
+.service-header-container {
+  background: #ffbe16;
+
+  :global .service-header__inner {
+    padding: 0 10%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+
+    &__left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      @include screen-down(lg) {
+        margin-bottom: 36px;
+      }
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      max-height: 440px;
+      transform: translateY(20px);
+
+      @include screen-down(lg) {
+        margin-bottom: 60px;
+      }
+
+      &.payroll-compliances-service-container,
+      &.management-service-container {
+        transform: none;
+      }
+
+      &.calculator-service-container {
+        transform: none;
+        margin-top: 85px;
+        margin-bottom: 25px;
+        padding: 0;
+
+        @include screen-down(lg) {
+          margin-top: 60px;
+          margin-bottom: 45px;
+        }
+      }
+    }
+  }
+}

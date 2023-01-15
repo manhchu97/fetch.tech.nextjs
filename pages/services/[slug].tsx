@@ -1,12 +1,16 @@
+import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
+
+import { PRIMARY_COLOR } from '@/config/global'
 import {
   HEADER_CONFIG,
   SERVICE_BODY_CONFIG,
   SERVICE_TYPE,
-} from '@config/services'
-import ServiceSections from '@sections/services'
-import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
+} from '@/config/services'
 
-import Page from '@components/Page'
+import Page from '@/components/Page'
+
+import ServiceSections from '@/sections/services'
 
 type Prams = {
   params: {
@@ -34,6 +38,8 @@ export const getStaticProps = async ({ params }: Prams) => {
 
   return {
     props: {
+      // https://stackoverflow.com/questions/68773115/next-js-routing-from-pages-slug-js-not-working
+      key: slug,
       header,
       serviceBody,
     },
@@ -45,9 +51,15 @@ const ServiceDetailPage = ({
   serviceBody,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title=''>
-      <ServiceSections header={header} serviceBody={serviceBody} />
-    </Page>
+    <>
+      <Head>
+        <meta name='description' content='Service pages' />
+      </Head>
+
+      <Page title='' themeColor={PRIMARY_COLOR}>
+        <ServiceSections header={header} serviceBody={serviceBody} />
+      </Page>
+    </>
   )
 }
 

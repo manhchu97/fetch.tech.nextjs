@@ -1,0 +1,152 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.h1 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 54px;
+  line-height: 60px;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+
+  @include screen-down(lg) {
+    font-size: 48px;
+    line-height: 55px;
+  }
+
+  @include screen-down(sm) {
+    font-size: 32px;
+    line-height: 44px;
+  }
+
+  @include screen-down(xs) {
+    font-size: 36px;
+    line-height: 45px;
+  }
+}
+
+.h2 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 48px;
+  line-height: 55px;
+  letter-spacing: -1px;
+
+  @include screen-down(md) {
+    font-size: 36px;
+    line-height: 45px;
+  }
+
+  @include screen-down(sm) {
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: -0.25px;
+  }
+}
+
+.h3 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 36px;
+  line-height: 45px;
+
+  @include screen-down(xl) {
+    font-size: 26px;
+    line-height: 30px;
+  }
+
+  @include screen-down(md) {
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: -0.25px;
+
+    &--maintain {
+      font-size: 36px;
+      line-height: 45px;
+    }
+  }
+}
+
+.h4 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 32px;
+  line-height: 43px;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+
+  @include screen-down(sm) {
+    font-size: 22px;
+  }
+}
+
+.h5 {
+  font-family: 'Gilroy-SemiBold';
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.25px;
+
+  @include screen-down(sm) {
+    font-family: 'Gilroy-Regular';
+    font-size: 20px;
+    line-height: 28px;
+
+    &--maintain {
+      font-size: 22px;
+      font-family: 'Gilroy-SemiBold';
+      line-height: 30px;
+      color: $heading-color;
+    }
+
+    &--bold {
+      font-family: 'Gilroy-SemiBold';
+    }
+  }
+}
+
+.h5-bold {
+  @extend .h5;
+  font-family: 'Gilroy-SemiBold';
+}
+
+.h6 {
+  font-family: 'Gilroy-Regular';
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.h6-bold {
+  @extend .h6;
+  font-family: 'Gilroy-SemiBold';
+}
+
+.h6-p-color {
+  @extend .h6;
+  color: $p-color;
+}
+
+.h6-grey-color {
+  @extend .h6;
+  color: $grey-color;
+}
+
+.par {
+  font-family: 'Gilroy-Regular';
+  font-size: 16px;
+  line-height: 1.33em;
+}
+
+.par-grey-color {
+  @extend .par;
+  color: $grey-color;
+}
+
+.subtitle1 {
+  font-family: 'Gilroy-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: $p-color;
+}
+
+.subtitle2 {
+  font-family: 'Gilroy-Regular';
+  font-size: 14px;
+  line-height: 22px;
+  color: $heading-color;
+}

@@ -1,0 +1,262 @@
+/*! purgecss start ignore */
+
+@import '@/styles/_mixins.scss';
+
+.slick-calculator-container {
+  :global .slick-salary {
+    margin-bottom: 80px;
+
+    .p-subtitle2 {
+      font-family: Gilroy-Regular;
+      font-size: 12px;
+      line-height: 18px;
+      letter-spacing: 0px;
+      text-align: left;
+    }
+
+    .slick-slide {
+      .slick-card {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 300px;
+        padding-left: 22px;
+        padding-right: 22px;
+        background: #fff;
+        box-shadow: 0px 0px 1.46587px rgba(0, 0, 0, 0.1),
+          0px 0.732934px 2.93174px rgba(0, 0, 0, 0.1);
+        border-radius: 14.6587px;
+        border: 1.46587px solid #bac9d7;
+
+        @include screen-up(xl) {
+          opacity: 0.6;
+        }
+
+        .card-headder {
+          padding-top: 45px;
+          margin-bottom: 22px;
+          display: flex;
+          align-items: center;
+
+          .avatar-img {
+            margin-right: 23px;
+            position: relative;
+            width: 60px;
+            height: 60px;
+          }
+
+          .user-info {
+            .subtitle1 {
+              font-family: Gilroy-SemiBold;
+              color: #17274e;
+              letter-spacing: -0.1832335740327835px;
+              text-align: left;
+            }
+
+            .p-subtitle2 {
+              color: #a4b7c8;
+            }
+          }
+        }
+
+        .description {
+          &.p-subtitle2 {
+            color: #17274e;
+          }
+        }
+
+        .features {
+          margin-bottom: 32px;
+
+          .p-subtitle2 {
+            color: #17274e;
+            margin-bottom: 12px;
+          }
+
+          ul {
+            list-style-type: none;
+            padding-left: 0;
+
+            li {
+              display: flex;
+              align-items: center;
+              margin-bottom: 5px;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+
+              .p-subtitle2 {
+                font-size: 10px;
+                line-height: 15px;
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+
+        .btn-interest {
+          width: 100%;
+          background: #ffbe16;
+          border-radius: 7.32934px;
+          font-family: Gilroy-SemiBold;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: -0.25px;
+          text-align: center;
+          color: #fff;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          border: none;
+          outline: none;
+          margin-bottom: 13px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+
+        .btn-see-profile {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          margin-left: auto;
+          margin-right: auto;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          margin-bottom: 16px;
+
+          .see-text {
+            font-family: Gilroy-Regular;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0px;
+            text-align: right;
+            color: #919191;
+          }
+
+          .bi-chevron-right {
+            font-size: 9px;
+            -webkit-text-stroke: 1px;
+            color: #919191;
+          }
+        }
+      }
+    }
+
+    .slick-track {
+      display: flex;
+      align-items: center;
+    }
+
+    .slick-center {
+      .slick-card {
+        opacity: 1;
+        max-width: 384px;
+        padding-left: 28px;
+        padding-right: 28px;
+        box-shadow: 0px 0px 1.87317px rgba(0, 0, 0, 0.1),
+          0px 0.936585px 3.74634px rgba(0, 0, 0, 0.1);
+        border-radius: 18.7317px;
+        border: 1.87317px solid #bac9d7;
+
+        .card-headder {
+          padding-top: 57px;
+          margin-bottom: 28px;
+
+          .avatar-img {
+            margin-right: 30px;
+            width: 68px;
+            height: 68px;
+          }
+
+          .user-info {
+            .subtitle1 {
+              font-size: 22px;
+              line-height: 30px;
+              letter-spacing: -0.25px;
+            }
+
+            .p-subtitle2 {
+              font-size: 20px;
+              line-height: 28px;
+            }
+          }
+        }
+
+        .description {
+          &.p-subtitle2 {
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+
+        .divider {
+          margin: 20px 0px !important;
+        }
+
+        .features {
+          margin-bottom: 85px;
+
+          .p-subtitle2 {
+            font-size: 19px;
+            line-height: 28px;
+            margin-bottom: 15px;
+          }
+
+          ul {
+            li {
+              margin-bottom: 8px;
+
+              .p-subtitle2 {
+                font-size: 16px;
+                line-height: 24px;
+              }
+            }
+          }
+        }
+
+        .btn-interest {
+          border-radius: 9.36585px;
+          font-size: 22px;
+          line-height: 30px;
+          padding-top: 11px;
+          padding-bottom: 11px;
+          margin-bottom: 15px;
+          cursor: pointer;
+        }
+
+        .btn-see-profile {
+          margin-bottom: 20px;
+
+          .see-text {
+            font-size: 16px;
+            line-height: 24px;
+            color: #919191;
+          }
+
+          .bi-chevron-right {
+            -webkit-text-stroke: 1px;
+          }
+        }
+      }
+    }
+
+    .slick-dots {
+      position: relative !important;
+      margin-bottom: 0 !important;
+      margin-top: 38px !important;
+
+      .slick-active {
+        > div {
+          background-color: #17274e !important;
+        }
+      }
+    }
+  }
+}
+/*! purgecss end ignore */

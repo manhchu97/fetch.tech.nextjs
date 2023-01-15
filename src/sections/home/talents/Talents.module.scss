@@ -1,0 +1,137 @@
+@import '@/styles/_variables.scss';
+@import '@/styles/_mixins.scss';
+
+.talents {
+  width: 100%;
+  height: 1450px;
+  background-color: $black-color-1;
+  padding: 80px 0;
+  position: relative;
+
+  &__background {
+    position: absolute;
+    width: 100%;
+    height: 1021px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  &__logo {
+    width: 96px;
+    height: 96px;
+    text-align: center;
+    line-height: 125px;
+    margin: 0 auto 50px;
+    background-color: $yellow-color-2;
+    border-radius: 50%;
+  }
+
+  > h1 {
+    text-align: center;
+    color: $white-color-1;
+    max-width: 50%;
+    margin: 0 auto 20px;
+
+    @include screen-down(lg) {
+      max-width: 90%;
+    }
+
+    @include screen-up(lg) {
+      font-size: 56px;
+    }
+
+    @include screen-down(sm) {
+      font-size: 32px;
+    }
+  }
+
+  > h6 {
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    max-width: 35%;
+    color: $white-color-1;
+    margin: 0 auto 25px;
+
+    @include screen-down(lg) {
+      max-width: 60%;
+    }
+
+    @include screen-down(sm) {
+      max-width: 90%;
+    }
+  }
+
+  > button {
+    padding: 17px 25px;
+    outline: none;
+    border-radius: 8px;
+    font-family: 'Gilroy-SemiBold';
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    background-color: unset;
+    border: 1px solid $white-color-1;
+    color: $white-color-1;
+    display: block;
+    margin: 0 auto 50px;
+  }
+
+  &__image {
+    text-align: center;
+  }
+}
+
+.talents__info {
+  width: calc(258px * 3 + 180px);
+  margin: 0px auto;
+
+  @include screen-down(lg) {
+    width: 80%;
+  }
+
+  @include screen-down(md) {
+    width: 100%;
+  }
+
+  .card {
+    width: 258px;
+    background-color: white;
+    margin: 20px auto 0px;
+    min-height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    &__top {
+      height: 201px;
+      background: #f3f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &__bottom {
+      padding: 15px;
+      h5 {
+        font-size: 24px;
+        letter-spacing: 0.5px;
+        color: #091738;
+        font-family: 'Gilroy-SemiBold';
+      }
+
+      h6 {
+        font-size: 18px;
+        color: #091738;
+      }
+    }
+  }
+
+  //override dot in react slick
+  :global(.slick-dots) {
+    bottom: -60px !important;
+  }
+
+  :global(li.slick-active) div {
+    background-color: white !important;
+  }
+}

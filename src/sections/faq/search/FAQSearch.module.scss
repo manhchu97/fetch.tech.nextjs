@@ -1,0 +1,93 @@
+@import '@/styles/variables.scss';
+@import '@/styles/_mixins.scss';
+
+.faq-search-container {
+  background-color: $primary-color;
+  position: relative;
+
+  :global .img-container {
+    z-index: 0;
+  }
+
+  :global .ft-container {
+    position: relative;
+    padding-top: 128px;
+    padding-bottom: 128px;
+
+    @include screen-down(xs) {
+      padding-left: 10.5px;
+      padding-right: 10.5px;
+    }
+
+    @include screen-up(sm) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    @include screen-up(xl) {
+      max-width: 1140px !important;
+      padding: 110px 15px 152px 15px;
+    }
+
+    .h3 {
+      font-family: Gilroy-SemiBold;
+      font-size: 36px;
+      text-align: left;
+      color: #273a5f;
+      @include screen-down(sm) {
+        margin-bottom: 16px;
+        line-height: 45px;
+        letter-spacing: -1px;
+      }
+
+      @include screen-up(xl) {
+        margin-bottom: 12px;
+        line-height: 60px;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    .par {
+      font-family: Gilroy-Regular;
+      line-height: 28px;
+      letter-spacing: 0px;
+      text-align: left;
+      color: #273a5f;
+      margin-bottom: 16px;
+      font-size: 19px;
+
+      @include screen-up(xl) {
+        margin-bottom: 32px;
+        font-size: 20px;
+      }
+    }
+
+    .search-input-container {
+      .search-input {
+        border-radius: 0px;
+        padding: 32px 16px 32px 48px;
+        border-color: $primary-color;
+        height: 80px;
+
+        &:focus {
+          box-shadow: 0 0 0 4px rgb(252 190 23 / 25%);
+        }
+      }
+
+      .search-icon {
+        z-index: 1000;
+        border: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        filter: invert(86%) sepia(11%) saturate(41%) hue-rotate(176deg)
+          brightness(108%) contrast(90%);
+        padding: 0 20px;
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+@import '@/styles/variables.scss';
+
+.droppable-container {
+  :global .droppable-title {
+    padding: 16px 8px 0;
+    color: $primary-color;
+
+    .asterisk {
+      margin-left: 4px;
+      color: #dc3545;
+    }
+  }
+
+  :global .droppable-section {
+    min-height: 200px;
+    border: 1px solid $grey-color;
+    border-radius: 8px;
+    padding-bottom: 16px;
+
+    &.selected {
+      box-shadow: 0 0 0 4px #fcbe1740;
+      border: 1px solid $primary-color;
+    }
+
+    .droppable-list {
+      max-height: 400px;
+      overflow-y: scroll;
+      padding: 0 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+
+      .draggable-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        background-color: #eef3f8;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin: 6px 0;
+
+        .draggable-item-wrapper {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &.is-dragging,
+        &.is-edit {
+          background-color: #b2d3f4;
+        }
+
+        .draggable-item-content {
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          & > span {
+            min-width: 18px;
+            min-height: 18px;
+            cursor: pointer;
+          }
+        }
+
+        .draggable-item-label {
+          padding-right: 12px;
+          word-break: break-word;
+          white-space: break-spaces;
+          margin-left: 10px;
+        }
+
+        .draggable-item-input {
+          border: none;
+          background-color: transparent;
+          outline: none;
+          width: 100%;
+          padding-right: 12px;
+          overflow: hidden;
+          word-break: break-word;
+          margin-left: 10px;
+        }
+
+        .draggable-item-action {
+          display: flex;
+          position: relative;
+          right: 0;
+
+          & > span {
+            min-width: 18px;
+            min-height: 18px;
+            cursor: pointer;
+            margin-right: 8px !important;
+          }
+        }
+      }
+
+      .confirm-delete-modal {
+        .ft-modal-dialog {
+          width: 600px;
+        }
+
+        &-header {
+          span {
+            cursor: pointer;
+
+            &:hover {
+              opacity: 0.7;
+            }
+          }
+        }
+
+        &-footer {
+          button:last-child {
+            color: #fff;
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+}

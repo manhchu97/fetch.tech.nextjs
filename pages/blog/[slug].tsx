@@ -1,12 +1,20 @@
-import { PORTAL_API } from '@config/global'
-import { API_LIST_PUBLIC_BLOG } from '@routes/api'
-import { PATH_CONFIG } from '@routes/paths'
-import BlogDetail from '@sections/blog/detail'
-import { IBlogItem, IDetailPostResponse, IListPostsResponse } from '@type/blog'
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
-import Page from '@components/Page'
-import BannerContact from '@components/banner/contact'
+import { HOST_API } from '@/config/global'
+
+import Page from '@/components/Page'
+import BannerContact from '@/components/banner/contact'
+
+import { API_LIST_PUBLIC_BLOG } from '@/routes/api'
+import { PATH_CONFIG } from '@/routes/paths'
+
+import BlogDetail from '@/sections/blog/detail'
+
+import {
+  IBlogItem,
+  IDetailPostResponse,
+  IListPostsResponse,
+} from '@/types/blog'
 
 type IPatch = {
   slug: string
@@ -18,7 +26,7 @@ type IPrams = {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(
-    `${PORTAL_API}/${API_LIST_PUBLIC_BLOG}?pageSize=10&pageNumber=1`,
+    `${HOST_API}/${API_LIST_PUBLIC_BLOG}?pageSize=10&pageNumber=1`,
   )
   const data: IListPostsResponse = await res.json()
   const listPosts: IBlogItem[] = data?.data?.list || []
@@ -37,9 +45,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params }: IPrams) => {
-  const res = await fetch(
-    `${PORTAL_API}/${API_LIST_PUBLIC_BLOG}/${params.slug}`,
-  )
+  const res = await fetch(`${HOST_API}/${API_LIST_PUBLIC_BLOG}/${params.slug}`)
   const data: IDetailPostResponse = await res.json()
 
   return {

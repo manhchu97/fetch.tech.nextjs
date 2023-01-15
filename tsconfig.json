@@ -18,41 +18,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@assets/*": [
-        "assets/*"
+      "@/*": [
+        "src/*"
       ],
-      "@public/*": [
-        "public/*"
+      "@@/*": [
+        "./*"
       ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@context/*": [
-        "context/*"
-      ],
-      "@routes/*": [
-        "routes/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@sections/*": [
-        "sections/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@type/*": [
-        "type/*"
-      ]
     }
   },
   "include": [
