@@ -50,9 +50,13 @@
           margin-top: 8%;
         }
 
+        .h2,
+        .h6 {
+          color: #fff;
+        }
+
         .h2 {
           margin-bottom: 30px;
-          color: #fff;
 
           @include screen-down(sm) {
             font-size: 32px;
