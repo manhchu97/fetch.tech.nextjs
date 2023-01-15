@@ -57,12 +57,13 @@ const Autocomplete = ({
   }
 
   const handleAddOption = () => {
-    if (isAddOption) {
-      onAddOption?.({
-        value: paramCase(searchValue),
-        label: searchValue,
-      })
-    }
+    if (!isAddOption) return
+
+    onAddOption?.({
+      value: paramCase(searchValue),
+      label: searchValue,
+    })
+
     setSearchValue('')
     handleClose()
   }
@@ -71,7 +72,9 @@ const Autocomplete = ({
     () =>
       options
         .filter((item) =>
-          item.label.toLowerCase().includes(searchValue.trim().toLowerCase()),
+          item.label
+            .toLowerCase()
+            .includes(String(searchValue).trim().toLowerCase()),
         )
         .filter(
           (item) =>
@@ -95,8 +98,10 @@ const Autocomplete = ({
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()
-                e.currentTarget.blur()
 
+                if (!String(searchValue).trim()) return
+
+                e.currentTarget.blur()
                 handleAddOption()
               }
             }}

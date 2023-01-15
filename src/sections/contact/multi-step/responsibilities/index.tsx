@@ -46,9 +46,9 @@ const ResponsibilitiesStep = (): React.ReactElement => {
   const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '' } = inputData || {}
 
-  const listResponsibilitiesOptions = responsibilities.map((item, index) => ({
-    value: index,
-    label: item,
+  const listResponsibilitiesOptions = responsibilities.map((label) => ({
+    value: paramCase(label),
+    label,
   }))
 
   const onSelectOption = (item: IOption) => {
@@ -86,6 +86,7 @@ const ResponsibilitiesStep = (): React.ReactElement => {
           if (option.value === index) {
             return {
               ...option,
+              value: paramCase(label),
               label,
             }
           }
@@ -102,6 +103,7 @@ const ResponsibilitiesStep = (): React.ReactElement => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
+
     if (listResponsibilities.length < MIN_SELECTED_OPTION) {
       setIsError(true)
       return
