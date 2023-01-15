@@ -52,6 +52,7 @@
 
         .h2 {
           margin-bottom: 30px;
+          color: #fff;
 
           @include screen-down(sm) {
             font-size: 32px;
