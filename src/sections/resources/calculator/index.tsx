@@ -343,7 +343,7 @@ const Calculator = (): React.ReactElement => {
           </div>
         </form>
 
-        <div className='calculator-section__footer overflow-hidden'>
+        <div className='calculator-section__footer'>
           <div className='ft-container slogan text-center'>
             <div className='row div-center'>
               <div className='col-lg-8'>
@@ -357,7 +357,7 @@ const Calculator = (): React.ReactElement => {
             </div>
           </div>
 
-          <div className='container-fluid px-0'>
+          <div className='container-fluid px-0 overflow-hidden'>
             <SlickCalculator />
           </div>
         </div>

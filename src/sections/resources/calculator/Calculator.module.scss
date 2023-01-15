@@ -1,3 +1,4 @@
+/*! purgecss start ignore */
 @import '@/styles/_mixins.scss';
 @import '@/styles/_variables.scss';
 
@@ -195,6 +196,10 @@
             --bs-dropdown-min-width: 5rem;
           }
 
+          .dropdown-menu.show {
+            display: block;
+          }
+
           .dropdown-item.active {
             background-color: $primary-color;
           }
@@ -329,3 +334,4 @@
     }
   }
 }
+/*! purgecss end ignore */

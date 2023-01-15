@@ -174,7 +174,7 @@ const getDataForEmployer = (amount: number) => {
 
   const numSI = amount < limitSalary ? amount * SI : limitSalary * SI
   const numHI = amount < limitSalary ? amount * HI : limitSalary * HI
-  const numUI = amount < limitSalaryUI ? amount * UI : limitSalary * UI
+  const numUI = amount < limitSalaryUI ? amount * UI : limitSalaryUI * UI
   const numTU = amount < limitSalary ? amount * TU : limitSalary * TU
 
   return {
@@ -234,7 +234,7 @@ const convertFromGross = (
             { title: 'Tax deductions', amount: 0 },
             {
               title: 'Personal income tax',
-              percent: 10,
+              percent: 0.1,
               amount: amount ? amount * 0.1 : 0,
             },
             { title: 'NET', amount: amount ? amount * 0.9 : 0 },
@@ -260,7 +260,7 @@ const convertFromGross = (
             },
             { title: 'PVI healthcare', amount: 0 },
             { title: 'NET', amount: amount ? amount * 0.9 : 0 },
-            { title: 'Total expenses', amount: 0 },
+            { title: 'Total expenses', amount: amount || 0 },
           ]
       }
 
@@ -346,7 +346,7 @@ export const calculationSalary = (
       })
     case 'Net':
       const totalTax = SI_TAX + HI_TAX + UI_TAX
-      const taxHI_UI = HI_TAX + UI_TAX
+      const taxSI_HI = SI_TAX + HI_TAX
       const taxUI = UI_TAX
 
       /**
@@ -362,13 +362,13 @@ export const calculationSalary = (
           (amount - 11 * 10 ** 6 * reductionPercent - reductionAmount) /
           (1 - reductionPercent + (reductionPercent - 1) * totalTax),
       )
-      const grossUpper298 = (amount + 29.8 * 10 ** 6 * taxHI_UI) / (1 - taxUI)
+      const grossUpper298 = (amount + 29.8 * 10 ** 6 * taxSI_HI) / (1 - taxUI)
       const grossUpper298Arr = Object.values(taxableIncomeArr).map(
         ({ reductionAmount, reductionPercent }) =>
           (amount -
             11 * 10 ** 6 * reductionPercent -
             reductionAmount -
-            (reductionPercent - 1) * 29.8 * 10 ** 6 * taxHI_UI) /
+            (reductionPercent - 1) * 29.8 * 10 ** 6 * taxSI_HI) /
           (1 - reductionPercent + (reductionPercent - 1) * taxUI),
       )
 
