@@ -46,7 +46,9 @@
       }
 
       @include screen-down(sm) {
-        max-width: 330px;
+        max-width: 351px;
+        padding-left: 16px;
+        padding-right: 16px;
       }
 
       .letter-spacing-1 {
@@ -226,7 +228,7 @@
           padding: 32px;
 
           @include screen-down(sm) {
-            padding: 18px;
+            padding: 18px 13px;
           }
 
           .group-btn-for {
