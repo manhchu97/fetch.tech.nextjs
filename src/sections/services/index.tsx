@@ -21,12 +21,7 @@ const ServiceSections = ({
   header,
   serviceBody,
 }: ServiceProps): React.ReactElement => {
-  const {
-    title = '',
-    subTitle = '',
-    imageSource = '',
-    className: imgClassName = '',
-  } = header || {}
+  const { title = '' } = header || {}
 
   useEffect(() => {
     const onScroll = () => {
@@ -104,12 +99,7 @@ const ServiceSections = ({
 
   return (
     <>
-      <ServiceHeader
-        title={title}
-        subTitle={subTitle}
-        imageSource={imageSource}
-        className={imgClassName}
-      />
+      <ServiceHeader headerConfig={header} />
 
       <div
         className={clsx(styles['service-body-container'], 'service-body row')}

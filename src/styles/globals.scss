@@ -12,11 +12,17 @@ body {
 }
 
 h1,
+.h1,
 h2,
+.h2,
 h3,
+.h3,
 h4,
+.h4,
 h5,
-h6 {
+.h5,
+h6,
+.h6 {
   color: $heading-color;
 }
 
@@ -133,4 +139,41 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+// hide arrow input number
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  appearance: textfield;
+}
+
+// color
+.h-color {
+  color: $heading-color;
+}
+
+.p-color {
+  color: $p-color;
+}
+
+.grey-color {
+  color: $grey-color;
+}
+
+// override flipInY
+@keyframes flipInY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
 }

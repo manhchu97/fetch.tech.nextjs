@@ -1,9 +1,20 @@
 import { CSTabHeaderProps, CaseStudiesTypeProps } from '@/types/resources'
+import { ServiceHeaderProps } from '@/types/services'
 
 export const CASE_STUDIES_TYPE: CaseStudiesTypeProps = {
   ACCORPLUS: 'accorplus',
   TOKENIZE_EXCHANGE: 'tokenizeexchange',
   CHART_DESK: 'chartdesk',
+}
+
+export const CALCULATOR_HEADER_DATA: ServiceHeaderProps = {
+  title: 'Salary calculator',
+  subTitle:
+    "Try our live-quote calculator to evaluate the approximate costs for the talent you're looking to hire or for the estimated income you'll receive while working with Fetch.",
+  imageSource: '/images/resources/calculator/calculator.png',
+  imgWidth: 272,
+  imgHeight: 364,
+  className: 'calculator-service-container',
 }
 
 export const CACULATOR_SLICK_DATA = {

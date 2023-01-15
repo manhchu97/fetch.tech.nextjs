@@ -8,12 +8,20 @@ import { ServiceHeaderProps } from '@/types/services'
 
 import styles from './ServiceHeader.module.scss'
 
-const ServiceHeader = ({
-  title = '',
-  subTitle = '',
-  imageSource = '',
-  className = '',
-}: ServiceHeaderProps): React.ReactElement => {
+interface IProps {
+  headerConfig: ServiceHeaderProps
+}
+
+const ServiceHeader = ({ headerConfig }: IProps): React.ReactElement => {
+  const {
+    title = '',
+    subTitle = '',
+    imageSource = '',
+    imgWidth = 0,
+    imgHeight = 0,
+    className: imgClassName = '',
+  } = headerConfig || {}
+
   return (
     <div className={styles['service-header-container']}>
       <div className='service-header__inner row'>
@@ -26,15 +34,15 @@ const ServiceHeader = ({
 
         <div
           className={clsx(
-            className,
+            imgClassName,
             'service-header__inner__right col-xs-12 col-lg-4',
           )}
         >
           <Image
-            alt=''
+            alt={title}
             src={imageSource}
-            layout='fill'
-            objectFit='contain'
+            width={imgWidth}
+            height={imgHeight}
             priority
             quality={100}
           />

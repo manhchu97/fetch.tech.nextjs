@@ -1,3 +1,4 @@
+/*! purgecss start ignore */
 @import '@/styles/_mixins.scss';
 @import '@/styles/_variables.scss';
 
@@ -8,6 +9,290 @@
     .ft-container {
       @include screen-up(xl) {
         max-width: $max-width-xl;
+      }
+    }
+
+    .calculator-section__header {
+      .service-header__inner__left {
+        & > div {
+          max-width: 570px;
+
+          @include screen-down(xl) {
+            max-width: 480px;
+          }
+        }
+      }
+    }
+
+    .calculator-section__main {
+      padding: 64px 0;
+      max-width: 1140px;
+      margin: auto;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      @include screen-down(xl) {
+        max-width: 960px;
+      }
+
+      @include screen-down(lg) {
+        max-width: 720px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @include screen-down(md) {
+        max-width: 540px;
+      }
+
+      @include screen-down(sm) {
+        max-width: 351px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .letter-spacing-1 {
+        letter-spacing: 1px;
+      }
+
+      .img-inactive {
+        filter: sepia(1);
+      }
+
+      .btn-effect {
+        padding: 16px 24px;
+        color: $heading-color;
+        border: 1.8px solid $grey-color;
+
+        &:hover {
+          box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+          background-color: #fff;
+          color: $heading-color;
+        }
+      }
+
+      .flipY-animation {
+        animation: flipInY 0.6s linear;
+      }
+
+      .btn-selected {
+        border-color: $primary-color;
+        background-color: #fff9ea;
+
+        &:hover {
+          background-color: #fff9ea;
+        }
+      }
+
+      .circle-img-28 {
+        width: 28px;
+        min-width: 28px;
+        height: 28px;
+        overflow: hidden;
+        border-radius: 50%;
+      }
+
+      .circle-img-81 {
+        width: 81px;
+        min-width: 81px;
+        height: 81px;
+        overflow: hidden;
+        border-radius: 50%;
+      }
+
+      &__left {
+        padding-left: 16px;
+        padding-right: 32px;
+        align-items: flex-start;
+        font-family: 'Gilroy-Regular';
+
+        @include screen-down(lg) {
+          padding: 0;
+        }
+
+        .employment-gr-btn,
+        .calculator-gr-btn,
+        .amount-gr-btn {
+          margin-bottom: 32px;
+
+          @include screen-down(sm) {
+            margin-bottom: 56px;
+          }
+        }
+
+        .employment-gr-btn {
+          button {
+            padding: 28px 24px;
+
+            @include screen-down(sm) {
+              padding: 16px 12px;
+
+              .h6 {
+                font-size: 14px;
+                line-height: 20px;
+              }
+
+              .circle-img-81 {
+                width: 52px;
+                min-width: 52px;
+                height: 52px;
+              }
+            }
+          }
+
+          .circle-img {
+            background: #eef3f8;
+            position: relative;
+
+            span {
+              margin: 20px !important;
+
+              @include screen-down(sm) {
+                margin: 14px !important;
+              }
+            }
+          }
+
+          .circle-img-selected {
+            background: $primary-color;
+          }
+        }
+
+        .calculator-gr-btn {
+          display: flex;
+          justify-content: space-between;
+
+          button {
+            width: 30%;
+          }
+        }
+
+        .amount-gr-btn {
+          button {
+            border-color: #fcbe17;
+            background-color: #fff9ea;
+
+            @include screen-down(sm) {
+              padding: 16px 8px;
+            }
+          }
+
+          input {
+            font-size: 24px;
+            background: inherit;
+            border: none;
+            border-bottom: 2px solid $grey-color;
+            border-radius: 0;
+            outline: none;
+            width: 100%;
+
+            &:focus {
+              box-shadow: none;
+            }
+          }
+
+          .dropdown-menu {
+            --bs-dropdown-min-width: 5rem;
+          }
+
+          .dropdown-menu.show {
+            display: block;
+          }
+
+          .dropdown-item.active {
+            background-color: $primary-color;
+          }
+        }
+
+        .btn-active {
+          @include screen-down(lg) {
+            margin-bottom: 32px;
+          }
+
+          @include screen-down(sm) {
+            margin-bottom: 64px;
+          }
+
+          button {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 20px;
+            line-height: 30px;
+          }
+        }
+      }
+
+      &__right {
+        background: #fff;
+        border: 1px solid #eef3f8;
+        box-shadow: 0px 6px 12px rgb(19 42 151 / 10%);
+        border-radius: 15px;
+
+        &-top {
+          padding: 32px;
+
+          @include screen-down(sm) {
+            padding: 18px 13px;
+          }
+
+          .group-btn-for {
+            justify-content: space-around;
+            margin-bottom: 32px;
+
+            @include screen-down(sm) {
+              justify-content: space-between;
+
+              button {
+                width: 46%;
+                padding: 20px 8px;
+                font-size: 16px;
+              }
+            }
+          }
+
+          .group-btn-currency {
+            margin-bottom: 32px;
+
+            button {
+              padding: 12px;
+              margin-right: 32px;
+
+              @include screen-down(sm) {
+                width: 30%;
+                margin-right: 0;
+              }
+            }
+
+            img {
+              filter: grayscale(1);
+            }
+
+            .btn-selected img {
+              filter: grayscale(0);
+            }
+          }
+
+          hr {
+            border-top: 3px solid rgba(0, 0, 0, 0.2);
+            margin-bottom: 32px;
+          }
+        }
+
+        &-bottom {
+          padding: 32px;
+          display: flex;
+
+          @include screen-down(sm) {
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+
+            button {
+              padding: 16px;
+            }
+          }
+        }
       }
     }
 
@@ -49,3 +334,4 @@
     }
   }
 }
+/*! purgecss end ignore */

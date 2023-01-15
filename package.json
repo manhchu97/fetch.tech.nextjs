@@ -42,6 +42,7 @@
     "query-string": "^7.1.3",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
+    "react-currency-input-field": "^3.6.9",
     "react-dom": "18.2.0",
     "react-grecaptcha": "^1.2.5",
     "react-hook-form": "^7.40.0",

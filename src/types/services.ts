@@ -3,6 +3,8 @@ export interface ServiceHeaderProps {
   subTitle: string
   imageSource: string
   className?: string
+  imgWidth: number
+  imgHeight: number
 }
 
 export interface ServiceBodyProps {
