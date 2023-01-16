@@ -99,29 +99,6 @@
           }
         }
       }
-
-      .confirm-delete-modal {
-        .ft-modal-dialog {
-          width: 600px;
-        }
-
-        &-header {
-          span {
-            cursor: pointer;
-
-            &:hover {
-              opacity: 0.7;
-            }
-          }
-        }
-
-        &-footer {
-          button:last-child {
-            color: #fff;
-            margin-left: 8px;
-          }
-        }
-      }
     }
   }
 }

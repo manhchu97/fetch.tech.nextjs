@@ -7,7 +7,7 @@ import clsx from 'clsx'
 
 import { ACTION_TYPE } from '@/config/contact'
 
-import Modal from '@/components/modal/Modal'
+import ConfirmDialog from '@/components/confirm-dialog'
 
 import useAutosizeTextArea from '@/hooks/useAutosizeTextArea'
 
@@ -170,19 +170,12 @@ const DraggableItem = ({
       </Draggable>
 
       {isOpen && (
-        <Modal
-          className='confirm-delete-modal'
-          onClose={handleCloseConfirmModal}
+        <ConfirmDialog
           isOpen
-          header={
-            <div className='d-flex justify-content-end confirm-delete-modal-header'>
-              <span className='px-3 py-2' onClick={handleCloseConfirmModal}>
-                <i className='bi bi-x-lg'></i>
-              </span>
-            </div>
-          }
-          footer={
-            <div className='d-flex justify-content-end p-3 confirm-delete-modal-footer'>
+          onClose={handleCloseConfirmModal}
+          title='Are you sure you want to delete this item ?'
+          actions={
+            <div className='d-flex justify-content-end p-4'>
               <button
                 className='btn btn-light'
                 onClick={handleCloseConfirmModal}
@@ -190,16 +183,12 @@ const DraggableItem = ({
                 Cancel
               </button>
 
-              <button className='btn btn-warning' onClick={handleDeleteOption}>
+              <button className='btn btn-danger' onClick={handleDeleteOption}>
                 Delete
               </button>
             </div>
           }
-        >
-          <div className='modal-content h6'>
-            Are you sure you want to delete this item?
-          </div>
-        </Modal>
+        />
       )}
     </>
   )
