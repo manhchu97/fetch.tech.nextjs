@@ -1,0 +1,30 @@
+@import '@/styles/_mixins.scss';
+
+.confirm-dialog {
+  :global .ft-modal-dialog {
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 16px;
+    margin: 0 auto !important;
+
+    @include screen-up(sm) {
+      max-width: 500px;
+    }
+
+    .ft-modal-content {
+      border-radius: 16px !important;
+
+      .ft-modal-body {
+        padding: 24px 24px 0 !important;
+      }
+
+      .ft-modal-footer {
+        button {
+          &:last-child {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+  }
+}
