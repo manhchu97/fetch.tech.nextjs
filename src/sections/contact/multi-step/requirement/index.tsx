@@ -49,9 +49,9 @@ const RequirementStep = (): React.ReactElement => {
   const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '' } = inputData || {}
 
-  const listRequirementOptions = requirements.map((item, index) => ({
-    value: index,
-    label: item,
+  const listRequirementOptions = requirements.map((label: string) => ({
+    value: paramCase(label),
+    label,
   }))
 
   const onSelectOption = (item: IOption) => {
@@ -103,6 +103,7 @@ const RequirementStep = (): React.ReactElement => {
           if (option.value === index) {
             return {
               ...option,
+              value: paramCase(label),
               label,
             }
           }
