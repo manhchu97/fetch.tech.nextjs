@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -14,7 +14,7 @@ import QuestionSkeleton from '@/components/skeleton/question-answer'
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
-import { INextQuestionValue, IOption } from '@/types/contact'
+import { INextQuestionValue, IOption, IOptionParams } from '@/types/contact'
 
 import styles from './Requirement.module.scss'
 
@@ -49,79 +49,148 @@ const RequirementStep = (): React.ReactElement => {
   const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '' } = inputData || {}
 
-  const listRequirementOptions = requirements.map((label: string) => ({
-    value: paramCase(label),
-    label,
-  }))
+  const updateList =
+    sectionSelected === SECTIONS.REQUIREMENT
+      ? setListRequirements
+      : setListNiceToHave
 
-  const onSelectOption = (item: IOption) => {
-    if (sectionSelected === SECTIONS.REQUIREMENT) {
-      setListRequirements(listRequirements.concat(item))
-      return
-    }
+  const listRequirementOptions = useMemo(
+    () =>
+      requirements?.map((label: string) => ({
+        value: paramCase(label),
+        label,
+      })) || [],
+    [requirements],
+  )
 
-    setListNiceToHave(listNiceToHave.concat(item))
-  }
+  const listSelectedOption = useMemo(
+    () => ([] as IOption[]).concat(listRequirements).concat(listNiceToHave),
+    [listNiceToHave, listRequirements],
+  )
 
-  const onAddOption = (requirement: IOption) => {
-    const listOption = listRequirements.concat(listNiceToHave)
-    const isExist = listOption.some((item) => item.value === requirement.value)
+  const onSelectOption = useCallback(
+    (item: IOption) => {
+      if (sectionSelected === SECTIONS.REQUIREMENT) {
+        setListRequirements((prevState) => prevState.concat(item))
+        return
+      }
 
-    if (isExist) {
-      errorToast('Requirement already added')
-      return
-    }
+      setListNiceToHave((prevState) => prevState.concat(item))
+    },
+    [sectionSelected],
+  )
 
-    if (sectionSelected === SECTIONS.REQUIREMENT) {
-      setListRequirements(listRequirements.concat(requirement))
-      return
-    }
+  const onAddOption = useCallback(
+    (requirement: IOption) => {
+      const isExist = listSelectedOption.some(
+        (item) => item.value === requirement.value,
+      )
 
-    setListNiceToHave(listNiceToHave.concat(requirement))
-  }
+      if (isExist) {
+        errorToast('Requirement already added')
+        return
+      }
 
-  const onUpdateOption = (
-    index: number | string,
-    label: string,
-    type: string,
-  ) => {
-    const updateList =
-      sectionSelected === SECTIONS.REQUIREMENT
-        ? setListRequirements
-        : setListNiceToHave
+      if (sectionSelected === SECTIONS.REQUIREMENT) {
+        setListRequirements((prevState) => prevState.concat(requirement))
+        return
+      }
 
-    if (type === ACTION_TYPE.DELETE) {
+      setListNiceToHave((prevState) => prevState.concat(requirement))
+    },
+    [errorToast, listSelectedOption, sectionSelected],
+  )
+
+  const handleUpdateAfterAddItem = useCallback(() => {
+    updateList((prevState) =>
+      prevState.map(({ label = '', value = '' }) => ({
+        value,
+        label,
+      })),
+    )
+  }, [updateList])
+
+  const handleDeleteItem = useCallback(
+    (index: string | number) => {
       updateList((prevState) =>
         prevState.filter((item) => item.value !== index),
       )
-      return
-    }
+    },
+    [updateList],
+  )
 
-    updateList((prevState: IOption[]) => {
-      return prevState
-        .map((option) => {
+  const handleUpdateBeforeDeleteItem = useCallback(
+    (index: string | number) => {
+      updateList((prevState: IOption[]) => {
+        return prevState.map((option) => {
           if (option.value === index) {
             return {
               ...option,
-              value: paramCase(label),
-              label,
+              isDeleted: true,
             }
           }
 
           return option
         })
-        .filter((option) => option.label)
-    })
-  }
+      })
+    },
+    [updateList],
+  )
 
-  const onUpdateDrag = (listOption: IOption[]) => {
-    const updateList =
-      sectionSelected === SECTIONS.REQUIREMENT
-        ? setListRequirements
-        : setListNiceToHave
+  const handleUpdateItem = useCallback(
+    (index: string | number, label: string) => {
+      updateList((prevState: IOption[]) => {
+        return prevState
+          .map((option) => {
+            if (option.value === index) {
+              return {
+                ...option,
+                value: paramCase(label),
+                label,
+              }
+            }
 
-    updateList(listOption)
-  }
+            return option
+          })
+          .filter((option) => option.label)
+      })
+    },
+    [updateList],
+  )
+
+  const onUpdateOption = useCallback(
+    ({ index = '', label = '', type = '' }: IOptionParams) => {
+      if (type === ACTION_TYPE.DELETING) {
+        handleUpdateBeforeDeleteItem(index)
+        return
+      }
+
+      if (type === ACTION_TYPE.DELETE) {
+        handleDeleteItem(index)
+        return
+      }
+
+      if (type === ACTION_TYPE.ADDED) {
+        handleUpdateAfterAddItem()
+        return
+      }
+
+      handleUpdateItem(index, label)
+    },
+    [
+      handleDeleteItem,
+      handleUpdateAfterAddItem,
+      handleUpdateBeforeDeleteItem,
+      handleUpdateItem,
+    ],
+  )
+
+  const onUpdateDrag = useCallback(
+    (listOption: IOption[]) => {
+      updateList(listOption)
+    },
+    [updateList],
+  )
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
