@@ -232,7 +232,8 @@ const Footer = () => {
       </div>
 
       <div className='footer-copy-right'>
-        © 2022 Fetch Technology Pte. Ltd. All Rights Reserved.
+        © {new Date().getFullYear()} Fetch Technology Pte. Ltd. All Rights
+        Reserved.
       </div>
     </div>
   )

@@ -9,6 +9,8 @@ const nextConfig = {
       'api2-staging.fetch.tech',
       'wsrv.nl',
       '139.59.117.75',
+      '159.223.66.60',
+      'api-blog.fetch.tech',
     ],
     minimumCacheTTL: 60,
   },
