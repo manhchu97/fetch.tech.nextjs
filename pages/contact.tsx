@@ -1,114 +1,12 @@
 import React from 'react'
 
-import type { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-
-import qs from 'query-string'
-import useSWR from 'swr'
-
-import { JOB_DESC_PARAMS } from '@/config/contact'
-import { HOST_API } from '@/config/global'
 
 import Page from '@/components/Page'
 
-import FormStepProvider from '@/context/FormStepContext'
+import ContactInfo from '@/sections/contact/original'
 
-import {
-  API_LIST_JOB_DESC_ATTRIBUTES,
-  API_LIST_QUESTIONS,
-  API_TECH,
-} from '@/routes/api'
-
-import ContactMultiStep from '@/sections/contact'
-
-import {
-  IListQuestionsResponse,
-  IRequirementResponse,
-  IResponsibilitiesResponse,
-  ISkillResponse,
-} from '@/types/contact'
-
-import fetcher from '@/utils/fetcher'
-
-export const getStaticProps = async () => {
-  const res = await fetch(`${HOST_API}/${API_LIST_QUESTIONS}`)
-
-  const data: IListQuestionsResponse = await res.json()
-
-  const skillResponse = await fetch(`${HOST_API}/${API_TECH}`)
-
-  const skillData: ISkillResponse = await skillResponse.json()
-
-  const requirementResponse = await fetch(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
-      JOB_DESC_PARAMS.REQUIREMENT,
-    )}`,
-  )
-
-  const requirementData: IRequirementResponse = await requirementResponse.json()
-
-  const responsibilitiesResponse = await fetch(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
-      JOB_DESC_PARAMS.RESPONSIBILITIES,
-    )}`,
-  )
-
-  const responsibilitiesData: IResponsibilitiesResponse =
-    await responsibilitiesResponse.json()
-
-  return {
-    props: {
-      fallback: data,
-      fallbackSkill: skillData,
-      fallbackRequirement: requirementData,
-      fallbackResponsibilities: responsibilitiesData,
-    },
-  }
-}
-
-function ContactPage({
-  fallback,
-  fallbackSkill,
-  fallbackRequirement,
-  fallbackResponsibilities,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data } = useSWR(`${HOST_API}/${API_LIST_QUESTIONS}`, fetcher, {
-    fallbackData: fallback,
-  })
-
-  const { data: skillData } = useSWR(`${HOST_API}/${API_TECH}`, fetcher, {
-    fallbackData: fallbackSkill,
-  })
-
-  const { data: requirementData } = useSWR(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
-      JOB_DESC_PARAMS.REQUIREMENT,
-    )}`,
-    fetcher,
-    { fallbackData: fallbackRequirement },
-  )
-
-  const { data: responsibilitiesData } = useSWR(
-    `${HOST_API}/${API_LIST_JOB_DESC_ATTRIBUTES}?${qs.stringify(
-      JOB_DESC_PARAMS.RESPONSIBILITIES,
-    )}`,
-    fetcher,
-    { fallbackData: fallbackResponsibilities },
-  )
-
-  const dataQuestion: IListQuestionsResponse = data as IListQuestionsResponse
-  const { list: questions = [] } = dataQuestion?.data || {}
-
-  const dataSkill: ISkillResponse = skillData as ISkillResponse
-
-  const dataRequirement: IRequirementResponse =
-    requirementData as IRequirementResponse
-  const { list: requirements = [] } = dataRequirement?.data || {}
-
-  const dataResponsibilities: IResponsibilitiesResponse =
-    responsibilitiesData as IResponsibilitiesResponse
-  const { list: responsibilities = [] } = dataResponsibilities?.data || {}
-
+function ContactPage() {
   return (
     <>
       <Head>
@@ -116,14 +14,7 @@ function ContactPage({
       </Head>
 
       <Page title=''>
-        <FormStepProvider
-          questions={questions}
-          skills={dataSkill}
-          requirements={requirements}
-          responsibilities={responsibilities}
-        >
-          <ContactMultiStep />
-        </FormStepProvider>
+        <ContactInfo />
       </Page>
     </>
   )
