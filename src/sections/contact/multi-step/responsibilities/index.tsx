@@ -127,29 +127,39 @@ const ResponsibilitiesStep = (): React.ReactElement => {
   )
 
   const onUpdateOption = useCallback(
-    ({ index = '', label = '', type = '' }: IOptionParams) => {
+    ({ index = '', label = '', type = '' }: IOptionParams): boolean => {
       if (type === ACTION_TYPE.DELETING) {
         handleUpdateBeforeDeleteItem(index)
-        return
+        return false
       }
 
       if (type === ACTION_TYPE.DELETE) {
         handleDeleteItem(index)
-        return
+        return false
       }
 
       if (type === ACTION_TYPE.ADDED) {
         handleUpdateAfterAddItem()
-        return
+        return false
       }
 
-      handleUpdateItem(index, label)
+      const isLabelExisted = listResponsibilities
+        .filter((item) => item.value !== index)
+        .some((item) => item.value === paramCase(label))
+
+      if (!isLabelExisted) {
+        handleUpdateItem(index, label)
+        return false
+      }
+
+      return true
     },
     [
       handleDeleteItem,
       handleUpdateAfterAddItem,
       handleUpdateBeforeDeleteItem,
       handleUpdateItem,
+      listResponsibilities,
     ],
   )
 

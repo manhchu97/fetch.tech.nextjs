@@ -103,7 +103,7 @@ const Autocomplete = ({
             value={searchValue}
             onChange={handleChangeSearchInput}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && e.which === 13) {
                 e.preventDefault()
 
                 if (!String(searchValue).trim()) return

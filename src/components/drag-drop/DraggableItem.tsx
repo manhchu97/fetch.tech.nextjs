@@ -5,7 +5,9 @@ import Image from 'next/image'
 
 import clsx from 'clsx'
 
-import { ACTION_TYPE } from '@/config/contact'
+import { ACTION_TYPE, EVENT_TYPE } from '@/config/contact'
+
+import { useToastContext } from '@/context/ToastContext'
 
 import useAutosizeTextArea from '@/hooks/useAutosizeTextArea'
 
@@ -14,13 +16,13 @@ import { IOption, IOptionParams } from '@/types/contact'
 interface IDraggableItemProps {
   item: IOption
   index: number
-  onUpdateOption?: (option: IOptionParams) => void
+  onUpdateOption?: (option: IOptionParams) => boolean
 }
 
 const DraggableItem = ({
   item,
   index,
-  onUpdateOption = () => {},
+  onUpdateOption = () => false,
 }: IDraggableItemProps) => {
   const { value: optionId, label, isDeleted = false, isAdded = false } = item
 
@@ -32,18 +34,45 @@ const DraggableItem = ({
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
+  const { errorToast } = useToastContext()
+
   const handleOpenEditOption = () => {
     setIsEditOption(true)
   }
 
-  const handleCloseEditOption = () => {
-    setIsEditOption(false)
+  const onKeyDown = (e: {
+    key: string
+    which: number
+    preventDefault: () => void
+  }) => {
+    if (e.key !== 'Enter' || e.which !== 13) return
 
-    onUpdateOption({
+    e.preventDefault()
+    handleCloseEditOption(EVENT_TYPE.ON_KEY_DOWN)()
+  }
+
+  const handleCloseEditOption = (eventType: string) => () => {
+    const isSameValue = onUpdateOption({
       index: optionId,
       label: labelOptionValue,
       type: ACTION_TYPE.EDIT,
     })
+
+    if (!isSameValue) {
+      setIsEditOption(false)
+      return
+    }
+
+    if ([EVENT_TYPE.ON_KEY_DOWN, EVENT_TYPE.SAVE].includes(eventType)) {
+      errorToast('This option already existed.')
+      return
+    }
+
+    if (eventType === EVENT_TYPE.BLUR) {
+      setLabelOptionValue(label)
+    }
+
+    setIsEditOption(false)
   }
 
   const handleDeleteOption = () => {
@@ -128,12 +157,7 @@ const DraggableItem = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           onMouseDown={handlePressOut}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              handleCloseEditOption()
-            }
-          }}
+          onKeyDown={onKeyDown}
         >
           <div
             className={clsx({
@@ -154,7 +178,7 @@ const DraggableItem = ({
                   value={labelOptionValue}
                   ref={textAreaRef}
                   onChange={handleChangeLabelOption}
-                  onBlur={handleCloseEditOption}
+                  onBlur={handleCloseEditOption(EVENT_TYPE.BLUR)}
                   rows={1}
                 />
               ) : (
@@ -169,7 +193,7 @@ const DraggableItem = ({
                   src='/images/contact/IconSaveDragDrop.svg'
                   width={18}
                   height={18}
-                  onClick={handleCloseEditOption}
+                  onClick={handleCloseEditOption(EVENT_TYPE.SAVE)}
                 />
               ) : (
                 <Image

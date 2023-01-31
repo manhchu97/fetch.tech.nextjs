@@ -12,7 +12,7 @@ interface IDroppableListProps {
   sectionSelected?: string
   style?: object
   validation?: boolean
-  onUpdateOption?: (option: IOptionParams) => void
+  onUpdateOption?: (option: IOptionParams) => boolean
   onUpdateDrag?: (list: IOption[]) => void
   setSectionSelected?: (section: string) => void
 }
@@ -23,7 +23,7 @@ const DroppableSection = ({
   id,
   validation = false,
   sectionSelected,
-  onUpdateOption = () => {},
+  onUpdateOption = () => false,
   onUpdateDrag = () => {},
   setSectionSelected = () => {},
   ...other

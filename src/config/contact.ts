@@ -101,3 +101,9 @@ export const JOB_DESC_PARAMS = {
     type: JOB_DESC_TYPES.RESPONSIBILITIES,
   },
 }
+
+export const EVENT_TYPE = {
+  BLUR: 'BLUR',
+  ON_KEY_DOWN: 'ON_KEY_DOWN',
+  SAVE: 'SAVE',
+}
