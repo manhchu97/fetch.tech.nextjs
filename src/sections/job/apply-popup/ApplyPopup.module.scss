@@ -1,7 +1,14 @@
 @import '@/styles/_mixins.scss';
+@import '@/styles/_mixins.scss';
 
 .modal-container {
   :global .modal-custom {
+    .ft-modal-dialog {
+      @include screen-up(md) {
+        width: 800px;
+      }
+    }
+
     .modal-header-container {
       display: flex;
       align-items: center;
@@ -12,7 +19,7 @@
         cursor: pointer;
 
         &:hover {
-          opacity: 0.7;
+          color: var(--bs-warning)
         }
       }
     }
@@ -78,7 +85,7 @@
         border-radius: 8px;
         cursor: pointer;
 
-        @include screen-down(lg) {
+        @include screen-down(md) {
           width: 100%;
         }
       }
