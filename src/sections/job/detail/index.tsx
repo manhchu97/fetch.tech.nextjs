@@ -95,9 +95,9 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
 
   const jobDescription = useMemo(
     () =>
-      `${aboutFetch}${
-        client?.about || ''
-      }${responsibilities}${requirement}${niceToHave}${benefit}`,
+      `${aboutFetch}${client?.about || ''}${responsibilities || ''}${
+        requirement || ''
+      }${niceToHave || ''}${benefit || ''}`,
     [aboutFetch, client, responsibilities, requirement, niceToHave, benefit],
   )
 
