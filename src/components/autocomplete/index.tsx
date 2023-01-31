@@ -52,7 +52,13 @@ const Autocomplete = ({
 
   const handleSelectOption = (option: IOption) => {
     setSearchValue('')
-    onSelectOption?.(option)
+
+    onSelectOption?.({
+      value: paramCase(option.value),
+      label: option.label,
+      isAdded: true,
+    })
+
     handleClose()
   }
 
@@ -62,6 +68,7 @@ const Autocomplete = ({
     onAddOption?.({
       value: paramCase(searchValue),
       label: searchValue,
+      isAdded: true,
     })
 
     setSearchValue('')
@@ -175,7 +182,7 @@ export default Autocomplete
 
 interface IDropdownItemProps {
   title: string
-  value: number | string
+  value: string
   disabled?: boolean
   onSelectOption: (item: IOption) => void
 }

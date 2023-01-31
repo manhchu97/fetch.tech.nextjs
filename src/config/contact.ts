@@ -76,7 +76,9 @@ export const getNiceToHave = (content: string) => {
 
 export const ACTION_TYPE = {
   DELETE: 'DELETE',
+  DELETING: 'DELETING',
   EDIT: 'EDIT',
+  ADDED: 'ADDED',
 }
 
 export const SECTIONS = {

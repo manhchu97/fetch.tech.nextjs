@@ -96,8 +96,10 @@ export interface IListRequirementResponse {
 }
 
 export interface IOption {
-  value: number | string
+  value: string
   label: string
+  isDeleted?: boolean
+  isAdded?: boolean
 }
 
 //Responsibilities types
@@ -109,4 +111,11 @@ export interface IResponsibilitiesResponse {
 
 export interface IListResponsibilitiesResponse {
   list: string[]
+}
+
+export interface IOptionParams {
+  index: number | string
+  label?: string
+  type: string
+  isAdded?: boolean
 }
