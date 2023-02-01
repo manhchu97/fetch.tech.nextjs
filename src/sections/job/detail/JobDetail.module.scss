@@ -25,6 +25,7 @@
             font-size: 30px;
             margin-bottom: 0.5rem;
             line-height: 1.2;
+            color: #212529;
           }
         }
 
@@ -61,7 +62,10 @@
       .job-detail-info {
         width: 100%;
         display: flex;
-        flex-wrap: wrap;
+
+        @include screen-down(md) {
+          flex-direction: column;
+        }
 
         .overview-detail-info {
           font-family: 'Gilroy-Regular';
@@ -81,7 +85,7 @@
       .job-detail-apply {
         font-family: 'Gilroy-SemiBold';
         margin-top: 40px;
-        background-color: #fccc4b;
+        background-color: var(--bs-warning);
         color: #fff;
         text-align: center;
         padding-top: 15px;
@@ -116,6 +120,16 @@
 
           img {
             width: 100%;
+          }
+
+          h3 {
+            font-size: 24px;
+          }
+
+          h4,
+          h5,
+          h6 {
+            font-size: 18px;
           }
         }
       }
