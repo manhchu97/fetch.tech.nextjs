@@ -32,7 +32,7 @@ const JobItem = ({
     <li className={'job-item-container'}>
       <div className='row'>
         <div className='col-md-9'>
-          <Link href={PATH_CONFIG.job.view(jobSlug)}>
+          <Link href={PATH_CONFIG.careers.view(jobSlug)}>
             <a>
               <div className='row'>
                 <div className='col-md-9'>
