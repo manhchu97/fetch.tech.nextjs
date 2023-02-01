@@ -235,7 +235,7 @@ const ListJob = ({
             </div>
 
             <LocalPaging
-              className='justify-content-end'
+              className='justify-content-end mt-3'
               onPageChange={setPage}
               totalCount={listJobs.length}
               pageSize={DEFAULT_PAGE_SIZE}
