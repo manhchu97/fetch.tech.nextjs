@@ -63,7 +63,7 @@ const LocalPaging = ({
           {currentPage === 1 ? (
             <span className='page-link'>Previous</span>
           ) : (
-            <a className='page-link' href='#'>
+            <a className='page-link' rel='nofollow'>
               Previous
             </a>
           )}
@@ -87,7 +87,7 @@ const LocalPaging = ({
               })}
               onClick={() => onPageChange(pageNumber as number)}
             >
-              <a className='page-link' href='#'>
+              <a className='page-link' rel='nofollow'>
                 {pageNumber}
               </a>
             </li>
@@ -104,7 +104,7 @@ const LocalPaging = ({
           {currentPage === lastPage ? (
             <span className='page-link'>Next</span>
           ) : (
-            <a className='page-link' href='#'>
+            <a className='page-link' rel='nofollow'>
               Next
             </a>
           )}
