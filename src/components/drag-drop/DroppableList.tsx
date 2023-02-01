@@ -6,13 +6,13 @@ import DraggableItem from './DraggableItem'
 
 interface IDroppableListProps {
   list: IOption[]
-  onUpdateOption: (option: IOptionParams) => void
+  onUpdateOption: (option: IOptionParams) => boolean
   onUpdateDrag: (list: IOption[]) => void
 }
 
 const DroppableList = ({
   list = [],
-  onUpdateOption = () => {},
+  onUpdateOption = () => false,
   onUpdateDrag = () => {},
 }: IDroppableListProps) => {
   const onDragEnd = (result: DropResult) => {

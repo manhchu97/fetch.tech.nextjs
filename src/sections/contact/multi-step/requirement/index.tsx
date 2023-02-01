@@ -162,26 +162,36 @@ const RequirementStep = (): React.ReactElement => {
     ({ index = '', label = '', type = '' }: IOptionParams) => {
       if (type === ACTION_TYPE.DELETING) {
         handleUpdateBeforeDeleteItem(index)
-        return
+        return false
       }
 
       if (type === ACTION_TYPE.DELETE) {
         handleDeleteItem(index)
-        return
+        return false
       }
 
       if (type === ACTION_TYPE.ADDED) {
         handleUpdateAfterAddItem()
-        return
+        return false
       }
 
-      handleUpdateItem(index, label)
+      const isLabelExisted = listSelectedOption
+        .filter((item) => item.value !== index)
+        .some((item) => item.value === paramCase(label))
+
+      if (!isLabelExisted) {
+        handleUpdateItem(index, label)
+        return false
+      }
+
+      return true
     },
     [
       handleDeleteItem,
       handleUpdateAfterAddItem,
       handleUpdateBeforeDeleteItem,
       handleUpdateItem,
+      listSelectedOption,
     ],
   )
 
