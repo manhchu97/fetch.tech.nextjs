@@ -347,7 +347,7 @@ const ApplyPopup = ({
                 </div>
               </div>
 
-              <div className='row m-0'>
+              <div className='row m-0 mt-3'>
                 <div className='col-md-6'>
                   <div className='form-group'>
                     <label>
@@ -386,7 +386,7 @@ const ApplyPopup = ({
               </div>
 
               <div className='row m-0 mt-3 mb-5'>
-                <div className='col-lg-6'>
+                <div className='col-md-6'>
                   <div className='form-group'>
                     <Recaptcha
                       sitekey={CAPTCHA_SITE_KEY}
@@ -399,7 +399,7 @@ const ApplyPopup = ({
                   </div>
                 </div>
 
-                <div className='col-lg-6'>
+                <div className='col-md-6'>
                   <button
                     type='submit'
                     className={clsx({
