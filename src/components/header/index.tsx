@@ -5,8 +5,6 @@ import Link from 'next/link'
 
 import clsx from 'clsx'
 
-import { CASE_STUDIES_TYPE } from '@/config/resources'
-
 import DropdownItem from '@/components/nav/dropdown-item'
 import MenuItem from '@/components/nav/menu-item'
 
@@ -149,11 +147,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                     </a>
                   </Link>
 
-                  <Link
-                    href={PATH_CONFIG.resources.caseStudies.view(
-                      CASE_STUDIES_TYPE.ACCORPLUS,
-                    )}
-                  >
+                  <Link href={PATH_CONFIG.resources.caseStudies.root}>
                     <a>
                       <DropdownItem
                         title='Case Studies'
