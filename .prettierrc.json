@@ -11,6 +11,7 @@
   "importOrder": [
     "^(react)|^(react-(.*)$)|^(react/(.*)$)|^(react$)",
     "^(next)|^(next-(.*)$)|^(next/(.*)$)|^(next$)",
+    "firebase/app",
     "<THIRD_PARTY_MODULES>",
     "^(@@)$",
     "^@/config(.*$)$",

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 
@@ -12,6 +14,8 @@ import { SWRConfigProvider } from '@/components/SwrConfig'
 
 import ToastProvider from '@/context/ToastContext'
 
+import { analytics } from '@/utils/firebase'
+
 import '@/styles/fonts.scss'
 import '@/styles/globals.scss'
 import '@/styles/modal.scss'
@@ -20,6 +24,13 @@ import '@/styles/overrides/typography.scss'
 import '@/styles/toast.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
+
+    // only run firebase in production enviroment
+    analytics()
+  }, [])
+
   return (
     <>
       <Script
