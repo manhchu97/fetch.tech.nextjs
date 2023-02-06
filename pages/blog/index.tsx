@@ -1,6 +1,10 @@
 import { InferGetStaticPropsType } from 'next'
 
-import { HOST_API } from '@/config/global'
+import {
+  DEFAULT_PAGE_NUMBER,
+  DEFAULT_PAGE_SIZE,
+  HOST_API,
+} from '@/config/global'
 
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
@@ -14,7 +18,7 @@ import { IListPostsResponse } from '@/types/blog'
 
 export const getStaticProps = async () => {
   const res = await fetch(
-    `${HOST_API}/${API_LIST_PUBLIC_BLOG}?pageSize=10&pageNumber=1`,
+    `${HOST_API}/${API_LIST_PUBLIC_BLOG}?pageSize=${DEFAULT_PAGE_SIZE}&pageNumber=${DEFAULT_PAGE_NUMBER}`,
   )
   const data: IListPostsResponse = await res.json()
 
