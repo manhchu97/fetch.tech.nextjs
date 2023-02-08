@@ -1,0 +1,33 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.case-studies-container {
+  padding-bottom: 60px;
+
+  :global .container {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    @include screen-up(xl) {
+      max-width: $max-width-xl;
+    }
+
+    .case-studie-item-container {
+      max-width: $max-width-lg;
+      margin-bottom: 32px;
+
+      .img-container {
+        position: relative;
+        padding-bottom: 44%;
+      }
+
+      .styled-button {
+        --bs-btn-border-radius: 32px;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-active-color: #fff;
+        --bs-btn-padding-x: 1.5rem;
+        --bs-btn-padding-y: 0.75rem;
+      }
+    }
+  }
+}

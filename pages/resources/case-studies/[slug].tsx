@@ -3,17 +3,15 @@ import Head from 'next/head'
 
 import {
   CASE_STUDIES_TAB_BODY_CONFIG,
-  CASE_STUDIES_TAB_HEADER_CONFIG,
   CASE_STUDIES_TYPE,
 } from '@/config/resources'
 
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
-import BannerImageCover from '@/components/banner/image-cover'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
-import CaseStudiesSection from '@/sections/resources/case-studies'
+import DetailCaseStudiesSection from '@/sections/resources/case-studies/detail'
 
 type Prams = {
   params: {
@@ -34,23 +32,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: Prams) => {
   const { slug } = params
-  const tabHeaders = CASE_STUDIES_TAB_HEADER_CONFIG
   const tabBodyConfig = CASE_STUDIES_TAB_BODY_CONFIG.find(
     (config) => config.type === slug,
   )?.render()
 
   return {
     props: {
-      slug,
-      tabHeaders,
       tabBodyConfig,
     },
   }
 }
 
-const CaseStudiesPage = ({
-  slug,
-  tabHeaders,
+const CaseStudiesDetailPage = ({
   tabBodyConfig,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
@@ -60,16 +53,7 @@ const CaseStudiesPage = ({
       </Head>
 
       <Page title=''>
-        <BannerImageCover
-          imageSource='/images/employee/bannerEmployees.png'
-          className='company-banner-img-container'
-        />
-
-        <CaseStudiesSection
-          slug={slug}
-          tabHeaders={tabHeaders}
-          tabBodyConfig={tabBodyConfig}
-        />
+        <DetailCaseStudiesSection tabBodyConfig={tabBodyConfig} />
 
         <BannerContact
           title='Find the perfect fit with Fetch'
@@ -82,4 +66,4 @@ const CaseStudiesPage = ({
   )
 }
 
-export default CaseStudiesPage
+export default CaseStudiesDetailPage
