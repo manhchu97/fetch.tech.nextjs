@@ -5,52 +5,81 @@ import Image from 'next/image'
 
 import clsx from 'clsx'
 
-import { ACTION_TYPE } from '@/config/contact'
+import { ACTION_TYPE, EVENT_TYPE } from '@/config/contact'
 
-import ConfirmDialog from '@/components/confirm-dialog'
+import { useToastContext } from '@/context/ToastContext'
 
 import useAutosizeTextArea from '@/hooks/useAutosizeTextArea'
 
-import { IOption } from '@/types/contact'
+import { IOption, IOptionParams } from '@/types/contact'
 
 interface IDraggableItemProps {
   item: IOption
   index: number
-  onUpdateOption?: (index: string | number, label: string, type: string) => void
+  onUpdateOption?: (option: IOptionParams) => boolean
 }
 
 const DraggableItem = ({
   item,
   index,
-  onUpdateOption = () => {},
+  onUpdateOption = () => false,
 }: IDraggableItemProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [labelOptionValue, setLabelOptionValue] = useState<string>(
-    item.label || '',
-  )
+  const { value: optionId, label, isDeleted = false, isAdded = false } = item
+
+  const [labelOptionValue, setLabelOptionValue] = useState<string>(label || '')
   const [isEditOption, setIsEditOption] = useState<boolean>(false)
+
+  const [isAnimationAdd, setIsAnimationAdd] = useState<boolean>(false)
+  const [isAnimationDelete, setIsAnimationDelete] = useState<boolean>(false)
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
-  const handleOpenConfirmModal = () => {
-    setIsOpen(true)
-  }
-
-  const handleCloseConfirmModal = () => {
-    setIsOpen(false)
-  }
+  const { errorToast } = useToastContext()
 
   const handleOpenEditOption = () => {
     setIsEditOption(true)
   }
 
-  const handleCloseEditOption = () => {
+  const onKeyDown = (e: {
+    key: string
+    which: number
+    preventDefault: () => void
+  }) => {
+    if (e.key !== 'Enter' || e.which !== 13) return
+
+    e.preventDefault()
+    handleCloseEditOption(EVENT_TYPE.ON_KEY_DOWN)()
+  }
+
+  const handleCloseEditOption = (eventType: string) => () => {
+    const isSameValue = onUpdateOption({
+      index: optionId,
+      label: labelOptionValue,
+      type: ACTION_TYPE.EDIT,
+    })
+
+    if (!isSameValue) {
+      setIsEditOption(false)
+      return
+    }
+
+    if ([EVENT_TYPE.ON_KEY_DOWN, EVENT_TYPE.SAVE].includes(eventType)) {
+      errorToast('This option already existed.')
+      return
+    }
+
+    if (eventType === EVENT_TYPE.BLUR) {
+      setLabelOptionValue(label)
+    }
+
     setIsEditOption(false)
-    onUpdateOption(item.value, labelOptionValue, ACTION_TYPE.EDIT)
   }
 
   const handleDeleteOption = () => {
-    onUpdateOption(item.value, labelOptionValue, ACTION_TYPE.DELETE)
+    onUpdateOption({
+      index: optionId,
+      type: ACTION_TYPE.DELETING,
+    })
   }
 
   const handleChangeLabelOption = (e: {
@@ -83,114 +112,111 @@ const DraggableItem = ({
     element.focus()
   })
 
+  useEffect(() => {
+    setIsAnimationDelete(!!isDeleted)
+  }, [isDeleted])
+
+  useEffect(() => {
+    if (!isDeleted) return
+
+    // use setTimeout 650ms for smooth animation because animation-duration of animate.css is 1000ms
+    setTimeout(() => {
+      onUpdateOption({ index: optionId, type: ACTION_TYPE.DELETE })
+    }, 650)
+  }, [isDeleted, labelOptionValue, onUpdateOption, optionId])
+
+  useEffect(() => {
+    setIsAnimationAdd(isAdded)
+  }, [isAdded])
+
+  useEffect(() => {
+    if (!isAdded) return
+
+    // use setTimeout 650ms to wait animation after add item complete
+    setTimeout(() => {
+      onUpdateOption({
+        index: optionId,
+        type: ACTION_TYPE.ADDED,
+      })
+    }, 650)
+  }, [isAdded, onUpdateOption, optionId])
+
   return (
-    <>
-      <Draggable
-        draggableId={item.value.toString()}
-        index={index}
-        key={item.value}
-      >
-        {(provided, snapshot) => (
+    <Draggable draggableId={item.value} index={index} key={item.value}>
+      {(provided, snapshot) => (
+        <div
+          className={clsx({
+            'draggable-item': true,
+            'is-dragging': snapshot.isDragging,
+            'is-edit': isEditOption,
+            animate__animated: true,
+            animate__bounceIn: isAnimationAdd,
+            animate__bounceOut: isAnimationDelete,
+          })}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          onMouseDown={handlePressOut}
+          onKeyDown={onKeyDown}
+        >
           <div
             className={clsx({
-              'draggable-item': true,
-              'is-dragging': snapshot.isDragging,
-              'is-edit': isEditOption,
+              'draggable-item-wrapper': true,
             })}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            onMouseDown={handlePressOut}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleCloseEditOption()
-                e.preventDefault()
-              }
-            }}
           >
-            <div
-              className={clsx({
-                'draggable-item-wrapper': true,
-                animate__animated: true,
-                animate__slideInLeft: true,
-              })}
-            >
-              <div className='draggable-item-content'>
+            <div className='draggable-item-content'>
+              <Image
+                alt='Icon menu'
+                src='/images/contact/IconMenuDragDrop.svg'
+                width={18}
+                height={18}
+              />
+
+              {isEditOption ? (
+                <textarea
+                  className='draggable-item-input'
+                  value={labelOptionValue}
+                  ref={textAreaRef}
+                  onChange={handleChangeLabelOption}
+                  onBlur={handleCloseEditOption(EVENT_TYPE.BLUR)}
+                  rows={1}
+                />
+              ) : (
+                <p className='draggable-item-label'>{labelOptionValue}</p>
+              )}
+            </div>
+
+            <div className='draggable-item-action'>
+              {isEditOption ? (
                 <Image
-                  alt='Icon menu'
-                  src='/images/contact/IconMenuDragDrop.svg'
+                  alt='Icon save item'
+                  src='/images/contact/IconSaveDragDrop.svg'
                   width={18}
                   height={18}
+                  onClick={handleCloseEditOption(EVENT_TYPE.SAVE)}
                 />
-
-                {isEditOption ? (
-                  <textarea
-                    className='draggable-item-input'
-                    value={labelOptionValue}
-                    ref={textAreaRef}
-                    onChange={handleChangeLabelOption}
-                    onBlur={handleCloseEditOption}
-                    rows={1}
-                  />
-                ) : (
-                  <p className='draggable-item-label'>{labelOptionValue}</p>
-                )}
-              </div>
-
-              <div className='draggable-item-action'>
-                {isEditOption ? (
-                  <Image
-                    alt='Icon save item'
-                    src='/images/contact/IconSaveDragDrop.svg'
-                    width={18}
-                    height={18}
-                    onClick={handleCloseEditOption}
-                  />
-                ) : (
-                  <Image
-                    alt='Icon edit item'
-                    src='/images/contact/IconEditDragDrop.svg'
-                    width={18}
-                    height={18}
-                    onClick={handleOpenEditOption}
-                  />
-                )}
-
+              ) : (
                 <Image
-                  alt='Icon delete item'
-                  src='/images/contact/IconDeleteDragDrop.svg'
+                  alt='Icon edit item'
+                  src='/images/contact/IconEditDragDrop.svg'
                   width={18}
                   height={18}
-                  onClick={handleOpenConfirmModal}
+                  onClick={handleOpenEditOption}
                 />
-              </div>
+              )}
+
+              <Image
+                alt='Icon delete item'
+                src='/images/contact/IconDeleteDragDrop.svg'
+                width={18}
+                height={18}
+                onClick={handleDeleteOption}
+              />
             </div>
           </div>
-        )}
-      </Draggable>
-
-      {isOpen && (
-        <ConfirmDialog
-          isOpen
-          onClose={handleCloseConfirmModal}
-          title='Are you sure you want to delete this item ?'
-          actions={
-            <div className='d-flex justify-content-end p-4'>
-              <button
-                className='btn btn-light'
-                onClick={handleCloseConfirmModal}
-              >
-                Cancel
-              </button>
-
-              <button className='btn btn-danger' onClick={handleDeleteOption}>
-                Delete
-              </button>
-            </div>
-          }
-        />
+        </div>
       )}
-    </>
+    </Draggable>
   )
 }
 

@@ -5,7 +5,9 @@ import { useRouter } from 'next/router'
 
 import clsx from 'clsx'
 
-import { DOTS, usePagination } from '@/hooks/usePagination'
+import { DOTS } from '@/config/global'
+
+import { usePagination } from '@/hooks/usePagination'
 
 import { PATH_CONFIG } from '@/routes/paths'
 

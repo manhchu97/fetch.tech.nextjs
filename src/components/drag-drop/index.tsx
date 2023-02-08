@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { IOption } from '@/types/contact'
+import { IOption, IOptionParams } from '@/types/contact'
 
 import styles from './DragDrop.module.scss'
 import DroppableList from './DroppableList'
@@ -12,7 +12,7 @@ interface IDroppableListProps {
   sectionSelected?: string
   style?: object
   validation?: boolean
-  onUpdateOption?: (index: string | number, label: string, type: string) => void
+  onUpdateOption?: (option: IOptionParams) => boolean
   onUpdateDrag?: (list: IOption[]) => void
   setSectionSelected?: (section: string) => void
 }
@@ -23,7 +23,7 @@ const DroppableSection = ({
   id,
   validation = false,
   sectionSelected,
-  onUpdateOption = () => {},
+  onUpdateOption = () => false,
   onUpdateDrag = () => {},
   setSectionSelected = () => {},
   ...other

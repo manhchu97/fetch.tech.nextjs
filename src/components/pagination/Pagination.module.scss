@@ -6,5 +6,13 @@
     --bs-pagination-active-border-color: var(--bs-warning);
     --bs-pagination-focus-color: var(--bs-warning);
     --bs-pagination-focus-box-shadow: transparent;
+
+    :global .page-item {
+      &:not(.disabled) {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

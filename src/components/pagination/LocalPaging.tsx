@@ -2,7 +2,9 @@ import React from 'react'
 
 import clsx from 'clsx'
 
-import { DOTS, usePagination } from '@/hooks/usePagination'
+import { DOTS } from '@/config/global'
+
+import { usePagination } from '@/hooks/usePagination'
 
 import styles from './Pagination.module.scss'
 
@@ -72,7 +74,7 @@ const LocalPaging = ({
         {paginationRange.map((pageNumber: string | number, index) => {
           if (pageNumber === DOTS) {
             return (
-              <li key={index} className='page-item'>
+              <li key={index} className='page-item disabled'>
                 <span className='page-link'>&#8230;</span>
               </li>
             )

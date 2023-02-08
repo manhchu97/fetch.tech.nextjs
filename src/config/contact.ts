@@ -76,7 +76,9 @@ export const getNiceToHave = (content: string) => {
 
 export const ACTION_TYPE = {
   DELETE: 'DELETE',
+  DELETING: 'DELETING',
   EDIT: 'EDIT',
+  ADDED: 'ADDED',
 }
 
 export const SECTIONS = {
@@ -98,4 +100,10 @@ export const JOB_DESC_PARAMS = {
   RESPONSIBILITIES: {
     type: JOB_DESC_TYPES.RESPONSIBILITIES,
   },
+}
+
+export const EVENT_TYPE = {
+  BLUR: 'BLUR',
+  ON_KEY_DOWN: 'ON_KEY_DOWN',
+  SAVE: 'SAVE',
 }

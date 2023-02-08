@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
 import clsx from 'clsx'
 import { paramCase } from 'param-case'
 
-import { MIN_SELECTED_OPTION } from '@/config/contact'
+import { ACTION_TYPE, MIN_SELECTED_OPTION } from '@/config/contact'
 
 import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
@@ -14,7 +14,7 @@ import QuestionSkeleton from '@/components/skeleton/question-answer'
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
-import { INextQuestionValue, IOption } from '@/types/contact'
+import { INextQuestionValue, IOption, IOptionParams } from '@/types/contact'
 
 import styles from './Responsibilities.module.scss'
 
@@ -46,60 +46,126 @@ const ResponsibilitiesStep = (): React.ReactElement => {
   const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '' } = inputData || {}
 
-  const listResponsibilitiesOptions = responsibilities.map((label) => ({
-    value: paramCase(label),
-    label,
-  }))
+  const listResponsibilitiesOptions = useMemo(
+    () =>
+      responsibilities?.map((label) => ({
+        value: paramCase(label),
+        label,
+      })) || [],
+    [responsibilities],
+  )
 
-  const onSelectOption = (item: IOption) => {
-    setListResponsibilities(listResponsibilities.concat(item))
-  }
+  const onSelectOption = useCallback((item: IOption) => {
+    setListResponsibilities((prevState) => prevState.concat(item))
+  }, [])
 
-  const onAddOption = (responsibility: IOption) => {
-    const isExist = listResponsibilities.some(
-      (item) => item.value === responsibility.value,
-    )
-
-    if (isExist) {
-      errorToast('Responsibility already added')
-      return
-    }
-
-    setListResponsibilities(listResponsibilities.concat(responsibility))
-  }
-
-  const onUpdateOption = (
-    index: number | string,
-    label: string,
-    type: string,
-  ) => {
-    if (type === 'DELETE') {
-      setListResponsibilities((prevState) =>
-        prevState.filter((item) => item.value !== index),
+  const onAddOption = useCallback(
+    (responsibility: IOption) => {
+      const isExist = listResponsibilities.some(
+        (item) => item.value === responsibility.value,
       )
-      return
-    }
 
+      if (isExist) {
+        errorToast('Responsibility already added')
+        return
+      }
+
+      setListResponsibilities(listResponsibilities.concat(responsibility))
+    },
+    [errorToast, listResponsibilities],
+  )
+
+  const handleUpdateAfterAddItem = useCallback(() => {
+    setListResponsibilities((prevState) =>
+      prevState.map(({ label = '', value = '' }) => ({
+        value,
+        label,
+      })),
+    )
+  }, [])
+
+  const handleDeleteItem = useCallback((index: string | number) => {
+    setListResponsibilities((prevState) =>
+      prevState.filter((item) => item.value !== index),
+    )
+  }, [])
+
+  const handleUpdateBeforeDeleteItem = useCallback((index: string | number) => {
     setListResponsibilities((prevState: IOption[]) => {
-      return prevState
-        .map((option) => {
-          if (option.value === index) {
-            return {
-              ...option,
-              value: paramCase(label),
-              label,
-            }
+      return prevState.map((option) => {
+        if (option.value === index) {
+          return {
+            ...option,
+            isDeleted: true,
           }
+        }
 
-          return option
-        })
-        .filter((option) => option.label)
+        return option
+      })
     })
-  }
+  }, [])
 
-  const onUpdateDrag = (listOption: IOption[]) => {
+  const handleUpdateItem = useCallback(
+    (index: string | number, label: string) => {
+      setListResponsibilities((prevState: IOption[]) => {
+        return prevState
+          .map((option) => {
+            if (option.value === index) {
+              return {
+                ...option,
+                value: paramCase(label),
+                label,
+              }
+            }
+
+            return option
+          })
+          .filter((option) => option.label)
+      })
+    },
+    [],
+  )
+
+  const onUpdateOption = useCallback(
+    ({ index = '', label = '', type = '' }: IOptionParams): boolean => {
+      if (type === ACTION_TYPE.DELETING) {
+        handleUpdateBeforeDeleteItem(index)
+        return false
+      }
+
+      if (type === ACTION_TYPE.DELETE) {
+        handleDeleteItem(index)
+        return false
+      }
+
+      if (type === ACTION_TYPE.ADDED) {
+        handleUpdateAfterAddItem()
+        return false
+      }
+
+      const isLabelExisted = listResponsibilities
+        .filter((item) => item.value !== index)
+        .some((item) => item.value === paramCase(label))
+
+      if (!isLabelExisted) {
+        handleUpdateItem(index, label)
+        return false
+      }
+
+      return true
+    },
+    [
+      handleDeleteItem,
+      handleUpdateAfterAddItem,
+      handleUpdateBeforeDeleteItem,
+      handleUpdateItem,
+      listResponsibilities,
+    ],
+  )
+
+  const onUpdateDrag = useCallback((listOption: IOption[]) => {
     setListResponsibilities(listOption)
-  }
+  }, [])
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()

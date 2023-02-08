@@ -1,18 +1,18 @@
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
 
-import { IOption } from '@/types/contact'
+import { IOption, IOptionParams } from '@/types/contact'
 
 import DraggableItem from './DraggableItem'
 
 interface IDroppableListProps {
   list: IOption[]
-  onUpdateOption: (index: string | number, label: string, type: string) => void
+  onUpdateOption: (option: IOptionParams) => boolean
   onUpdateDrag: (list: IOption[]) => void
 }
 
 const DroppableList = ({
   list = [],
-  onUpdateOption = () => {},
+  onUpdateOption = () => false,
   onUpdateDrag = () => {},
 }: IDroppableListProps) => {
   const onDragEnd = (result: DropResult) => {

@@ -44,6 +44,8 @@ export const JobTableToolbar = ({
             control={control}
             render={({ field: { onChange, value, name } }) => (
               <Select
+                // https://stackoverflow.com/questions/61290173/react-select-how-do-i-resolve-warning-prop-id-did-not-match
+                instanceId={name}
                 name={name}
                 value={locationOptions.find((c) => c.value === value)}
                 options={locationOptions}
@@ -68,6 +70,7 @@ export const JobTableToolbar = ({
             render={({ field: { onChange, name } }) => (
               <Select
                 styles={colourStyles}
+                instanceId={name}
                 name={name}
                 options={skillOptions}
                 isMulti
