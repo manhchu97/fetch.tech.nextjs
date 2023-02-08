@@ -1,10 +1,12 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
+import { useRouter } from 'next/router'
 
 import { DEFAULT_PAGE_SIZE, HOST_API } from '@/config/global'
 
 import CustomerMessengerChat from '@/components/CustomerMessengerChat'
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
+import DetailJobSkeleton from '@/components/skeleton/job/detail'
 
 import { API_JOB_DETAIL, API_LIST_JOB } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
@@ -60,6 +62,23 @@ export const getStaticProps = async ({ params }: IPrams) => {
 const JobDetailPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { isFallback } = useRouter()
+
+  if (isFallback) {
+    return (
+      <Page title='Job Detail'>
+        <DetailJobSkeleton />
+
+        <BannerContact
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign Up'
+          linkTo={PATH_CONFIG.contact}
+        />
+      </Page>
+    )
+  }
+
   return (
     <Page title='Job Detail'>
       <JobDetail fallback={fallback} />
