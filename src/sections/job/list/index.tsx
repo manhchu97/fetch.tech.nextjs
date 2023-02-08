@@ -226,12 +226,16 @@ const ListJob = ({
                     <JobError />
                   ) : (
                     <>
-                      {currentListJobs?.map((job) => (
-                        <JobItem
-                          key={job.id}
-                          job={job}
-                          handleShowPopup={handleShowPopup}
-                        />
+                      {currentListJobs?.map((job, index) => (
+                        <>
+                          <JobItem
+                            key={job.id}
+                            job={job}
+                            handleShowPopup={handleShowPopup}
+                          />
+
+                          {index !== currentListJobs.length - 1 && <hr />}
+                        </>
                       ))}
                     </>
                   )}
