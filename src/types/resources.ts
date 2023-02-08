@@ -2,12 +2,8 @@ export interface CaseStudiesTypeProps {
   [name: string]: string
 }
 
-export interface CSTabHeaderProps {
-  type: string
-  title: string
-}
-
 export interface TabContentProps {
+  bannerImage: string
   customerInfo: CSTabContentCustomerInfo
   teamInfo: CSTabContentTeamInfo
   projectInfo: CSTabContentProjectInfo
@@ -37,4 +33,12 @@ export interface CSTabContentProjectInfo {
 export interface CSTabContentMainInfo {
   title: string
   description: string[]
+}
+
+export interface CSListData {
+  image: string
+  title: string
+  slug: string
+  imgWidth: number
+  imgHeight: number
 }

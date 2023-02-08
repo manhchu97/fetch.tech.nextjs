@@ -1,4 +1,6 @@
-import { CSTabHeaderProps, CaseStudiesTypeProps } from '@/types/resources'
+import { PATH_CONFIG } from '@/routes/paths'
+
+import { CSListData, CaseStudiesTypeProps } from '@/types/resources'
 import { ServiceHeaderProps } from '@/types/services'
 
 export const CASE_STUDIES_TYPE: CaseStudiesTypeProps = {
@@ -73,18 +75,32 @@ export const DATA_OUR_STORY_PAGE = {
   },
 }
 
-export const CASE_STUDIES_TAB_HEADER_CONFIG: CSTabHeaderProps[] = [
+export const CASE_STUDIES_LIST_DATA: CSListData[] = [
   {
-    type: CASE_STUDIES_TYPE.ACCORPLUS,
-    title: 'AccorPlus (Part of Accor Group)',
+    image: '/images/resources/case-studies/AccorPlus-banner.jpg',
+    title:
+      'This global hospitality chain chose Fetch to Augment their software team.',
+    slug: PATH_CONFIG.resources.caseStudies.view(CASE_STUDIES_TYPE.ACCORPLUS),
+    imgWidth: 1751,
+    imgHeight: 771,
   },
   {
-    type: CASE_STUDIES_TYPE.TOKENIZE_EXCHANGE,
-    title: 'Tokenize Exchange',
+    image: '/images/resources/case-studies/Tokenize-banner.jpg',
+    title:
+      'Should a fast growing tech startup rely on outsourced tech talent project management or even hire resources?',
+    slug: PATH_CONFIG.resources.caseStudies.view(
+      CASE_STUDIES_TYPE.TOKENIZE_EXCHANGE,
+    ),
+    imgWidth: 1751,
+    imgHeight: 771,
   },
   {
-    type: CASE_STUDIES_TYPE.CHART_DESK,
-    title: 'ChartDesk',
+    image: '/images/resources/case-studies/ChartDesk-banner.jpg',
+    title:
+      'Should a fast growing tech startup rely on outsourced tech talent project management or even hire resources?',
+    slug: PATH_CONFIG.resources.caseStudies.view(CASE_STUDIES_TYPE.CHART_DESK),
+    imgWidth: 1751,
+    imgHeight: 771,
   },
 ]
 
@@ -92,6 +108,7 @@ export const CASE_STUDIES_TAB_BODY_CONFIG = [
   {
     type: CASE_STUDIES_TYPE.ACCORPLUS,
     render: () => ({
+      bannerImage: '/images/resources/case-studies/AccorPlus-detail-banner.jpg',
       customerInfo: {
         general: [
           {
@@ -156,6 +173,7 @@ export const CASE_STUDIES_TAB_BODY_CONFIG = [
   {
     type: CASE_STUDIES_TYPE.TOKENIZE_EXCHANGE,
     render: () => ({
+      bannerImage: '/images/resources/case-studies/Tokenize-detail-banner.jpg',
       customerInfo: {
         general: [
           {
@@ -226,6 +244,7 @@ export const CASE_STUDIES_TAB_BODY_CONFIG = [
   {
     type: CASE_STUDIES_TYPE.CHART_DESK,
     render: () => ({
+      bannerImage: '/images/resources/case-studies/ChartDesk-detail-banner.jpg',
       customerInfo: {
         general: [
           {
