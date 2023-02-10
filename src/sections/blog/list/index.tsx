@@ -6,7 +6,11 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import useSWR from 'swr'
 
-import { HOST_API } from '@/config/global'
+import {
+  DEFAULT_PAGE_NUMBER,
+  DEFAULT_PAGE_SIZE,
+  HOST_API,
+} from '@/config/global'
 
 import BannerImageCover from '@/components/banner/image-cover'
 import Pagination from '@/components/pagination'
@@ -38,8 +42,8 @@ const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
     mounted ? [API_LIST_PUBLIC_BLOG, page, tags] : null,
     (url: string, currentPage: number, tags: string) =>
       fetcher(
-        `${HOST_API}/${url}?pageSize=10&pageNumber=${
-          Number(currentPage) || 1
+        `${HOST_API}/${url}?pageSize=${DEFAULT_PAGE_SIZE}&pageNumber=${
+          Number(currentPage) || DEFAULT_PAGE_NUMBER
         }&tags=${tags || ''}`,
       ),
     { fallbackData: fallback },
@@ -98,10 +102,10 @@ const ListBlog = ({ fallback }: IListBlog): React.ReactElement => {
 
           {totalRecord > 0 && (
             <Pagination
-              className='justify-content-end pagination-lg'
+              className='justify-content-center pagination-lg'
               totalCount={totalRecord}
-              currentPage={Number(page) || 1}
-              pageSize={10}
+              currentPage={Number(page) || DEFAULT_PAGE_NUMBER}
+              pageSize={DEFAULT_PAGE_SIZE}
             />
           )}
         </div>

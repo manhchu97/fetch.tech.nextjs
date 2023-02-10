@@ -1,0 +1,75 @@
+@import '@/styles/_mixins.scss';
+
+.job-detail-skeleton {
+  margin-bottom: 35px;
+  padding-bottom: 40px;
+
+  :global .line-header {
+    border-top: 2px solid #fccc4b;
+
+    .job-detail-skeleton-container {
+      .contain-job-detail-skeleton-content {
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 30px;
+
+        @include screen-up(xxl) {
+          max-width: 1140px;
+        }
+
+        .job-detail-skeleton-title,
+        .job-detail-skeleton-type {
+          margin-bottom: 10px;
+        }
+
+        .job-detail-skeleton-info {
+          span {
+            margin-right: 8px;
+          }
+        }
+
+        .apply-btn-skeleton {
+          margin-top: 40px;
+          color: #fff;
+          text-align: center;
+          height: 54px;
+          font-weight: 700;
+          border-radius: 8px;
+        }
+      }
+
+      .line-detail {
+        border: 0.5px solid #e2e2e2;
+        box-shadow: 0 1px 2px #e2e2e2;
+      }
+
+      .job-description-skeleton-container {
+        @include screen-up(xxl) {
+          max-width: 1140px;
+        }
+
+        .job-description-sub-info-skeleton {
+          .job-description-sub-info-skeleton-wrapper
+            + .job-description-sub-info-skeleton-wrapper {
+            margin-top: 40px;
+          }
+
+          .job-description-sub-info-title {
+            font-size: 18px;
+            font-family: 'Gilroy-SemiBold';
+          }
+
+          .job-description-skeleton-map {
+            height: 225px;
+          }
+
+          .job-content-skeleton-container {
+            span {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

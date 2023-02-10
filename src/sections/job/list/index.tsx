@@ -129,7 +129,7 @@ const ListJob = ({
   )
 
   const listJobs: IJobItem[] = useMemo(
-    () => jobData?.data?.list || [],
+    () => jobData?.data?.list || jobData?.data?.jobs || [],
     [jobData],
   )
 
@@ -184,6 +184,12 @@ const ListJob = ({
   }, [])
 
   useEffect(() => {
+    if (!mounted) return
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [mounted, pageNumber])
+
+  useEffect(() => {
     getDataWithPagination(listJobs)
   }, [listJobs, getDataWithPagination])
 
@@ -220,12 +226,16 @@ const ListJob = ({
                     <JobError />
                   ) : (
                     <>
-                      {currentListJobs?.map((job) => (
-                        <JobItem
-                          key={job.id}
-                          job={job}
-                          handleShowPopup={handleShowPopup}
-                        />
+                      {currentListJobs?.map((job, index) => (
+                        <>
+                          <JobItem
+                            key={job.id}
+                            job={job}
+                            handleShowPopup={handleShowPopup}
+                          />
+
+                          {index !== currentListJobs.length - 1 && <hr />}
+                        </>
                       ))}
                     </>
                   )}
@@ -234,7 +244,7 @@ const ListJob = ({
             </div>
 
             <LocalPaging
-              className='justify-content-end mt-3'
+              className='justify-content-center pagination-lg mt-4'
               onPageChange={setPage}
               totalCount={listJobs.length}
               pageSize={DEFAULT_PAGE_SIZE}

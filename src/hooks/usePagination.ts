@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-export const DOTS = '...'
+import { DOTS } from '@/config/global'
 
 const range = (start: number, end: number) => {
   const length = end - start + 1
