@@ -90,8 +90,6 @@ const JobItem = ({
           </div>
         </div>
       </div>
-
-      <hr />
     </li>
   )
 }
