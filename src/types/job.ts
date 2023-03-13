@@ -17,16 +17,15 @@ export interface IJobItem {
   id: string
   title: string
   content: string
-  locationId: string
   type: string
   salary: string
   slug: string
   description: string
   externalRecruiter: boolean
   Skills: ISkill[]
-  Location: {
+  locations: {
     office: string
-  }
+  }[]
   Tags: ITag[]
 }
 
@@ -45,6 +44,12 @@ export interface ILocationItem {
   address: string
   name: string
   descLocation: string
+  label: string
+  office: string
+  priority: number
+  createdAt: string
+  updatedAt: string
+  linkMap?: string
 }
 
 interface IJobSkillItem {
@@ -95,22 +100,18 @@ export type JobApplyFormValue = {
 interface IDetailLocation {
   id: string
   name: string
+  label: string
   address: string
   office: string
   descLocation: string
   linkMap: string
+  priority: number
   createdAt: string
   updatedAt: string
 }
 
 interface IDetailClient {
-  id: number
-  name: string
   about: string
-  background: string
-  token: string
-  createdAt: string
-  updatedAt: string
 }
 
 export interface IDetailTagItem {
@@ -133,11 +134,12 @@ export interface IJobDetail {
   requirement: string
   benefit: string
   time: string
+  timeLocation: string
   metaJob: string
   titlePage: string
   arr_skill_required: string[]
   arr_skill: string[]
-  location: IDetailLocation
+  locations: IDetailLocation[]
   client: IDetailClient
   description: string
   externalRecruiter: boolean
