@@ -18,8 +18,9 @@ const JobItem = ({
   job,
   handleShowPopup,
 }: JobItemProps): React.ReactElement => {
-  const { Location, Tags, salary, title, type, description, id, slug } = job
-  const { office } = Location || {}
+  const { locations, Tags, salary, title, type, description, id, slug } = job
+
+  const offices = locations.map(({ office }) => office).join(', ')
 
   const jobSlug = useMemo(() => {
     const slugArray = slug.split('-')
@@ -63,7 +64,7 @@ const JobItem = ({
                 <div className='col-md-3'>
                   <div className='row'>
                     <div className='col-md-12'>
-                      <div className='job-item-location'>{office}</div>
+                      <div className='job-item-location'>{offices}</div>
 
                       <div className='job-item-salary'>{salary}</div>
 
