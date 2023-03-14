@@ -10,7 +10,7 @@ import { useToastContext } from '@/context/ToastContext'
 
 import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
 
-import { axiosV3Instance } from '@/utils/axios'
+import { _postApi } from '@/utils/axios'
 
 import styles from './Contact.module.scss'
 
@@ -95,7 +95,7 @@ const ContactInfo = (): React.ReactElement => {
 
   const onSubmit = async (data: ContactSubmitForm) => {
     try {
-      const response = await axiosV3Instance.post(API_SUBCRIBER_BY_EMAIL, data)
+      const response = await _postApi(API_SUBCRIBER_BY_EMAIL, data)
 
       if (response) {
         successToast('Message successfully sent, please wait for our contact!')

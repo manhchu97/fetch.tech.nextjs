@@ -20,8 +20,8 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "format": "prettier .prettierrc.json './**/*.{js,jsx,ts,tsx}' --write",
     "analyze": "cross-env ANALYZE=true next build",
-    "staging": "NODE_ENV=production NEXT_PUBLIC_NODE_ENV=staging next build",
-    "production": "NODE_ENV=production NEXT_PUBLIC_NODE_ENV=production next build"
+    "staging": "NODE_ENV=production NEXT_PUBLIC_NODE_ENV=staging next build && next start",
+    "production": "NODE_ENV=production NEXT_PUBLIC_NODE_ENV=production next build && next start"
   },
   "dependencies": {
     "@ant-design/react-slick": "^1.0.0",
