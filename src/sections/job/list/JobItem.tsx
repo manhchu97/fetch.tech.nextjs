@@ -19,7 +19,7 @@ const JobItem = ({
   handleShowPopup,
 }: JobItemProps): React.ReactElement => {
   const { Location, Tags, salary, title, type, description, id, slug } = job
-  const { office } = Location
+  const { office } = Location || {}
 
   const jobSlug = useMemo(() => {
     const slugArray = slug.split('-')
