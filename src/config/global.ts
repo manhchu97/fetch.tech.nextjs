@@ -1,5 +1,4 @@
 export const HOST_API = process.env.NEXT_PUBLIC_HOST_API
-export const FETCH_TECH_API_V3 = process.env.NEXT_PUBLIC_FETCH_TECH_API_V3
 export const FACEBOOK_APP_ID = process.env.NEXT_PUBLIC_FACEBOOK_APP_ID || ''
 export const FACEBOOK_PAGE_ID = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID || ''
 export const CAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ''

@@ -25,6 +25,7 @@ import '@/styles/toast.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_NODE_ENV)
     if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
 
     // only run firebase in production enviroment

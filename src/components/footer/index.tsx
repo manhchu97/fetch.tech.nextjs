@@ -12,7 +12,7 @@ import { useToastContext } from '@/context/ToastContext'
 import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
 
-import { axiosV3Instance } from '@/utils/axios'
+import { _postApi } from '@/utils/axios'
 
 import styles from './Footer.module.scss'
 
@@ -48,10 +48,7 @@ const Footer = () => {
         company: 'Subscribe',
       }
 
-      const response = await axiosV3Instance.post(
-        API_SUBCRIBER_BY_EMAIL,
-        formData,
-      )
+      const response = await _postApi(API_SUBCRIBER_BY_EMAIL, formData)
 
       if (response) {
         successToast('Thank you for subscribing to Fetch. Keep in Touch!')
