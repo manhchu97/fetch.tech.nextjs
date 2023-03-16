@@ -10,6 +10,7 @@ import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
 import { HOST_API } from '@/config/global'
+import { JOB_STATUS } from '@/config/job'
 
 import { API_JOB_DETAIL, API_LIST_SKILL } from '@/routes/api'
 
@@ -89,6 +90,7 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
     client,
     arr_skill_required,
     arr_skill,
+    jobStatus,
   } = jobDetail
 
   const { linkMap, address, descLocation } = location || {}
@@ -180,16 +182,18 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
                     </div>
                   </div>
 
-                  <div className='col-md-3'>
-                    <div className='container'>
-                      <div className='row'>
-                        <div className='col-md-4' />
-                        <div className='col-md-8 job-detail-apply'>
-                          <div onClick={handleShowPopup}>Apply Now</div>
+                  {jobStatus === JOB_STATUS.ACTIVE && (
+                    <div className='col-md-3'>
+                      <div className='container'>
+                        <div className='row'>
+                          <div className='col-md-4' />
+                          <div className='col-md-8 job-detail-apply'>
+                            <div onClick={handleShowPopup}>Apply Now</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
