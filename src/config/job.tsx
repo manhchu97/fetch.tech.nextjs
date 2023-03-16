@@ -31,6 +31,13 @@ export enum FORM_FIELD_JOB_TOOLBAR {
   SKILL = 'skill',
 }
 
+export enum JOB_STATUS {
+  ACTIVE = 'Active',
+  CLOSE = 'Close',
+  PENDING = 'Pending',
+  ARCHIVE = 'Archive',
+}
+
 export const fileMatch = [
   'application/pdf',
   'application/msword',
