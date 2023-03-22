@@ -1,0 +1,322 @@
+@import '@/styles/_mixins.scss';
+
+.gtta-container {
+  padding-left: 16px;
+  padding-right: 16px;
+
+  :global .heading-title {
+    margin-bottom: 60px;
+  }
+
+  :global .contact-container {
+    .info-heading {
+      margin-bottom: 30px;
+
+      .h6 {
+        font-style: italic;
+        font-weight: 400;
+        color: #000;
+      }
+    }
+
+    .contact-heading {
+      margin-bottom: 30px;
+
+      .h6 {
+        font-style: normal;
+        font-weight: 400;
+        color: #000;
+
+        .code-referral {
+          color: #f50000;
+          font-family: 'Gilroy-SemiBold';
+        }
+
+        .contact-link {
+          color: #ffd521;
+        }
+      }
+    }
+
+    .terms-conditions-heading {
+      .subtitle2 {
+        font-style: italic;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 18px;
+        color: #000;
+      }
+    }
+
+    .contact-img-container {
+      position: relative;
+
+      @include screen-down(sm) {
+        margin-top: 50px;
+        width: 80%;
+        padding-bottom: 38%;
+      }
+
+      @include screen-between(sm, md) {
+        margin-top: 50px;
+        width: 60%;
+        padding-bottom: 29%;
+      }
+
+      @include screen-between(md, lg) {
+        margin-top: 50px;
+        width: 50%;
+        height: 165px;
+      }
+
+      @include screen-up(lg) {
+        width: 295px;
+        height: 142px;
+      }
+
+      @include screen-up(xl) {
+        width: 356px;
+        height: 170px;
+      }
+
+      @include screen-up(xxl) {
+        width: 416px;
+        height: 199px;
+      }
+    }
+  }
+
+  :global .who-am-i-container {
+    margin-top: 100px;
+
+    @include screen-down(lg) {
+      flex-direction: column-reverse;
+      margin-top: 0;
+    }
+
+    .who-am-i-heading {
+      font-style: normal;
+      color: #000;
+      display: flex;
+      flex-direction: row;
+      margin-left: 6%;
+      margin-right: 6%;
+
+      @include screen-between(lg, xl) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      &:before,
+      &:after {
+        content: '';
+        flex: 1 1;
+        border-bottom: 2px solid #ffc01e;
+        margin: auto;
+      }
+
+      &:before {
+        margin-right: 16px;
+      }
+      &:after {
+        margin-left: 16px;
+      }
+    }
+
+    .h6 {
+      font-style: normal;
+      font-weight: 400;
+      color: #000;
+      margin-bottom: 50px;
+    }
+
+    .who-am-i-img-container {
+      position: relative;
+
+      @include screen-down(lg) {
+        margin-bottom: 80px;
+      }
+
+      @include screen-down(sm) {
+        margin-top: 50px;
+        width: 80%;
+        padding-bottom: 38%;
+      }
+
+      @include screen-between(sm, md) {
+        margin-top: 50px;
+        width: 60%;
+        padding-bottom: 29%;
+      }
+
+      @include screen-between(md, lg) {
+        margin-top: 50px;
+        width: 50%;
+        height: 165px;
+      }
+
+      @include screen-up(lg) {
+        width: 295px;
+        height: 142px;
+      }
+
+      @include screen-up(xl) {
+        width: 356px;
+        height: 170px;
+      }
+
+      @include screen-up(xxl) {
+        width: 416px;
+        height: 199px;
+      }
+    }
+  }
+
+  :global .global-tech-container {
+    margin-top: 60px;
+
+    .global-tech-heading {
+      font-style: normal;
+      color: #000;
+      display: flex;
+      flex-direction: row;
+
+      &:before,
+      &:after {
+        content: '';
+        flex: 1 1;
+        border-bottom: 2px solid #ffc01e;
+        margin: auto;
+      }
+
+      &:before {
+        @include screen-down(md) {
+          margin-right: 16px;
+        }
+      }
+      &:after {
+        @include screen-down(md) {
+          margin-right: 16px;
+          margin-left: 16px;
+        }
+      }
+
+      > span {
+        width: 55%;
+
+        @include screen-up(md) {
+          width: 55%;
+        }
+
+        @include screen-up(lg) {
+          width: 80%;
+        }
+
+        @include screen-up(xl) {
+          width: 70%;
+        }
+
+        @include screen-up(xxl) {
+          width: 60%;
+        }
+      }
+    }
+
+    .h6 {
+      font-style: normal;
+      font-weight: 400;
+      color: #000;
+      margin-bottom: 50px;
+    }
+
+    .global-tech-img-container {
+      @include screen-down(lg) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 80px;
+      }
+
+      .global-tech-img {
+        position: relative;
+
+        @include screen-down(lg) {
+          width: 300px;
+          height: 300px;
+        }
+
+        @include screen-between(lg, xl) {
+          width: 400px;
+          height: 400px;
+        }
+
+        @include screen-up(xl) {
+          width: 600px;
+          height: 450px;
+        }
+      }
+    }
+  }
+
+  :global .about-fetch-container {
+    margin-top: 120px;
+    margin-bottom: 60px;
+
+    @include screen-down(lg) {
+      margin-top: 0;
+      flex-direction: column-reverse;
+    }
+
+    .about-heading {
+      font-style: normal;
+      color: #000;
+      display: flex;
+      flex-direction: row;
+      margin-left: 10%;
+      margin-right: 10%;
+      margin-bottom: 30px;
+
+      &:before,
+      &:after {
+        content: '';
+        flex: 1 1;
+        border-bottom: 2px solid #ffc01e;
+        margin: auto;
+      }
+
+      &:before {
+        margin-right: 16px;
+      }
+      &:after {
+        margin-left: 16px;
+      }
+    }
+
+    .h6 {
+      font-style: normal;
+      font-weight: 400;
+      color: #000;
+      margin-bottom: 60px;
+    }
+
+    .achieve-item {
+      display: flex;
+      margin-bottom: 40px;
+
+      .check-icon-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 28px !important;
+        height: 28px !important;
+        background: #ffbe16;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+
+      .text {
+        max-width: calc(100% - 56px);
+      }
+    }
+  }
+}
