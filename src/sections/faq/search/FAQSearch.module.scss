@@ -11,8 +11,8 @@
 
   :global .ft-container {
     position: relative;
-    padding-top: 128px;
-    padding-bottom: 128px;
+    padding-top: 80px;
+    padding-bottom: 80px;
 
     @include screen-down(xs) {
       padding-left: 10.5px;
