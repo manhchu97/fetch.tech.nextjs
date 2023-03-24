@@ -7,6 +7,8 @@ import clsx from 'clsx'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 
+import { PATH_CONFIG } from '@/routes/paths'
+
 import FeatureCell from './FeatureCell'
 import FeatureLine from './FeatureLine'
 import styles from './HowItWork.module.scss'
@@ -110,6 +112,7 @@ const HowItWork = (): React.ReactElement => {
                 icon='/images/company/Feature1.png'
                 color='black'
                 bgColor='#D2E2ED'
+                url={PATH_CONFIG.services.view(1)}
               />
 
               <FeatureCell
@@ -117,6 +120,7 @@ const HowItWork = (): React.ReactElement => {
                 icon='/images/company/Feature3.png'
                 color='white'
                 bgColor='#FF6847'
+                url={PATH_CONFIG.services.view(2)}
               />
 
               <FeatureCell
@@ -124,6 +128,7 @@ const HowItWork = (): React.ReactElement => {
                 icon='/images/company/Feature2.png'
                 color='white'
                 bgColor='#17274E'
+                url={PATH_CONFIG.services.view(3)}
               />
 
               <FeatureCell
@@ -131,6 +136,7 @@ const HowItWork = (): React.ReactElement => {
                 icon='/images/company/Feature4.png'
                 color='white'
                 bgColor='#FFBE16'
+                url={PATH_CONFIG.services.view(4)}
               />
             </div>
           </div>
