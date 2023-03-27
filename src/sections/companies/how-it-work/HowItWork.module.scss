@@ -73,6 +73,10 @@
         max-width: 100%;
         min-height: 142px;
 
+        &:hover {
+          cursor: pointer;
+        }
+
         .icon-wrap {
           margin-bottom: 20px;
         }
@@ -80,7 +84,7 @@
     }
 
     .text-group-with-button {
-      max-width: 365px;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
       row-gap: 30px;
