@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import { paramCase } from 'param-case'
 
-import { ACTION_TYPE, MIN_SELECTED_OPTION, SECTIONS } from '@/config/contact'
+import { MIN_SELECTED_OPTION, SECTIONS } from '@/config/contact'
 
 import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
@@ -14,7 +14,7 @@ import QuestionSkeleton from '@/components/skeleton/question-answer'
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
-import { INextQuestionValue, IOption, IOptionParams } from '@/types/contact'
+import { INextQuestionValue, IOption } from '@/types/contact'
 
 import styles from './Requirement.module.scss'
 
@@ -35,7 +35,7 @@ const RequirementStep = (): React.ReactElement => {
 
   const {
     handlePreviousStep,
-    handlePreview,
+    handleNextStep,
     requirements,
     saveAnswerByQuestion,
     updateAnswerByQuestion,
@@ -101,107 +101,6 @@ const RequirementStep = (): React.ReactElement => {
     [errorToast, listSelectedOption, sectionSelected],
   )
 
-  const handleUpdateAfterAddItem = useCallback(() => {
-    updateList((prevState) =>
-      prevState.map(({ label = '', value = '' }) => ({
-        value,
-        label,
-      })),
-    )
-  }, [updateList])
-
-  const handleDeleteItem = useCallback(
-    (index: string | number) => {
-      updateList((prevState) =>
-        prevState.filter((item) => item.value !== index),
-      )
-    },
-    [updateList],
-  )
-
-  const handleUpdateBeforeDeleteItem = useCallback(
-    (index: string | number) => {
-      updateList((prevState: IOption[]) => {
-        return prevState.map((option) => {
-          if (option.value === index) {
-            return {
-              ...option,
-              isDeleted: true,
-            }
-          }
-
-          return option
-        })
-      })
-    },
-    [updateList],
-  )
-
-  const handleUpdateItem = useCallback(
-    (index: string | number, label: string) => {
-      updateList((prevState: IOption[]) => {
-        return prevState
-          .map((option) => {
-            if (option.value === index) {
-              return {
-                ...option,
-                value: paramCase(label),
-                label,
-              }
-            }
-
-            return option
-          })
-          .filter((option) => option.label)
-      })
-    },
-    [updateList],
-  )
-
-  const onUpdateOption = useCallback(
-    ({ index = '', label = '', type = '' }: IOptionParams) => {
-      if (type === ACTION_TYPE.DELETING) {
-        handleUpdateBeforeDeleteItem(index)
-        return false
-      }
-
-      if (type === ACTION_TYPE.DELETE) {
-        handleDeleteItem(index)
-        return false
-      }
-
-      if (type === ACTION_TYPE.ADDED) {
-        handleUpdateAfterAddItem()
-        return false
-      }
-
-      const isLabelExisted = listSelectedOption
-        .filter((item) => item.value !== index)
-        .some((item) => item.value === paramCase(label))
-
-      if (!isLabelExisted) {
-        handleUpdateItem(index, label)
-        return false
-      }
-
-      return true
-    },
-    [
-      handleDeleteItem,
-      handleUpdateAfterAddItem,
-      handleUpdateBeforeDeleteItem,
-      handleUpdateItem,
-      listSelectedOption,
-    ],
-  )
-
-  const onUpdateDrag = useCallback(
-    (listOption: IOption[]) => {
-      updateList(listOption)
-    },
-    [updateList],
-  )
-
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
@@ -239,7 +138,7 @@ const RequirementStep = (): React.ReactElement => {
     try {
       saveAnswerByQuestion()
 
-      handlePreview()
+      handleNextStep()
     } catch (error) {
       errorToast(
         (error as Error)?.message || 'Fail to submit quiz! Please try again',
@@ -309,9 +208,9 @@ const RequirementStep = (): React.ReactElement => {
           id={SECTIONS.REQUIREMENT}
           title='Requirements'
           list={listRequirements}
+          listSelectedOption={listSelectedOption}
           sectionSelected={sectionSelected}
-          onUpdateOption={onUpdateOption}
-          onUpdateDrag={onUpdateDrag}
+          updateListOption={updateList}
           setSectionSelected={setSectionSelected}
           style={{ marginBottom: 32 }}
           validation
@@ -322,18 +221,15 @@ const RequirementStep = (): React.ReactElement => {
           title='Nice to have'
           list={listNiceToHave}
           sectionSelected={sectionSelected}
-          onUpdateOption={onUpdateOption}
-          onUpdateDrag={onUpdateDrag}
+          listSelectedOption={listSelectedOption}
+          updateListOption={updateList}
           setSectionSelected={setSectionSelected}
         />
 
         <hr className='hr' />
 
         <form onSubmit={handleSubmit} className='requirement-form-container'>
-          <ClientAction
-            nextButtonText='Preview'
-            onClickPreviousButton={handlePreviousStep}
-          />
+          <ClientAction onClickPreviousButton={handlePreviousStep} />
         </form>
       </div>
     </div>

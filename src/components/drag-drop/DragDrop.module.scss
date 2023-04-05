@@ -36,9 +36,7 @@
         align-items: center;
         justify-content: space-between;
         font-size: 14px;
-        background-color: #eef3f8;
-        padding: 8px 12px;
-        border-radius: 8px;
+        padding: 0 4px;
         margin: 6px 0;
 
         .draggable-item-wrapper {
@@ -46,15 +44,18 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          background-color: #eef3f8;
+          padding: 8px 12px;
+          border-radius: 8px;
+
+          &.is-dragging,
+          &.is-edit {
+            background-color: #b2d3f4;
+          }
         }
 
         &:focus {
           outline: none;
-        }
-
-        &.is-dragging,
-        &.is-edit {
-          background-color: #b2d3f4;
         }
 
         .draggable-item-content {
