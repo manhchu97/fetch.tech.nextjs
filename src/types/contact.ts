@@ -119,3 +119,28 @@ export interface IOptionParams {
   type: string
   isAdded?: boolean
 }
+
+// Location types
+
+export interface ILocationResponse {
+  code: number
+  data: IDataLocationResponse
+}
+
+export interface IDataLocationResponse {
+  success: boolean
+  list: ILocationItem[]
+}
+
+export interface ILocationItem {
+  id: string
+  name: string
+  address: string
+  office: string
+  descLocation: string
+  linkMap?: string
+  priority: number
+  label: string
+  createdAt: string
+  updatedAt: string
+}

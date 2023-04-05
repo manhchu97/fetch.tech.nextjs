@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 import dynamic from 'next/dynamic'
@@ -80,12 +86,13 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
     salary,
     tags,
     type,
-    location,
+    locations,
     time,
     aboutFetch,
     responsibilities,
     requirement,
     niceToHave,
+    timeLocation,
     benefit,
     client,
     arr_skill_required,
@@ -93,7 +100,10 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
     jobStatus,
   } = jobDetail
 
-  const { linkMap, address, descLocation } = location || {}
+  const hasLocation = Array.isArray(locations) && locations.length
+
+  const address =
+    (hasLocation && locations.map(({ address }) => address).join(', ')) || ''
 
   const jobDescription = useMemo(
     () =>
@@ -104,10 +114,19 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
         requirement,
         niceToHave,
         benefit,
+        timeLocation,
       ]
         .filter(Boolean)
         .join(''),
-    [aboutFetch, client, responsibilities, requirement, niceToHave, benefit],
+    [
+      aboutFetch,
+      client,
+      responsibilities,
+      requirement,
+      niceToHave,
+      benefit,
+      timeLocation,
+    ],
   )
 
   const handleShowPopup = useCallback(() => {
@@ -249,19 +268,22 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
                         Locations
                       </label>
 
-                      {linkMap && (
-                        <div className='row mb-3'>
-                          <div className='col-md'>
-                            <GoogleMap linkMap={linkMap} />
-                          </div>
-                        </div>
-                      )}
+                      {hasLocation &&
+                        locations.map(({ id, linkMap, descLocation }) => (
+                          <Fragment key={id}>
+                            <div className='row mb-3 mt-3'>
+                              <div className='col-md'>
+                                <GoogleMap linkMap={linkMap} />
+                              </div>
+                            </div>
 
-                      <div className='job-content-container'>
-                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                          {descLocation}
-                        </ReactMarkdown>
-                      </div>
+                            <div className='job-content-container'>
+                              <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                {descLocation}
+                              </ReactMarkdown>
+                            </div>
+                          </Fragment>
+                        ))}
                     </div>
                   </div>
                 </div>

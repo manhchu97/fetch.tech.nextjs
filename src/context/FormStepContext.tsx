@@ -15,6 +15,7 @@ import {
 import { API_SUBMIT_QUIZ } from '@/routes/api'
 
 import {
+  ILocationItem,
   INextQuestionValue,
   ISkillResponse,
   IUpdateAnswerByQuestion,
@@ -31,6 +32,7 @@ type FormStepContextType = {
   clientId: string | number
   requirements: string[]
   responsibilities: string[]
+  locations: ILocationItem[]
   listResultAnswers: ResultAnswer[]
   componentType: string
   isAnimatedComponent: boolean
@@ -58,6 +60,7 @@ interface IFormStepProvider {
   skills: ISkillResponse
   requirements: string[]
   responsibilities: string[]
+  locations: ILocationItem[]
 }
 
 enum AnimatedActionType {
@@ -77,6 +80,7 @@ const FormStepProvider = ({
   skills,
   requirements,
   responsibilities,
+  locations,
 }: IFormStepProvider) => {
   const [clientId, setClientId] = useState<string | number>('')
   const [currentPriority, setCurrentPriority] = useState<number>(0)
@@ -288,7 +292,7 @@ const FormStepProvider = ({
 
   const handleBackFromPreview = useCallback(() => {
     setAnimatedActionType(AnimatedActionType.PREVIOUS)
-    setComponentType(COMPONENT_TYPE.CHECKBOX_REQUIREMENT)
+    setComponentType(COMPONENT_TYPE.CHECKBOX_INTERVIEWS)
   }, [])
 
   const handleFinishStep = useCallback(() => {
@@ -302,6 +306,7 @@ const FormStepProvider = ({
       clientId,
       requirements,
       responsibilities,
+      locations,
       listResultAnswers,
       componentType,
       isAnimatedComponent,
@@ -322,6 +327,7 @@ const FormStepProvider = ({
       clientId,
       requirements,
       responsibilities,
+      locations,
       listResultAnswers,
       componentType,
       isAnimatedComponent,

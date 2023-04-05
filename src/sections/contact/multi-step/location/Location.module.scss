@@ -1,0 +1,46 @@
+@import '@/styles/_mixins.scss';
+
+.location-step-container {
+  max-width: 930px;
+  margin: 48px auto 100px;
+  padding: 0 15px;
+
+  background-image: url('/images/contact/LocationBG.png');
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  width: 100%;
+  background-size: 300px 300px;
+  background-position: right;
+
+  :global .location-container {
+    font-family: 'Gilroy-Regular';
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    margin-top: 68px;
+
+    .location-content {
+      margin-bottom: 32px;
+    }
+
+    .location-list {
+      margin-bottom: 32px;
+
+      .location-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 24px;
+        font-size: 20px;
+
+        .form-check-input {
+          margin-right: 16px;
+
+          &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(255, 190, 22, 0.25);
+          }
+        }
+      }
+    }
+  }
+}

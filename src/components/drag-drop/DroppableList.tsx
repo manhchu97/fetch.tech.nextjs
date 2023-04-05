@@ -6,14 +6,18 @@ import DraggableItem from './DraggableItem'
 
 interface IDroppableListProps {
   list: IOption[]
+  className?: string
   onUpdateOption: (option: IOptionParams) => boolean
   onUpdateDrag: (list: IOption[]) => void
+  labelInfo?: (index: number) => React.ReactElement
 }
 
 const DroppableList = ({
   list = [],
+  className = '',
   onUpdateOption = () => false,
   onUpdateDrag = () => {},
+  labelInfo = () => <></>,
 }: IDroppableListProps) => {
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return
@@ -43,6 +47,8 @@ const DroppableList = ({
                   index={index}
                   key={item.value}
                   onUpdateOption={onUpdateOption}
+                  className={className}
+                  labelInfo={labelInfo}
                 />
               )
             })}

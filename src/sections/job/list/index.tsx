@@ -1,4 +1,5 @@
 import React, {
+  Fragment,
   useCallback,
   useEffect,
   useMemo,
@@ -135,7 +136,7 @@ const ListJob = ({
 
   const locationOptions = useMemo(
     () =>
-      (locationData?.data?.location || []).map((location: ILocationItem) => ({
+      (locationData?.data?.list || []).map((location: ILocationItem) => ({
         value: location?.id || '',
         label: location?.name || '',
       })),
@@ -227,15 +228,14 @@ const ListJob = ({
                   ) : (
                     <>
                       {currentListJobs?.map((job, index) => (
-                        <>
+                        <Fragment key={job.id}>
                           <JobItem
-                            key={job.id}
                             job={job}
                             handleShowPopup={handleShowPopup}
                           />
 
                           {index !== currentListJobs.length - 1 && <hr />}
-                        </>
+                        </Fragment>
                       ))}
                     </>
                   )}

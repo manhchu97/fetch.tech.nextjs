@@ -13,6 +13,8 @@ export const COMPONENT_TYPE: ObjProps = {
   LABEL: 'label',
   PREVIEW: 'preview',
   FINISH: 'finish',
+  CHECKBOX_LOCATIONS: 'checkbox_locations',
+  CHECKBOX_INTERVIEWS: 'checkbox_interviews',
 }
 
 export const ANIMATED_COMPONENT = [
@@ -22,6 +24,8 @@ export const ANIMATED_COMPONENT = [
   COMPONENT_TYPE.TEXT,
   COMPONENT_TYPE.CHECKBOX_REPONSIBILITY,
   COMPONENT_TYPE.CHECKBOX_REQUIREMENT,
+  COMPONENT_TYPE.CHECKBOX_INTERVIEWS,
+  COMPONENT_TYPE.CHECKBOX_LOCATIONS,
 ]
 
 export const QUESTION_COMPONENTS: ObjProps = {
@@ -57,20 +61,32 @@ export const getAboutClient = (content: string) =>
   `<h4 style="margin: 0.5em 0; font-size: 16px;"><br/><strong>b. About Client:</strong></h4>${content}`
 
 export const getSkillRequired = (content: string) => {
-  return `<h3><span style="color: #FFBE16;font-size: 20px"><strong>Skill Expected</strong></span></h3><div className="skill-tag-list">${content}</div>`
+  return `<h3 style="margin-top: 24px;"><span style="color: #FFBE16;font-size: 20px"><strong>Skill Expected</strong></span></h3><div className="skill-tag-list">${content}</div>`
 }
 
 export const getResponsibilities = (content: string) => {
-  return `<h3><span style="color: #FFBE16;font-size: 20px"><strong>2. RESPONSIBILITES</strong></span></h3><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
+  return `<h3 style="margin-top: 24px;"><span style="color: #FFBE16;font-size: 20px"><strong>2. RESPONSIBILITES</strong></span></h3><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
 }
 
 export const getRequirement = (content: string) => {
-  return `<h3><span style="color: #FFBE16;font-size: 20px"><strong>3. REQUIREMENT</strong></span></h3><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
+  return `<h3 style="margin-top: 24px;"><span style="color: #FFBE16;font-size: 20px"><strong>3. REQUIREMENT</strong></span></h3><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
 }
 
 export const getNiceToHave = (content: string) => {
   return content
     ? `<h4><span style="font-size: 16px"><strong>*** Nice to have</strong></span></h4><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
+    : ''
+}
+
+export const getLocation = (content: string) => {
+  return content
+    ? `<h3 style="font-size: 20px; margin-top: 24px;"><span style="color: #ffbe16;"><strong>4. WORKING HOURS & LOCATION</strong></span></h3><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 0;"><li style="margin-top: 0.5em; margin-bottom: 0.5em; list-style: none;"><span><strong>a. Working hours:</strong> From 9 AM - 6 PM, Monday to Friday.</span></li><li style="margin-top: 0.5em; margin-bottom: 0.5em; list-style: none;"><span><strong>b. Location:</strong></span>&nbsp;</li></ul><p style="margin: 0.5em 0"><ul style="margin-left: 2em;">${content}</ul>`
+    : ''
+}
+
+export const getInterviewProcess = (content: string) => {
+  return content
+    ? `<h3 style="margin-top: 24px;"><span style="color: #FFBE16;font-size: 20px"><strong>Interview Process</strong></span></h3><ul style="margin-top: 0.75em; margin-bottom: 0.75em; margin-left: 2em;">${content}</ul>`
     : ''
 }
 
@@ -107,3 +123,6 @@ export const EVENT_TYPE = {
   ON_KEY_DOWN: 'ON_KEY_DOWN',
   SAVE: 'SAVE',
 }
+
+export const MIN_INTERVIEW_PROCESS_OPTION = 1
+export const MAX_INTERVIEW_PROCESS_OPTION = 4
