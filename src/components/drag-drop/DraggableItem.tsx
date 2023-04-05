@@ -16,13 +16,17 @@ import { IOption, IOptionParams } from '@/types/contact'
 interface IDraggableItemProps {
   item: IOption
   index: number
+  className?: string
   onUpdateOption?: (option: IOptionParams) => boolean
+  labelInfo?: (index: number) => React.ReactElement
 }
 
 const DraggableItem = ({
   item,
   index,
+  className = '',
   onUpdateOption = () => false,
+  labelInfo = () => <></>,
 }: IDraggableItemProps) => {
   const { value: optionId, label, isDeleted = false, isAdded = false } = item
 
@@ -101,7 +105,7 @@ const DraggableItem = ({
   useEffect(() => {
     const element = textAreaRef.current
 
-    if (!element) return
+    if (!element || !isEditOption) return
 
     const endText = element.value.length || 0
 
@@ -110,7 +114,7 @@ const DraggableItem = ({
     element.style.height = scrollHeight + 'px'
     element.setSelectionRange(endText, endText)
     element.focus()
-  })
+  }, [isEditOption])
 
   useEffect(() => {
     setIsAnimationDelete(!!isDeleted)
@@ -147,11 +151,10 @@ const DraggableItem = ({
         <div
           className={clsx({
             'draggable-item': true,
-            'is-dragging': snapshot.isDragging,
-            'is-edit': isEditOption,
             animate__animated: true,
             animate__bounceIn: isAnimationAdd,
             animate__bounceOut: isAnimationDelete,
+            [className]: true,
           })}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -159,9 +162,13 @@ const DraggableItem = ({
           onMouseDown={handlePressOut}
           onKeyDown={onKeyDown}
         >
+          {labelInfo?.(index)}
+
           <div
             className={clsx({
               'draggable-item-wrapper': true,
+              'is-dragging': snapshot.isDragging,
+              'is-edit': isEditOption,
             })}
           >
             <div className='draggable-item-content'>

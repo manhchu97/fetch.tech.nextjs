@@ -10,6 +10,8 @@ import {
   TYPE_SUBMIT_FINISH,
   aboutFetch,
   getAboutClient,
+  getInterviewProcess,
+  getLocation,
   getNiceToHave,
   getRequirement,
   getResponsibilities,
@@ -76,6 +78,22 @@ const PreviewStep = (): React.ReactElement => {
     )}`
   }, [listResultAnswers])
 
+  const locationAnswer = useMemo(() => {
+    const location = listResultAnswers.find(
+      (item) => item.inputData.type === COMPONENT_TYPE.CHECKBOX_LOCATIONS,
+    )
+
+    return getLocation(location?.answerRaw?.join('') || '')
+  }, [listResultAnswers])
+
+  const interviewProcessAnswer = useMemo(() => {
+    const interviewProcess = listResultAnswers.find(
+      (item) => item.inputData.type === COMPONENT_TYPE.CHECKBOX_INTERVIEWS,
+    )
+
+    return getInterviewProcess((interviewProcess?.answerRaw || [])[0] || '')
+  }, [listResultAnswers])
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -112,7 +130,8 @@ const PreviewStep = (): React.ReactElement => {
               <div className='card prevew-content'>
                 <div className='card-body'>
                   <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                    {`${aboutFetch}${aboutClientAnswer}${responsibilitiesAnswer}${requirementAnswer}${skillsRequiredAnswer}`}
+                    {`${aboutFetch}${aboutClientAnswer}${responsibilitiesAnswer}${requirementAnswer}
+                    ${locationAnswer}${skillsRequiredAnswer}${interviewProcessAnswer}`}
                   </ReactMarkdown>
                 </div>
               </div>

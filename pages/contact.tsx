@@ -15,6 +15,7 @@ import FormStepProvider from '@/context/FormStepContext'
 
 import {
   API_LIST_JOB_DESC_ATTRIBUTES,
+  API_LIST_LOCATION,
   API_LIST_QUESTIONS,
   API_TECH,
 } from '@/routes/api'
@@ -23,6 +24,7 @@ import ContactMultiStep from '@/sections/contact'
 
 import {
   IListQuestionsResponse,
+  ILocationResponse,
   IRequirementResponse,
   IResponsibilitiesResponse,
   ISkillResponse,
@@ -56,12 +58,17 @@ export const getStaticProps = async () => {
   const responsibilitiesData: IResponsibilitiesResponse =
     await responsibilitiesResponse.json()
 
+  const locationResponse = await fetch(`${HOST_API}/${API_LIST_LOCATION}`)
+
+  const locationData: ILocationResponse = await locationResponse.json()
+
   return {
     props: {
       fallback: data,
       fallbackSkill: skillData,
       fallbackRequirement: requirementData,
       fallbackResponsibilities: responsibilitiesData,
+      fallbackLocations: locationData,
     },
   }
 }
@@ -71,6 +78,7 @@ function ContactPage({
   fallbackSkill,
   fallbackRequirement,
   fallbackResponsibilities,
+  fallbackLocations,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSWR(`${HOST_API}/${API_LIST_QUESTIONS}`, fetcher, {
     fallbackData: fallback,
@@ -96,6 +104,14 @@ function ContactPage({
     { fallbackData: fallbackResponsibilities },
   )
 
+  const { data: locationsData } = useSWR(
+    `${HOST_API}/${API_LIST_LOCATION}`,
+    fetcher,
+    {
+      fallbackData: fallbackLocations,
+    },
+  )
+
   const dataQuestion: IListQuestionsResponse = data as IListQuestionsResponse
   const { list: questions = [] } = dataQuestion?.data || {}
 
@@ -109,6 +125,9 @@ function ContactPage({
     responsibilitiesData as IResponsibilitiesResponse
   const { list: responsibilities = [] } = dataResponsibilities?.data || {}
 
+  const dataLocations: ILocationResponse = locationsData as ILocationResponse
+  const { list: locations = [] } = dataLocations?.data || {}
+
   return (
     <>
       <Head>
@@ -121,6 +140,7 @@ function ContactPage({
           skills={dataSkill}
           requirements={requirements}
           responsibilities={responsibilities}
+          locations={locations}
         >
           <ContactMultiStep />
         </FormStepProvider>

@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import { paramCase } from 'param-case'
 
-import { ACTION_TYPE, MIN_SELECTED_OPTION } from '@/config/contact'
+import { MIN_SELECTED_OPTION } from '@/config/contact'
 
 import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
@@ -14,7 +14,7 @@ import QuestionSkeleton from '@/components/skeleton/question-answer'
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
-import { INextQuestionValue, IOption, IOptionParams } from '@/types/contact'
+import { INextQuestionValue, IOption } from '@/types/contact'
 
 import styles from './Responsibilities.module.scss'
 
@@ -74,98 +74,6 @@ const ResponsibilitiesStep = (): React.ReactElement => {
     },
     [errorToast, listResponsibilities],
   )
-
-  const handleUpdateAfterAddItem = useCallback(() => {
-    setListResponsibilities((prevState) =>
-      prevState.map(({ label = '', value = '' }) => ({
-        value,
-        label,
-      })),
-    )
-  }, [])
-
-  const handleDeleteItem = useCallback((index: string | number) => {
-    setListResponsibilities((prevState) =>
-      prevState.filter((item) => item.value !== index),
-    )
-  }, [])
-
-  const handleUpdateBeforeDeleteItem = useCallback((index: string | number) => {
-    setListResponsibilities((prevState: IOption[]) => {
-      return prevState.map((option) => {
-        if (option.value === index) {
-          return {
-            ...option,
-            isDeleted: true,
-          }
-        }
-
-        return option
-      })
-    })
-  }, [])
-
-  const handleUpdateItem = useCallback(
-    (index: string | number, label: string) => {
-      setListResponsibilities((prevState: IOption[]) => {
-        return prevState
-          .map((option) => {
-            if (option.value === index) {
-              return {
-                ...option,
-                value: paramCase(label),
-                label,
-              }
-            }
-
-            return option
-          })
-          .filter((option) => option.label)
-      })
-    },
-    [],
-  )
-
-  const onUpdateOption = useCallback(
-    ({ index = '', label = '', type = '' }: IOptionParams): boolean => {
-      if (type === ACTION_TYPE.DELETING) {
-        handleUpdateBeforeDeleteItem(index)
-        return false
-      }
-
-      if (type === ACTION_TYPE.DELETE) {
-        handleDeleteItem(index)
-        return false
-      }
-
-      if (type === ACTION_TYPE.ADDED) {
-        handleUpdateAfterAddItem()
-        return false
-      }
-
-      const isLabelExisted = listResponsibilities
-        .filter((item) => item.value !== index)
-        .some((item) => item.value === paramCase(label))
-
-      if (!isLabelExisted) {
-        handleUpdateItem(index, label)
-        return false
-      }
-
-      return true
-    },
-    [
-      handleDeleteItem,
-      handleUpdateAfterAddItem,
-      handleUpdateBeforeDeleteItem,
-      handleUpdateItem,
-      listResponsibilities,
-    ],
-  )
-
-  const onUpdateDrag = useCallback((listOption: IOption[]) => {
-    setListResponsibilities(listOption)
-  }, [])
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -258,8 +166,8 @@ const ResponsibilitiesStep = (): React.ReactElement => {
           id='responsibilities'
           title='Responsibilities'
           list={listResponsibilities}
-          onUpdateOption={onUpdateOption}
-          onUpdateDrag={onUpdateDrag}
+          listSelectedOption={listResponsibilities}
+          updateListOption={setListResponsibilities}
           style={{ marginBottom: 32 }}
           validation
         />
