@@ -1,3 +1,8 @@
+export interface IJobQuerySearch {
+  page?: string
+  location?: string
+  skills?: string
+}
 export interface ISkill {
   id: string
   name: string
