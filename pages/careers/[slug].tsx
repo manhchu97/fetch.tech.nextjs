@@ -1,56 +1,41 @@
-import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
+import type {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from 'next'
 
-import { DEFAULT_PAGE_SIZE, HOST_API } from '@/config/global'
+import { ParsedUrlQuery } from 'querystring'
 
-import CustomerMessengerChat from '@/components/CustomerMessengerChat'
-import Page from '@/components/Page'
-import BannerContact from '@/components/banner/contact'
-import DetailJobSkeleton from '@/components/skeleton/job/detail'
+import { HOST_API } from '@/config/global'
 
-import { API_JOB_DETAIL, API_LIST_JOB } from '@/routes/api'
-import { PATH_CONFIG } from '@/routes/paths'
+import { API_JOB_DETAIL } from '@/routes/api'
 
 import JobDetail from '@/sections/job/detail'
 
-import { IJobDetailResponse, IListJobResponse } from '@/types/job'
+import { IJobDetailResponse } from '@/types/job'
 
-type IPatch = {
+interface IPageQuery extends ParsedUrlQuery {
   slug: string
 }
 
-type IPrams = {
-  params: IPatch
-}
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  )
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${HOST_API}/${API_LIST_JOB}`)
-  const data: IListJobResponse = await res.json()
-
-  const listJobs = data?.data?.list || []
-
-  const listJobPaginate = listJobs.slice(0, DEFAULT_PAGE_SIZE)
-
-  const paths = listJobPaginate.map(({ slug, id }) => {
-    const slugArray = slug.split('-')
-    slugArray[slugArray.length - 1] = id
-
-    return {
-      params: { slug: slugArray.join('-') },
-    }
-  })
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
-
-export const getStaticProps = async ({ params }: IPrams) => {
-  const idJob = params.slug.slice(-36)
+  const { slug = '' } = context.query as IPageQuery
+  const idJob = slug?.slice(-36)
 
   const res = await fetch(`${HOST_API}/${API_JOB_DETAIL}/${idJob}`)
   const data: IJobDetailResponse = await res.json()
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: {
@@ -61,38 +46,8 @@ export const getStaticProps = async ({ params }: IPrams) => {
 
 const JobDetailPage = ({
   fallback,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { isFallback } = useRouter()
-
-  if (isFallback) {
-    return (
-      <Page title='Job Detail'>
-        <DetailJobSkeleton />
-
-        <BannerContact
-          title='Find the perfect fit with Fetch'
-          subTitle='Find the perfect fit with Fetch'
-          buttonText='Sign Up'
-          linkTo={PATH_CONFIG.contact}
-        />
-      </Page>
-    )
-  }
-
-  return (
-    <Page title='Job Detail'>
-      <JobDetail fallback={fallback} />
-
-      <BannerContact
-        title='Find the perfect fit with Fetch'
-        subTitle='Find the perfect fit with Fetch'
-        buttonText='Sign Up'
-        linkTo={PATH_CONFIG.contact}
-      />
-
-      <CustomerMessengerChat />
-    </Page>
-  )
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  return <JobDetail fallback={fallback} />
 }
 
 export default JobDetailPage
