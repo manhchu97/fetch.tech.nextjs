@@ -7,8 +7,8 @@ import React, {
 } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
+import { NextSeo } from 'next-seo'
 import dynamic from 'next/dynamic'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import clsx from 'clsx'
@@ -18,7 +18,12 @@ import useSWR from 'swr'
 import { HOST_API } from '@/config/global'
 import { JOB_STATUS } from '@/config/job'
 
+import CustomerMessengerChat from '@/components/CustomerMessengerChat'
+import Page from '@/components/Page'
+import BannerContact from '@/components/banner/contact'
+
 import { API_JOB_DETAIL, API_LIST_SKILL } from '@/routes/api'
+import { PATH_CONFIG } from '@/routes/paths'
 
 import ApplyPopup from '@/sections/job/apply-popup'
 import JobError from '@/sections/job/job-error/JobError'
@@ -82,6 +87,8 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
   const jobDetail: IJobDetail = data?.data || {}
 
   const {
+    titlePage: pageTitle = '',
+    metaJob: metaDescription = '',
     title,
     salary,
     tags,
@@ -138,10 +145,8 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
   }, [])
 
   return (
-    <>
-      <Head>
-        <meta name='description' content='Detail job pages' />
-      </Head>
+    <Page title={pageTitle}>
+      <NextSeo title={pageTitle} description={metaDescription} />
 
       <div className={clsx(styles['line-header'], 'my-4')}>
         <section id='job' className='job-detail-container mt-4'>
@@ -304,7 +309,16 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
           handleClosePopup={handleClosePopup}
         />
       )}
-    </>
+
+      <BannerContact
+        title='Find the perfect fit with Fetch'
+        subTitle='Find the perfect fit with Fetch'
+        buttonText='Sign Up'
+        linkTo={PATH_CONFIG.contact}
+      />
+
+      <CustomerMessengerChat />
+    </Page>
   )
 }
 
