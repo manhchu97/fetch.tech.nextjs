@@ -3,14 +3,14 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useReducer,
   useState,
 } from 'react'
-import { useForm } from 'react-hook-form'
 
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
+import qs from 'query-string'
 import useSWR from 'swr'
 
 import {
@@ -18,24 +18,20 @@ import {
   DEFAULT_PAGE_SIZE,
   HOST_API,
 } from '@/config/global'
-import {
-  SearchToolbarAction,
-  SearchToolbarState,
-  SearchToolbarType,
-} from '@/config/job'
 
 import LocalPaging from '@/components/pagination/LocalPaging'
 
 import { API_LIST_JOB, API_LIST_LOCATION, API_LIST_SKILL } from '@/routes/api'
+import { PATH_CONFIG } from '@/routes/paths'
 
 import JobError from '@/sections/job/job-error/JobError'
 
 import {
   IJobItem,
+  IJobQuerySearch,
   IListJobResponse,
   ILocationItem,
   ISkillItem,
-  JobToolbarFormValue,
 } from '@/types/job'
 
 import fetcher from '@/utils/fetcher'
@@ -48,73 +44,33 @@ const ApplyPopup = dynamic(() => import('@/sections/job/apply-popup'))
 
 interface IListJobProps {
   fallback: IListJobResponse
-  listJobPaginate: IJobItem[]
 }
 
-function reducer(state: SearchToolbarState, action: SearchToolbarAction) {
-  const { type, payload = {} } = action
-  switch (type) {
-    case SearchToolbarType.CHANGE:
-      return {
-        ...state,
-        ...payload,
-      }
-    default:
-      throw new Error()
-  }
-}
+const ListJob = ({ fallback }: IListJobProps): React.ReactElement => {
+  const router = useRouter()
+  const {
+    page = '',
+    location = '',
+    skills = '',
+  } = router.query as IJobQuerySearch
 
-const ListJob = ({
-  fallback,
-  listJobPaginate,
-}: IListJobProps): React.ReactElement => {
   const [mounted, setMounted] = useState<boolean>(false)
   const [isShowPopup, setIsShowPopup] = useState<boolean>(false)
   const [chosenJob, setChosenJob] = useState<IJobItem | null>(null)
-  const [pageNumber, setPage] = useState<number>(DEFAULT_PAGE_NUMBER)
-  const [currentListJobs, setCurrentListJobs] = useState<IJobItem[]>(
-    listJobPaginate || [],
-  )
-
-  const [searchFormValues, dispatch] = useReducer(reducer, {
-    location: '',
-    skill: '',
-  })
-
-  const methods = useForm<JobToolbarFormValue>()
-
-  const { control, watch } = methods
 
   useEffect(() => setMounted(true), [])
 
-  useEffect(() => {
-    const subscription = watch(({ location, skill }) => {
-      const skillString = skill?.map((item) => item?.value)?.join(',') || ''
-
-      dispatch({
-        type: SearchToolbarType.CHANGE,
-        payload: {
-          location: location || '',
-          skill: skillString,
-        },
-      })
-    })
-
-    return () => subscription.unsubscribe()
-  }, [watch, dispatch])
-
-  const { location, skill } = searchFormValues
-
   const { data: jobData } = useSWR(
-    mounted ? [API_LIST_JOB, location, skill] : null,
-    (url: string, location: string, skill: string) => {
-      if (location) {
-        return fetcher(
-          `${HOST_API}/${url}/location/${location}?skills=${skill}`,
-        )
+    mounted ? [API_LIST_JOB, location, skills, page] : null,
+    (url: string, location: string, skills: string, page: string) => {
+      const params = {
+        ...(location && { location }),
+        ...(skills && { skills }),
+        pageSize: DEFAULT_PAGE_SIZE,
+        pageNumber: page ? parseInt(page, 10) : DEFAULT_PAGE_NUMBER,
       }
 
-      return fetcher(`${HOST_API}/${url}?skills=${skill}`)
+      return fetcher(`${HOST_API}/${url}?${qs.stringify(params)}`)
     },
     { fallbackData: fallback },
   )
@@ -131,6 +87,11 @@ const ListJob = ({
 
   const listJobs: IJobItem[] = useMemo(
     () => jobData?.data?.list || jobData?.data?.jobs || [],
+    [jobData],
+  )
+
+  const totalRecord: number = useMemo(
+    () => jobData?.data?.total || 0,
     [jobData],
   )
 
@@ -159,19 +120,14 @@ const ListJob = ({
     [skillData],
   )
 
-  const getDataWithPagination = useCallback(
-    (data: IJobItem[]) => {
-      if (data.length <= DEFAULT_PAGE_SIZE)
-        return setCurrentListJobs(data || [])
+  const isEmptyJobs = useMemo(
+    () => !Array.isArray(listJobs) || !listJobs.length,
+    [listJobs],
+  )
 
-      const currentJobs = data.slice(
-        (pageNumber - 1) * DEFAULT_PAGE_SIZE,
-        (pageNumber - 1) * DEFAULT_PAGE_SIZE + DEFAULT_PAGE_SIZE,
-      )
-
-      setCurrentListJobs(currentJobs)
-    },
-    [pageNumber],
+  const pageNumber = useMemo(
+    () => (page ? parseInt(page, 10) : DEFAULT_PAGE_NUMBER),
+    [page],
   )
 
   const handleShowPopup = useCallback((job: IJobItem) => {
@@ -184,18 +140,19 @@ const ListJob = ({
     setChosenJob(null)
   }, [])
 
-  useEffect(() => {
-    if (!mounted) return
-
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [mounted, pageNumber])
-
-  useEffect(() => {
-    getDataWithPagination(listJobs)
-  }, [listJobs, getDataWithPagination])
-
-  const isEmptyCurrentListJobs =
-    !Array.isArray(currentListJobs) || !currentListJobs.length
+  const onPageChange = useCallback(
+    (newPage: number) => {
+      router.push({
+        pathname: PATH_CONFIG.careers.root,
+        query: {
+          ...(location && { location }),
+          ...(skills && { skills }),
+          page: newPage,
+        },
+      })
+    },
+    [location, router, skills],
+  )
 
   return (
     <>
@@ -206,15 +163,12 @@ const ListJob = ({
       <div className={styles['line-header']}>
         <section id='job' className='job-section-container mt-4'>
           <div className='container job-section-list-wrapper'>
-            <form>
-              <JobTableToolbar
-                locationOptions={locationOptions}
-                skillOptions={skillOptions}
-                control={control}
-              />
-            </form>
+            <JobTableToolbar
+              locationOptions={locationOptions}
+              skillOptions={skillOptions}
+            />
 
-            {!isEmptyCurrentListJobs && (
+            {!isEmptyJobs && (
               <div className='job-section-header mb-4'>
                 <h2>All Open Positions</h2>
               </div>
@@ -223,18 +177,18 @@ const ListJob = ({
             <div className='row'>
               <main className='col-12'>
                 <ul className='job-section-list'>
-                  {isEmptyCurrentListJobs ? (
+                  {isEmptyJobs ? (
                     <JobError />
                   ) : (
                     <>
-                      {currentListJobs?.map((job, index) => (
+                      {listJobs?.map((job, index) => (
                         <Fragment key={job.id}>
                           <JobItem
                             job={job}
                             handleShowPopup={handleShowPopup}
                           />
 
-                          {index !== currentListJobs.length - 1 && <hr />}
+                          {index !== listJobs.length - 1 && <hr />}
                         </Fragment>
                       ))}
                     </>
@@ -245,8 +199,8 @@ const ListJob = ({
 
             <LocalPaging
               className='justify-content-center pagination-lg mt-4'
-              onPageChange={setPage}
-              totalCount={listJobs.length}
+              onPageChange={onPageChange}
+              totalCount={totalRecord}
               pageSize={DEFAULT_PAGE_SIZE}
               currentPage={pageNumber}
             />
