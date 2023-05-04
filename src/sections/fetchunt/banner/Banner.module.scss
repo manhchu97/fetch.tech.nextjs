@@ -1,0 +1,73 @@
+@import '@/styles/_mixins.scss';
+
+.banner-container {
+  background: #ff6847;
+  padding: 50px calc(10% + 5px);
+  display: flex;
+  justify-content: space-between;
+
+  @include screen-down(md) {
+    flex-direction: column;
+  }
+
+  :global .banner-content-container {
+    display: flex;
+    flex-direction: column;
+
+    .text-title {
+      font-family: 'Quicksand';
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 45px;
+      color: #fff;
+
+      @include screen-down(md) {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+    }
+
+    .text-sub-title {
+      font-family: 'Quicksand';
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 28px;
+      color: #fff;
+
+      @include screen-down(md) {
+        text-align: center;
+      }
+    }
+  }
+
+  :global .banner-button-container {
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+
+    @include screen-down(md) {
+      margin-top: 30px;
+      justify-content: center;
+    }
+
+    .banner-button {
+      padding: 17px 25px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: #fff;
+      font-family: 'Quicksand';
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: center;
+      color: #ff6847;
+      height: 74px;
+      max-width: 130px;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+      }
+    }
+  }
+}
