@@ -349,6 +349,7 @@
           line-height: 36px;
           letter-spacing: -0.5px;
           color: #1f3a6f;
+          text-align: justify;
 
           @include screen-down(md) {
             font-size: 20px;
