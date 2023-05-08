@@ -5,7 +5,7 @@ import type {
 
 import { ParsedUrlQuery } from 'querystring'
 
-import { HOST_API } from '@/config/global'
+import { HOST_API, SCREEN } from '@/config/global'
 
 import { API_JOB_DETAIL } from '@/routes/api'
 
@@ -40,6 +40,7 @@ export const getServerSideProps = async (
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.CAREERS_DETAIL_PAGE,
     },
   }
 }

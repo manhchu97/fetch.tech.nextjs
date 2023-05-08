@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
+import { SCREEN } from '@/config/global'
+
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
 import BannerImageCover from '@/components/banner/image-cover'
@@ -8,6 +10,14 @@ import BannerImageCover from '@/components/banner/image-cover'
 import { PATH_CONFIG } from '@/routes/paths'
 
 import Company from '@/sections/companies'
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      pageName: SCREEN.COMPANY_PAGE,
+    },
+  }
+}
 
 const CompanyPage: NextPage = () => {
   return (

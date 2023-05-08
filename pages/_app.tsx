@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
@@ -8,13 +8,16 @@ import 'animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { GOOGLE_TAG_MANAGER_KEY } from '@/config/global'
+import { GOOGLE_TAG_MANAGER_KEY, SCREEN } from '@/config/global'
 
 import { SWRConfigProvider } from '@/components/SwrConfig'
 
 import ToastProvider from '@/context/ToastContext'
 
-import { analytics } from '@/utils/firebase'
+import {
+  initializeFetchuntFirebase,
+  initializeFirebase,
+} from '@/utils/firebase'
 
 import '@/styles/fonts.scss'
 import '@/styles/globals.scss'
@@ -23,14 +26,29 @@ import '@/styles/modal.scss'
 import '@/styles/overrides/typography.scss'
 import '@/styles/toast.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
+interface CustomPageProps {
+  pageName: string
+}
+
+function MyApp({ Component, pageProps }: AppProps<CustomPageProps>) {
+  const { pageName = '' } = pageProps
+
+  const addFirebaseToApp = useCallback(() => {
     console.log(process.env.NEXT_PUBLIC_NODE_ENV)
-    if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
+    if (!pageName || process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
 
     // only run firebase in production enviroment
-    analytics()
-  }, [])
+    if (SCREEN.FETCHUNT_PAGE === pageName) {
+      initializeFetchuntFirebase()
+      return
+    }
+
+    initializeFirebase()
+  }, [pageName])
+
+  useEffect(() => {
+    addFirebaseToApp()
+  }, [addFirebaseToApp])
 
   return (
     <>

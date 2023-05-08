@@ -4,6 +4,7 @@ import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
   HOST_API,
+  SCREEN,
 } from '@/config/global'
 
 import Page from '@/components/Page'
@@ -25,6 +26,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.BLOG_PAGE,
     },
   }
 }

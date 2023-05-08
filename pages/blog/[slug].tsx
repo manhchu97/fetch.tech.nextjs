@@ -1,6 +1,6 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
-import { HOST_API } from '@/config/global'
+import { HOST_API, SCREEN } from '@/config/global'
 
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
@@ -51,6 +51,7 @@ export const getStaticProps = async ({ params }: IPrams) => {
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.BLOG_DETAIL_PAGE,
     },
   }
 }

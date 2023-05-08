@@ -6,6 +6,7 @@ import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
   HOST_API,
+  SCREEN,
 } from '@/config/global'
 
 import CustomerMessengerChat from '@/components/CustomerMessengerChat'
@@ -31,6 +32,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.CAREERS_PAGE,
     },
   }
 }

@@ -1,6 +1,7 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 
+import { SCREEN } from '@/config/global'
 import {
   CASE_STUDIES_TAB_BODY_CONFIG,
   CASE_STUDIES_TYPE,
@@ -39,6 +40,7 @@ export const getStaticProps = async ({ params }: Prams) => {
   return {
     props: {
       tabBodyConfig,
+      pageName: SCREEN.CASE_STUDIES_DETAIL_PAGE,
     },
   }
 }
