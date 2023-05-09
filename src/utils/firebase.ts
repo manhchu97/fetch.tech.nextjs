@@ -2,6 +2,8 @@ import { getApp, getApps, initializeApp } from 'firebase/app'
 
 import { getAnalytics, isSupported } from 'firebase/analytics'
 
+import { SCREEN } from '@/config/global'
+
 const firebaseConfig = {
   common: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -42,4 +44,13 @@ export const initializeFetchuntFirebase = () => {
 
   // Initialize Analytics and get a reference to the service
   return isSupported().then((yes) => (yes ? getAnalytics(app) : null))
+}
+
+export const loadFirebase = (pageName: string): void => {
+  if (SCREEN.FETCHUNT_PAGE === pageName) {
+    initializeFetchuntFirebase()
+    return
+  }
+
+  initializeFirebase()
 }

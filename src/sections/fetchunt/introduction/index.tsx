@@ -686,7 +686,7 @@ const Introduction = (): React.ReactElement => {
 
                 <div className='h6'>
                   Hệ thống sẽ giúp bạn theo dõi chi tiết về điểm thưởng nhận
-                  được từ mỗi hồ sơ ứng.
+                  được từ mỗi hồ sơ ứng viên.
                 </div>
               </div>
             </div>

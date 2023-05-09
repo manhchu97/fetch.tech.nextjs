@@ -28,7 +28,6 @@
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@hookform/resolvers": "^2.9.10",
     "@next/bundle-analyzer": "^13.0.6",
-    "@phntms/next-gtm": "^0.1.0",
     "animate.css": "^4.1.1",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
