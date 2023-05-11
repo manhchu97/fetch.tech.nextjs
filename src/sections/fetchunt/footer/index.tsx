@@ -1,61 +1,79 @@
-import { useForm } from 'react-hook-form'
+import { useCallback, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
-import * as Yup from 'yup'
 
 import { useToastContext } from '@/context/ToastContext'
 
+import { useSubscribeFormValidator } from '@/hooks/useSubscribeFormValidator'
+
 import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
 
-import { _postApi } from '@/utils/axios'
+import { ISubscribeForm } from '@/types/subscribeForm'
 
 import styles from './Footer.module.scss'
 
-type SubscribeSubmitForm = {
-  email: string
-}
-
 const Footer = () => {
+  const [form, setForm] = useState<ISubscribeForm>({
+    email: '',
+  })
+
   const { successToast, errorToast } = useToastContext()
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .required('Vui lòng nhập email của bạn')
-      .email('Email không hợp lệ'),
-  })
+  const { errors, validateForm, onBlurField } = useSubscribeFormValidator(form)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<SubscribeSubmitForm>({
-    resolver: yupResolver(validationSchema),
-  })
+  const handleResetForm = useCallback(() => {
+    setForm({
+      email: '',
+    })
+  }, [])
 
-  const onSubmit = async (data: SubscribeSubmitForm) => {
+  const handleChangeField = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const fieldName = e.target.name
+      const nextFormState = {
+        ...form,
+        [fieldName]: e.target.value,
+      }
+
+      setForm(nextFormState)
+
+      if (!errors[fieldName].dirty) return
+
+      validateForm({
+        form: nextFormState,
+        errors,
+        fieldName,
+      })
+    },
+    [errors, form, validateForm],
+  )
+
+  const onSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
-      const { email: name = '' } = data
+      event.preventDefault()
 
+      const { isValid } = validateForm({ form, errors, forceTouchErrors: true })
+      if (!isValid) return
+
+      const { email: name = '' } = form
       const formData = {
-        ...data,
+        ...form,
         name,
         purpose: 'New Subscriber',
         company: 'Subscribe',
       }
 
+      const { _postApi } = await import('@/utils/axios')
       const response = await _postApi(API_SUBCRIBER_BY_EMAIL, formData)
 
       if (response) {
+        handleResetForm()
         successToast('Thank you for subscribing to Fetch. Keep in Touch!')
       }
     } catch (error) {
       errorToast('Something went wrong. Please try again later!')
-    } finally {
-      reset()
     }
   }
 
@@ -77,16 +95,19 @@ const Footer = () => {
               Đăng ký nhận tin từ chúng tôi!
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmitForm}>
               <div className='row'>
                 <div className='col-8 form-group'>
                   <input
                     type='text'
-                    {...register('email')}
+                    name='email'
+                    value={form?.email}
+                    onChange={handleChangeField}
+                    onBlur={onBlurField}
                     className={clsx({
                       'email-input': true,
                       'form-control': true,
-                      'is-invalid': errors.email,
+                      'is-invalid': errors.email.dirty && errors.email.error,
                     })}
                     placeholder='Email của bạn'
                   />
