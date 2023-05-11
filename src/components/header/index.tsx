@@ -49,8 +49,8 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
             isExpandContent && 'show-nav-container',
           )}
         >
-          <div className='nav-group'>
-            <div className='nav-group__first-container'>
+          <div className='nav-menu-items'>
+            <div className='nav-group-items'>
               <Link href={PATH_CONFIG.company}>
                 <a>
                   <MenuItem title='For Companies' />
@@ -64,112 +64,104 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
               </Link>
             </div>
 
-            <div className='dropdown'>
+            <div className='dropdown-container'>
               <MenuItem
                 title='Services'
                 id='services'
-                target='servicesMenu'
                 hasIcon
+                dropdownMenu={
+                  <>
+                    <div className='dropdown-menu-content-container'>
+                      <Link href={PATH_CONFIG.services.view(1)}>
+                        <a>
+                          <DropdownItem
+                            title='Talent Acquisition'
+                            text='Procure talents from Vietnam'
+                            imageSrc='/images/nav/TalentAcquisition.png'
+                          />
+                        </a>
+                      </Link>
+
+                      <Link href={PATH_CONFIG.services.view(2)}>
+                        <a>
+                          <DropdownItem
+                            title='Services management'
+                            text='Employee directives and administration'
+                            imageSrc='/images/nav/ServiceManageMent.png'
+                          />
+                        </a>
+                      </Link>
+
+                      <Link href={PATH_CONFIG.services.view(3)}>
+                        <a>
+                          <DropdownItem
+                            title='Payroll and compliances'
+                            text='Streamlined contracting and payroll process'
+                            imageSrc='/images/nav/Payroll.png'
+                          />
+                        </a>
+                      </Link>
+
+                      <Link href={PATH_CONFIG.services.view(4)}>
+                        <a>
+                          <DropdownItem
+                            title='Full-suite project consultancy'
+                            text='Comprehensive projects management'
+                            imageSrc='/images/nav/FullSuite.png'
+                          />
+                        </a>
+                      </Link>
+                    </div>
+
+                    <div className='upperArrow'></div>
+                  </>
+                }
               />
-
-              <div
-                className='dropdown-menu'
-                id='servicesMenu'
-                aria-labelledby='services'
-              >
-                <div className='dropdown-menu-container'>
-                  <Link href={PATH_CONFIG.services.view(1)}>
-                    <a>
-                      <DropdownItem
-                        title='Talent Acquisition'
-                        text='Procure talents from Vietnam'
-                        imageSrc='/images/nav/TalentAcquisition.png'
-                      />
-                    </a>
-                  </Link>
-
-                  <Link href={PATH_CONFIG.services.view(2)}>
-                    <a>
-                      <DropdownItem
-                        title='Services management'
-                        text='Employee directives and administration'
-                        imageSrc='/images/nav/ServiceManageMent.png'
-                      />
-                    </a>
-                  </Link>
-
-                  <Link href={PATH_CONFIG.services.view(3)}>
-                    <a>
-                      <DropdownItem
-                        title='Payroll and compliances'
-                        text='Streamlined contracting and payroll process'
-                        imageSrc='/images/nav/Payroll.png'
-                      />
-                    </a>
-                  </Link>
-
-                  <Link href={PATH_CONFIG.services.view(4)}>
-                    <a>
-                      <DropdownItem
-                        title='Full-suite project consultancy'
-                        text='Comprehensive projects management'
-                        imageSrc='/images/nav/FullSuite.png'
-                      />
-                    </a>
-                  </Link>
-                </div>
-
-                <div className='upperArrow'></div>
-              </div>
             </div>
 
-            <div className='dropdown'>
+            <div className='dropdown-container'>
               <MenuItem
                 title='Resources'
                 id='resources'
-                target='resourcesMenu'
                 hasIcon
+                dropdownMenu={
+                  <>
+                    <div className='dropdown-menu-content-container'>
+                      <Link href={PATH_CONFIG.resources.ourStory}>
+                        <a>
+                          <DropdownItem
+                            title='Our story'
+                            text='Learn more about us'
+                            imageSrc='/images/nav/OurStory.png'
+                          />
+                        </a>
+                      </Link>
+
+                      <Link href={PATH_CONFIG.resources.caseStudies.root}>
+                        <a>
+                          <DropdownItem
+                            title='Case Studies'
+                            text='Case studies'
+                            imageSrc='/images/nav/CaseStudies.png'
+                          />
+                        </a>
+                      </Link>
+
+                      <Link href={PATH_CONFIG.resources.calculator}>
+                        <a>
+                          <DropdownItem
+                            title='Vietnam Calculator'
+                            text='Assess estimated costs'
+                            imageSrc='/images/nav/Calculator.png'
+                          />
+                        </a>
+                      </Link>
+                    </div>
+
+                    <div className='upperArrow'></div>
+                  </>
+                }
               />
-
-              <div
-                className='dropdown-menu'
-                id='resourcesMenu'
-                aria-labelledby='resources'
-              >
-                <div className='dropdown-menu-container'>
-                  <Link href={PATH_CONFIG.resources.ourStory}>
-                    <a>
-                      <DropdownItem
-                        title='Our story'
-                        text='Learn more about us'
-                        imageSrc='/images/nav/OurStory.png'
-                      />
-                    </a>
-                  </Link>
-
-                  <Link href={PATH_CONFIG.resources.caseStudies.root}>
-                    <a>
-                      <DropdownItem
-                        title='Case Studies'
-                        text='Case studies'
-                        imageSrc='/images/nav/CaseStudies.png'
-                      />
-                    </a>
-                  </Link>
-
-                  <Link href={PATH_CONFIG.resources.calculator}>
-                    <a>
-                      <DropdownItem
-                        title='Vietnam Calculator'
-                        text='Assess estimated costs'
-                        imageSrc='/images/nav/Calculator.png'
-                      />
-                    </a>
-                  </Link>
-                </div>
-
-                <div className='upperArrow'></div>
-              </div>
             </div>
 
             <Link href={PATH_CONFIG.blog.root}>
@@ -179,16 +171,18 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
             </Link>
           </div>
 
-          <div className='header-contact-container'>
-            <Link href={PATH_CONFIG.contact}>
-              <a>
-                <div role='button' className='header__contact-button'>
-                  <span className='header__contact-button__content'>
-                    Contact Us
-                  </span>
-                </div>
-              </a>
-            </Link>
+          <div className='nav-actions'>
+            <div className='header-contact-container'>
+              <Link href={PATH_CONFIG.contact}>
+                <a>
+                  <div role='button' className='header__contact-button'>
+                    <span className='header__contact-button__content'>
+                      Contact Us
+                    </span>
+                  </div>
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
 
