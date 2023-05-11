@@ -7,8 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { GOOGLE_TAG_MANAGER_KEY } from '@/config/global'
 
-import { SWRConfigProvider } from '@/components/SwrConfig'
-
 import ToastProvider from '@/context/ToastContext'
 
 import '@/styles/fonts.scss'
@@ -28,9 +26,7 @@ function MyApp({ Component, pageProps }: AppProps<CustomPageProps>) {
   return (
     <>
       <ToastProvider>
-        <SWRConfigProvider>
-          <Component {...pageProps} />
-        </SWRConfigProvider>
+        <Component {...pageProps} />
       </ToastProvider>
 
       <Script

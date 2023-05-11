@@ -11,6 +11,7 @@ import {
 
 import CustomerMessengerChat from '@/components/CustomerMessengerChat'
 import Page from '@/components/Page'
+import { SWRConfigProvider } from '@/components/SwrConfig'
 import BannerContact from '@/components/banner/contact'
 
 import { API_LIST_JOB } from '@/routes/api'
@@ -41,18 +42,20 @@ const ListJobPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title='Job'>
-      <ListJob fallback={fallback} />
+    <SWRConfigProvider>
+      <Page title='Job'>
+        <ListJob fallback={fallback} />
 
-      <BannerContact
-        title='Find the perfect fit with Fetch'
-        subTitle='Find the perfect fit with Fetch'
-        buttonText='Sign Up'
-        linkTo={PATH_CONFIG.contact}
-      />
+        <BannerContact
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign Up'
+          linkTo={PATH_CONFIG.contact}
+        />
 
-      <CustomerMessengerChat />
-    </Page>
+        <CustomerMessengerChat />
+      </Page>
+    </SWRConfigProvider>
   )
 }
 

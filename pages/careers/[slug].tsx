@@ -7,6 +7,8 @@ import { ParsedUrlQuery } from 'querystring'
 
 import { HOST_API, SCREEN } from '@/config/global'
 
+import { SWRConfigProvider } from '@/components/SwrConfig'
+
 import { API_JOB_DETAIL } from '@/routes/api'
 
 import JobDetail from '@/sections/job/detail'
@@ -48,7 +50,11 @@ export const getServerSideProps = async (
 const JobDetailPage = ({
   fallback,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  return <JobDetail fallback={fallback} />
+  return (
+    <SWRConfigProvider>
+      <JobDetail fallback={fallback} />
+    </SWRConfigProvider>
+  )
 }
 
 export default JobDetailPage
