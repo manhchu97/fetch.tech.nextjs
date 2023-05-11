@@ -1,1 +1,1 @@
-console.log('load firebase script')
+// console.log('load firebase script')

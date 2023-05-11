@@ -34,7 +34,12 @@ function MyApp({ Component, pageProps }: AppProps<CustomPageProps>) {
       </ToastProvider>
 
       <Script
-        src={`https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_KEY}`}
+        strategy='afterInteractive'
+        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_MANAGER_KEY}`}
+      />
+
+      <Script
+        src='/js/gtm.js'
         strategy='lazyOnload'
         onLoad={async () => {
           const { loadGtm } = await import('@/utils/gtm')
