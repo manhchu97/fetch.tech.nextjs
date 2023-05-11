@@ -72,7 +72,7 @@ const Footer = () => {
       </div>
 
       <div className='footer-content-container'>
-        <div className='footer-form-container col-xs-12 col-lg-5'>
+        <div className='footer-form-container col-xs-12 col-lg-4 col-xl-5'>
           <div className='footer-form-inner'>
             <div className='text-form-input'>
               Join our newsletter to stay up to date on features and releases
@@ -107,7 +107,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='footer-nav-container col-xs-12 col-lg-5'>
+        <div className='footer-nav-container col-xs-12 col-lg-5 col-xl-5'>
           <div className='col-0 col-lg-1'></div>
 
           <div className='col-6 col-lg-5'>
@@ -147,7 +147,7 @@ const Footer = () => {
           <div className='col-0 col-lg-1'></div>
         </div>
 
-        <div className='footer-social-container col-xs-12 col-lg-2'>
+        <div className='footer-social-container col-xs-12 col-lg-3 col-xl-2'>
           <Link href='https://www.facebook.com/Fetch.Technology' passHref>
             <a
               className='img-social-container'
@@ -202,7 +202,23 @@ const Footer = () => {
                 />
               </div>
 
-              <div className='img-title'>+65 8933 4200</div>
+              <div className='img-title'>SG: +65 8933 4200</div>
+            </a>
+          </Link>
+
+          <Link href='tel:+842866547574' passHref>
+            <a className='img-social-container' rel='noreferrer'>
+              <div className='img-social'>
+                <Image
+                  className='img-social'
+                  src='/images/footer/BigVietnamPhone.svg'
+                  alt='tel'
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </div>
+
+              <div className='img-title'>VN: +84 28 6654 7574</div>
             </a>
           </Link>
 
