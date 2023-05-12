@@ -58,7 +58,7 @@ export const aboutFetch = `<h3><span style="color: #FFBE16;font-size: 20px"><str
     <p>Our mission is to offer Vietnam's most talented technologists a platform to connect with some of the world's leading tech companies and build their expertise on a global scale. Over 4 years, Fetch has built a good reputation and is trusted by many Vietnamese and foreign companies; And Fetch will continue its good work to bridge the divide between the World and the Vietnam Tech sector.</p>`
 
 export const getAboutClient = (content: string) =>
-  `<h4 style="margin: 0.5em 0; font-size: 16px;"><br/><strong>b. About Client:</strong></h4>${content}`
+  `<div style="margin: 0.75em 0"></div>${content}`
 
 export const getSkillRequired = (content: string) => {
   return `<h3 style="margin-top: 24px;"><span style="color: #FFBE16;font-size: 20px"><strong>Skill Expected</strong></span></h3><div className="skill-tag-list">${content}</div>`
