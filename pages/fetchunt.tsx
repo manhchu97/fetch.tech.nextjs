@@ -1,15 +1,19 @@
 import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
+import dynamic from 'next/dynamic'
 
 import { SCREEN } from '@/config/global'
 
-import Banner from '@/sections/fetchunt/banner'
-import Career from '@/sections/fetchunt/career'
-import Cooperate from '@/sections/fetchunt/cooperate'
-import Footer from '@/sections/fetchunt/footer'
+import LazyLoadComponent from '@/components/LazyLoadComponent'
+
 import Header from '@/sections/fetchunt/header'
 import Introduction from '@/sections/fetchunt/introduction'
-import MainContent from '@/sections/fetchunt/main-content'
+
+const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
+const Career = dynamic(() => import('@/sections/fetchunt/career'))
+const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
+const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
+const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'))
 
 export const getStaticProps = async () => {
   return {
@@ -47,20 +51,30 @@ const FetchuntPage: NextPage = () => {
 
       <Introduction />
 
-      <MainContent />
+      <LazyLoadComponent>
+        <MainContent />
+      </LazyLoadComponent>
 
-      <Cooperate />
+      <LazyLoadComponent>
+        <Cooperate />
+      </LazyLoadComponent>
 
-      <Career />
+      <LazyLoadComponent>
+        <Career />
+      </LazyLoadComponent>
 
-      <Banner
-        title='Lựa chọn phù hợp nhất với bạn'
-        subTitle='Gia tăng thu nhập của bạn bằng cách đăng ký ngay!'
-        buttonText='Liên hệ chúng tôi'
-        linkTo='https://www.facebook.com/Fetch.Technology'
-      />
+      <LazyLoadComponent>
+        <Banner
+          title='Lựa chọn phù hợp nhất với bạn'
+          subTitle='Gia tăng thu nhập của bạn bằng cách đăng ký ngay!'
+          buttonText='Liên hệ chúng tôi'
+          linkTo='https://www.facebook.com/Fetch.Technology'
+        />
+      </LazyLoadComponent>
 
-      <Footer />
+      <LazyLoadComponent>
+        <Footer />
+      </LazyLoadComponent>
     </>
   )
 }
