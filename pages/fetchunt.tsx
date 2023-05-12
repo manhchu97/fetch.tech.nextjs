@@ -9,6 +9,7 @@ import Cooperate from '@/sections/fetchunt/cooperate'
 import Footer from '@/sections/fetchunt/footer'
 import Header from '@/sections/fetchunt/header'
 import Introduction from '@/sections/fetchunt/introduction'
+import MainContent from '@/sections/fetchunt/main-content'
 
 export const getStaticProps = async () => {
   return {
@@ -45,6 +46,8 @@ const FetchuntPage: NextPage = () => {
       <Header />
 
       <Introduction />
+
+      <MainContent />
 
       <Cooperate />
 
