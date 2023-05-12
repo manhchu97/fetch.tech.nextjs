@@ -6,10 +6,12 @@ import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
   HOST_API,
+  SCREEN,
 } from '@/config/global'
 
 import CustomerMessengerChat from '@/components/CustomerMessengerChat'
 import Page from '@/components/Page'
+import { SWRConfigProvider } from '@/components/SwrConfig'
 import BannerContact from '@/components/banner/contact'
 
 import { API_LIST_JOB } from '@/routes/api'
@@ -31,6 +33,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.CAREERS_PAGE,
     },
   }
 }
@@ -39,18 +42,20 @@ const ListJobPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title='Job'>
-      <ListJob fallback={fallback} />
+    <SWRConfigProvider>
+      <Page title='Job'>
+        <ListJob fallback={fallback} />
 
-      <BannerContact
-        title='Find the perfect fit with Fetch'
-        subTitle='Find the perfect fit with Fetch'
-        buttonText='Sign Up'
-        linkTo={PATH_CONFIG.contact}
-      />
+        <BannerContact
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign Up'
+          linkTo={PATH_CONFIG.contact}
+        />
 
-      <CustomerMessengerChat />
-    </Page>
+        <CustomerMessengerChat />
+      </Page>
+    </SWRConfigProvider>
   )
 }
 

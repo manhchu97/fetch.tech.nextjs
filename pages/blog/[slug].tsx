@@ -1,8 +1,9 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 
-import { HOST_API } from '@/config/global'
+import { HOST_API, SCREEN } from '@/config/global'
 
 import Page from '@/components/Page'
+import { SWRConfigProvider } from '@/components/SwrConfig'
 import BannerContact from '@/components/banner/contact'
 
 import { API_LIST_PUBLIC_BLOG } from '@/routes/api'
@@ -51,6 +52,7 @@ export const getStaticProps = async ({ params }: IPrams) => {
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.BLOG_DETAIL_PAGE,
     },
   }
 }
@@ -59,16 +61,18 @@ const BlogDetailPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title='Blog Detail'>
-      <BlogDetail fallback={fallback} />
+    <SWRConfigProvider>
+      <Page title='Blog Detail'>
+        <BlogDetail fallback={fallback} />
 
-      <BannerContact
-        title='Find the perfect fit with Fetch'
-        subTitle='Find the perfect fit with Fetch'
-        buttonText='Sign Up'
-        linkTo={PATH_CONFIG.contact}
-      />
-    </Page>
+        <BannerContact
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign Up'
+          linkTo={PATH_CONFIG.contact}
+        />
+      </Page>
+    </SWRConfigProvider>
   )
 }
 

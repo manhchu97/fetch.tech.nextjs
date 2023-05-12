@@ -1,0 +1,45 @@
+@import '@/styles/_mixins.scss';
+
+.introduction-container {
+  width: 1370px;
+  margin: 0 auto;
+
+  @include screen-down(xxl) {
+    width: 1170px;
+  }
+
+  @include screen-down(xl) {
+    width: 960px;
+  }
+
+  @include screen-down(lg) {
+    width: 720px;
+  }
+
+  @include screen-down(md) {
+    width: 540px;
+  }
+
+  @include screen-down(sm) {
+    width: 351px;
+  }
+
+  :global .header-content {
+    margin: 60px 0;
+
+    .h2 {
+      font-family: 'Quicksand';
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 44px;
+      text-align: center;
+      letter-spacing: -0.5px;
+      color: #3e5477;
+
+      @include screen-down(md) {
+        font-size: 24px;
+        line-height: 36px;
+      }
+    }
+  }
+}

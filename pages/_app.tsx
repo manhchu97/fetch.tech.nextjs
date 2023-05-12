@@ -1,20 +1,13 @@
-import { useEffect } from 'react'
-
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 
-import { TrackingHeadScript } from '@phntms/next-gtm'
 import 'animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { GOOGLE_TAG_MANAGER_KEY } from '@/config/global'
 
-import { SWRConfigProvider } from '@/components/SwrConfig'
-
 import ToastProvider from '@/context/ToastContext'
-
-import { analytics } from '@/utils/firebase'
 
 import '@/styles/fonts.scss'
 import '@/styles/globals.scss'
@@ -23,28 +16,44 @@ import '@/styles/modal.scss'
 import '@/styles/overrides/typography.scss'
 import '@/styles/toast.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_NODE_ENV)
-    if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
+interface CustomPageProps {
+  pageName: string
+}
 
-    // only run firebase in production enviroment
-    analytics()
-  }, [])
+function MyApp({ Component, pageProps }: AppProps<CustomPageProps>) {
+  const { pageName = '' } = pageProps
 
   return (
     <>
-      <Script
-        id='bootstrap-cdn'
-        src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'
-      />
-      <TrackingHeadScript id={GOOGLE_TAG_MANAGER_KEY} />
-
       <ToastProvider>
-        <SWRConfigProvider>
-          <Component {...pageProps} />
-        </SWRConfigProvider>
+        <Component {...pageProps} />
       </ToastProvider>
+
+      <Script
+        strategy='afterInteractive'
+        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_MANAGER_KEY}`}
+      />
+
+      <Script
+        src='/js/gtm.js'
+        strategy='lazyOnload'
+        onLoad={async () => {
+          const { loadGtm } = await import('@/utils/gtm')
+          loadGtm(GOOGLE_TAG_MANAGER_KEY)
+        }}
+      />
+
+      <Script
+        src='/js/firebase.js'
+        strategy='lazyOnload'
+        onLoad={async () => {
+          console.log(process.env.NEXT_PUBLIC_NODE_ENV)
+          if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
+
+          const { loadFirebase } = await import('@/utils/firebase')
+          loadFirebase(pageName)
+        }}
+      />
     </>
   )
 }
