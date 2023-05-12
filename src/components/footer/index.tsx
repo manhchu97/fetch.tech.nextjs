@@ -21,8 +21,18 @@ const Footer = () => {
     email: '',
   })
 
+  const validationSchema = {
+    email: {
+      required: 'Please input your email.',
+      email: 'Email is invalid.',
+    },
+  }
+
   const { successToast, errorToast } = useToastContext()
-  const { errors, validateForm, onBlurField } = useSubscribeFormValidator(form)
+  const { errors, validateForm, onBlurField } = useSubscribeFormValidator(
+    form,
+    validationSchema,
+  )
 
   const handleResetForm = useCallback(() => {
     setForm({

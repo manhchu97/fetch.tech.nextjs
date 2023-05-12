@@ -21,7 +21,18 @@ const Footer = () => {
   })
 
   const { successToast, errorToast } = useToastContext()
-  const { errors, validateForm, onBlurField } = useSubscribeFormValidator(form)
+
+  const validationSchema = {
+    email: {
+      required: 'Vui lòng nhập email để nhận thông báo từ chúng tôi.',
+      email: 'Email không hợp lệ.',
+    },
+  }
+
+  const { errors, validateForm, onBlurField } = useSubscribeFormValidator(
+    form,
+    validationSchema,
+  )
 
   const handleResetForm = useCallback(() => {
     setForm({

@@ -5,6 +5,7 @@
   position: fixed;
   top: 30px;
   right: 20px;
+  z-index: 9999;
 
   @include screen-down(sm) {
     width: 90%;

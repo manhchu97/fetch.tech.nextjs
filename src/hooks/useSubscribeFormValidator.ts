@@ -1,10 +1,18 @@
 import { useCallback, useState } from 'react'
 
-import { IError, ISubscribeForm, IValidateForm } from '@/types/subscribeForm'
+import {
+  IError,
+  ISubscribeForm,
+  IValidateForm,
+  IValidator,
+} from '@/types/subscribeForm'
 
 import { emailValidator } from '@/utils/validators'
 
-export const useSubscribeFormValidator = (form: ISubscribeForm) => {
+export const useSubscribeFormValidator = (
+  form: ISubscribeForm,
+  validationSchema: IValidator,
+) => {
   const [errors, setErrors] = useState<IError>({
     email: {
       dirty: false,
@@ -44,7 +52,8 @@ export const useSubscribeFormValidator = (form: ISubscribeForm) => {
         nextErrors.email.dirty &&
         (forceTouchErrors || fieldName === 'email')
       ) {
-        const errorMessage = emailValidator(email)
+        const validateType = emailValidator(email)
+        const errorMessage = validationSchema?.email?.[validateType] || ''
 
         nextErrors.email.error = !!errorMessage
         nextErrors.email.message = errorMessage
@@ -59,7 +68,7 @@ export const useSubscribeFormValidator = (form: ISubscribeForm) => {
         errors: nextErrors,
       }
     },
-    [touchErrors],
+    [touchErrors, validationSchema],
   )
 
   const onBlurField = useCallback(

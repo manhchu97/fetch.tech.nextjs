@@ -13,3 +13,7 @@ export interface IValidateForm {
   errors: IError
   forceTouchErrors?: boolean
 }
+
+export interface IValidator {
+  [key: string]: any
+}
