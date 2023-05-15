@@ -154,14 +154,14 @@ const Footer = () => {
           </div>
 
           <div className='col-6 col-lg-7'>
-            <Link href='#'>
-              <a target='_blank' rel='noopener noreferrer'>
+            <Link href='/privacy-policy'>
+              <a rel='noopener noreferrer'>
                 <span className='nav-title'>Chính sách bảo mật</span>
               </a>
             </Link>
 
-            <Link href='#'>
-              <a target='_blank' rel='noopener noreferrer'>
+            <Link href='/service-agreement'>
+              <a rel='noopener noreferrer'>
                 <span className='nav-title'>Điều khoản dịch vụ</span>
               </a>
             </Link>
