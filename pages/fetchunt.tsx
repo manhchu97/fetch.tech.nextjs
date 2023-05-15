@@ -13,7 +13,9 @@ const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
 const Career = dynamic(() => import('@/sections/fetchunt/career'))
 const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
 const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
-const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'))
+const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'), {
+  loading: () => <p>Loading...</p>,
+})
 
 export const getStaticProps = async () => {
   return {
