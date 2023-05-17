@@ -8,6 +8,8 @@ import LazyLoadComponent from '@/components/LazyLoadComponent'
 
 import Header from '@/sections/fetchunt/header'
 import Introduction from '@/sections/fetchunt/introduction'
+import Messenger from '@/sections/fetchunt/messenger'
+import Zalo from '@/sections/fetchunt/zalo'
 
 const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
 const Career = dynamic(() => import('@/sections/fetchunt/career'))
@@ -77,6 +79,10 @@ const FetchuntPage: NextPage = () => {
       <LazyLoadComponent>
         <Footer />
       </LazyLoadComponent>
+
+      <Zalo />
+
+      <Messenger />
     </>
   )
 }

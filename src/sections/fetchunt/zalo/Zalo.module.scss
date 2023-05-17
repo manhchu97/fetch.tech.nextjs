@@ -1,0 +1,17 @@
+.zalo-container {
+  appearance: none;
+  background: none;
+  bottom: 85px;
+  display: inline;
+  padding: 0;
+  position: fixed;
+  right: 19px;
+  top: auto;
+  z-index: 2147483647;
+  overflow: auto;
+  box-shadow: '0 3px 12px rgba(0, 0, 0, .15)';
+  transition: 'box-shadow 150ms linear';
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
