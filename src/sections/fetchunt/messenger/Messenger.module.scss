@@ -1,3 +1,5 @@
+@import '@/styles/_mixins.scss';
+
 .messenger-container {
   appearance: none;
   background: none;
@@ -14,4 +16,18 @@
   cursor: pointer;
   outline: none;
   user-select: none;
+
+  :global .messenger-img-container {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include screen-down(sm) {
+      width: 40px;
+      height: 40px;
+    }
+  }
 }

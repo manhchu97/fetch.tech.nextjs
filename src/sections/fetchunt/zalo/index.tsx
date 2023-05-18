@@ -14,16 +14,7 @@ const Zalo = (): React.ReactElement => {
       aria-busy='true'
       aria-live='polite'
     >
-      <div
-        style={{
-          width: '60px',
-          height: '60px',
-          position: 'relative',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <div className='zalo-img-container'>
         <Link href='https://zalo.me/0977809723' passHref>
           <a target='_blank' rel='noreferrer'>
             <Image

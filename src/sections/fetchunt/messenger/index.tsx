@@ -14,16 +14,7 @@ const Messenger = (): React.ReactElement => {
       aria-busy='true'
       aria-live='polite'
     >
-      <div
-        style={{
-          position: 'relative',
-          width: '45px',
-          height: '45px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <div className='messenger-img-container'>
         <Link href='https://www.facebook.com/Fetch.Technology' passHref>
           <a target='_blank' rel='noreferrer'>
             <Image
