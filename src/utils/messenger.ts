@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import waitForLoad from './waitForLoad'
+
 declare global {
   interface Window {
     fbSDKDidInit: boolean
@@ -87,7 +89,9 @@ export const loadCustomerChat = ({
 }
 
 export const openChat = (): void => {
-  setTimeout(() => {
-    window?.FB?.CustomerChat?.show(true)
-  }, 2000)
+  waitForLoad(
+    () => !!window.FB?.CustomerChat?.show,
+    // messenger is slow to show once it has loaded
+    () => setTimeout(() => window.FB.CustomerChat.show(true), 2000),
+  )
 }
