@@ -15,10 +15,10 @@ import clsx from 'clsx'
 import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
-import { HOST_API } from '@/config/global'
+import { FACEBOOK_APP_ID, FACEBOOK_PAGE_ID, HOST_API } from '@/config/global'
 import { JOB_STATUS } from '@/config/job'
 
-import CustomerMessengerChat from '@/components/CustomerMessengerChat'
+import CustomerMessengerChat from '@/components/Messenger'
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
 
@@ -344,7 +344,10 @@ const JobDetail = ({
         linkTo={PATH_CONFIG.contact}
       />
 
-      <CustomerMessengerChat />
+      <CustomerMessengerChat
+        fbAppId={FACEBOOK_APP_ID}
+        fbPageId={FACEBOOK_PAGE_ID}
+      />
     </Page>
   )
 }

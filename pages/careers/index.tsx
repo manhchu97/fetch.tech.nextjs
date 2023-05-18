@@ -5,10 +5,12 @@ import qs from 'query-string'
 import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
+  FACEBOOK_APP_ID,
+  FACEBOOK_PAGE_ID,
   HOST_API,
 } from '@/config/global'
 
-import CustomerMessengerChat from '@/components/CustomerMessengerChat'
+import CustomerMessengerChat from '@/components/Messenger'
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
 
@@ -49,7 +51,10 @@ const ListJobPage = ({
         linkTo={PATH_CONFIG.contact}
       />
 
-      <CustomerMessengerChat />
+      <CustomerMessengerChat
+        fbAppId={FACEBOOK_APP_ID}
+        fbPageId={FACEBOOK_PAGE_ID}
+      />
     </Page>
   )
 }
