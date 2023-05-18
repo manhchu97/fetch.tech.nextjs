@@ -10,21 +10,30 @@ function LazyLoadComponent({ children }: Props) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const currentEl = ref?.current
-    if (!currentEl) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIntersecting(entry.isIntersecting)
-      },
-      { threshold: 0.5 },
-    )
-
-    observer.observe(currentEl)
-
-    return () => {
+    if (
+      typeof window !== 'undefined' &&
+      'IntersectionObserver' in window &&
+      'IntersectionObserverEntry' in window &&
+      'intersectionRatio' in window.IntersectionObserverEntry.prototype
+    ) {
+      const currentEl = ref?.current
       if (!currentEl) return
-      observer.unobserve(currentEl)
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setIntersecting(entry.isIntersecting)
+        },
+        { threshold: 0.5 },
+      )
+
+      observer.observe(currentEl)
+
+      return () => {
+        if (!currentEl) return
+        observer.unobserve(currentEl)
+      }
+    } else {
+      setIntersecting(true)
     }
   }, [])
 

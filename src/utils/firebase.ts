@@ -1,10 +1,13 @@
-import { getApp, getApps, initializeApp } from 'firebase/app'
+declare global {
+  interface Window {
+    firebaseDidInit: boolean
+  }
+}
 
-import { getAnalytics, isSupported } from 'firebase/analytics'
+const INIT_GTM_DELAY = 2500
+const EVENTS = ['scroll', 'mousemove', 'touchstart']
 
-import { SCREEN } from '@/config/global'
-
-const firebaseConfig = {
+const firebaseConfigs = {
   common: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -26,31 +29,107 @@ const firebaseConfig = {
   },
 }
 
-export const initializeFirebase = () => {
-  // Initialize Firebase
-  const app = !getApps().length
-    ? initializeApp(firebaseConfig.common)
-    : getApp()
+export const initializeFirebase = async () => {
+  if (window.firebaseDidInit) return false
 
-  // Initialize Analytics and get a reference to the service
-  return isSupported().then((yes) => (yes ? getAnalytics(app) : null))
+  // flag to ensure script does not get added to DOM more than once.
+  window.firebaseDidInit = true
+
+  const firebaseApp = await Promise.all([
+    import('firebase/app'),
+    import('firebase/analytics'),
+  ]).then(([firebase, analytics]) => {
+    // Initialize Firebase
+    const app = !firebase.getApps().length
+      ? firebase.initializeApp(firebaseConfigs.common)
+      : firebase.getApp()
+
+    // Initialize Analytics and get a reference to the service
+    return analytics
+      .isSupported()
+      .then((yes) => (yes ? analytics.getAnalytics(app) : null))
+  })
+
+  removeFirebaseEventListener()
+  return firebaseApp
 }
 
-export const initializeFetchuntFirebase = () => {
-  // Initialize Firebase
-  const app = !getApps().length
-    ? initializeApp(firebaseConfig.fetchunt)
-    : getApp()
-
-  // Initialize Analytics and get a reference to the service
-  return isSupported().then((yes) => (yes ? getAnalytics(app) : null))
-}
-
-export const loadFirebase = (pageName: string): void => {
-  if (SCREEN.FETCHUNT_PAGE === pageName) {
-    initializeFetchuntFirebase()
-    return
-  }
-
+const initFirebaseOnEvent = (event: Event) => {
   initializeFirebase()
+
+  // remove the event listener that got triggered
+  event?.currentTarget?.removeEventListener(event.type, initFirebaseOnEvent)
+}
+
+export const initFirebaseEventListener = (): void => {
+  EVENTS.forEach((event) => {
+    document.addEventListener(event, initFirebaseOnEvent)
+  })
+}
+
+export const initFirebaseScriptWithDelay = () => {
+  return setTimeout(() => {
+    initializeFirebase()
+    removeFirebaseEventListener()
+  }, INIT_GTM_DELAY)
+}
+
+export const removeFirebaseEventListener = (): void => {
+  EVENTS.forEach((event) => {
+    document.removeEventListener(event, initFirebaseOnEvent)
+  })
+}
+
+export const initializeFetchuntFirebase = async () => {
+  if (window.firebaseDidInit) return false
+
+  // flag to ensure script does not get added to DOM more than once.
+  window.firebaseDidInit = true
+
+  const firebaseApp = await Promise.all([
+    import('firebase/app'),
+    import('firebase/analytics'),
+  ]).then(([firebase, analytics]) => {
+    // Initialize Firebase
+    const app = !firebase.getApps().length
+      ? firebase.initializeApp(firebaseConfigs.fetchunt)
+      : firebase.getApp()
+
+    // Initialize Analytics and get a reference to the service
+    return analytics
+      .isSupported()
+      .then((yes) => (yes ? analytics.getAnalytics(app) : null))
+  })
+
+  removeFetchuntFirebaseEventListener()
+  return firebaseApp
+}
+
+export const initFetchuntFirebaseOnEvent = (event: Event) => {
+  initializeFetchuntFirebase()
+
+  // remove the event listener that got triggered
+  event?.currentTarget?.removeEventListener(
+    event.type,
+    initFetchuntFirebaseOnEvent,
+  )
+}
+
+export const initFetchuntFirebaseEventListener = (): void => {
+  EVENTS.forEach((event) => {
+    document.addEventListener(event, initFetchuntFirebaseOnEvent)
+  })
+}
+
+export const removeFetchuntFirebaseEventListener = (): void => {
+  EVENTS.forEach((event) => {
+    document.removeEventListener(event, initFetchuntFirebaseOnEvent)
+  })
+}
+
+export const initFetchuntFirebaseScriptWithDelay = () => {
+  return setTimeout(() => {
+    initializeFetchuntFirebase()
+    removeFetchuntFirebaseEventListener()
+  }, INIT_GTM_DELAY)
 }
