@@ -213,14 +213,18 @@ const MainContent = (): React.ReactElement => {
 
             <div className='description-section'>
               Nếu nhà tuyển dụng đã đăng ký và quên mật khẩu, nhà tuyển dụng có
-              thể thiết lập lại mật khẩu bằng cách dùng tính năng
+              thể thiết lập lại mật khẩu bằng cách dùng tính năng&nbsp;
               <Link href='https://portal.fetch.tech/auth/login' passHref>
                 <a
                   target='_blank'
                   rel='noopener noreferrer'
                   className='forgot-password-link'
                 >
-                  &nbsp; “Quên mật khẩu”
+                  &nbsp;“
+                  <span>
+                    <u>Quên mật khẩu</u>
+                  </span>
+                  ”
                 </a>
               </Link>
               . Nền tảng Fetchunt không thể cung cấp mật khẩu của bạn theo các

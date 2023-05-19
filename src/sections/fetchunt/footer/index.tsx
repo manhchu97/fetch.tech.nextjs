@@ -162,7 +162,7 @@ const Footer = () => {
 
             <Link href='/service-agreement'>
               <a target='_blank' rel='noopener noreferrer'>
-                <span className='nav-title'>Điều khoản dịch vụ</span>
+                <span className='nav-title'>Thoả thuận dịch vụ</span>
               </a>
             </Link>
           </div>
@@ -227,7 +227,7 @@ const Footer = () => {
             </a>
           </Link>
 
-          <Link href='mailto:sales@fetch.tech' passHref>
+          <Link href='mailto:recruitment@fetch.tech' passHref>
             <a
               className='img-social-container'
               target='_blank'
@@ -243,7 +243,7 @@ const Footer = () => {
                 />
               </div>
 
-              <div className='img-title'>sales@fetch.tech</div>
+              <div className='img-title'>recruitment@fetch.tech</div>
             </a>
           </Link>
         </div>
