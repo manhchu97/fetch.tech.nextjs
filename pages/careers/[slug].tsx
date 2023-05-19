@@ -32,6 +32,7 @@ export const getServerSideProps = async (
 
   const res = await fetch(`${HOST_API}/${API_JOB_DETAIL}/${idJob}`)
   const data: IJobDetailResponse = await res.json()
+  const previousRoute: string = context.req.headers?.referer || ''
 
   if (!data) {
     return {
@@ -43,16 +44,18 @@ export const getServerSideProps = async (
     props: {
       fallback: data,
       pageName: SCREEN.CAREERS_DETAIL_PAGE,
+      previousRoute,
     },
   }
 }
 
 const JobDetailPage = ({
   fallback,
+  previousRoute,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <SWRConfigProvider>
-      <JobDetail fallback={fallback} />
+      <JobDetail fallback={fallback} previousRoute={previousRoute} />
     </SWRConfigProvider>
   )
 }

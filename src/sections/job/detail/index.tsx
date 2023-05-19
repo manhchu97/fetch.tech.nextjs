@@ -15,10 +15,10 @@ import clsx from 'clsx'
 import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
-import { HOST_API } from '@/config/global'
+import { FACEBOOK_APP_ID, FACEBOOK_PAGE_ID, HOST_API } from '@/config/global'
 import { JOB_STATUS } from '@/config/job'
 
-import CustomerMessengerChat from '@/components/CustomerMessengerChat'
+import CustomerMessengerChat from '@/components/Messenger'
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
 
@@ -45,13 +45,19 @@ const GoogleMap = dynamic(() => import('@/components/google-map'), {
 
 interface IJobDetailProps {
   fallback: IJobDetailResponse
+  previousRoute: string
 }
 
-const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
+const JobDetail = ({
+  fallback,
+  previousRoute,
+}: IJobDetailProps): React.ReactElement => {
   const [mounted, setMounted] = useState<boolean>(false)
   const [isShowPopup, setIsShowPopup] = useState<boolean>(false)
 
-  const { query } = useRouter()
+  const router = useRouter()
+  const { query } = router
+
   const idJob = query.slug?.slice(-36) || ''
   const codeBitly = (query.slug?.slice(-47, -37) as string) || 'false'
 
@@ -144,6 +150,14 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
     setIsShowPopup(false)
   }, [])
 
+  const handleBackToListJob = useCallback(() => {
+    if (previousRoute) {
+      router.back()
+    } else {
+      router.replace(PATH_CONFIG.careers.root)
+    }
+  }, [previousRoute, router])
+
   return (
     <Page title={pageTitle}>
       <NextSeo title={pageTitle} description={metaDescription} />
@@ -206,18 +220,31 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
                     </div>
                   </div>
 
-                  {jobStatus === JOB_STATUS.ACTIVE && (
-                    <div className='col-md-3'>
-                      <div className='container'>
-                        <div className='row'>
+                  <div className='col-md-3'>
+                    <div className='container'>
+                      {jobStatus === JOB_STATUS.ACTIVE && (
+                        <div className='row mb-3'>
                           <div className='col-md-4' />
-                          <div className='col-md-8 job-detail-apply'>
-                            <div onClick={handleShowPopup}>Apply Now</div>
+                          <div
+                            className='col-md-8 job-detail-apply'
+                            onClick={handleShowPopup}
+                          >
+                            <div>Apply Now</div>
                           </div>
+                        </div>
+                      )}
+
+                      <div className='row'>
+                        <div className='col-md-4' />
+                        <div
+                          className='col-md-8 job-detail-apply'
+                          onClick={handleBackToListJob}
+                        >
+                          <div>Back to list jobs</div>
                         </div>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
 
@@ -317,7 +344,10 @@ const JobDetail = ({ fallback }: IJobDetailProps): React.ReactElement => {
         linkTo={PATH_CONFIG.contact}
       />
 
-      <CustomerMessengerChat />
+      <CustomerMessengerChat
+        fbAppId={FACEBOOK_APP_ID}
+        fbPageId={FACEBOOK_PAGE_ID}
+      />
     </Page>
   )
 }
