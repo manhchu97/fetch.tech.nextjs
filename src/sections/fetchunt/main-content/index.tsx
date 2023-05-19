@@ -837,7 +837,9 @@ export const ReferralPolicyModal = ({ handleClose }: ReferralPolicyProps) => (
 
         <div className='note-container'>
           <i className='bi bi-exclamation-triangle-fill note-icon'></i>
-          <u>Lưu ý:</u>
+          <strong>
+            <u>Lưu ý:</u>
+          </strong>
         </div>
 
         <div className='d-flex align-items-center content-header'>
@@ -903,7 +905,7 @@ export const ReferralPolicyModal = ({ handleClose }: ReferralPolicyProps) => (
 
         <div className='content-desc list-item-content'>
           Trường hợp quá 24h làm việc vẫn chưa nhận được điểm thưởng. Bạn vui
-          lòng liên hệ Hộp trợ giúp của Fetchunt để được hỗ trợ.
+          lòng liên hệ với Fetchunt để được hỗ trợ.
         </div>
       </div>
     </div>

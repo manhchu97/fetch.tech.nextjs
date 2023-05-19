@@ -33,8 +33,8 @@ const Career = () => {
           <div className='col-9 col-lg-7 col-xl-8  col-xxl-7 career-info-container'>
             <div className='h3'>Tiên phong trong thu hút nhân sự</div>
             <div className='h6'>
-              Thành lập năm 2014 với khởi đầu chỉ 12 người. Đến nay, Fetch là
-              doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân
+              Thành lập năm 2014 với khởi đầu chỉ 12 nhân viên. Đến nay, Fetch
+              là doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân
               viên.
             </div>
           </div>

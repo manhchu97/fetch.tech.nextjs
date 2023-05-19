@@ -1,3 +1,5 @@
+@import '@/styles/_mixins.scss';
+
 .zalo-container {
   appearance: none;
   background: none;
@@ -14,4 +16,22 @@
   cursor: pointer;
   outline: none;
   user-select: none;
+
+  @include screen-down(sm) {
+    bottom: 75px;
+  }
+
+  :global .zalo-img-container {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include screen-down(sm) {
+      width: 50px;
+      height: 50px;
+    }
+  }
 }

@@ -65,6 +65,7 @@
 
       .list-sub-description {
         padding-left: 16px;
+        margin-top: 16px;
 
         .sub-description-item {
           display: flex;
@@ -81,7 +82,8 @@
     }
 
     .forgot-password-link {
-      color: $yellow-color-1;
+      text-decoration: underline;
+
       &:hover {
         color: #e9a600;
       }
