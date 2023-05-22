@@ -50,7 +50,7 @@ const Header = () => {
               hạn
             </div>
 
-            <Link href='https://portal.fetch.tech/'>
+            <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
               <a target='_blank' rel='noopener noreferrer'>
                 <div role='button' className='header-banner-action'>
                   Bắt đầu ngay
