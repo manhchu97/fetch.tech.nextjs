@@ -183,7 +183,7 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='div-center'>
-              <Link href='https://portal.fetch.tech'>
+              <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                 <a target='_blank' rel='noopener noreferrer'>
                   <div role='button' className='card-button'>
                     Giới thiệu ngay
@@ -269,7 +269,7 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='div-center'>
-              <Link href='https://portal.fetch.tech'>
+              <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                 <a target='_blank' rel='noopener noreferrer'>
                   <div role='button' className='card-button'>
                     Tham gia ngay
@@ -323,7 +323,7 @@ const MainContent = (): React.ReactElement => {
                 content={
                   <>
                     Đầu tiên, để tiến hành đăng ký, bạn truy cập&nbsp;
-                    <Link href='https://portal.fetch.tech'>
+                    <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                       <a target='_blank' rel='noopener noreferrer'>
                         <u>tại đây</u>
                       </a>
@@ -407,7 +407,7 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='div-center'>
-              <Link href='https://portal.fetch.tech'>
+              <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                 <a target='_blank' rel='noopener noreferrer'>
                   <div role='button' className='card-button'>
                     Đăng ký ngay
@@ -489,7 +489,7 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='div-center'>
-              <Link href='https://portal.fetch.tech'>
+              <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                 <a target='_blank' rel='noopener noreferrer'>
                   <div role='button' className='card-button'>
                     Tham gia ngay
@@ -615,7 +615,7 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='div-center'>
-              <Link href='https://portal.fetch.tech'>
+              <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                 <a target='_blank' rel='noopener noreferrer'>
                   <div role='button' className='card-button'>
                     Đăng ký ngay
@@ -692,7 +692,7 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='div-center'>
-              <Link href='https://portal.fetch.tech'>
+              <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
                 <a target='_blank' rel='noopener noreferrer'>
                   <div role='button' className='card-button'>
                     Nhận thưởng ngay

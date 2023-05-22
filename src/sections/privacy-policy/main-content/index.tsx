@@ -214,7 +214,10 @@ const MainContent = (): React.ReactElement => {
             <div className='description-section'>
               Nếu nhà tuyển dụng đã đăng ký và quên mật khẩu, nhà tuyển dụng có
               thể thiết lập lại mật khẩu bằng cách dùng tính năng&nbsp;
-              <Link href='https://portal.fetch.tech/auth/login' passHref>
+              <Link
+                href='https://portal.fetch.tech/auth/login?tab=signin'
+                passHref
+              >
                 <a
                   target='_blank'
                   rel='noopener noreferrer'

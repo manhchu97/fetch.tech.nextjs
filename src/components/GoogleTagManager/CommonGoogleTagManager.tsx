@@ -1,29 +1,6 @@
-import React from 'react'
-
 import Script from 'next/script'
 
-import { SCREEN } from '@/config/global'
-
-const GoogleTagManagerScript = ({
-  gtmId,
-  pageName,
-}: {
-  gtmId: string
-  pageName: string
-}) => {
-  if (
-    [
-      SCREEN.FETCHUNT_PAGE,
-      SCREEN.PRIVACY_POLICY_PAGE,
-      SCREEN.SERVICE_AGREEMENT_PAGE,
-    ].includes(pageName)
-  )
-    return null
-
-  return <GoogleTagManager gtmId={gtmId} />
-}
-
-const GoogleTagManager = ({ gtmId }: { gtmId: string }) => {
+const CommonGoogleTagManager = ({ gtmId }: { gtmId: string }) => {
   return (
     <>
       <Script
@@ -49,4 +26,4 @@ const GoogleTagManager = ({ gtmId }: { gtmId: string }) => {
   )
 }
 
-export default GoogleTagManagerScript
+export default CommonGoogleTagManager
