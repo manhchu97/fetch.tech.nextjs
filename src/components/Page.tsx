@@ -22,7 +22,7 @@ const Page = ({
         }`}</title>
         <meta name='theme-color' content='#000000' />
         <link rel='icon' href='/favicon.ico' />
-        <link rel='apple-touch-icon' href='/logo192.png' />
+        <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
 
         {/*
           manifest.json provides metadata used when your web app is installed on a
