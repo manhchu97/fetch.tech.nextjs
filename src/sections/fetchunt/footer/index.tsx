@@ -9,7 +9,7 @@ import { useToastContext } from '@/context/ToastContext'
 
 import { useSubscribeFormValidator } from '@/hooks/useSubscribeFormValidator'
 
-import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
+import { API_FETCHUNT_SUBCRIBER_BY_EMAIL } from '@/routes/api'
 
 import { ISubscribeForm } from '@/types/subscribeForm'
 
@@ -68,23 +68,15 @@ const Footer = () => {
       const { isValid } = validateForm({ form, errors, forceTouchErrors: true })
       if (!isValid) return
 
-      const { email: name = '' } = form
-      const formData = {
-        ...form,
-        name,
-        purpose: 'New Subscriber',
-        company: 'Subscribe',
-      }
-
       const { _postApi } = await import('@/utils/axios')
-      const response = await _postApi(API_SUBCRIBER_BY_EMAIL, formData)
+      const response = await _postApi(API_FETCHUNT_SUBCRIBER_BY_EMAIL, form)
 
       if (response) {
         handleResetForm()
-        successToast('Thank you for subscribing to Fetch. Keep in Touch!')
+        successToast('Cám ơn bạn đã nhập email để nhận thông báo từ chúng tôi.')
       }
     } catch (error) {
-      errorToast('Something went wrong. Please try again later!')
+      errorToast('Đã có lỗi xảy ra. Vui lòng thử lại sau!')
     }
   }
 
