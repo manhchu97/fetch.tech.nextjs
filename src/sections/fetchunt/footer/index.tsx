@@ -10,6 +10,7 @@ import { useToastContext } from '@/context/ToastContext'
 import { useSubscribeFormValidator } from '@/hooks/useSubscribeFormValidator'
 
 import { API_FETCHUNT_SUBCRIBER_BY_EMAIL } from '@/routes/api'
+import { PATH_CONFIG } from '@/routes/paths'
 
 import { ISubscribeForm } from '@/types/subscribeForm'
 
@@ -146,13 +147,13 @@ const Footer = () => {
           </div>
 
           <div className='col-6 col-lg-7'>
-            <Link href='/privacy-policy'>
+            <Link href={PATH_CONFIG.privacyPolicy}>
               <a target='_blank' rel='noopener noreferrer'>
                 <span className='nav-title'>Chính sách bảo mật</span>
               </a>
             </Link>
 
-            <Link href='/service-agreement'>
+            <Link href={PATH_CONFIG.serviceAgreement}>
               <a target='_blank' rel='noopener noreferrer'>
                 <span className='nav-title'>Thoả thuận dịch vụ</span>
               </a>

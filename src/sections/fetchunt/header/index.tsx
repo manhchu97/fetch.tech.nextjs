@@ -1,20 +1,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { PATH_CONFIG } from '@/routes/paths'
+
 import styles from './Header.module.scss'
 
 const Header = () => {
   return (
     <div className={styles['header-container']}>
       <div className='header-logo-container d-flex justify-content-center align-items-center'>
-        <Link href='https://fetch.tech/'>
-          <a
-            className='header-logo-img'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+        <Link href={PATH_CONFIG.fetchunt}>
+          <a className='header-logo-img' rel='noopener noreferrer'>
             <Image
-              src='/images/LogoDefault.svg'
+              src='/images/fetchunt/logo.svg'
               alt='Picture of the author'
               layout='fill'
               objectFit='contain'
