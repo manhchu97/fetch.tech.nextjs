@@ -10,7 +10,6 @@ import Header from '@/sections/fetchunt/header'
 
 const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
 const Career = dynamic(() => import('@/sections/fetchunt/career'))
-const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
 const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
 const MainContent = dynamic(
   () => import('@/sections/privacy-policy/main-content'),
@@ -55,10 +54,6 @@ const PrivacyPolicyPage: NextPage = () => {
 
       <LazyLoadComponent>
         <MainContent />
-      </LazyLoadComponent>
-
-      <LazyLoadComponent>
-        <Cooperate />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
