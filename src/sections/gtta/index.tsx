@@ -66,14 +66,13 @@ const GTTA = () => {
               >
                 <div className='contact-heading'>
                   <div className='h6'>
-                    <Link href='https://wa.me/6589334200'>
-                      <a>
-                        <span className='contact-link'>Contact Us</span>
+                    <Link href='https://form.gov.sg/641ab7a1ea947600128ec2f6'>
+                      <a target='_blank' rel='noreferrer'>
+                        <span className='contact-link'>Contact us</span>
                       </a>
                     </Link>
-                    &nbsp;and quote the promo code &lt;
-                    <span className='code-referral'>GTTAESG</span>&gt; to enjoy
-                    the benefits* of this program.
+                    &nbsp;via this unique link to enjoy the benefits* of this
+                    program
                   </div>
                 </div>
               </div>

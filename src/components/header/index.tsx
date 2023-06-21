@@ -236,8 +236,8 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
             <Image
               src='/images/NavbarOpen.png'
               alt='open'
-              width={21}
-              height={14}
+              width={32}
+              height={32}
               priority
             />
           )}
