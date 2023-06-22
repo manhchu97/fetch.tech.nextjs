@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import clsx from 'clsx'
+import styles from './Accordion.module.scss'
 
 interface AccordionProps {
   title: React.ReactNode
@@ -14,14 +14,12 @@ const Accordion = ({
   const [open, setOpen] = useState(false)
 
   return (
-    <div className='accordion-container'>
-      <div
-        className='accordion-header'
-        onClick={() => setOpen((prev) => !prev)}
-      >
+    <div
+      className={styles['accordion-container']}
+      onClick={() => setOpen((prev) => !prev)}
+    >
+      <div className='accordion-header'>
         <div className='h6'>{title}</div>
-
-        <i className={clsx('bi bi-caret-down-fill', open && 'icon-up')}></i>
       </div>
 
       {open && (

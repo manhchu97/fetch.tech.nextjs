@@ -139,9 +139,9 @@ const Footer = () => {
               </a>
             </Link>
 
-            <Link href='https://fetch.tech/resources/case-studies'>
+            <Link href={PATH_CONFIG.frequentlyQuestions}>
               <a target='_blank' rel='noopener noreferrer'>
-                <span className='nav-title'>Đối tác</span>
+                <span className='nav-title'>Câu hỏi thường gặp</span>
               </a>
             </Link>
           </div>
