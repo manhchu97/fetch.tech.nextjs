@@ -152,7 +152,7 @@ const getDataTaxDeduction = (amount: number) => {
 
   const numSI = amount < limitSalary ? amount * SI : limitSalary * SI
   const numHI = amount < limitSalary ? amount * HI : limitSalary * HI
-  const numUI = amount * UI
+  const numUI = amount < limitSalaryUI ? amount * UI : limitSalaryUI * UI
   const taxDeductions = self + dependent + numSI + numHI + numUI
   const taxableIncome = amount - taxDeductions
   const PIT = getPersonalIncomeTaxable(taxableIncome)
