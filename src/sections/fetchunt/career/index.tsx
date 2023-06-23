@@ -20,6 +20,16 @@ const Career = () => {
 
   return (
     <div className={style['career-container']}>
+      <div className='career-header-img div-center'>
+        <Image
+          alt='background'
+          src='/images/LogoDefault.svg'
+          layout='fill'
+          objectFit='cover'
+          objectPosition='top left'
+        />
+      </div>
+
       <div className='career-desktop-container'>
         <Image
           alt='background'
@@ -129,8 +139,8 @@ const Career = () => {
           <div className='col-11 career-info-container'>
             <div className='h3'>Tiên phong trong thu hút nhân sự</div>
             <div className='h6'>
-              Thành lập năm 2014 với khởi đầu chỉ 12 người. Đến nay, Fetch là
-              doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân
+              Thành lập năm 2014 với khởi đầu chỉ 12 nhân viên. Đến nay, Fetch
+              là doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân
               viên.
             </div>
           </div>

@@ -2,6 +2,8 @@
 
 .cooperate {
   padding: 100px 10%;
+  background: #ecf3fe;
+  margin-bottom: 64px;
 
   @include screen-down(md) {
     padding: 50px 12px;

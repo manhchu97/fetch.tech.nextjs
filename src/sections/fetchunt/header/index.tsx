@@ -12,7 +12,7 @@ const Header = () => {
         <Link href={PATH_CONFIG.fetchunt}>
           <a className='header-logo-img' rel='noopener noreferrer'>
             <Image
-              src='/images/fetchunt/logo.svg'
+              src='/images/LogoDefault.svg'
               alt='Picture of the author'
               layout='fill'
               objectFit='contain'
@@ -48,10 +48,10 @@ const Header = () => {
               hạn
             </div>
 
-            <Link href='https://portal.fetch.tech/auth/login?tab=signup'>
+            <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
               <a target='_blank' rel='noopener noreferrer'>
                 <div role='button' className='header-banner-action'>
-                  Bắt đầu ngay
+                  Bắt đầu giới thiệu
                 </div>
               </a>
             </Link>

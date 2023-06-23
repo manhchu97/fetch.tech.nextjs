@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 import clsx from 'clsx'
 
@@ -74,50 +73,6 @@ const Cooperate = () => {
 
   return (
     <div className={clsx(style['cooperate'], 'overflow-hidden')}>
-      <AnimatiopnOnScrollWrap
-        render={(ref, animate) => (
-          <div
-            className={clsx(
-              'row',
-              'align-items-center',
-              style['cooperate__content'],
-              {
-                animate__animated: true,
-                animate__fadeInRight: animate,
-              },
-            )}
-            ref={ref}
-          >
-            <div className='col-md-9 col-12 text-center text-md-start mb-4'>
-              <h3 className='h3'>
-                + 1000 doanh nghiệp lớn trên thế giới tin tưởng
-              </h3>
-
-              <h6 className='h6'>
-                Sự hài lòng của bạn là niềm tự hào và thành công lớn nhất của
-                chúng tôi
-              </h6>
-            </div>
-
-            <div
-              className={clsx(
-                'col-md-3',
-                'col-12',
-                'text-md-end',
-                'text-center',
-                style['cooperate__content__right'],
-              )}
-            >
-              <Link href='https://fetch.tech/'>
-                <a target='_blank' rel='noopener noreferrer'>
-                  <button type='button'>Tìm hiểu thêm</button>
-                </a>
-              </Link>
-            </div>
-          </div>
-        )}
-      />
-
       <AnimatiopnOnScrollWrap
         render={(ref, animate) => (
           <div

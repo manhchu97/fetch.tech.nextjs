@@ -10,7 +10,6 @@ import Header from '@/sections/fetchunt/header'
 
 const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
 const Career = dynamic(() => import('@/sections/fetchunt/career'))
-const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
 const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
 const MainContent = dynamic(
   () => import('@/sections/privacy-policy/main-content'),
@@ -58,10 +57,6 @@ const PrivacyPolicyPage: NextPage = () => {
       </LazyLoadComponent>
 
       <LazyLoadComponent>
-        <Cooperate />
-      </LazyLoadComponent>
-
-      <LazyLoadComponent>
         <Career />
       </LazyLoadComponent>
 
@@ -70,7 +65,7 @@ const PrivacyPolicyPage: NextPage = () => {
           title='Lựa chọn phù hợp nhất với bạn'
           subTitle='Gia tăng thu nhập của bạn bằng cách đăng ký ngay!'
           buttonText='Liên hệ chúng tôi'
-          linkTo='https://www.facebook.com/Fetch.Technology'
+          linkTo='https://www.fetch.tech/'
         />
       </LazyLoadComponent>
 

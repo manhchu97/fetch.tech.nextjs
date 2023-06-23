@@ -15,11 +15,11 @@ const Messenger = (): React.ReactElement => {
       aria-live='polite'
     >
       <div className='messenger-img-container'>
-        <Link href='https://www.facebook.com/Fetch.Technology' passHref>
+        <Link href='https://m.me/fetchvietnam' passHref>
           <a target='_blank' rel='noreferrer'>
             <Image
               alt='messenger'
-              src='/images/fetchunt/facebook.svg'
+              src='/images/fetchunt/facebook-messenger.png'
               layout='fill'
               objectFit='cover'
               priority
