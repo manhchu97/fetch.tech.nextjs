@@ -5,8 +5,6 @@ import {
   RoleType,
 } from '@/sections/resources/calculator/types'
 
-const EXCHANGE_RATE_USD = 23296
-const EXCHANGE_RATE_SGD = 16798
 const limitSalary = 36 * 10 ** 6
 const limitSalaryUI = 93.6 * 10 ** 6
 
@@ -85,23 +83,33 @@ const taxData = {
 const EXCHANGE_RATE = ['VND', 'USD', 'SGD'] as const
 type ExchangeRate = typeof EXCHANGE_RATE[number]
 
-export const convertExchangeRate = (rateType: ExchangeRate, salary: number) => {
+export const convertExchangeRate = (
+  rateType: ExchangeRate,
+  salary: number,
+  exchangeRateUSD: number,
+  exchangeRateSGD: number,
+) => {
   switch (rateType) {
     case 'USD':
-      return salary / EXCHANGE_RATE_USD
+      return salary / exchangeRateUSD
     case 'SGD':
-      return salary / EXCHANGE_RATE_SGD
+      return salary / exchangeRateSGD
     default:
       return salary
   }
 }
 
-export const convertToVND = (rateType: ExchangeRate, salary: number) => {
+export const convertToVND = (
+  rateType: ExchangeRate,
+  salary: number,
+  exchangeRateUSD: number,
+  exchangeRateSGD: number,
+) => {
   switch (rateType) {
     case 'USD':
-      return salary * EXCHANGE_RATE_USD
+      return salary * exchangeRateUSD
     case 'SGD':
-      return salary * EXCHANGE_RATE_SGD
+      return salary * exchangeRateSGD
     default:
       return salary
   }

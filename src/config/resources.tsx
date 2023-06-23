@@ -3,6 +3,15 @@ import { PATH_CONFIG } from '@/routes/paths'
 import { CSListData, CaseStudiesTypeProps } from '@/types/resources'
 import { ServiceHeaderProps } from '@/types/services'
 
+export const CURRENCY_VALUE = {
+  USD: 'USD',
+  VND: 'VND',
+  SGD: 'SGD',
+}
+
+export const EXCHANGE_RATE_USD = 23296
+export const EXCHANGE_RATE_SGD = 17300
+
 export const CASE_STUDIES_TYPE: CaseStudiesTypeProps = {
   ACCORPLUS: 'accorplus',
   TOKENIZE_EXCHANGE: 'tokenizeexchange',

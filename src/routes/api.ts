@@ -1,3 +1,7 @@
+export const API_EXCHANGE_RATE_REQUEST_API_KEY =
+  'https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate'
+export const API_EXCHANGE_RATE_BANK =
+  'https://vapi.vnappmob.com/api/v2/exchange_rate/vcb'
 export const API_SUBCRIBER_BY_EMAIL = 'api/slack/notification-team'
 export const API_LIST_QUESTIONS = 'api/questions'
 export const API_LIST_PUBLIC_BLOG = 'api/blog/public'
