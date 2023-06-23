@@ -24,7 +24,7 @@ const informationForBusinessPurposes = [
   'Thực hiện nghiên cứu thị trường và người tiêu dùng và phân tích xu hướng;',
   'Cho phép đăng trên các blog, diễn đàn và các phương tiện truyền thông công cộng khác của chúng tôi;',
   'Thực hiện các hoạt động kế toán, kiểm toán, thanh toán, đối chiếu và thu tiền;',
-  'Ngăn ngừa, phát hiện, xác định, điều tra và phản hồi các yêu cầu, trách nhiệm pháp lý, hành vi bị cấm và hoạt động tội phạm tiềm ẩn hoặc thực tế; và',
+  'Ngăn ngừa, phát hiện, xác định, điều tra và phản hồi các yêu cầu, trách nhiệm pháp lý, hành vi bị cấm và hoạt động tội phạm tiềm ẩn hoặc thực tế;',
   'Tuân thủ và thực thi các quyền, yêu cầu, thỏa thuận và chính sách hợp pháp.',
 ]
 
@@ -57,9 +57,12 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='description-section'>
-              XIN VUI LÒNG ĐỌC CHÍNH SÁCH NÀY MỘT CÁCH CẨN THẬN. BẰNG CÁCH KÍCH
-              HOẠT, CHẤP NHẬN, ĐĂNG KÝ, TRUY CẬP HOẶC SỬ DỤNG TRANG WEB, BẠN XÁC
-              NHẬN RẰNG BẠN ĐÃ ĐỌC, HIỂU VÀ ĐỒNG Ý BỊ TRẢ LỜI BỞI CHÍNH SÁCH.
+              <strong>
+                XIN VUI LÒNG ĐỌC CHÍNH SÁCH NÀY MỘT CÁCH CẨN THẬN. BẰNG CÁCH
+                KÍCH HOẠT, CHẤP NHẬN, ĐĂNG KÝ, TRUY CẬP HOẶC SỬ DỤNG TRANG WEB,
+                BẠN XÁC NHẬN RẰNG BẠN ĐÃ ĐỌC, HIỂU VÀ ĐỒNG Ý BỊ TRẢ LỜI BỞI
+                CHÍNH SÁCH.
+              </strong>
             </div>
 
             <div className='description-section'>
@@ -108,18 +111,24 @@ const MainContent = (): React.ReactElement => {
               Chính sách này, dữ liệu cá nhân đề cập đến dữ liệu có thể được sử
               dụng, một mình hoặc kết hợp với dữ liệu khác, để xác định bạn là
               một cá nhân.
-              <br />
+            </div>
+
+            <div className='description-section'>
               Chúng tôi thu thập thông tin bạn cung cấp cho chúng tôi. Ví dụ:
               chúng tôi thu thập thông tin khi bạn tạo tài khoản, điền vào biểu
               mẫu, tham gia giới thiệu ứng viên hoặc chương trình khuyến mãi,
               hoặc giao tiếp với chúng tôi theo cách khác.
-              <br />
+            </div>
+
+            <div className='description-section'>
               Chúng tôi tự động thu thập thông tin về các tương tác của bạn với
               Trang web cũng như các thiết bị mà bạn truy cập Trang web. Trong
               một số trường hợp, chúng tôi tự động thu thập thông tin về các
               thiết bị khác được kết nối với cùng một mạng với thiết bị mà bạn
               truy cập Trang web.
-              <br />
+            </div>
+
+            <div className='description-section'>
               Thông tin chúng tôi thu thập từ các bên thứ ba. Chúng tôi có thể
               nhận thông tin về bạn từ các nguồn khác và kết hợp thông tin đó
               với thông tin chúng tôi thu thập trực tiếp.
@@ -168,17 +177,19 @@ const MainContent = (): React.ReactElement => {
                   </div>
                 ))}
               </div>
-              <strong>Sử dụng khác. </strong>Chúng tôi có thể sử dụng dữ liệu cá
-              nhân mà chúng tôi có lợi ích hợp pháp, chẳng hạn như nghiên cứu cá
-              nhân hoặc thị trường, bảo vệ chống gian lận hoặc bất kỳ mục đích
-              nào khác được tiết lộ cho bạn tại thời điểm bạn cung cấp dữ liệu
-              cá nhân hoặc với sự đồng ý của bạn.
+              <div className='mt-3'>
+                <strong>Sử dụng khác. </strong>Chúng tôi có thể sử dụng dữ liệu
+                cá nhân mà chúng tôi có lợi ích hợp pháp, chẳng hạn như nghiên
+                cứu cá nhân hoặc thị trường, bảo vệ chống gian lận hoặc bất kỳ
+                mục đích nào khác được tiết lộ cho bạn tại thời điểm bạn cung
+                cấp dữ liệu cá nhân hoặc với sự đồng ý của bạn.
+              </div>
             </div>
           </div>
 
           <div className='privacy-policy-content-section'>
             <div className='h3 heading-section'>
-              CHÚNG TÔI CHIA SẺ DỮ LIỆU CÁ NH N VỚI AI?
+              CHÚNG TÔI CHIA SẺ DỮ LIỆU CÁ NHÂN VỚI AI?
             </div>
 
             <div className='description-section'>
@@ -187,7 +198,9 @@ const MainContent = (): React.ReactElement => {
               giao dịch nào hoặc cung cấp bất kỳ sản phẩm nào bạn yêu cầu hoặc
               ủy quyền. Ví dụ: chúng tôi chia sẻ nội dung của bạn với các bên
               thứ ba khi bạn yêu cầu chúng tôi làm như vậy.
-              <br />
+            </div>
+
+            <div className='description-section'>
               <strong>Chi nhánh hoặc Nhà cung cấp. </strong>Ngoài ra, chúng tôi
               chia sẻ dữ liệu cá nhân giữa các chi nhánh và công ty con do Fetch
               kiểm soát. Chúng tôi cũng chia sẻ dữ liệu cá nhân với các nhà cung
@@ -198,7 +211,9 @@ const MainContent = (): React.ReactElement => {
               mà họ nhận được từ chúng tôi cho bất kỳ mục đích nào khác. Chúng
               tôi cũng có thể tiết lộ dữ liệu cá nhân như một phần của giao dịch
               công ty như sáp nhập hoặc bán tài sản.
-              <br />
+            </div>
+
+            <div className='description-section'>
               <strong>Cơ quan chính phủ. </strong>Cuối cùng, chúng tôi sẽ lưu
               giữ, truy cập, chuyển giao, tiết lộ và bảo quản dữ liệu cá nhân,
               bao gồm cả nội dung của bạn, khi chúng tôi thực sự tin rằng làm

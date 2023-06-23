@@ -65,7 +65,7 @@ const FrequentlyQuestionsPage: NextPage = () => {
           title='Lựa chọn phù hợp nhất với bạn'
           subTitle='Gia tăng thu nhập của bạn bằng cách đăng ký ngay!'
           buttonText='Liên hệ chúng tôi'
-          linkTo='https://www.facebook.com/Fetch.Technology'
+          linkTo='https://www.fetch.tech/'
         />
       </LazyLoadComponent>
 

@@ -1,6 +1,26 @@
 @import '@/styles/_mixins.scss';
 
 .career-container {
+  margin-top: 108px;
+
+  @include screen-down(sm) {
+    margin-top: 64px;
+  }
+
+  :global .career-header-img {
+    width: 200px;
+    height: 85.7px;
+    position: relative;
+
+    margin: 0 auto;
+    margin-top: 64px;
+
+    @include screen-down(sm) {
+      width: 150px;
+      height: 64.3px;
+    }
+  }
+
   :global .career-desktop-container {
     position: relative;
     margin: 50px 14%;
@@ -15,6 +35,8 @@
   }
 
   :global .career-mobile-container {
+    margin-top: 32px;
+
     @include screen-up(md) {
       display: none;
     }
@@ -34,7 +56,7 @@
       text-align: center;
       letter-spacing: -1px;
       color: #17274e;
-      margin-bottom: 16px;
+      margin-bottom: 32px;
 
       @include screen-down(md) {
         font-size: 30px;
@@ -49,7 +71,7 @@
       font-size: 20px;
       line-height: 28px;
       text-align: center;
-      color: #000;
+      color: #17274e;
       margin-bottom: 80px;
     }
   }

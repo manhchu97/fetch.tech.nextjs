@@ -82,8 +82,8 @@ const frequentlyQuestions = [
               bằng cho tất cả các đối tượng như HR freelancer, chuyên gia công
               nghệ… Do đó nếu bạn cảm thấy bản thân phù hợp với công việc có thể
               tự đăng tải CV và các thông tin liên quan qua mục Nộp hồ sơ ứng
-              viên như thông thường. Nếu thành công thì bạn vẫn thưởng như quy
-              định.
+              viên như thông thường. Nếu thành công thì bạn sẽ được thưởng như
+              quy định.
             </div>
           </>
         ),
@@ -103,8 +103,8 @@ const frequentlyQuestions = [
 
             <div>
               Trong tương lai, Fetch Hunt sẽ mở tính năng kết nối với các công
-              ty, tổ chức, clients. Khi tính năng được mở, chúng tôi sẽ nhanh
-              chóng có thông báo chính xác đến tất cả các đối tượng.
+              ty, tổ chức,... Khi tính năng được mở, chúng tôi sẽ nhanh chóng có
+              thông báo chính xác đến tất cả các đối tượng.
             </div>
           </>
         ),
@@ -121,10 +121,10 @@ const frequentlyQuestions = [
         content: (
           <>
             <div className='mb-2'>
-              Hiện tại, bạn KHÔNG thể đăng tải các thông tin tuyển dụng lên nền
-              tảng Fetch Hunt vì chúng tôi đang chỉ mở duy nhất tính năng giới
-              thiệu ứng viên dành cho các đối tượng có ứng viên tiềm năng và
-              muốn gia tăng thu nhập.
+              Hiện tại, bạn <strong>KHÔNG</strong> thể đăng tải các thông tin
+              tuyển dụng lên nền tảng Fetch Hunt vì chúng tôi đang chỉ mở duy
+              nhất tính năng giới thiệu ứng viên dành cho các đối tượng có ứng
+              viên tiềm năng và muốn gia tăng thu nhập.
             </div>
 
             <div>
@@ -336,9 +336,11 @@ const MainContent = (): React.ReactElement => {
           ))}
 
           <div className='div-center'>
-            {/* <Link href='/contact'> */}
-            <button type='button'>Liên hệ hỗ trợ người dùng</button>
-            {/* </Link> */}
+            <Link href='https://m.me/fetchvietnam'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <button type='button'>Liên hệ hỗ trợ người dùng</button>
+              </a>
+            </Link>
           </div>
         </div>
       </div>

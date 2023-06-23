@@ -6,14 +6,14 @@ import { SCREEN } from '@/config/global'
 
 import LazyLoadComponent from '@/components/LazyLoadComponent'
 
-import Header from '@/sections/fetchunt/header'
 import Introduction from '@/sections/fetchunt/introduction'
 import Messenger from '@/sections/fetchunt/messenger'
-import Zalo from '@/sections/fetchunt/zalo'
 
 const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
+const JobList = dynamic(() => import('@/sections/fetchunt/job-list'))
 const Career = dynamic(() => import('@/sections/fetchunt/career'))
 const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
+const JoinSteps = dynamic(() => import('@/sections/fetchunt/join-steps'))
 const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
 const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'), {
   loading: () => <p>Loading...</p>,
@@ -51,9 +51,11 @@ const FetchuntPage: NextPage = () => {
         ]}
       />
 
-      <Header />
-
       <Introduction />
+
+      <LazyLoadComponent>
+        <JobList />
+      </LazyLoadComponent>
 
       <LazyLoadComponent>
         <MainContent />
@@ -61,6 +63,10 @@ const FetchuntPage: NextPage = () => {
 
       <LazyLoadComponent>
         <Cooperate />
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <JoinSteps />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
@@ -72,15 +78,13 @@ const FetchuntPage: NextPage = () => {
           title='Lựa chọn phù hợp nhất với bạn'
           subTitle='Gia tăng thu nhập của bạn bằng cách đăng ký ngay!'
           buttonText='Liên hệ chúng tôi'
-          linkTo='https://www.facebook.com/Fetch.Technology'
+          linkTo='https://www.fetch.tech/'
         />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
         <Footer />
       </LazyLoadComponent>
-
-      <Zalo />
 
       <Messenger />
     </>

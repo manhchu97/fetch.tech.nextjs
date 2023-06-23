@@ -1,0 +1,137 @@
+@import '@/styles/_mixins.scss';
+
+.join-steps-container {
+  width: 1370px;
+  margin: 0 auto;
+
+  @include screen-down(xxl) {
+    width: 1170px;
+  }
+
+  @include screen-down(xl) {
+    width: 960px;
+  }
+
+  @include screen-down(lg) {
+    width: 720px;
+  }
+
+  @include screen-down(md) {
+    width: 540px;
+  }
+
+  @include screen-down(sm) {
+    width: 351px;
+  }
+
+  :global .join-steps-header {
+    color: #17274e;
+    text-align: center;
+    font-size: 40px;
+    font-family: Quicksand;
+    font-weight: 700;
+    line-height: 44px;
+    letter-spacing: -0.5px;
+    margin-bottom: 64px;
+
+    @include screen-down(sm) {
+      font-size: 28px;
+    }
+  }
+
+  :global .join-steps-main {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+    @include screen-down(sm) {
+      width: 90%;
+    }
+
+    .num-step {
+      width: 51px;
+      height: 50px;
+      flex-shrink: 0;
+      border-radius: 51px;
+      background: #ffbe16;
+      margin-right: 32px;
+
+      text-align: justify;
+      font-size: 24px;
+      font-family: Quicksand;
+      font-weight: 500;
+      line-height: 36px;
+      color: #fff;
+
+      @include screen-down(sm) {
+        width: 40px;
+        height: 40px;
+        margin-right: 24px;
+
+        font-size: 18px;
+      }
+    }
+
+    .accordion-header {
+      margin-top: 4px;
+
+      .h6 {
+        font-weight: 500;
+
+        @include screen-up(md) {
+          font-size: 24px;
+        }
+      }
+
+      @include screen-down(sm) {
+        margin-top: 0;
+      }
+    }
+
+    .accordion-content {
+      @include screen-down(sm) {
+        margin-left: -66px;
+      }
+
+      .h6 {
+        font-size: 20px;
+
+        @include screen-down(md) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  :global .join-steps-footer {
+    display: flex;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    justify-content: center;
+
+    @include screen-down(sm) {
+      margin-top: 30px;
+      margin-bottom: 60px;
+    }
+
+    button {
+      background: #ffc01e;
+      border-radius: 8px;
+      color: #fff;
+      padding: 12px 120px;
+      outline: unset;
+      border: unset;
+
+      font-family: 'Quicksand';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 40px;
+
+      @include screen-down(sm) {
+        padding: 12px 64px;
+        font-size: 22px;
+      }
+    }
+  }
+}

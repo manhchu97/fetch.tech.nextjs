@@ -91,7 +91,6 @@ const Footer = () => {
           height={45}
         />
       </div>
-
       <div className='footer-content-container'>
         <div className='footer-form-container col-xs-12 col-lg-5'>
           <div className='footer-form-inner'>
@@ -133,7 +132,7 @@ const Footer = () => {
 
         <div className='footer-nav-container col-xs-12 col-lg-5'>
           <div className='col-6 col-lg-5'>
-            <Link href='https://fetch.tech/resources/ourstory'>
+            <Link href='https://www.fetch.tech/company'>
               <a target='_blank' rel='noopener noreferrer'>
                 <span className='nav-title'>Về chúng tôi</span>
               </a>
@@ -241,7 +240,6 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-
       <div className='footer-copy-right'>
         © {new Date().getFullYear()} Công ty TNHH Fetchunt
       </div>

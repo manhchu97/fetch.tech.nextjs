@@ -29,7 +29,7 @@ const Banner = ({
       <div className='banner-button-container'>
         <Link href={linkTo}>
           <a target='_blank' rel='noopener noreferrer'>
-            <div className='banner-button' role='button'>
+            <div className='banner-button div-center' role='button'>
               {buttonText}
             </div>
           </a>
