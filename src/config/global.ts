@@ -4,6 +4,8 @@ export const FACEBOOK_PAGE_ID = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID || ''
 export const CAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ''
 export const GOOGLE_TAG_MANAGER_KEY =
   process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_KEY || ''
+export const FETCHUNT_GOOGLE_TAG_MANAGER_KEY =
+  process.env.NEXT_PUBLIC_FETCHUNT_GOOGLE_TAG_MANAGER_KEY || ''
 export const IMAGE_WESERV_URL = 'https://wsrv.nl'
 export const CDN_IMAGE_SERVER = `${IMAGE_WESERV_URL}?url=${HOST_API}`
 

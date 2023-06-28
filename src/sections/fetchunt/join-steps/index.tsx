@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { logEvent } from 'firebase/analytics'
+
 import Accordion from '../accordion'
 import styles from './JoinSteps.module.scss'
 
@@ -109,7 +111,19 @@ const JoinSteps = () => {
       <div className='join-steps-footer'>
         <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
           <a target='_blank' rel='noopener noreferrer'>
-            <button type='button'>Đăng ký ngay</button>
+            <button
+              type='button'
+              onClick={async () => {
+                const { initializeFirebase } = await import('@/utils/firebase')
+
+                const analytics = await initializeFirebase()
+                if (analytics) {
+                  logEvent(analytics, '#clickthrough_Signup_end')
+                }
+              }}
+            >
+              Đăng ký ngay
+            </button>
           </a>
         </Link>
       </div>

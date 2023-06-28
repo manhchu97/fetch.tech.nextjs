@@ -3,6 +3,8 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { logEvent } from 'firebase/analytics'
+
 import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Introduction.module.scss'
@@ -78,7 +80,20 @@ const Introduction = (): React.ReactElement => {
 
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
             <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-primary'>
+              <button
+                type='button'
+                className='btn btn-primary'
+                onClick={async () => {
+                  const { initializeFirebase } = await import(
+                    '@/utils/firebase'
+                  )
+
+                  const analytics = await initializeFirebase()
+                  if (analytics) {
+                    logEvent(analytics, '#clickthrough_Signup_begin')
+                  }
+                }}
+              >
                 Tìm kiếm cơ hội nhận thưởng
               </button>
             </a>
