@@ -86,7 +86,7 @@ function JobList() {
 
               <div
                 className={clsx(
-                  'list-icon-info hstack  mb-3',
+                  'list-icon-info hstack  mb-2',
                   isMobileScreen ? 'gap-1' : 'gap-4',
                 )}
               >
@@ -112,12 +112,6 @@ function JobList() {
                 </div>
 
                 <div className='icon-info hstack gap-2'>
-                  <i className='bi bi-geo-alt-fill' />
-
-                  {locations.map((it) => it.office).join(', ')}
-                </div>
-
-                <div className='icon-info hstack gap-2'>
                   <i className='bi bi-calendar-week-fill' />
 
                   <time>
@@ -127,6 +121,19 @@ function JobList() {
                       day: 'numeric',
                     })}
                   </time>
+                </div>
+              </div>
+
+              <div
+                className={clsx(
+                  'list-icon-info hstack  mb-3',
+                  isMobileScreen ? 'gap-1' : 'gap-4',
+                )}
+              >
+                <div className='icon-info hstack gap-2'>
+                  <i className='bi bi-geo-alt-fill' />
+
+                  {locations.map((it) => it.office).join(', ')}
                 </div>
               </div>
 
@@ -146,12 +153,7 @@ function JobList() {
                 </div>
 
                 {Tags.length > 0 && (
-                  <div
-                    className={clsx(
-                      'tags hstack gap-1',
-                      isMobileScreen && 'mb-3',
-                    )}
-                  >
+                  <div className={clsx('tags hstack gap-1')}>
                     {Tags.map(({ id, title, background }, index) => (
                       <div
                         key={id || index}
