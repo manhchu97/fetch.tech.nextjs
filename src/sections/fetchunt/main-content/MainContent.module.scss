@@ -1,27 +1,11 @@
 @import '@/styles/_mixins.scss';
 
 .content-container {
-  width: 1370px;
   margin: 64px auto;
-
-  @include screen-down(xxl) {
-    width: 1170px;
-  }
-
-  @include screen-down(xl) {
-    width: 960px;
-  }
-
-  @include screen-down(lg) {
-    width: 720px;
-  }
-
-  @include screen-down(md) {
-    width: 540px;
-  }
+  padding: 0 10%;
 
   @include screen-down(sm) {
-    width: 351px;
+    padding: 16px;
   }
 
   :global .ft-main-content-container {

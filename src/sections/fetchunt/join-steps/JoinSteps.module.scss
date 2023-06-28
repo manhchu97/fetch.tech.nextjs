@@ -1,27 +1,11 @@
 @import '@/styles/_mixins.scss';
 
 .join-steps-container {
-  width: 1370px;
   margin: 0 auto;
-
-  @include screen-down(xxl) {
-    width: 1170px;
-  }
-
-  @include screen-down(xl) {
-    width: 960px;
-  }
-
-  @include screen-down(lg) {
-    width: 720px;
-  }
-
-  @include screen-down(md) {
-    width: 540px;
-  }
+  padding: 0 10%;
 
   @include screen-down(sm) {
-    width: 351px;
+    padding: 16px;
   }
 
   :global .join-steps-header {
@@ -131,6 +115,11 @@
       @include screen-down(sm) {
         padding: 12px 64px;
         font-size: 22px;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       }
     }
   }

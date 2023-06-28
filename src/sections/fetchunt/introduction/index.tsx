@@ -66,9 +66,9 @@ const Introduction = (): React.ReactElement => {
         </div>
 
         <div className='main-content'>
-          <div className='mb-5 h3'>FETCHUNT</div>
+          <div className='h3'>FETCHUNT</div>
 
-          <div className='mb-4 h5'>
+          <div className='h5'>
             Fetchhunt là một nền tảng tuyển dụng cho phép các nhà tuyển dụng và
             chuyên gia công nghệ giới thiệu, kết nối ứng viên và chia sẻ cơ hội
             việc làm, tạo ra giá trị mới với nỗ lực tối thiểu.{' '}
@@ -86,7 +86,7 @@ const Introduction = (): React.ReactElement => {
         </div>
       </div>
 
-      <div className='d-flex justify-content-evenly align-items-center footer'>
+      <div className='footer'>
         <div className='d-flex footer-item'>
           <div className='position-relative div-center process-recruiter-img'>
             <Image
