@@ -4,9 +4,11 @@ import {
   DEFAULT_PAGE_NUMBER,
   DEFAULT_PAGE_SIZE,
   HOST_API,
+  SCREEN,
 } from '@/config/global'
 
 import Page from '@/components/Page'
+import { SWRConfigProvider } from '@/components/SwrConfig'
 import BannerContact from '@/components/banner/contact'
 
 import { API_LIST_PUBLIC_BLOG } from '@/routes/api'
@@ -25,6 +27,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.BLOG_PAGE,
     },
   }
 }
@@ -33,16 +36,18 @@ const BlogPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Page title='Blog'>
-      <ListBlog fallback={fallback} />
+    <SWRConfigProvider>
+      <Page title='Blog'>
+        <ListBlog fallback={fallback} />
 
-      <BannerContact
-        title='Find the perfect fit with Fetch'
-        subTitle='Find the perfect fit with Fetch'
-        buttonText='Sign Up'
-        linkTo={PATH_CONFIG.contact}
-      />
-    </Page>
+        <BannerContact
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign Up'
+          linkTo={PATH_CONFIG.contact}
+        />
+      </Page>
+    </SWRConfigProvider>
   )
 }
 

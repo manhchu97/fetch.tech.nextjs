@@ -1,7 +1,7 @@
 import type { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 
-import { PRIMARY_COLOR } from '@/config/global'
+import { PRIMARY_COLOR, SCREEN } from '@/config/global'
 
 import Page from '@/components/Page'
 
@@ -36,6 +36,7 @@ export const getStaticProps = async () => {
     props: {
       requestApiFallback,
       exchangeRateFallback,
+      pageName: SCREEN.CALCULATOR_PAGE,
     },
   }
 }

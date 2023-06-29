@@ -1,62 +1,90 @@
-import { useForm } from 'react-hook-form'
+import { useCallback, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { yupResolver } from '@hookform/resolvers/yup'
 import clsx from 'clsx'
-import * as Yup from 'yup'
 
 import { useToastContext } from '@/context/ToastContext'
+
+import { useSubscribeFormValidator } from '@/hooks/useSubscribeFormValidator'
 
 import { API_SUBCRIBER_BY_EMAIL } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
 
-import { _postApi } from '@/utils/axios'
+import { ISubscribeForm } from '@/types/subscribeForm'
 
 import styles from './Footer.module.scss'
 
-type SubscribeSubmitForm = {
-  email: string
-}
-
 const Footer = () => {
+  const [form, setForm] = useState<ISubscribeForm>({
+    email: '',
+  })
+
+  const validationSchema = {
+    email: {
+      required: 'Please input your email.',
+      email: 'Email is invalid.',
+    },
+  }
+
   const { successToast, errorToast } = useToastContext()
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .required('Please input your email')
-      .email('Email is invalid'),
-  })
+  const { errors, validateForm, onBlurField } = useSubscribeFormValidator(
+    form,
+    validationSchema,
+  )
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<SubscribeSubmitForm>({
-    resolver: yupResolver(validationSchema),
-  })
+  const handleResetForm = useCallback(() => {
+    setForm({
+      email: '',
+    })
+  }, [])
 
-  const onSubmit = async (data: SubscribeSubmitForm) => {
+  const handleChangeField = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const fieldName = e.target.name
+      const nextFormState = {
+        ...form,
+        [fieldName]: e.target.value,
+      }
+
+      setForm(nextFormState)
+
+      if (!errors[fieldName].dirty) return
+
+      validateForm({
+        form: nextFormState,
+        errors,
+        fieldName,
+      })
+    },
+    [errors, form, validateForm],
+  )
+
+  const onSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
-      const { email: name = '' } = data
+      event.preventDefault()
 
+      const { isValid } = validateForm({ form, errors, forceTouchErrors: true })
+      if (!isValid) return
+
+      const { email: name = '' } = form
       const formData = {
-        ...data,
+        ...form,
         name,
         purpose: 'New Subscriber',
         company: 'Subscribe',
       }
 
+      const { _postApi } = await import('@/utils/axios')
       const response = await _postApi(API_SUBCRIBER_BY_EMAIL, formData)
 
       if (response) {
+        handleResetForm()
         successToast('Thank you for subscribing to Fetch. Keep in Touch!')
       }
     } catch (error) {
       errorToast('Something went wrong. Please try again later!')
-    } finally {
-      reset()
     }
   }
 
@@ -72,22 +100,25 @@ const Footer = () => {
       </div>
 
       <div className='footer-content-container'>
-        <div className='footer-form-container col-xs-12 col-lg-5'>
+        <div className='footer-form-container col-xs-12 col-lg-4 col-xl-5'>
           <div className='footer-form-inner'>
             <div className='text-form-input'>
               Join our newsletter to stay up to date on features and releases
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={onSubmitForm}>
               <div className='row'>
                 <div className='col-8 form-group'>
                   <input
                     type='text'
-                    {...register('email')}
+                    name='email'
+                    value={form?.email}
+                    onChange={handleChangeField}
+                    onBlur={onBlurField}
                     className={clsx({
                       'email-input': true,
                       'form-control': true,
-                      'is-invalid': errors.email,
+                      'is-invalid': errors.email.dirty && errors.email.error,
                     })}
                     placeholder='Enter your email address'
                   />
@@ -107,7 +138,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='footer-nav-container col-xs-12 col-lg-5'>
+        <div className='footer-nav-container col-xs-12 col-lg-5 col-xl-5'>
           <div className='col-0 col-lg-1'></div>
 
           <div className='col-6 col-lg-5'>
@@ -147,7 +178,7 @@ const Footer = () => {
           <div className='col-0 col-lg-1'></div>
         </div>
 
-        <div className='footer-social-container col-xs-12 col-lg-2'>
+        <div className='footer-social-container col-xs-12 col-lg-3 col-xl-2'>
           <Link href='https://www.facebook.com/Fetch.Technology' passHref>
             <a
               className='img-social-container'
@@ -202,7 +233,23 @@ const Footer = () => {
                 />
               </div>
 
-              <div className='img-title'>+65 8933 4200</div>
+              <div className='img-title'>SG: +65 8933 4200</div>
+            </a>
+          </Link>
+
+          <Link href='tel:+842866547574' passHref>
+            <a className='img-social-container' rel='noreferrer'>
+              <div className='img-social'>
+                <Image
+                  className='img-social'
+                  src='/images/footer/BigVietnamPhone.svg'
+                  alt='tel'
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </div>
+
+              <div className='img-title'>VN: +84 28 6654 7574</div>
             </a>
           </Link>
 

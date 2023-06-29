@@ -38,4 +38,8 @@ export const PATH_CONFIG = {
     root: path(ROOT_PATH, 'careers'),
     view: (slug: string): string => path(ROOT_PATH, `careers/${slug}`),
   },
+  privacyPolicy: path(ROOT_PATH, 'privacy-policy'),
+  serviceAgreement: path(ROOT_PATH, 'service-agreement'),
+  fetchunt: path(ROOT_PATH, 'fetchunt'),
+  frequentlyQuestions: path(ROOT_PATH, 'frequently-questions'),
 }

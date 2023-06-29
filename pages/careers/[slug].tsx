@@ -5,7 +5,9 @@ import type {
 
 import { ParsedUrlQuery } from 'querystring'
 
-import { HOST_API } from '@/config/global'
+import { HOST_API, SCREEN } from '@/config/global'
+
+import { SWRConfigProvider } from '@/components/SwrConfig'
 
 import { API_JOB_DETAIL } from '@/routes/api'
 
@@ -41,6 +43,7 @@ export const getServerSideProps = async (
   return {
     props: {
       fallback: data,
+      pageName: SCREEN.CAREERS_DETAIL_PAGE,
       previousRoute,
     },
   }
@@ -50,7 +53,11 @@ const JobDetailPage = ({
   fallback,
   previousRoute,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  return <JobDetail fallback={fallback} previousRoute={previousRoute} />
+  return (
+    <SWRConfigProvider>
+      <JobDetail fallback={fallback} previousRoute={previousRoute} />
+    </SWRConfigProvider>
+  )
 }
 
 export default JobDetailPage

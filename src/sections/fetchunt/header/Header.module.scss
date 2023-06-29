@@ -1,0 +1,228 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.header-container {
+  :global .header-logo-container {
+    background-color: $primary-color;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 12px;
+
+    .header-logo-img {
+      filter: brightness(0) invert(1);
+      width: 180px;
+      height: 77px;
+
+      @include screen-down(md) {
+        width: 126px;
+        height: 54px;
+      }
+    }
+  }
+
+  :global .header-banner-container {
+    background-color: $primary-color;
+    width: 100%;
+    padding-bottom: 32px;
+
+    .ft-container {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 150px 32px 32px 32px;
+
+      @include screen(xs) {
+        padding-top: 32px;
+      }
+
+      @include screen(sm) {
+        padding-top: 70px;
+      }
+
+      @include screen(md) {
+        padding-top: 70px;
+      }
+
+      @include screen(lg) {
+        padding-bottom: 0;
+        padding-left: 16px;
+      }
+
+      @include screen(xl) {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+      }
+
+      @include screen(xxl) {
+        max-width: 1250px;
+      }
+
+      .header-banner-img {
+        width: 300px;
+        height: 200px;
+
+        @include screen(sm) {
+          width: 400px;
+          height: 267px;
+        }
+
+        @include screen(md) {
+          width: 480px;
+          height: 320px;
+        }
+
+        @include screen(lg) {
+          width: 580px;
+          height: 387px;
+        }
+
+        @include screen(xl) {
+          width: 700px;
+          height: 467px;
+        }
+
+        @include screen(xxl) {
+          width: 780px;
+          height: 521px;
+        }
+      }
+
+      .header-banner-content {
+        transform: translateY(-50px);
+        padding-left: 24px;
+        padding-right: 24px;
+
+        @include screen-down(xl) {
+          padding-left: 28px;
+          padding-right: 28px;
+        }
+
+        @include screen-down(lg) {
+          transform: none;
+          margin-top: 36px;
+        }
+
+        .fetchunt-title {
+          font-family: 'Quicksand';
+          font-weight: 700;
+          font-size: 80px;
+          line-height: 80px;
+          text-align: center;
+          letter-spacing: -0.5px;
+          color: #ffc01e;
+          margin-bottom: 65px;
+
+          @include screen-down(xxl) {
+            font-size: 64px;
+            line-height: 64px;
+            margin-bottom: 48px;
+          }
+
+          @include screen-down(lg) {
+            margin-bottom: 36px;
+          }
+
+          @include screen-down(md) {
+            margin-bottom: 24px;
+          }
+
+          @include screen-down(sm) {
+            font-size: 48px;
+            line-height: 48px;
+          }
+        }
+
+        .subtitle {
+          font-family: 'Quicksand';
+          font-weight: 700;
+          font-size: 30px;
+          line-height: 30px;
+          text-align: center;
+          letter-spacing: -0.5px;
+          color: #ffc01e;
+          margin-bottom: 85px;
+
+          @include screen-down(xxl) {
+            margin-bottom: 56px;
+          }
+
+          @include screen-down(xl) {
+            font-size: 24px;
+            line-height: 30px;
+            margin-bottom: 36px;
+          }
+
+          @include screen-down(md) {
+            margin-bottom: 24px;
+          }
+
+          @include screen-down(sm) {
+            font-size: 20px;
+            line-height: 28px;
+          }
+        }
+
+        .description {
+          font-family: 'Quicksand';
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 30px;
+          text-align: center;
+          letter-spacing: -0.5px;
+          color: #1f3a6f;
+          margin-bottom: 75px;
+
+          @include screen-down(xxl) {
+            margin-bottom: 56px;
+          }
+
+          @include screen-down(xl) {
+            font-size: 20px;
+            line-height: 28px;
+            margin-bottom: 36px;
+          }
+
+          @include screen-down(md) {
+            margin-bottom: 24px;
+          }
+
+          @include screen-down(sm) {
+            font-size: 18px;
+            line-height: 20px;
+          }
+        }
+
+        .header-banner-action {
+          border-radius: 12px;
+          background: #ffc01e;
+          padding: 20px 45px;
+          font-family: 'Quicksand';
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 30px;
+          text-align: center;
+          letter-spacing: -0.5px;
+          color: #fff;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          transition: all 0.3s ease;
+
+          @include screen-down(xl) {
+            font-size: 24px;
+            line-height: 28px;
+            padding: 18px 24px;
+          }
+
+          @include screen-down(sm) {
+            font-size: 18px;
+            line-height: 24px;
+          }
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+    }
+  }
+}

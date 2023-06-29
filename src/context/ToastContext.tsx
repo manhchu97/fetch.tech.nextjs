@@ -1,9 +1,10 @@
-import React, { createContext, useCallback, useMemo } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import React, { createContext, useCallback, useMemo, useState } from 'react'
+
+import clsx from 'clsx'
 
 type ToastContextType = {
-  successToast: (message: string) => string | number
-  errorToast: (message: string) => string | number
+  successToast: (msg: string, autoClose?: number) => void
+  errorToast: (msg: string, autoClose?: number) => void
 }
 
 const ToastContext = createContext<ToastContextType | null>(null)
@@ -12,34 +13,53 @@ interface IToastProvider {
   children: React.ReactNode
 }
 
+let timeoutId: ReturnType<typeof setTimeout>
+
 const ToastProvider = ({ children }: IToastProvider) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [toastMsg, setToastMsg] = useState<string>('')
+  const [toastType, setToastType] = useState<string>('success')
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false)
+    setToastMsg('')
+    setToastType('')
+  }, [])
+
+  const handleAutoCloseToast = useCallback(
+    (autoClose = 0) => {
+      if (timeoutId) clearTimeout(timeoutId)
+
+      timeoutId = setTimeout(() => {
+        handleClose()
+      }, autoClose)
+    },
+    [handleClose],
+  )
+
+  const showToast = useCallback(
+    (msg = '', autoClose = 0) => {
+      setToastMsg(msg)
+      setIsOpen(true)
+      handleAutoCloseToast(autoClose)
+    },
+    [handleAutoCloseToast],
+  )
+
   const successToast = useCallback(
-    (message: string): string | number =>
-      toast.success(message, {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        className: 'override__toast-success',
-      }),
-    [],
+    (msg = '', autoClose = 3000): void => {
+      setToastType('success')
+      showToast(msg, autoClose)
+    },
+    [showToast],
   )
 
   const errorToast = useCallback(
-    (message: string): string | number =>
-      toast.error(message, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      }),
-    [],
+    (msg = '', autoClose = 5000): void => {
+      setToastType('error')
+      showToast(msg, autoClose)
+    },
+    [showToast],
   )
 
   const toastCtx = useMemo(
@@ -50,7 +70,32 @@ const ToastProvider = ({ children }: IToastProvider) => {
   return (
     <ToastContext.Provider value={toastCtx}>
       {children}
-      <ToastContainer />
+
+      {isOpen && (
+        <div className='cus-toast-container'>
+          <div
+            className={clsx({
+              'cus-toast': true,
+              'toast-error': toastType === 'error',
+              'toast-success': toastType === 'success',
+            })}
+          >
+            <div className='cus-toast-content'>
+              <i
+                className={`bi ${
+                  toastType === 'success'
+                    ? 'bi-check-circle-fill'
+                    : 'bi-x-circle-fill'
+                }`}
+              />
+
+              <span className='cus-toast-msg'>{toastMsg}</span>
+            </div>
+
+            <i className='bi bi-x-lg' onClick={handleClose} />
+          </div>
+        </div>
+      )}
     </ToastContext.Provider>
   )
 }
