@@ -1,18 +1,53 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 import clsx from 'clsx'
 import ldDebounce from 'lodash.debounce'
+import qs from 'query-string'
+import useSWR from 'swr'
 
+import { DEFAULT_PAGE_SIZE, SHARE_STATUS } from '@/config/fetchunt'
+import { DEFAULT_PAGE_NUMBER, HOST_API } from '@/config/global'
+
+import { API_LIST_JOB } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
 
-import styles from './JobList.module.scss'
-import mockJobList from './mock-job-list.json'
+import { IJobItem, IListJobResponse } from '@/types/fetchunt'
 
-function JobList() {
+import fetcher from '@/utils/fetcher'
+
+import styles from './JobList.module.scss'
+
+interface IListJobProps {
+  fallback: IListJobResponse
+}
+
+function JobList({ fallback }: IListJobProps) {
   const [isMobileScreen, setIsMobileScreen] = useState(false)
+  const [mounted, setMounted] = useState<boolean>(false)
+
+  useEffect(() => setMounted(true), [])
+
+  const { data: jobData } = useSWR(
+    mounted ? [API_LIST_JOB] : null,
+    (url: string) => {
+      const params = {
+        pageSize: DEFAULT_PAGE_SIZE,
+        pageNumber: DEFAULT_PAGE_NUMBER,
+        status: SHARE_STATUS,
+      }
+
+      return fetcher(`${HOST_API}/${url}?${qs.stringify(params)}`)
+    },
+    { fallbackData: fallback },
+  )
+
+  const listJobs: IJobItem[] = useMemo(
+    () => jobData?.data?.list || jobData?.data?.jobs || [],
+    [jobData],
+  )
 
   const jobSlug = ({ slug, id }: { slug: string; id: string }) => {
     const slugArray = slug.split('-')
@@ -54,18 +89,18 @@ function JobList() {
       </div>
 
       <div className='job-list-main'>
-        {mockJobList.map(
+        {listJobs.map(
           (
             {
               id,
               slug,
               title,
               type,
-              salaryJob,
+              salary,
               locations,
               Tags,
-              createdAt,
-              bonus,
+              time,
+              totalBonus,
             },
             index,
           ) => (
@@ -80,7 +115,7 @@ function JobList() {
 
                 <div className='p bonus'>
                   Thưởng giới thiệu:{' '}
-                  {Number(bonus || 0).toLocaleString('it-IT')} VND
+                  {Number(totalBonus || 0).toLocaleString('it-IT')} VND
                 </div>
               </div>
 
@@ -98,29 +133,13 @@ function JobList() {
                     height={15}
                   />
 
-                  {(() => {
-                    const { min = 0, max = 0, currency } = salaryJob
-                    const minSalary = Number(min).toLocaleString('it-IT')
-                    const maxSalary = Number(max).toLocaleString('it-IT')
-
-                    if (minSalary === '0') {
-                      return `Up to ${maxSalary} ${currency}`
-                    }
-
-                    return `${minSalary} - ${maxSalary} ${currency}`
-                  })()}
+                  {salary}
                 </div>
 
                 <div className='icon-info hstack gap-2'>
                   <i className='bi bi-calendar-week-fill' />
 
-                  <time>
-                    {new Date(createdAt).toLocaleDateString('en-us', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                    })}
-                  </time>
+                  {time}
                 </div>
               </div>
 
@@ -139,9 +158,13 @@ function JobList() {
 
               <div className='d-flex justify-content-between actions-tags'>
                 <div className={clsx('actions hstack gap-4')}>
-                  <button type='button' className='btn btn-primary'>
-                    Giới thiệu ứng viên
-                  </button>
+                  <Link href={`https://portal.fetch.tech/job-detail/${id}`}>
+                    <a target='_blank' rel='noopener noreferrer'>
+                      <button type='button' className='btn btn-primary'>
+                        Giới thiệu ứng viên
+                      </button>
+                    </a>
+                  </Link>
 
                   <Link href={PATH_CONFIG.careers.view(jobSlug({ slug, id }))}>
                     <a target='_blank' rel='noopener noreferrer'>
