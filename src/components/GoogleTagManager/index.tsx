@@ -2,7 +2,7 @@ import React from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { SCREEN } from '@/config/global'
+import { FETCHUNT_GOOGLE_TAG_MANAGER_KEY, SCREEN } from '@/config/global'
 
 const FetchuntGoogleTagManager = dynamic(
   () => import('./FetchuntGoogleTagManager'),
@@ -23,7 +23,7 @@ const GoogleTagManager = ({
       SCREEN.SERVICE_AGREEMENT_PAGE,
     ].includes(pageName)
   )
-    return <FetchuntGoogleTagManager />
+    return <FetchuntGoogleTagManager gtmId={FETCHUNT_GOOGLE_TAG_MANAGER_KEY} />
 
   return <CommonGoogleTagManager gtmId={gtmId} />
 }
