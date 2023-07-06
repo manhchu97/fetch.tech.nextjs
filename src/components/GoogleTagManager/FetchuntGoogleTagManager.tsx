@@ -1,33 +1,29 @@
-import { useEffect } from 'react'
+import Script from 'next/script'
 
-const FetchuntGoogleTagManager = () => {
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') return
+const FetchuntGoogleTagManager = ({ gtmId }: { gtmId: string }) => {
+  return (
+    <>
+      <Script
+        strategy='afterInteractive'
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`}
+      />
 
-    let timer: ReturnType<typeof setTimeout> = setTimeout(() => {})
-    let cleanupFn: () => void
+      <Script
+        id='gtm-script'
+        strategy='afterInteractive'
+        dangerouslySetInnerHTML={{
+          __html: `
+                window.dataLayer = window.dataLayer || [];
+                window['ga-disable-${gtmId}'] = 'false';
 
-    const loadGTMScript = async () => {
-      const {
-        initGTMScriptWithDelay,
-        initGTMEventListener,
-        removeGTMEventListener,
-      } = await import('@/utils/gtm')
-
-      timer = initGTMScriptWithDelay()
-      cleanupFn = removeGTMEventListener
-      initGTMEventListener()
-    }
-
-    loadGTMScript()
-
-    return () => {
-      clearTimeout(timer)
-      cleanupFn?.()
-    }
-  }, [])
-
-  return null
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', '${gtmId}', { page_path: window.location.pathname });
+              `,
+        }}
+      />
+    </>
+  )
 }
 
 export default FetchuntGoogleTagManager
