@@ -38,7 +38,7 @@ export const initializeCommonFirebase = async () => {
 }
 
 export const initializeFirebase = async () => {
-  if (window.firebaseDidInit) return false
+  // if (window.firebaseDidInit) return false
 
   // flag to ensure script does not get added to DOM more than once.
   window.firebaseDidInit = true
