@@ -5,10 +5,8 @@ import {
   RoleType,
 } from '@/sections/resources/calculator/types'
 
-const EXCHANGE_RATE_USD = 23296
-const EXCHANGE_RATE_SGD = 16798
-const limitSalary = 29.8 * 10 ** 6
-const limitSalaryUI = 83.6 * 10 ** 6
+const limitSalary = 36 * 10 ** 6
+const limitSalaryUI = 93.6 * 10 ** 6
 
 const TAXABLE_INCOME_KEY = [
   '5M',
@@ -85,23 +83,33 @@ const taxData = {
 const EXCHANGE_RATE = ['VND', 'USD', 'SGD'] as const
 type ExchangeRate = typeof EXCHANGE_RATE[number]
 
-export const convertExchangeRate = (rateType: ExchangeRate, salary: number) => {
+export const convertExchangeRate = (
+  rateType: ExchangeRate,
+  salary: number,
+  exchangeRateUSD: number,
+  exchangeRateSGD: number,
+) => {
   switch (rateType) {
     case 'USD':
-      return salary / EXCHANGE_RATE_USD
+      return salary / exchangeRateUSD
     case 'SGD':
-      return salary / EXCHANGE_RATE_SGD
+      return salary / exchangeRateSGD
     default:
       return salary
   }
 }
 
-export const convertToVND = (rateType: ExchangeRate, salary: number) => {
+export const convertToVND = (
+  rateType: ExchangeRate,
+  salary: number,
+  exchangeRateUSD: number,
+  exchangeRateSGD: number,
+) => {
   switch (rateType) {
     case 'USD':
-      return salary * EXCHANGE_RATE_USD
+      return salary * exchangeRateUSD
     case 'SGD':
-      return salary * EXCHANGE_RATE_SGD
+      return salary * exchangeRateSGD
     default:
       return salary
   }
@@ -152,7 +160,7 @@ const getDataTaxDeduction = (amount: number) => {
 
   const numSI = amount < limitSalary ? amount * SI : limitSalary * SI
   const numHI = amount < limitSalary ? amount * HI : limitSalary * HI
-  const numUI = amount * UI
+  const numUI = amount < limitSalaryUI ? amount * UI : limitSalaryUI * UI
   const taxDeductions = self + dependent + numSI + numHI + numUI
   const taxableIncome = amount - taxDeductions
   const PIT = getPersonalIncomeTaxable(taxableIncome)
@@ -350,10 +358,10 @@ export const calculationSalary = (
       const taxUI = UI_TAX
 
       /**
-       * if salary < 29.8
+       * if salary < 36
        * gross = (salary * percentTax * 11 * 10 ** 6 - reductionAmount) / (1 - percentTax)(percentTax - 1) * totalTax
        * else
-       * gross = (salary - percentTax* 11 * 10 ** 6 - reductionAmount - (percentTax - 1) * 29.8 * 10 ** 6 * taxHI_UI) / (1 - percentTax + (percentTax - 1) * taxUI)
+       * gross = (salary - percentTax* 11 * 10 ** 6 - reductionAmount - (percentTax - 1) * 36 * 10 ** 6 * taxHI_UI) / (1 - percentTax + (percentTax - 1) * taxUI)
        */
 
       const grossUnder298 = amount * (1 - totalTax)
@@ -362,13 +370,13 @@ export const calculationSalary = (
           (amount - 11 * 10 ** 6 * reductionPercent - reductionAmount) /
           (1 - reductionPercent + (reductionPercent - 1) * totalTax),
       )
-      const grossUpper298 = (amount + 29.8 * 10 ** 6 * taxSI_HI) / (1 - taxUI)
+      const grossUpper298 = (amount + 36 * 10 ** 6 * taxSI_HI) / (1 - taxUI)
       const grossUpper298Arr = Object.values(taxableIncomeArr).map(
         ({ reductionAmount, reductionPercent }) =>
           (amount -
             11 * 10 ** 6 * reductionPercent -
             reductionAmount -
-            (reductionPercent - 1) * 29.8 * 10 ** 6 * taxSI_HI) /
+            (reductionPercent - 1) * 36 * 10 ** 6 * taxSI_HI) /
           (1 - reductionPercent + (reductionPercent - 1) * taxUI),
       )
 
@@ -399,14 +407,14 @@ export const calculationSalary = (
       const totalTaxEmployer = SI + HI + UI + TU
       const taxSI_HI_TU = SI + HI + TU
 
-      // < 29.8
+      // < 36
       const grossUnder296 = (amount - PVI) / (1 + totalTaxEmployer)
 
-      // >= 29.8
+      // >= 36
       const grossUpper296 =
-        (amount - PVI - 29.8 * 10 ** 6 * taxSI_HI_TU) / (1 + UI)
+        (amount - PVI - 36 * 10 ** 6 * taxSI_HI_TU) / (1 + UI)
       const grossLargest =
-        amount - PVI - 83.6 * 10 ** 6 * UI - 29.8 * 10 ** 6 * taxSI_HI_TU
+        amount - PVI - 93.6 * 10 ** 6 * UI - 36 * 10 ** 6 * taxSI_HI_TU
 
       const grossArrTotal = [grossUnder296, grossLargest, grossUpper296]
 

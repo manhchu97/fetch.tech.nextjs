@@ -40,7 +40,7 @@ const FrequentlyQuestionsPage: NextPage = () => {
           },
           {
             rel: 'apple-touch-icon',
-            href: '/logo192.png',
+            href: '/apple-touch-icon.png',
             sizes: '192x192',
           },
           {

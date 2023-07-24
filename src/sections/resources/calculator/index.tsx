@@ -1,22 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import CurrencyInput from 'react-currency-input-field'
 import { useForm } from 'react-hook-form'
 
 import Image from 'next/image'
 
 import clsx from 'clsx'
+import useSWR from 'swr'
 
-import { CALCULATOR_HEADER_DATA } from '@/config/resources'
+import {
+  CALCULATOR_HEADER_DATA,
+  CURRENCY_VALUE,
+  EXCHANGE_RATE_SGD,
+  EXCHANGE_RATE_USD,
+} from '@/config/resources'
 
 import ServiceHeader from '@/components/service-header'
 
+import {
+  API_EXCHANGE_RATE_BANK,
+  API_EXCHANGE_RATE_REQUEST_API_KEY,
+} from '@/routes/api'
+
 import SlickCalculator from '@/sections/resources/calculator/slick-calculator'
+
+import {
+  ExchangeRateRequestApiResponse,
+  ExchangeRateResponse,
+} from '@/types/resources'
 
 import {
   calculationSalary,
   convertExchangeRate,
   convertToVND,
-} from '@/utils/convertSalary.util'
+} from '@/utils/convertSalary'
+import fetcher from '@/utils/fetcher'
 
 import styles from './Calculator.module.scss'
 import {
@@ -40,7 +57,15 @@ type IDataPage = {
   currency: CurrencyType
 }
 
-const Calculator = (): React.ReactElement => {
+type ICalculatorProps = {
+  requestApiFallback: ExchangeRateRequestApiResponse
+  exchangeRateFallback: ExchangeRateResponse
+}
+
+const Calculator = ({
+  requestApiFallback,
+  exchangeRateFallback,
+}: ICalculatorProps): React.ReactElement => {
   const { watch, getValues, setValue, handleSubmit } = useForm<IDataPage>({
     defaultValues: {
       employmentType: 'Full time',
@@ -54,11 +79,59 @@ const Calculator = (): React.ReactElement => {
   const [dataCalculationSalary, setDataCalculationSalary] = useState<
     CalculationSalaryResponse[] | null
   >(null)
+  const [mounted, setMounted] = useState<boolean>(false)
+
+  useEffect(() => setMounted(true), [])
+
+  const { data: exchangeRateRequestApiData } = useSWR(
+    mounted ? [API_EXCHANGE_RATE_REQUEST_API_KEY] : null,
+    (url: string) => {
+      return fetcher(url)
+    },
+    { fallbackData: requestApiFallback },
+  )
+
+  const exchangeRateToken = exchangeRateRequestApiData?.results || null
+
+  const { data } = useSWR(
+    mounted ? [API_EXCHANGE_RATE_BANK, exchangeRateToken] : null,
+    (url: string, token: string) => {
+      return fetcher(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+    },
+    { fallbackData: exchangeRateFallback },
+  )
+
+  const exchangeRateUSD = useMemo(() => {
+    const rateInfo = data?.results?.find(
+      ({ currency = '' }) => currency === CURRENCY_VALUE.USD,
+    )
+
+    return rateInfo?.buy_transfer || EXCHANGE_RATE_USD
+  }, [data])
+
+  const exchangeRateSGD = useMemo(() => {
+    const rateInfo = data?.results?.find(
+      ({ currency = '' }) => currency === CURRENCY_VALUE.SGD,
+    )
+
+    return rateInfo?.buy_transfer || EXCHANGE_RATE_SGD
+  }, [data])
 
   const getDataCalculationSalary = (payload: IDataPage) => {
     const { amount, currency, currencyAmount } = payload
 
-    const amountVND = convertToVND(currencyAmount, amount)
+    const amountVND = convertToVND(
+      currencyAmount,
+      amount,
+      exchangeRateUSD,
+      exchangeRateSGD,
+    )
     const getDataCalculationSalary = calculationSalary({
       ...payload,
       amount: amountVND,
@@ -67,7 +140,12 @@ const Calculator = (): React.ReactElement => {
     const currencyResult =
       getDataCalculationSalary?.map((item) => ({
         ...item,
-        amount: convertExchangeRate(currency, item.amount),
+        amount: convertExchangeRate(
+          currency,
+          item.amount,
+          exchangeRateUSD,
+          exchangeRateSGD,
+        ),
       })) || null
 
     return currencyResult

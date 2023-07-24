@@ -4,6 +4,8 @@ export const FACEBOOK_PAGE_ID = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_ID || ''
 export const CAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ''
 export const GOOGLE_TAG_MANAGER_KEY =
   process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_KEY || ''
+export const FETCHUNT_GOOGLE_TAG_MANAGER_KEY =
+  process.env.NEXT_PUBLIC_FETCHUNT_GOOGLE_TAG_MANAGER_KEY || ''
 export const IMAGE_WESERV_URL = 'https://wsrv.nl'
 export const CDN_IMAGE_SERVER = `${IMAGE_WESERV_URL}?url=${HOST_API}`
 
@@ -60,4 +62,5 @@ export const FIREBASE_FETCHUNT_CONFIG = {
   messagingSenderId:
     process.env.NEXT_PUBLIC_FETCHUNT_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FETCHUNT_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FETCHUNT_FIREBASE_MEASUREMENT_ID,
 }

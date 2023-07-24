@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GOOGLE_TAG_MANAGER_KEY } from '@/config/global'
+import { FETCHUNT_GOOGLE_TAG_MANAGER_KEY } from '@/config/global'
 
 declare global {
   interface Window {
@@ -39,11 +39,11 @@ export const initGTM = (): boolean | undefined => {
   script.type = 'text/javascript'
   script.id = 'gtm-script'
   script.async = true
-  script.src = `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_KEY}`
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${FETCHUNT_GOOGLE_TAG_MANAGER_KEY}`
 
   // ensure PageViews is always tracked (on script load)
   script.onload = () => {
-    loadGtm(GOOGLE_TAG_MANAGER_KEY)
+    loadGtm(FETCHUNT_GOOGLE_TAG_MANAGER_KEY)
   }
 
   document.head.appendChild(script)
