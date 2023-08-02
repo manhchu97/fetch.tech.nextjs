@@ -64,3 +64,8 @@ export const FIREBASE_FETCHUNT_CONFIG = {
   appId: process.env.NEXT_PUBLIC_FETCHUNT_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FETCHUNT_FIREBASE_MEASUREMENT_ID,
 }
+
+// Regex detect special chars: ., *, +, ?, ^, $, {, }, (, ), |, [, ], \
+export const REGEX_SPECIAL_CHARS = /[.*+?^${}()|[\]\\]/g
+
+export const REGEX_WHOLE_MATCH = '\\$&'
