@@ -5,6 +5,8 @@ import Link from 'next/link'
 
 import rehypeRaw from 'rehype-raw'
 
+import { formatSalary } from '@/config/job'
+
 import { PATH_CONFIG } from '@/routes/paths'
 
 import { IJobItem } from '@/types/job'
@@ -18,9 +20,11 @@ const JobItem = ({
   job,
   handleShowPopup,
 }: JobItemProps): React.ReactElement => {
-  const { locations, Tags, salary, title, type, description, id, slug } = job
+  const { locations, Tags, salaryJob, title, type, description, id, slug } = job
 
   const offices = locations.map(({ office }) => office).join(', ')
+
+  const salaryFormat = useMemo(() => formatSalary(salaryJob), [salaryJob])
 
   const jobSlug = useMemo(() => {
     const slugArray = slug.split('-')
@@ -39,7 +43,7 @@ const JobItem = ({
                 <div className='col-md-9'>
                   <div className='job-item-title'>
                     <h3>
-                      {`${title} (${salary})`}
+                      {`${title} (${salaryFormat})`}
                       <div className='job-item-tag'>
                         {Tags.map(({ id, title, background }, index) => (
                           <div
@@ -66,7 +70,7 @@ const JobItem = ({
                     <div className='col-md-12'>
                       <div className='job-item-location'>{offices}</div>
 
-                      <div className='job-item-salary'>{salary}</div>
+                      <div className='job-item-salary'>{salaryFormat}</div>
 
                       <div className='job-item-type'>{type}</div>
                     </div>

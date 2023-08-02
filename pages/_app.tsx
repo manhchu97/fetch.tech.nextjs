@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import Script from 'next/script'
 
 import 'animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -27,6 +28,11 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
 
   return (
     <>
+      <Script
+        id='bootstrap-cdn'
+        src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'
+      />
+
       <ToastProvider>
         <Component {...pageProps} />
 

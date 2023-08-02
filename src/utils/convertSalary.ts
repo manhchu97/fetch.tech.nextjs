@@ -1,12 +1,15 @@
 import {
   CalculationSalaryResponse,
   EmploymentType,
+  InsuranceType,
   ParamsCalculationSalary,
   RoleType,
 } from '@/sections/resources/calculator/types'
 
-const limitSalary = 36 * 10 ** 6
-const limitSalaryUI = 93.6 * 10 ** 6
+const maxSalarySHI = 36 * 10 ** 6
+const maxSalaryUI = 93.6 * 10 ** 6
+
+export const BASE_SALARY_INSURANCE = 4.68 * 10 ** 6
 
 const TAXABLE_INCOME_KEY = [
   '5M',
@@ -62,18 +65,73 @@ const taxableIncomeArr: Record<TaxableIncomeKey, TaxableIncomeValue> = {
   },
 }
 
+const GROSS_EXCHANGE_KEY = [
+  '4M750',
+  '9M250',
+  '16M050',
+  '27M250',
+  '42M250',
+  '61M850',
+  'over_61M850',
+] as const
+type GrossExchangeKey = typeof GROSS_EXCHANGE_KEY[number]
+
+type GrossExchangeValue = {
+  value: number
+  reductionPercentGE: number
+  reductionAmountGE: number
+}
+
+const grossExchangeArr: Record<GrossExchangeKey, GrossExchangeValue> = {
+  '4M750': {
+    value: 4.75 * 10 ** 6,
+    reductionPercentGE: 0.95,
+    reductionAmountGE: 0,
+  },
+  '9M250': {
+    value: 9.25 * 10 ** 6,
+    reductionPercentGE: 0.9,
+    reductionAmountGE: 0.25 * 10 ** 6,
+  },
+  '16M050': {
+    value: 16.05 * 10 ** 6,
+    reductionPercentGE: 0.85,
+    reductionAmountGE: 0.75 * 10 ** 6,
+  },
+  '27M250': {
+    value: 27.25 * 10 ** 6,
+    reductionPercentGE: 0.8,
+    reductionAmountGE: 1.65 * 10 ** 6,
+  },
+  '42M250': {
+    value: 42.25 * 10 ** 6,
+    reductionPercentGE: 0.75,
+    reductionAmountGE: 3.25 * 10 ** 6,
+  },
+  '61M850': {
+    value: 61.85 * 10 ** 6,
+    reductionPercentGE: 0.7,
+    reductionAmountGE: 5.85 * 10 ** 6,
+  },
+  over_61M850: {
+    value: 61.85 * 10 ** 6,
+    reductionPercentGE: 0.65,
+    reductionAmountGE: 9.85 * 10 ** 6,
+  },
+}
+
 /**
- * SI: socialInsurance
- * HI: healthInsurance
- * UI: unemploymentInsurance
- * TU: tradeUnion
+ * SI: Social Insurance
+ * HI: Health Insurance
+ * UI: Unemployment Insurance
+ * TU: Union Tax
  */
 
 const taxData = {
   forEmployer: { SI: 0.175, HI: 0.03, UI: 0.01, TU: 0.02, PVI: 250000 },
-  taxDeductions: {
+  forEmployee: {
     self: 11000000,
-    dependent: 0,
+    dependent: 4400000,
     SI: 0.08,
     HI: 0.015,
     UI: 0.01,
@@ -155,71 +213,195 @@ export const getPersonalIncomeTaxable = (taxableIncome: number) => {
   )
 }
 
-const getDataTaxDeduction = (amount: number) => {
-  const { self, dependent, SI, HI, UI } = taxData.taxDeductions
+export const getTaxableIncomeFromGE = (grossExchange: number) => {
+  if (grossExchange <= 0) return grossExchange
 
-  const numSI = amount < limitSalary ? amount * SI : limitSalary * SI
-  const numHI = amount < limitSalary ? amount * HI : limitSalary * HI
-  const numUI = amount < limitSalaryUI ? amount * UI : limitSalaryUI * UI
-  const taxDeductions = self + dependent + numSI + numHI + numUI
-  const taxableIncome = amount - taxDeductions
-  const PIT = getPersonalIncomeTaxable(taxableIncome)
-  return {
-    bringHome: amount - PIT - numSI - numHI - numUI,
-    numSI,
-    numHI,
-    numUI,
-    PIT,
-    taxDeductions,
+  let grossExchangeKey: GrossExchangeKey = '4M750'
+
+  if (grossExchange < grossExchangeArr['4M750'].value)
+    grossExchangeKey = '4M750'
+  else if (grossExchange < grossExchangeArr['9M250'].value)
+    grossExchangeKey = '9M250'
+  else if (grossExchange < grossExchangeArr['16M050'].value)
+    grossExchangeKey = '16M050'
+  else if (grossExchange < grossExchangeArr['27M250'].value)
+    grossExchangeKey = '27M250'
+  else if (grossExchange < grossExchangeArr['42M250'].value)
+    grossExchangeKey = '42M250'
+  else if (grossExchange < grossExchangeArr['61M850'].value)
+    grossExchangeKey = '61M850'
+  else if (grossExchange >= grossExchangeArr['61M850'].value)
+    grossExchangeKey = 'over_61M850'
+
+  return (
+    (grossExchange - grossExchangeArr[grossExchangeKey].reductionAmountGE) /
+    grossExchangeArr[grossExchangeKey].reductionPercentGE
+  )
+}
+
+const getDataTaxForEmployee = (
+  amount: number,
+  numberDependent: number,
+  insuranceType: InsuranceType,
+  insuranceAmount: number,
+) => {
+  const { self, dependent, SI, HI, UI } = taxData.forEmployee
+
+  switch (insuranceType) {
+    case 'Full wage': {
+      const numSI = amount < maxSalarySHI ? amount * SI : maxSalarySHI * SI
+      const numHI = amount < maxSalarySHI ? amount * HI : maxSalarySHI * HI
+      const numUI = amount < maxSalaryUI ? amount * UI : maxSalaryUI * UI
+
+      const totalSHUIEE = numSI + numHI + numUI
+      const taxDeductions = totalSHUIEE + self + dependent * numberDependent
+      const taxableIncome = amount > taxDeductions ? amount - taxDeductions : 0
+      const PIT = getPersonalIncomeTaxable(taxableIncome)
+
+      return {
+        bringHome: amount - PIT - totalSHUIEE,
+        numSI,
+        numHI,
+        numUI,
+        PIT,
+        taxDeductions,
+      }
+    }
+    case 'Other': {
+      const numSI =
+        insuranceAmount < maxSalarySHI
+          ? insuranceAmount * SI
+          : maxSalarySHI * SI
+      const numHI =
+        insuranceAmount < maxSalarySHI
+          ? insuranceAmount * HI
+          : maxSalarySHI * HI
+      const numUI =
+        insuranceAmount < maxSalaryUI ? insuranceAmount * UI : maxSalaryUI * UI
+
+      const totalSHUIEE = numSI + numHI + numUI
+      const taxDeductions = totalSHUIEE + self + dependent * numberDependent
+      const taxableIncome = amount > taxDeductions ? amount - taxDeductions : 0
+      const PIT = getPersonalIncomeTaxable(taxableIncome)
+
+      return {
+        bringHome: amount - PIT - totalSHUIEE,
+        numSI,
+        numHI,
+        numUI,
+        PIT,
+        taxDeductions,
+      }
+    }
   }
 }
 
-const checkFromGross = (amount: number, netCheck: number) =>
-  Math.abs(netCheck - getDataTaxDeduction(amount).bringHome)
-
-const getDataForEmployer = (amount: number) => {
+const getDataTaxForEmployer = (
+  amount: number,
+  insuranceType: InsuranceType,
+  insuranceAmount: number,
+) => {
   const { SI, HI, UI, TU, PVI } = taxData.forEmployer
 
-  const numSI = amount < limitSalary ? amount * SI : limitSalary * SI
-  const numHI = amount < limitSalary ? amount * HI : limitSalary * HI
-  const numUI = amount < limitSalaryUI ? amount * UI : limitSalaryUI * UI
-  const numTU = amount < limitSalary ? amount * TU : limitSalary * TU
+  switch (insuranceType) {
+    case 'Full wage': {
+      const numSI = amount < maxSalarySHI ? amount * SI : maxSalarySHI * SI
+      const numHI = amount < maxSalarySHI ? amount * HI : maxSalarySHI * HI
+      const numUI = amount < maxSalaryUI ? amount * UI : maxSalaryUI * UI
+      const numTU = amount < maxSalarySHI ? amount * TU : maxSalarySHI * TU
+      const totalSHUIER = numSI + numHI + numUI
 
-  return {
-    totalExpenses: amount + numSI + numHI + numUI + numTU + PVI,
-    numSI,
-    numHI,
-    numUI,
-    numTU,
+      return {
+        totalExpenses: amount + totalSHUIER + numTU + PVI,
+        numSI,
+        numHI,
+        numUI,
+        numTU,
+      }
+    }
+    case 'Other': {
+      const numSI =
+        insuranceAmount < maxSalarySHI
+          ? insuranceAmount * SI
+          : maxSalarySHI * SI
+      const numHI =
+        insuranceAmount < maxSalarySHI
+          ? insuranceAmount * HI
+          : maxSalarySHI * HI
+      const numUI =
+        insuranceAmount < maxSalaryUI ? insuranceAmount * UI : maxSalaryUI * UI
+      const numTU =
+        insuranceAmount < maxSalarySHI
+          ? insuranceAmount * TU
+          : maxSalarySHI * TU
+      const totalSHUIER = numSI + numHI + numUI
+
+      return {
+        totalExpenses: amount + totalSHUIER + numTU + PVI,
+        numSI,
+        numHI,
+        numUI,
+        numTU,
+      }
+    }
   }
 }
-
-const checkTotalFromGross = (amount: number, totalCheck: number) =>
-  Math.abs(totalCheck - getDataForEmployer(amount).totalExpenses)
 
 type ParamsConvertFromGross = {
   employmentType: EmploymentType
   amount: number
   roleType: RoleType
+  dependentNumber: number
+  insuranceType: InsuranceType
+  insuranceAmount: number
 }
 
 const convertFromGross = (
   params: ParamsConvertFromGross,
 ): CalculationSalaryResponse[] | null => {
-  const { employmentType, amount, roleType } = params
+  const {
+    employmentType,
+    amount,
+    roleType,
+    dependentNumber,
+    insuranceType,
+    insuranceAmount,
+  } = params
 
-  const { SI: SI_TAX, HI: HI_TAX, UI: UI_TAX } = taxData.taxDeductions
+  const {
+    SI: SI_Employee,
+    HI: HI_Employee,
+    UI: UI_Employee,
+  } = taxData.forEmployee
+  const {
+    SI: SI_Employer,
+    HI: HI_Employer,
+    UI: UI_Employer,
+    TU,
+    PVI,
+  } = taxData.forEmployer
+
   const {
     bringHome,
-    numSI: numSI_TAX,
-    numHI: numHI_TAX,
-    numUI: numUI_TAX,
+    numSI: numSI_Employee,
+    numHI: numHI_Employee,
+    numUI: numUI_Employee,
     PIT,
     taxDeductions,
-  } = getDataTaxDeduction(amount)
-  const { SI, HI, UI, TU, PVI } = taxData.forEmployer
-  const { totalExpenses, numSI, numHI, numUI, numTU } =
-    getDataForEmployer(amount)
+  } = getDataTaxForEmployee(
+    amount,
+    dependentNumber,
+    insuranceType,
+    insuranceAmount,
+  )
+
+  const {
+    totalExpenses,
+    numSI: numSI_Employer,
+    numHI: numHI_Employer,
+    numUI: numUI_Employer,
+    numTU,
+  } = getDataTaxForEmployer(amount, insuranceType, insuranceAmount)
 
   switch (employmentType) {
     case 'Freelance':
@@ -271,7 +453,6 @@ const convertFromGross = (
             { title: 'Total expenses', amount: amount || 0 },
           ]
       }
-
     case 'Full time':
       switch (roleType) {
         case 'Employee':
@@ -279,18 +460,18 @@ const convertFromGross = (
             { title: 'Gross salary', amount: amount || 0 },
             {
               title: 'Social insurance',
-              percent: SI_TAX,
-              amount: amount ? numSI_TAX : 0,
+              percent: SI_Employee,
+              amount: amount ? numSI_Employee : 0,
             },
             {
               title: 'Health insurance',
-              percent: HI_TAX,
-              amount: amount ? numHI_TAX : 0,
+              percent: HI_Employee,
+              amount: amount ? numHI_Employee : 0,
             },
             {
               title: 'Unemployed insurance',
-              percent: UI_TAX,
-              amount: amount ? numUI_TAX : 0,
+              percent: UI_Employee,
+              amount: amount ? numUI_Employee : 0,
             },
             { title: 'Tax deductions', amount: amount ? taxDeductions : 0 },
             { title: 'Personal income tax', amount: amount ? PIT : 0 },
@@ -302,18 +483,18 @@ const convertFromGross = (
             { title: 'Gross salary', amount: amount || 0 },
             {
               title: 'Social insurance',
-              percent: SI,
-              amount: amount ? numSI : 0,
+              percent: SI_Employer,
+              amount: amount ? numSI_Employer : 0,
             },
             {
               title: 'Health insurance',
-              percent: HI,
-              amount: amount ? numHI : 0,
+              percent: HI_Employer,
+              amount: amount ? numHI_Employer : 0,
             },
             {
               title: 'Unemployed insurance',
-              percent: UI,
-              amount: amount ? numUI : 0,
+              percent: UI_Employer,
+              amount: amount ? numUI_Employer : 0,
             },
             {
               title: 'Union tax',
@@ -325,7 +506,6 @@ const convertFromGross = (
             { title: 'Total expenses', amount: amount ? totalExpenses : 0 },
           ]
       }
-
     default:
       return null
   }
@@ -334,16 +514,33 @@ const convertFromGross = (
 export const calculationSalary = (
   params: ParamsCalculationSalary,
 ): CalculationSalaryResponse[] | null => {
-  const { amount, employmentType, role: roleType, calculationType } = params
+  const {
+    amount,
+    employmentType,
+    role: roleType,
+    calculationType,
+    dependentNumber = 0,
+    insuranceType,
+    insuranceAmount,
+  } = params
 
   if (amount <= 0)
     return convertFromGross({
       amount: 0,
       employmentType,
       roleType,
+      dependentNumber,
+      insuranceType,
+      insuranceAmount,
     })
 
-  const { SI: SI_TAX, HI: HI_TAX, UI: UI_TAX } = taxData.taxDeductions
+  const {
+    SI: SI_Employee,
+    HI: HI_Employee,
+    UI: UI_Employee,
+    self,
+    dependent,
+  } = taxData.forEmployee
 
   switch (calculationType) {
     case 'Gross':
@@ -351,88 +548,204 @@ export const calculationSalary = (
         amount: amount,
         employmentType,
         roleType,
+        dependentNumber,
+        insuranceType,
+        insuranceAmount,
       })
     case 'Net':
-      const totalTax = SI_TAX + HI_TAX + UI_TAX
-      const taxSI_HI = SI_TAX + HI_TAX
-      const taxUI = UI_TAX
+      switch (employmentType) {
+        case 'Freelance': {
+          const gross = amount / 0.9
+          return convertFromGross({
+            amount: gross,
+            employmentType,
+            roleType,
+            dependentNumber,
+            insuranceType,
+            insuranceAmount,
+          })
+        }
+        case 'Full time': {
+          const exemption = self + dependent * dependentNumber
+          const grossExchange = amount - exemption
+          const taxableIncome = getTaxableIncomeFromGE(grossExchange)
 
-      /**
-       * if salary < 36
-       * gross = (salary * percentTax * 11 * 10 ** 6 - reductionAmount) / (1 - percentTax)(percentTax - 1) * totalTax
-       * else
-       * gross = (salary - percentTax* 11 * 10 ** 6 - reductionAmount - (percentTax - 1) * 36 * 10 ** 6 * taxHI_UI) / (1 - percentTax + (percentTax - 1) * taxUI)
-       */
+          switch (insuranceType) {
+            case 'Full wage': {
+              // check insurance base
+              let insuranceBase = 0
 
-      const grossUnder298 = amount * (1 - totalTax)
-      const grossUnder298Arr = Object.values(taxableIncomeArr).map(
-        ({ reductionAmount, reductionPercent }) =>
-          (amount - 11 * 10 ** 6 * reductionPercent - reductionAmount) /
-          (1 - reductionPercent + (reductionPercent - 1) * totalTax),
-      )
-      const grossUpper298 = (amount + 36 * 10 ** 6 * taxSI_HI) / (1 - taxUI)
-      const grossUpper298Arr = Object.values(taxableIncomeArr).map(
-        ({ reductionAmount, reductionPercent }) =>
-          (amount -
-            11 * 10 ** 6 * reductionPercent -
-            reductionAmount -
-            (reductionPercent - 1) * 36 * 10 ** 6 * taxSI_HI) /
-          (1 - reductionPercent + (reductionPercent - 1) * taxUI),
-      )
+              if (
+                (taxableIncome + exemption) / 0.895 >= maxSalarySHI &&
+                (taxableIncome + exemption) / 0.895 < maxSalaryUI
+              ) {
+                insuranceBase =
+                  (taxableIncome + exemption + maxSalarySHI * 0.095) / 0.99
+              } else if ((taxableIncome + exemption) / 0.895 > maxSalaryUI) {
+                insuranceBase =
+                  taxableIncome +
+                  exemption +
+                  maxSalarySHI * 0.095 +
+                  maxSalaryUI * 0.01
+              } else {
+                insuranceBase = (taxableIncome + exemption) / 0.895
+              }
 
-      const grossArr = [
-        grossUnder298,
-        ...grossUnder298Arr,
-        grossUpper298,
-        ...grossUpper298Arr,
-      ]
+              // check social insurance
+              let numSI_Employee = 0
 
-      let minGrossIndex = 0
-      grossArr.forEach((item, index) => {
-        if (
-          checkFromGross(item, amount) <
-          checkFromGross(grossArr[minGrossIndex], amount)
-        )
-          minGrossIndex = index
-      })
+              if (insuranceBase < maxSalarySHI)
+                numSI_Employee = insuranceBase * SI_Employee
 
-      return convertFromGross({
-        amount: grossArr[minGrossIndex],
-        employmentType,
-        roleType,
-      })
+              if (insuranceBase >= maxSalarySHI)
+                numSI_Employee = maxSalarySHI * SI_Employee
 
+              // check health insurance
+              let numHI_Employee = 0
+
+              if (insuranceBase < maxSalarySHI)
+                numHI_Employee = insuranceBase * HI_Employee
+
+              if (insuranceBase >= maxSalarySHI)
+                numHI_Employee = maxSalarySHI * HI_Employee
+
+              // check health insurance
+              let numUI_Employee = 0
+
+              if (insuranceBase < maxSalaryUI)
+                numUI_Employee = insuranceBase * UI_Employee
+
+              if (insuranceBase >= maxSalaryUI)
+                numUI_Employee = maxSalaryUI * UI_Employee
+
+              const totalSHUIEE =
+                numSI_Employee + numHI_Employee + numUI_Employee
+
+              const gross = exemption + totalSHUIEE + taxableIncome
+              return convertFromGross({
+                amount: gross,
+                employmentType,
+                roleType,
+                dependentNumber,
+                insuranceType,
+                insuranceAmount,
+              })
+            }
+            case 'Other': {
+              // check social insurance
+              let numSI_Employee = 0
+
+              if (insuranceAmount < maxSalarySHI)
+                numSI_Employee = insuranceAmount * SI_Employee
+
+              if (insuranceAmount >= maxSalarySHI)
+                numSI_Employee = maxSalarySHI * SI_Employee
+
+              // check health insurance
+              let numHI_Employee = 0
+
+              if (insuranceAmount < maxSalarySHI)
+                numHI_Employee = insuranceAmount * HI_Employee
+
+              if (insuranceAmount >= maxSalarySHI)
+                numHI_Employee = maxSalarySHI * HI_Employee
+
+              // check health insurance
+              let numUI_Employee = 0
+
+              if (insuranceAmount < maxSalaryUI)
+                numUI_Employee = insuranceAmount * UI_Employee
+
+              if (insuranceAmount >= maxSalaryUI)
+                numUI_Employee = maxSalaryUI * UI_Employee
+
+              const totalSHUIEE =
+                numSI_Employee + numHI_Employee + numUI_Employee
+              const taxDeductions =
+                totalSHUIEE + self + dependent * dependentNumber
+              const taxableIncome = getTaxableIncomeFromGE(grossExchange)
+
+              return convertFromGross({
+                amount: taxDeductions + taxableIncome,
+                employmentType,
+                roleType,
+                dependentNumber,
+                insuranceType,
+                insuranceAmount,
+              })
+            }
+          }
+        }
+        default:
+          return null
+      }
     case 'Total':
-      const { SI, HI, UI, TU, PVI } = taxData.forEmployer
-      const totalTaxEmployer = SI + HI + UI + TU
-      const taxSI_HI_TU = SI + HI + TU
+      const { PVI, HI, SI, UI, TU } = taxData.forEmployer
 
-      // < 36
-      const grossUnder296 = (amount - PVI) / (1 + totalTaxEmployer)
+      switch (employmentType) {
+        case 'Freelance': {
+          return convertFromGross({
+            amount,
+            employmentType,
+            roleType,
+            dependentNumber,
+            insuranceType,
+            insuranceAmount,
+          })
+        }
+        case 'Full time': {
+          let gross = 0
 
-      // >= 36
-      const grossUpper296 =
-        (amount - PVI - 36 * 10 ** 6 * taxSI_HI_TU) / (1 + UI)
-      const grossLargest =
-        amount - PVI - 93.6 * 10 ** 6 * UI - 36 * 10 ** 6 * taxSI_HI_TU
+          switch (insuranceType) {
+            case 'Full wage': {
+              if (amount - PVI >= 102.636 * 10 ** 6) {
+                gross = amount - PVI - 9.036 * 10 ** 6
+              } else if (amount - PVI >= 44.46 * 10 ** 6) {
+                gross = (amount - PVI - 8.1 * 10 ** 6) / (1 + 0.01)
+              } else gross = (amount - PVI) / (1 + 0.235)
 
-      const grossArrTotal = [grossUnder296, grossLargest, grossUpper296]
+              return convertFromGross({
+                amount: gross,
+                employmentType,
+                roleType,
+                dependentNumber,
+                insuranceType,
+                insuranceAmount,
+              })
+            }
+            case 'Other': {
+              const numSI =
+                insuranceAmount < maxSalarySHI
+                  ? insuranceAmount * SI
+                  : maxSalarySHI * SI
+              const numHI =
+                insuranceAmount < maxSalarySHI
+                  ? insuranceAmount * HI
+                  : maxSalarySHI * HI
+              const numUI =
+                insuranceAmount < maxSalaryUI
+                  ? insuranceAmount * UI
+                  : maxSalaryUI * UI
+              const numTU =
+                insuranceAmount < maxSalarySHI
+                  ? insuranceAmount * TU
+                  : maxSalarySHI * TU
+              const totalSHUIER = numSI + numHI + numUI
 
-      let minGrossTotalIndex = 0
-      grossArrTotal.forEach((item, index) => {
-        if (
-          checkTotalFromGross(item, amount) <
-          checkTotalFromGross(grossArrTotal[minGrossTotalIndex], amount)
-        )
-          minGrossTotalIndex = index
-      })
-
-      return convertFromGross({
-        amount: grossArrTotal[minGrossTotalIndex],
-        employmentType,
-        roleType,
-      })
-
+              return convertFromGross({
+                amount: amount - PVI - totalSHUIER - numTU,
+                employmentType,
+                roleType,
+                dependentNumber,
+                insuranceType,
+                insuranceAmount,
+              })
+            }
+          }
+        }
+        default:
+          return null
+      }
     default:
       return null
   }
