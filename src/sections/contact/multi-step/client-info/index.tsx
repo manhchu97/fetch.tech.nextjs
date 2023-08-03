@@ -79,6 +79,7 @@ const ClientInfoStep = (): React.ReactElement => {
     handleSubmit,
     formState: { errors },
     control,
+    trigger,
   } = useForm<ClientInfoSubmitForm>({
     defaultValues,
     resolver: yupResolver(validationSchema),
@@ -172,13 +173,22 @@ const ClientInfoStep = (): React.ReactElement => {
                   <div className='form-group required'>
                     <label className='control-label'>Email Address</label>
 
-                    <input
-                      type='email'
-                      {...register('email')}
-                      className={`form-control ${
-                        errors.email ? 'is-invalid' : ''
-                      }`}
-                      placeholder='yourcompany@gmail.com'
+                    <Controller
+                      name='email'
+                      control={control}
+                      render={({ field: { onChange } }) => (
+                        <input
+                          type='text'
+                          className={`form-control ${
+                            errors.email ? 'is-invalid' : ''
+                          }`}
+                          onChange={async (value) => {
+                            onChange(value)
+                            await trigger('email')
+                          }}
+                          placeholder='yourcompany@gmail.com'
+                        />
+                      )}
                     />
 
                     <div className='invalid-feedback'>

@@ -62,6 +62,12 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                   <MenuItem title='For Jobseekers' />
                 </a>
               </Link>
+
+              <Link href={PATH_CONFIG.gtta}>
+                <a>
+                  <MenuItem title='For GTTA' />
+                </a>
+              </Link>
             </div>
 
             <div className='dropdown-container'>
@@ -176,9 +182,37 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
               <Link href={PATH_CONFIG.contact}>
                 <a>
                   <div role='button' className='header__contact-button'>
+                    <div className='contact-icon'>
+                      <Image
+                        src='/images/nav/contact.svg'
+                        alt='contact'
+                        layout='fill'
+                        objectFit='cover'
+                      />
+                    </div>
+
                     <span className='header__contact-button__content'>
                       Contact Us
                     </span>
+                  </div>
+                </a>
+              </Link>
+            </div>
+
+            <div className='whatsapp-container'>
+              <Link href='https://wa.me/6589334200'>
+                <a>
+                  <div role='button' className='whatsapp-button'>
+                    <div className='whatsapp-icon'>
+                      <Image
+                        src='/images/nav/whatsapp.svg'
+                        alt='whatsapp'
+                        layout='fill'
+                        objectFit='cover'
+                      />
+                    </div>
+
+                    <span className='whatsapp-button__content'>Whatsapp</span>
                   </div>
                 </a>
               </Link>

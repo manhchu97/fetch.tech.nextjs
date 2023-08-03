@@ -78,7 +78,7 @@ export const PHONE_COUNTRIES = [
       /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/,
   },
   { locale: 'en-RW', iso2: 'RW', validation: /^(\+?250|0)?[7]\d{8}$/ },
-  { locale: 'en-SG', iso2: 'SG', validation: /^(\+65)?[89]\d{7}$/ },
+  { locale: 'en-SG', iso2: 'SG', validation: /^(\+?65)?[689]\d{7}$/ },
   {
     locale: 'en-SL',
     iso2: 'SL',

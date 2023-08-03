@@ -96,8 +96,10 @@ export interface IListRequirementResponse {
 }
 
 export interface IOption {
-  value: number | string
+  value: string
   label: string
+  isDeleted?: boolean
+  isAdded?: boolean
 }
 
 //Responsibilities types
@@ -109,4 +111,36 @@ export interface IResponsibilitiesResponse {
 
 export interface IListResponsibilitiesResponse {
   list: string[]
+}
+
+export interface IOptionParams {
+  index: number | string
+  label?: string
+  type: string
+  isAdded?: boolean
+}
+
+// Location types
+
+export interface ILocationResponse {
+  code: number
+  data: IDataLocationResponse
+}
+
+export interface IDataLocationResponse {
+  success: boolean
+  list: ILocationItem[]
+}
+
+export interface ILocationItem {
+  id: string
+  name: string
+  address: string
+  office: string
+  descLocation: string
+  linkMap?: string
+  priority: number
+  label: string
+  createdAt: string
+  updatedAt: string
 }

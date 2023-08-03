@@ -52,7 +52,13 @@ const Autocomplete = ({
 
   const handleSelectOption = (option: IOption) => {
     setSearchValue('')
-    onSelectOption?.(option)
+
+    onSelectOption?.({
+      value: paramCase(option.value),
+      label: option.label,
+      isAdded: true,
+    })
+
     handleClose()
   }
 
@@ -62,6 +68,7 @@ const Autocomplete = ({
     onAddOption?.({
       value: paramCase(searchValue),
       label: searchValue,
+      isAdded: true,
     })
 
     setSearchValue('')
@@ -96,7 +103,7 @@ const Autocomplete = ({
             value={searchValue}
             onChange={handleChangeSearchInput}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && e.which === 13) {
                 e.preventDefault()
 
                 if (!String(searchValue).trim()) return
@@ -175,7 +182,7 @@ export default Autocomplete
 
 interface IDropdownItemProps {
   title: string
-  value: number | string
+  value: string
   disabled?: boolean
   onSelectOption: (item: IOption) => void
 }

@@ -1,17 +1,46 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 import clsx from 'clsx'
 
+import { clientServices } from '@/config/company'
+
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
+
+import { IClientService } from '@/types/company'
 
 import FeatureCell from './FeatureCell'
 import FeatureLine from './FeatureLine'
 import styles from './HowItWork.module.scss'
 
 const HowItWork = (): React.ReactElement => {
+  const [isAnimated, setIsAnimated] = useState<boolean>(false)
+  const [detailService, setDetailService] = useState<IClientService>()
+  const { url: serviceUrl = '', desc: serviceDesc = '' } = detailService || {}
+
+  const handleClickClientService = useCallback(
+    (clientId: string) => () => {
+      setIsAnimated(false)
+
+      const detailService = clientServices.find(
+        (value) => value.id === clientId,
+      )
+
+      setDetailService(detailService || clientServices[0])
+    },
+    [],
+  )
+
+  useEffect(() => {
+    setDetailService(clientServices[0])
+  }, [])
+
+  useEffect(() => {
+    setIsAnimated(true)
+  }, [detailService])
+
   return (
     <section className={styles['company-how-it-work-container']}>
       <div className='row div-center wrap-container '>
@@ -50,7 +79,7 @@ const HowItWork = (): React.ReactElement => {
 
       <div className='detail'>
         <div className='row div-center wrap-container'>
-          <div className='col-sm-12 col-md-4 col-xl-4 left'>
+          <div className='col-sm-12 col-lg-4 col-xl-4 left'>
             <AnimatiopnOnScrollWrap
               render={(ref, animate) => (
                 <div
@@ -99,69 +128,53 @@ const HowItWork = (): React.ReactElement => {
             <FeatureLine feature='Full-suite project consultancy' />
           </div>
 
-          <div className='col-sm-12 col-md-8 col-xl-8 right'>
+          <div className='col-sm-12 col-lg-8 col-xl-8 right'>
             <div className='banner'>
               <div className='h5'>Client services</div>
             </div>
 
             <div className='row g-4'>
-              <FeatureCell
-                feature='Talent acquisition'
-                icon='/images/company/Feature1.png'
-                color='black'
-                bgColor='#D2E2ED'
-              />
-
-              <FeatureCell
-                feature='Services management'
-                icon='/images/company/Feature3.png'
-                color='white'
-                bgColor='#FF6847'
-              />
-
-              <FeatureCell
-                feature='Payroll and compliances'
-                icon='/images/company/Feature2.png'
-                color='white'
-                bgColor='#17274E'
-              />
-
-              <FeatureCell
-                feature='Full-suite project consultancy'
-                icon='/images/company/Feature4.png'
-                color='white'
-                bgColor='#FFBE16'
-              />
+              {clientServices.map(
+                ({
+                  id = '',
+                  title = '',
+                  icon = '',
+                  color = '',
+                  bgColor = '',
+                }) => (
+                  <FeatureCell
+                    key={id}
+                    title={title}
+                    icon={icon}
+                    color={color}
+                    bgColor={bgColor}
+                    onClick={handleClickClientService(id)}
+                  />
+                ),
+              )}
             </div>
           </div>
         </div>
 
-        <AnimatiopnOnScrollWrap
-          render={(ref, animate) => (
-            <div
-              ref={ref}
-              className={clsx({
-                'text-group-with-button div-center mx-auto': true,
-                animate__animated: animate,
-                animate__zoomIn: animate,
-              })}
-            >
-              <div className='h6' style={{ minWidth: '50%' }}>
-                Enjoy tailormade, flexible solutions, designed for your business
-                needs.
-              </div>
+        <div
+          className={clsx({
+            'text-group-with-button div-center mx-auto': true,
+            animate__animated: isAnimated,
+            animate__fadeInLeft: isAnimated,
+          })}
+        >
+          <div className='h6' style={{ minWidth: '50%' }}>
+            {serviceDesc}
+          </div>
 
-              <Link href='/services/4'>
-                <button
-                  className='btn-learn-more'
-                  style={{ background: '#fff' }}
-                >
-                  Learn more
-                </button>
-              </Link>
-            </div>
-          )}
-        />
+          <Link href={serviceUrl}>
+            <a>
+              <button className='btn-learn-more' style={{ background: '#fff' }}>
+                Learn more
+              </button>
+            </a>
+          </Link>
+        </div>
       </div>
     </section>
   )

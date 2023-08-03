@@ -344,12 +344,35 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding: 16px;
+        padding: 8px 12px;
         background: #ffbe16;
         box-shadow: 0px 6px 10px #d2e2ed;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
+
+        .contact-icon {
+          position: relative;
+          width: 37px;
+          height: 32px;
+
+          @include screen-between(lg, xxl) {
+            width: 24px;
+            height: 24px;
+          }
+
+          @include screen-down(lg) {
+            height: 36px;
+          }
+        }
+
+        @include screen-between(lg, xxl) {
+          padding: 8px 24px;
+        }
+
+        @include screen-down(lg) {
+          padding: 6px 12px;
+        }
 
         &:hover {
           transform: translateY(-3px);
@@ -358,7 +381,7 @@
 
         &__content {
           font-family: 'Gilroy-SemiBold';
-          font-size: 18px;
+          font-size: 15px;
           line-height: 20px;
           text-align: center;
           color: #ffffff;
@@ -366,6 +389,10 @@
           order: 0;
           flex-grow: 0;
           margin: 0px 10px;
+
+          @include screen-between(lg, xxl) {
+            display: none;
+          }
         }
       }
     }

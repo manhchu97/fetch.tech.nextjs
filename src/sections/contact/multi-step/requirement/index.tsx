@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
 import clsx from 'clsx'
 import { paramCase } from 'param-case'
 
-import { ACTION_TYPE, MIN_SELECTED_OPTION, SECTIONS } from '@/config/contact'
+import { MIN_SELECTED_OPTION, SECTIONS } from '@/config/contact'
 
 import Autocomplete from '@/components/autocomplete'
 import ClientAction from '@/components/client-action'
@@ -35,7 +35,7 @@ const RequirementStep = (): React.ReactElement => {
 
   const {
     handlePreviousStep,
-    handlePreview,
+    handleNextStep,
     requirements,
     saveAnswerByQuestion,
     updateAnswerByQuestion,
@@ -49,79 +49,57 @@ const RequirementStep = (): React.ReactElement => {
   const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '' } = inputData || {}
 
-  const listRequirementOptions = requirements.map((label: string) => ({
-    value: paramCase(label),
-    label,
-  }))
+  const updateList =
+    sectionSelected === SECTIONS.REQUIREMENT
+      ? setListRequirements
+      : setListNiceToHave
 
-  const onSelectOption = (item: IOption) => {
-    if (sectionSelected === SECTIONS.REQUIREMENT) {
-      setListRequirements(listRequirements.concat(item))
-      return
-    }
+  const listRequirementOptions = useMemo(
+    () =>
+      requirements?.map((label: string) => ({
+        value: paramCase(label),
+        label,
+      })) || [],
+    [requirements],
+  )
 
-    setListNiceToHave(listNiceToHave.concat(item))
-  }
+  const listSelectedOption = useMemo(
+    () => ([] as IOption[]).concat(listRequirements).concat(listNiceToHave),
+    [listNiceToHave, listRequirements],
+  )
 
-  const onAddOption = (requirement: IOption) => {
-    const listOption = listRequirements.concat(listNiceToHave)
-    const isExist = listOption.some((item) => item.value === requirement.value)
+  const onSelectOption = useCallback(
+    (item: IOption) => {
+      if (sectionSelected === SECTIONS.REQUIREMENT) {
+        setListRequirements((prevState) => prevState.concat(item))
+        return
+      }
 
-    if (isExist) {
-      errorToast('Requirement already added')
-      return
-    }
+      setListNiceToHave((prevState) => prevState.concat(item))
+    },
+    [sectionSelected],
+  )
 
-    if (sectionSelected === SECTIONS.REQUIREMENT) {
-      setListRequirements(listRequirements.concat(requirement))
-      return
-    }
-
-    setListNiceToHave(listNiceToHave.concat(requirement))
-  }
-
-  const onUpdateOption = (
-    index: number | string,
-    label: string,
-    type: string,
-  ) => {
-    const updateList =
-      sectionSelected === SECTIONS.REQUIREMENT
-        ? setListRequirements
-        : setListNiceToHave
-
-    if (type === ACTION_TYPE.DELETE) {
-      updateList((prevState) =>
-        prevState.filter((item) => item.value !== index),
+  const onAddOption = useCallback(
+    (requirement: IOption) => {
+      const isExist = listSelectedOption.some(
+        (item) => item.value === requirement.value,
       )
-      return
-    }
 
-    updateList((prevState: IOption[]) => {
-      return prevState
-        .map((option) => {
-          if (option.value === index) {
-            return {
-              ...option,
-              value: paramCase(label),
-              label,
-            }
-          }
+      if (isExist) {
+        errorToast('Requirement already added')
+        return
+      }
 
-          return option
-        })
-        .filter((option) => option.label)
-    })
-  }
+      if (sectionSelected === SECTIONS.REQUIREMENT) {
+        setListRequirements((prevState) => prevState.concat(requirement))
+        return
+      }
 
-  const onUpdateDrag = (listOption: IOption[]) => {
-    const updateList =
-      sectionSelected === SECTIONS.REQUIREMENT
-        ? setListRequirements
-        : setListNiceToHave
-
-    updateList(listOption)
-  }
+      setListNiceToHave((prevState) => prevState.concat(requirement))
+    },
+    [errorToast, listSelectedOption, sectionSelected],
+  )
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -160,7 +138,7 @@ const RequirementStep = (): React.ReactElement => {
     try {
       saveAnswerByQuestion()
 
-      handlePreview()
+      handleNextStep()
     } catch (error) {
       errorToast(
         (error as Error)?.message || 'Fail to submit quiz! Please try again',
@@ -230,9 +208,9 @@ const RequirementStep = (): React.ReactElement => {
           id={SECTIONS.REQUIREMENT}
           title='Requirements'
           list={listRequirements}
+          listSelectedOption={listSelectedOption}
           sectionSelected={sectionSelected}
-          onUpdateOption={onUpdateOption}
-          onUpdateDrag={onUpdateDrag}
+          updateListOption={updateList}
           setSectionSelected={setSectionSelected}
           style={{ marginBottom: 32 }}
           validation
@@ -243,18 +221,15 @@ const RequirementStep = (): React.ReactElement => {
           title='Nice to have'
           list={listNiceToHave}
           sectionSelected={sectionSelected}
-          onUpdateOption={onUpdateOption}
-          onUpdateDrag={onUpdateDrag}
+          listSelectedOption={listSelectedOption}
+          updateListOption={updateList}
           setSectionSelected={setSectionSelected}
         />
 
         <hr className='hr' />
 
         <form onSubmit={handleSubmit} className='requirement-form-container'>
-          <ClientAction
-            nextButtonText='Preview'
-            onClickPreviousButton={handlePreviousStep}
-          />
+          <ClientAction onClickPreviousButton={handlePreviousStep} />
         </form>
       </div>
     </div>

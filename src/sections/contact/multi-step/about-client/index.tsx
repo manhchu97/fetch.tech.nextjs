@@ -29,7 +29,8 @@ type EditorSubmitForm = {
 }
 
 const defaultValues: EditorSubmitForm = {
-  content: '',
+  content:
+    '<h4><strong style="font-size: 16px;">b. About Client:</strong></h4>',
 }
 
 const AboutClientStep = (): React.ReactElement => {

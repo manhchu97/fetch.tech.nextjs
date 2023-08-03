@@ -10,6 +10,7 @@ export const PATH_CONFIG = {
   root: ROOT_PATH,
   company: path(ROOT_PATH, 'company'),
   employees: path(ROOT_PATH, 'employees'),
+  gtta: path(ROOT_PATH, 'gtta'),
   services: {
     root: path(ROOT_PATH, 'services'),
     salary: path(ROOT_PATH, 'services/salary'),

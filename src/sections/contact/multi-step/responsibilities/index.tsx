@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -46,60 +46,34 @@ const ResponsibilitiesStep = (): React.ReactElement => {
   const { answer, inputData } = resultAnswer || {}
   const { title: questionTitle = '' } = inputData || {}
 
-  const listResponsibilitiesOptions = responsibilities.map((label) => ({
-    value: paramCase(label),
-    label,
-  }))
+  const listResponsibilitiesOptions = useMemo(
+    () =>
+      responsibilities?.map((label) => ({
+        value: paramCase(label),
+        label,
+      })) || [],
+    [responsibilities],
+  )
 
-  const onSelectOption = (item: IOption) => {
-    setListResponsibilities(listResponsibilities.concat(item))
-  }
+  const onSelectOption = useCallback((item: IOption) => {
+    setListResponsibilities((prevState) => prevState.concat(item))
+  }, [])
 
-  const onAddOption = (responsibility: IOption) => {
-    const isExist = listResponsibilities.some(
-      (item) => item.value === responsibility.value,
-    )
-
-    if (isExist) {
-      errorToast('Responsibility already added')
-      return
-    }
-
-    setListResponsibilities(listResponsibilities.concat(responsibility))
-  }
-
-  const onUpdateOption = (
-    index: number | string,
-    label: string,
-    type: string,
-  ) => {
-    if (type === 'DELETE') {
-      setListResponsibilities((prevState) =>
-        prevState.filter((item) => item.value !== index),
+  const onAddOption = useCallback(
+    (responsibility: IOption) => {
+      const isExist = listResponsibilities.some(
+        (item) => item.value === responsibility.value,
       )
-      return
-    }
 
-    setListResponsibilities((prevState: IOption[]) => {
-      return prevState
-        .map((option) => {
-          if (option.value === index) {
-            return {
-              ...option,
-              value: paramCase(label),
-              label,
-            }
-          }
+      if (isExist) {
+        errorToast('Responsibility already added')
+        return
+      }
 
-          return option
-        })
-        .filter((option) => option.label)
-    })
-  }
-
-  const onUpdateDrag = (listOption: IOption[]) => {
-    setListResponsibilities(listOption)
-  }
+      setListResponsibilities(listResponsibilities.concat(responsibility))
+    },
+    [errorToast, listResponsibilities],
+  )
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -192,8 +166,8 @@ const ResponsibilitiesStep = (): React.ReactElement => {
           id='responsibilities'
           title='Responsibilities'
           list={listResponsibilities}
-          onUpdateOption={onUpdateOption}
-          onUpdateDrag={onUpdateDrag}
+          listSelectedOption={listResponsibilities}
+          updateListOption={setListResponsibilities}
           style={{ marginBottom: 32 }}
           validation
         />
