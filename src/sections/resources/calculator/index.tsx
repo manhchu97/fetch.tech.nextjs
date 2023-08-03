@@ -29,6 +29,7 @@ import {
 } from '@/types/resources'
 
 import {
+  BASE_SALARY_INSURANCE,
   calculationSalary,
   convertExchangeRate,
   convertToVND,
@@ -44,6 +45,8 @@ import {
   CurrencyType,
   EMPLOYMENT_TYPE,
   EmploymentType,
+  INSURANCE_TYPE,
+  InsuranceType,
   ROLE_TYPE,
   RoleType,
 } from './types'
@@ -55,6 +58,9 @@ type IDataPage = {
   amount: number
   role: RoleType
   currency: CurrencyType
+  dependentNumber: number
+  insuranceType: InsuranceType
+  insuranceAmount: number
 }
 
 type ICalculatorProps = {
@@ -74,14 +80,44 @@ const Calculator = ({
       amount: 0,
       role: 'Employer',
       currency: 'VND',
+      dependentNumber: 0,
+      insuranceType: 'Full wage',
+      insuranceAmount: 0,
     },
   })
+
+  const insuranceType = watch('insuranceType')
+  const insuranceAmount = watch('insuranceAmount')
+  const employmentType = watch('employmentType')
+  const amount = watch('amount')
+  const calculationType = watch('calculationType')
+
+  const [error, setError] = useState<string>('')
+
   const [dataCalculationSalary, setDataCalculationSalary] = useState<
     CalculationSalaryResponse[] | null
   >(null)
+
   const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => setMounted(true), [])
+
+  useEffect(() => {
+    if (
+      employmentType === 'Full time' &&
+      insuranceType === 'Other' &&
+      calculationType === 'Gross' &&
+      Boolean(insuranceAmount) &&
+      (insuranceAmount < BASE_SALARY_INSURANCE || insuranceAmount > amount)
+    ) {
+      setError(
+        `Insurance amount must be around base salary insurance (${BASE_SALARY_INSURANCE}) and salary amount`,
+      )
+      return
+    }
+
+    setError('')
+  }, [amount, calculationType, employmentType, insuranceAmount, insuranceType])
 
   const { data: exchangeRateRequestApiData } = useSWR(
     mounted ? [API_EXCHANGE_RATE_REQUEST_API_KEY] : null,
@@ -132,13 +168,14 @@ const Calculator = ({
       exchangeRateUSD,
       exchangeRateSGD,
     )
-    const getDataCalculationSalary = calculationSalary({
+
+    const dataCalculationSalary = calculationSalary({
       ...payload,
       amount: amountVND,
     })
 
     const currencyResult =
-      getDataCalculationSalary?.map((item) => ({
+      dataCalculationSalary?.map((item) => ({
         ...item,
         amount: convertExchangeRate(
           currency,
@@ -190,7 +227,7 @@ const Calculator = ({
                     type='button'
                     className={clsx(
                       'btn btn-outline-secondary btn-lg btn-effect me-4 flipY-animation',
-                      watch('employmentType') === item && 'btn-selected',
+                      employmentType === item && 'btn-selected',
                     )}
                     onClick={() => {
                       setValue('employmentType', item)
@@ -200,8 +237,7 @@ const Calculator = ({
                     <div
                       className={clsx(
                         'circle-img-81 mb-3 circle-img div-center mx-2',
-                        watch('employmentType') === item &&
-                          'circle-img-selected',
+                        employmentType === item && 'circle-img-selected',
                       )}
                     >
                       <Image
@@ -229,7 +265,7 @@ const Calculator = ({
                     type='button'
                     className={clsx(
                       'btn btn-outline-secondary btn-lg btn-effect',
-                      watch('calculationType') === item && 'btn-selected',
+                      calculationType === item && 'btn-selected',
                     )}
                     onClick={() => {
                       setValue('calculationType', item)
@@ -282,15 +318,81 @@ const Calculator = ({
                 </button>
 
                 <CurrencyInput
+                  value={amount}
                   placeholder='Enter your salary'
                   decimalsLimit={2}
                   onValueChange={(value) => setValue('amount', +(value || 0))}
                 />
               </div>
 
+              {employmentType === 'Full time' && (
+                <div>
+                  <div className='d-flex mb-4'>
+                    {INSURANCE_TYPE.map((item) => (
+                      <div key={item} className='form-check me-2'>
+                        <input
+                          className='form-check-input'
+                          type='radio'
+                          name='flexRadioDefault'
+                          id={item}
+                          checked={insuranceType === item}
+                          onChange={() => {
+                            if (item === 'Full wage')
+                              setValue('insuranceAmount', 0)
+
+                            setValue('insuranceType', item)
+                          }}
+                        />
+                        <label className='form-check-label' htmlFor={item}>
+                          {item}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className='amount-gr-btn w-100 h-100'>
+                    <CurrencyInput
+                      value={insuranceAmount}
+                      placeholder='Enter your insurance amount'
+                      decimalsLimit={2}
+                      disabled={insuranceType === 'Full wage'}
+                      onValueChange={(value) =>
+                        setValue('insuranceAmount', +(value || 0))
+                      }
+                    />
+
+                    {error && (
+                      <div className='mt-2 invalid-feedback d-block'>
+                        {error}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {employmentType === 'Full time' && (
+                <>
+                  <div className='mb-3 subtitle2 fw-bold'>Dependent</div>
+
+                  <div className='amount-gr-btn'>
+                    <input
+                      type='number'
+                      value={watch('dependentNumber').toString()}
+                      onChange={(e) => {
+                        setValue(
+                          'dependentNumber',
+                          Number.parseInt(e.target.value || '0', 10),
+                        )
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+
               <div className='div-center btn-active'>
                 <button
                   type='submit'
+                  disabled={!!error}
                   className='btn btn-warning text-light h6-bold'
                 >
                   Active
@@ -353,11 +455,11 @@ const Calculator = ({
 
                 <div>
                   <div className='h6 fw-semibold'>
-                    Breakdown for {watch('calculationType')}
+                    Breakdown for {calculationType}
                   </div>
                   <div className='h4'>
                     {watch('currencyAmount')}{' '}
-                    {`${watch('amount').toFixed(2)}`.replace(
+                    {`${Math.round(Number(amount.toFixed(2)))}`.replace(
                       /\B(?=(\d{3})+(?!\d))/g,
                       ',',
                     )}
@@ -379,10 +481,9 @@ const Calculator = ({
                         </div>
                         <div className='h6 fw-semibold letter-spacing-1'>
                           <span className='me-2'>{watch('currency')}</span>
-                          {`${item.amount.toFixed(2)}`.replace(
-                            /\B(?=(\d{3})+(?!\d))/g,
-                            ',',
-                          )}
+                          {`${Math.round(
+                            Number(item.amount.toFixed(2)),
+                          )}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         </div>
                       </div>
                     ))}
