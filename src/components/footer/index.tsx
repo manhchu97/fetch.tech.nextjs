@@ -233,7 +233,7 @@ const Footer = () => {
                 />
               </div>
 
-              <div className='img-title'>SG: +65 8933 4200</div>
+              <div className='img-title'>SG: +65 8606 9949</div>
             </a>
           </Link>
 
