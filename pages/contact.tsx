@@ -7,9 +7,10 @@ import qs from 'query-string'
 import useSWR from 'swr'
 
 import { JOB_DESC_PARAMS } from '@/config/contact'
-import { HOST_API } from '@/config/global'
+import { HOST_API, SCREEN } from '@/config/global'
 
 import Page from '@/components/Page'
+import { SWRConfigProvider } from '@/components/SwrConfig'
 
 import FormStepProvider from '@/context/FormStepContext'
 
@@ -69,6 +70,7 @@ export const getStaticProps = async () => {
       fallbackRequirement: requirementData,
       fallbackResponsibilities: responsibilitiesData,
       fallbackLocations: locationData,
+      pageName: SCREEN.CONTACT_PAGE,
     },
   }
 }
@@ -129,7 +131,7 @@ function ContactPage({
   const { list: locations = [] } = dataLocations?.data || {}
 
   return (
-    <>
+    <SWRConfigProvider>
       <Head>
         <meta name='description' content='Contact pages' />
       </Head>
@@ -145,7 +147,7 @@ function ContactPage({
           <ContactMultiStep />
         </FormStepProvider>
       </Page>
-    </>
+    </SWRConfigProvider>
   )
 }
 

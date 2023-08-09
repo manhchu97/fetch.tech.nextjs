@@ -42,3 +42,18 @@ export interface CSListData {
   imgWidth: number
   imgHeight: number
 }
+
+export interface ExchangeRateRequestApiResponse {
+  results: string
+}
+
+export interface ExchangeRate {
+  buy_cash: number
+  buy_transfer: number
+  currency: string
+  sell: number
+}
+
+export interface ExchangeRateResponse {
+  results: ExchangeRate[]
+}

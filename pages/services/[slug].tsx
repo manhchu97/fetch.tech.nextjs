@@ -1,7 +1,7 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 
-import { PRIMARY_COLOR } from '@/config/global'
+import { PRIMARY_COLOR, SCREEN } from '@/config/global'
 import {
   HEADER_CONFIG,
   SERVICE_BODY_CONFIG,
@@ -42,6 +42,7 @@ export const getStaticProps = async ({ params }: Prams) => {
       key: slug,
       header,
       serviceBody,
+      pageName: SCREEN.SERVICE_PAGE,
     },
   }
 }

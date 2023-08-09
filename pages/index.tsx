@@ -1,12 +1,22 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
+import { SCREEN } from '@/config/global'
+
 import Page from '@/components/Page'
 import BannerContact from '@/components/banner/contact'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
 import HomeSection from '@/sections/home'
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      pageName: SCREEN.HOME_PAGE,
+    },
+  }
+}
 
 const HomePage: NextPage = () => {
   return (

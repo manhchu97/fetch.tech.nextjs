@@ -97,6 +97,10 @@
         margin-bottom: 35px;
       }
 
+      @include screen-between(lg, xl) {
+        margin-left: 40px;
+      }
+
       .nav-title {
         font-family: 'Gilroy-Regular';
         font-size: 16px;

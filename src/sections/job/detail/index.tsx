@@ -16,7 +16,7 @@ import rehypeRaw from 'rehype-raw'
 import useSWR from 'swr'
 
 import { FACEBOOK_APP_ID, FACEBOOK_PAGE_ID, HOST_API } from '@/config/global'
-import { JOB_STATUS } from '@/config/job'
+import { JOB_STATUS, formatSalary } from '@/config/job'
 
 import CustomerMessengerChat from '@/components/Messenger'
 import Page from '@/components/Page'
@@ -96,7 +96,7 @@ const JobDetail = ({
     titlePage: pageTitle = '',
     metaJob: metaDescription = '',
     title,
-    salary,
+    salaryJob,
     tags,
     type,
     locations,
@@ -112,6 +112,8 @@ const JobDetail = ({
     arr_skill,
     jobStatus,
   } = jobDetail
+
+  const salaryFormat = useMemo(() => formatSalary(salaryJob), [salaryJob])
 
   const hasLocation = Array.isArray(locations) && locations.length
 
@@ -173,7 +175,7 @@ const JobDetail = ({
                       <div className='content-detail-title'>
                         <h1>
                           {title}
-                          <span>{` (${salary})`}</span>
+                          <span>{` (${salaryFormat})`}</span>
                         </h1>
                       </div>
 
@@ -198,10 +200,7 @@ const JobDetail = ({
 
                     <div className='job-detail-info'>
                       <div className='overview-detail-info'>
-                        <div className='detail-info-icon'>
-                          <i className='bi bi-currency-dollar' />
-                        </div>
-                        <div>{salary}</div>
+                        <div>{salaryFormat}</div>
                       </div>
 
                       <div className='overview-detail-info'>

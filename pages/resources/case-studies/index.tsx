@@ -1,6 +1,7 @@
 import type { InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 
+import { SCREEN } from '@/config/global'
 import { CASE_STUDIES_LIST_DATA } from '@/config/resources'
 
 import Page from '@/components/Page'
@@ -15,6 +16,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       listCaseStudies: CASE_STUDIES_LIST_DATA,
+      pageName: SCREEN.CASE_STUDIES_PAGE,
     },
   }
 }

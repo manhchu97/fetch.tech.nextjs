@@ -18,12 +18,18 @@ export interface ITag {
   updatedAt: string
 }
 
+export interface ISalary {
+  min: number
+  max: number
+  currency: string
+}
+
 export interface IJobItem {
   id: string
   title: string
   content: string
   type: string
-  salary: string
+  salaryJob: ISalary | string
   slug: string
   description: string
   externalRecruiter: boolean
@@ -131,7 +137,7 @@ export interface IJobDetail {
   id: string
   title: string
   type: string
-  salary: string
+  salaryJob: ISalary | string
   jobStatus: string
   aboutFetch: string
   niceToHave: string

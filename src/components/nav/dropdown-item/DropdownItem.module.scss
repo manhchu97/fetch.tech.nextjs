@@ -1,4 +1,4 @@
-@import "@/styles/_mixins.scss";
+@import '@/styles/_mixins.scss';
 
 .dropdown-item-container {
   position: relative;
@@ -6,7 +6,7 @@
   padding: 0;
   display: inline-flex;
 
-  @include screen-up(md) {
+  @include screen-up(lg) {
     padding: 20px 15px;
 
     &:hover {
@@ -26,7 +26,7 @@
       display: inline-block;
       margin: 5px 15px;
 
-      @include screen-down(md) {
+      @include screen-down(lg) {
         display: none;
       }
 
@@ -40,15 +40,15 @@
 
     &__content {
       &__text {
-        font-family: "Gilroy-SemiBold";
+        font-family: 'Gilroy-SemiBold';
         font-size: 18px;
         line-height: 24px;
         letter-spacing: -0.25px;
         color: #17274e;
 
-        @include screen-down(md) {
+        @include screen-down(lg) {
           padding-bottom: 16px;
-          font-family: "Gilroy-Medium";
+          font-family: 'Gilroy-Medium';
           font-size: 16px;
           color: #a4b7c8;
 
@@ -59,14 +59,14 @@
       }
 
       &__sub-text {
-        font-family: "Gilroy-Regular";
+        font-family: 'Gilroy-Regular';
         font-size: 16px;
         line-height: 28px;
         display: inline-block;
         color: #a4b7c8;
         width: 246px;
 
-        @include screen-down(md) {
+        @include screen-down(lg) {
           display: none;
         }
       }

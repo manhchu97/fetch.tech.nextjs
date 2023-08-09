@@ -1,11 +1,19 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import { PRIMARY_COLOR } from '@/config/global'
+import { PRIMARY_COLOR, SCREEN } from '@/config/global'
 
 import Page from '@/components/Page'
 
 import FAQ from '@/sections/faq'
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      pageName: SCREEN.FAQ_PAGE,
+    },
+  }
+}
 
 const FAQPage: NextPage = () => {
   return (

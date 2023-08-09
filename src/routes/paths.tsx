@@ -10,6 +10,7 @@ export const PATH_CONFIG = {
   root: ROOT_PATH,
   company: path(ROOT_PATH, 'company'),
   employees: path(ROOT_PATH, 'employees'),
+  gtta: path(ROOT_PATH, 'gtta'),
   services: {
     root: path(ROOT_PATH, 'services'),
     salary: path(ROOT_PATH, 'services/salary'),
@@ -38,4 +39,8 @@ export const PATH_CONFIG = {
     root: path(ROOT_PATH, 'careers'),
     view: (slug: string): string => path(ROOT_PATH, `careers/${slug}`),
   },
+  privacyPolicy: path(ROOT_PATH, 'privacy-policy'),
+  serviceAgreement: path(ROOT_PATH, 'service-agreement'),
+  fetchunt: path(ROOT_PATH, 'fetchunt'),
+  frequentlyQuestions: path(ROOT_PATH, 'frequently-questions'),
 }

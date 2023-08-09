@@ -10,6 +10,9 @@ export type RoleType = typeof ROLE_TYPE[number]
 export const CURRENCY_TYPE = ['VND', 'USD', 'SGD'] as const
 export type CurrencyType = typeof CURRENCY_TYPE[number]
 
+export const INSURANCE_TYPE = ['Full wage', 'Other'] as const
+export type InsuranceType = typeof INSURANCE_TYPE[number]
+
 export type ParamsCalculationSalary = {
   employmentType: EmploymentType
   calculationType: CalculationType
@@ -17,6 +20,9 @@ export type ParamsCalculationSalary = {
   currency: CurrencyType
   currencyAmount: CurrencyType
   amount: number
+  dependentNumber: number
+  insuranceType: InsuranceType
+  insuranceAmount: number
 }
 
 export type CalculationSalaryResponse = {
