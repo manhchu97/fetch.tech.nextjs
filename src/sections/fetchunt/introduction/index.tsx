@@ -71,7 +71,7 @@ const Introduction = (): React.ReactElement => {
           <div className='h3'>FETCHUNT</div>
 
           <div className='h5'>
-            Fetchhunt là một nền tảng tuyển dụng cho phép các nhà tuyển dụng và
+            Fetchunt là một nền tảng tuyển dụng cho phép các nhà tuyển dụng và
             chuyên gia công nghệ giới thiệu, kết nối ứng viên và chia sẻ cơ hội
             việc làm, tạo ra giá trị mới với nỗ lực tối thiểu.{' '}
             <strong>100% người tham gia</strong> có thể nhận tiền thưởng từ việc
