@@ -4,7 +4,7 @@
   :global .header {
     background-color: $primary-color;
     padding: 0 10%;
-    margin-bottom: 48px;
+    margin-bottom: 50px;
 
     @include screen-down(lg) {
       margin-bottom: 24px;
@@ -42,15 +42,9 @@
       }
     }
 
-    .btn-primary {
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      }
-    }
-
     .actions {
       margin: 16px;
+      font-family: 'Quicksand';
 
       @include screen-down(sm) {
         margin: 0px;
@@ -77,17 +71,30 @@
 
     .refer {
       @media only screen and (max-width: 500px) {
+        margin-top: 12px;
         width: 100%;
       }
 
-      .btn-primary {
-        margin: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .edge-primary {
+        background: linear-gradient(
+          to left,
+          #023275 5%,
+          #023275 8%,
+          #023275 92%,
+          #023275 100%
+        );
+      }
+
+      .front-primary {
         background-color: #003889;
 
         @include screen-down(sm) {
-          margin: 0px;
-          margin-top: 12px;
           width: 100%;
+          justify-content: center;
         }
       }
     }
@@ -95,7 +102,7 @@
 
   :global .main {
     position: relative;
-    min-height: 700px;
+    min-height: 600px;
     padding: 0 10%;
 
     @include screen-down(xxl) {
@@ -112,12 +119,12 @@
     justify-content: center;
 
     .introduction-img {
-      width: 55%;
-      height: 700px;
+      width: 64%;
+      height: 600px;
       z-index: -1;
 
       position: absolute;
-      right: 7%;
+      right: 0;
 
       @include screen-down(xxl) {
         position: relative;
@@ -131,15 +138,12 @@
     }
 
     .main-content {
-      width: 45%;
+      width: 36%;
       z-index: 10;
 
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-
-      margin-bottom: 80px;
 
       @include screen-down(xxl) {
         width: 90%;
@@ -156,51 +160,68 @@
 
       .h3 {
         color: #ffc01e;
-        text-align: center;
+        text-align: left;
         font-size: 80px;
-        font-family: Quicksand;
+        font-family: 'Quicksand';
         font-weight: 700;
         line-height: 80px;
-
-        margin-bottom: 48px;
+        margin-bottom: 32px;
 
         @include screen-down(md) {
-          font-size: 56px;
+          font-size: 64px;
+          line-height: 72px;
           margin-bottom: 32px;
+        }
+
+        @include screen-down(sm) {
+          font-size: 50px;
+          line-height: 54px;
+          margin-bottom: 16px;
+        }
+      }
+
+      .h4 {
+        width: 90%;
+        color: #4b407f;
+        text-align: left;
+        font-size: 36px;
+        font-family: 'Quicksand';
+        font-weight: 700;
+        line-height: 36px;
+        margin-bottom: 36px;
+
+        @include screen-down(sm) {
+          font-size: 28px;
+          line-height: 32px;
+          margin-bottom: 16px;
         }
       }
 
       .h5 {
         color: #17274e;
-        text-align: center;
-        font-size: 24px;
-        font-family: Quicksand;
+        text-align: left;
+        font-size: 22px;
+        font-family: 'Quicksand';
         line-height: 30px;
-
-        margin-bottom: 48px;
+        font-weight: 700;
+        margin-bottom: 54px;
 
         @include screen-down(md) {
           font-size: 20px;
-          margin-bottom: 32px;
+          margin-bottom: 40px;
+        }
+
+        .highlight {
+          color: #ff6847;
         }
       }
 
-      .btn {
-        background-color: #ffc01e;
-        border-color: #ffc01e;
-        font-size: 24px;
-        padding: 6px 24px;
+      .btn-primary {
+        min-width: 320px;
 
-        &:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-          cursor: pointer;
-        }
-
-        @include screen-down(lg) {
-          font-size: 20px;
+        @include screen-down(sm) {
+          min-width: 0;
           width: 100%;
-          padding: 12px;
         }
       }
     }

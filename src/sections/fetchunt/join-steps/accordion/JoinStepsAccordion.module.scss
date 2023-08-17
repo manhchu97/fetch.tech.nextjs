@@ -25,19 +25,8 @@
       font-weight: 700;
     }
 
-    .show-more-btn {
-      margin-top: 2px;
+    .show-detail-btn {
       margin-left: 8px;
-
-      &.reverse {
-        transition: all 0.3s ease;
-        transform: rotate(-180deg);
-      }
-
-      &.initial {
-        transition: all 0.3s ease;
-        transform: rotate(0);
-      }
     }
   }
 }

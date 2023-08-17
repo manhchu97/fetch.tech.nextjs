@@ -73,6 +73,10 @@ const Cooperate = () => {
 
   return (
     <div className={clsx(style['cooperate'], 'overflow-hidden')}>
+      <div className={style['cooperate__header']}>
+        + 1000 Cơ hội Nhận thưởng từ các Dự án Quốc tế lên tới 20.000 USD
+      </div>
+
       <AnimatiopnOnScrollWrap
         render={(ref, animate) => (
           <div

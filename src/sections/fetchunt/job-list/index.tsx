@@ -11,6 +11,9 @@ import useSWR from 'swr'
 import { DEFAULT_PAGE_SIZE, SHARE_STATUS } from '@/config/fetchunt'
 import { DEFAULT_PAGE_NUMBER, HOST_API } from '@/config/global'
 
+import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
+import Button from '@/components/button/Button'
+
 import { API_LIST_JOB } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
 
@@ -68,8 +71,7 @@ function JobList({ fallback }: IListJobProps) {
 
       if (unmounted) return
 
-      // md screen
-      setIsMobileScreen(width < 768)
+      setIsMobileScreen(width < 991)
     }, 100)
 
     handleResize()
@@ -85,7 +87,9 @@ function JobList({ fallback }: IListJobProps) {
   return (
     <div className={styles['job-list-container']}>
       <div className='job-list-header'>
-        + 1000 Cơ hội Nhận thưởng từ các Dự án Quốc tế lên tới 20.000 USD
+        Khám phá ngay các{' '}
+        <strong className='highlight'>TIN TUYỂN DỤNG NỔI BẬT</strong> của
+        FETCHUNT
       </div>
 
       <div className='job-list-main'>
@@ -104,95 +108,137 @@ function JobList({ fallback }: IListJobProps) {
             },
             index,
           ) => (
-            <div
-              className={clsx('job-item', isMobileScreen ? 'mb-3' : 'mb-5')}
+            <AnimatiopnOnScrollWrap
               key={index}
-            >
-              <div className='h5 mb-2'>{title}</div>
+              render={(ref, animate) => (
+                <div
+                  className={clsx(
+                    'job-item',
+                    isMobileScreen ? 'mb-4' : 'mb-5',
+                    {
+                      animate__animated: true,
+                      animate__zoomIn: animate && isMobileScreen,
+                      animate__fadeInLeft: index % 2 === 0 && animate && !isMobileScreen,
+                      animate__fadeInRight: index % 2 !== 0 && animate && !isMobileScreen,
+                    },
+                  )}
+                  ref={ref}
+                >
+                  <div className='h5 mb-2'>{title}</div>
 
-              <div className='d-flex mb-2 type-bonus-ref'>
-                <div className='p'>{type}</div>
+                  <div className='d-flex mb-2 type-bonus-ref'>
+                    <div className='p'>{type}</div>
 
-                <div className='p bonus'>
-                  Thưởng giới thiệu:{' '}
-                  {Number(totalBonus || 0).toLocaleString('it-IT')} VND
-                </div>
-              </div>
-
-              <div
-                className={clsx(
-                  'list-icon-info hstack  mb-2',
-                  isMobileScreen ? 'gap-1' : 'gap-4',
-                )}
-              >
-                <div className='icon-info hstack gap-2'>
-                  <Image
-                    src='/images/fetchunt/coin.svg'
-                    alt='coin'
-                    width={15}
-                    height={15}
-                  />
-
-                  {salary}
-                </div>
-
-                <div className='icon-info hstack gap-2'>
-                  <i className='bi bi-calendar-week-fill' />
-
-                  {time}
-                </div>
-              </div>
-
-              <div
-                className={clsx(
-                  'list-icon-info hstack  mb-3',
-                  isMobileScreen ? 'gap-1' : 'gap-4',
-                )}
-              >
-                <div className='icon-info hstack gap-2'>
-                  <i className='bi bi-geo-alt-fill' />
-
-                  {locations.map((it) => it.office).join(', ')}
-                </div>
-              </div>
-
-              <div className='d-flex justify-content-between actions-tags'>
-                <div className={clsx('actions hstack gap-4')}>
-                  <Link href={`https://portal.fetch.tech/job-detail/${id}`}>
-                    <a target='_blank' rel='noopener noreferrer'>
-                      <button type='button' className='btn btn-primary'>
-                        Giới thiệu ứng viên
-                      </button>
-                    </a>
-                  </Link>
-
-                  <Link href={PATH_CONFIG.careers.view(jobSlug({ slug, id }))}>
-                    <a target='_blank' rel='noopener noreferrer'>
-                      <button type='button' className='btn btn-outline-primary'>
-                        Ứng tuyển
-                      </button>
-                    </a>
-                  </Link>
-                </div>
-
-                {Tags.length > 0 && (
-                  <div className={clsx('tags hstack gap-1')}>
-                    {Tags.map(({ id, title, background }, index) => (
-                      <div
-                        key={id || index}
-                        className='tag-item'
-                        style={{ background }}
-                      >
-                        {title}
-                      </div>
-                    ))}
+                    <div className='p bonus'>
+                      Thưởng giới thiệu:{' '}
+                      {Number(totalBonus || 0).toLocaleString('it-IT')} VND
+                    </div>
                   </div>
-                )}
-              </div>
-            </div>
+
+                  <div
+                    className={clsx(
+                      'list-icon-info hstack  mb-2',
+                      isMobileScreen ? 'gap-1' : 'gap-4',
+                    )}
+                  >
+                    <div className='icon-info hstack gap-2'>
+                      <Image
+                        src='/images/fetchunt/coin.svg'
+                        alt='coin'
+                        width={15}
+                        height={15}
+                      />
+
+                      {salary}
+                    </div>
+
+                    <div className='icon-info hstack gap-2'>
+                      <i className='bi bi-calendar-week-fill' />
+
+                      {time}
+                    </div>
+                  </div>
+
+                  <div
+                    className={clsx(
+                      'list-icon-info hstack  mb-3',
+                      isMobileScreen ? 'gap-1' : 'gap-4',
+                    )}
+                  >
+                    <div className='icon-info hstack gap-2'>
+                      <i className='bi bi-geo-alt-fill' />
+
+                      {locations.map((it) => it.office).join(', ')}
+                    </div>
+                  </div>
+
+                  <div className='d-flex justify-content-between actions-tags'>
+                    <div className={clsx('actions hstack gap-4')}>
+                      <Link href={`https://portal.fetch.tech/job-detail/${id}`}>
+                        <a target='_blank' rel='noopener noreferrer'>
+                          <Button
+                            type='button'
+                            title='Giới thiệu ứng viên'
+                            size='small'
+                            variant='filled'
+                          />
+                        </a>
+                      </Link>
+
+                      <Link
+                        href={PATH_CONFIG.careers.view(jobSlug({ slug, id }))}
+                      >
+                        <a target='_blank' rel='noopener noreferrer'>
+                          <Button
+                            type='button'
+                            title='Ứng tuyển'
+                            size='small'
+                            variant='outlined'
+                          />
+                        </a>
+                      </Link>
+                    </div>
+
+                    {Tags.length > 0 && (
+                      <div className={clsx('tags hstack gap-1')}>
+                        {Tags.map(({ id, title, background }, index) => (
+                          <div
+                            key={id || index}
+                            className='tag-item'
+                            style={{ background }}
+                          >
+                            {title}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            />
           ),
         )}
       </div>
+
+      <AnimatiopnOnScrollWrap
+        render={(ref, animate) => (
+          <div
+            ref={ref}
+            className={clsx('job-list-footer', {
+              animate__animated: true,
+              animate__slideInUp: animate,
+            })}
+          >
+            <div className='h5'>
+              <Link href='https://portal.fetch.tech/jobs'>
+                <a target='_blank' rel='noopener noreferrer'>
+                  <span role='button'>Xem thêm</span>
+                </a>
+              </Link>
+            </div>
+          </div>
+        )}
+      />
     </div>
   )
 }

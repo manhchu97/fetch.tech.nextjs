@@ -1,0 +1,139 @@
+@import '@/styles/_mixins.scss';
+
+.button-pushable {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 6px;
+  transition: filter 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  &.fullWidth {
+    width: 100%;
+  }
+}
+
+.button-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(
+    to left,
+    #ffb340 5%,
+    #ffb340 8%,
+    #ffb340 92%,
+    #ffb340 100%
+  );
+
+  &.large {
+    border-radius: 16px;
+  }
+
+  &.small {
+    border-radius: 12px;
+  }
+
+  &.outlined {
+    background: linear-gradient(
+      to left,
+      #ffc01e 5%,
+      #ffc01e 8%,
+      #ffc01e 92%,
+      #ffc01e 100%
+    );
+  }
+}
+
+.button-front {
+  display: block;
+  position: relative;
+  font-family: 'Quicksand';
+  background-color: #ffc01e;
+  color: #fff;
+  border-color: #ffc01e;
+  border-radius: 16px;
+  will-change: transform;
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+
+  &.small {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 6px 12px;
+    border-radius: 12px;
+    transform: translateY(-4px);
+  }
+
+  &.large {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 16px;
+    transform: translateY(-6px);
+
+    @include screen-down(sm) {
+      font-size: 18px !important;
+      line-height: 24px !important;
+    }
+  }
+
+  &.filled {
+    background-color: #ffc01e;
+  }
+
+  &.outlined {
+    background-color: #fff;
+    border: 1px solid #ffc01e;
+    color: #ffc01e;
+
+    // &:hover {
+    //   background-color: #ffc01e;
+    //   border: none;
+    //   color: #fff;
+    // }
+  }
+}
+
+@media (min-width: 768px) {
+  .button-front {
+    font-size: 1.25rem;
+    padding: 12px 42px;
+  }
+}
+
+.button-pushable:hover {
+  filter: brightness(110%);
+  -webkit-filter: brightness(110%);
+}
+
+.button-pushable:hover .button-front.small {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.button-pushable:active .button-front.small {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.button-pushable:hover .button-front.large {
+  transform: translateY(-8px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.button-pushable:active .button-front.large {
+  transform: translateY(-4px);
+  transition: transform 34ms;
+}
+
+.button-pushable:focus:not(:focus-visible) {
+  outline: none;
+}

@@ -5,6 +5,8 @@ import Link from 'next/link'
 
 import { logEvent } from 'firebase/analytics'
 
+import Button from '@/components/button/Button'
+
 import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Introduction.module.scss'
@@ -48,9 +50,14 @@ const Introduction = (): React.ReactElement => {
         <div className='refer'>
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
             <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-primary'>
-                Bắt đầu giới thiệu ứng viên
-              </button>
+              <Button
+                type='button'
+                title='Bắt đầu giới thiệu ứng viên'
+                frontClassName='front-primary'
+                edgeClassName='edge-primary'
+                size='small'
+                variant='filled'
+              />
             </a>
           </Link>
         </div>
@@ -59,7 +66,7 @@ const Introduction = (): React.ReactElement => {
       <div className='main'>
         <div className='introduction-img'>
           <Image
-            src='/images/fetchunt/introduction.png'
+            src='/images/fetchunt/introduction_ver_2.png'
             alt='Picture of the author'
             layout='fill'
             objectFit='contain'
@@ -70,19 +77,20 @@ const Introduction = (): React.ReactElement => {
         <div className='main-content'>
           <div className='h3'>FETCHUNT</div>
 
+          <div className='h4'>Giới thiệu ứng viên Nhận thưởng hấp dẫn</div>
+
           <div className='h5'>
-            Fetchunt là một nền tảng tuyển dụng cho phép các nhà tuyển dụng và
-            chuyên gia công nghệ giới thiệu, kết nối ứng viên và chia sẻ cơ hội
-            việc làm, tạo ra giá trị mới với nỗ lực tối thiểu.{' '}
-            <strong>100% người tham gia</strong> có thể nhận tiền thưởng từ việc
-            giới thiệu ứng viên và tham gia cộng đồng đặc biệt của chúng tôi
+            Nền tảng cung ứng nhân lực đầu tiên giúp{' '}
+            <strong className='highlight'>
+              100% người tham gia nhận thưởng thành công
+            </strong>{' '}
+            khi giới thiệu ứng viên.
           </div>
 
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
             <a target='_blank' rel='noopener noreferrer'>
-              <button
-                type='button'
-                className='btn btn-primary'
+              <Button
+                className='btn-primary'
                 onClick={async () => {
                   const { initializeFirebase } = await import(
                     '@/utils/firebase'
@@ -93,47 +101,12 @@ const Introduction = (): React.ReactElement => {
                     logEvent(analytics, '#clickthrough_Signup_begin')
                   }
                 }}
-              >
-                Tìm kiếm cơ hội nhận thưởng
-              </button>
+                size='large'
+                variant='filled'
+                title='Bắt đầu ngay'
+              />
             </a>
           </Link>
-        </div>
-      </div>
-
-      <div className='footer'>
-        <div className='d-flex footer-item'>
-          <div className='position-relative div-center process-recruiter-img'>
-            <Image
-              src='/images/fetchunt/process-recruiter.svg'
-              alt='process-recruiter'
-              layout='fill'
-              objectFit='contain'
-              quality={100}
-            />
-          </div>
-
-          <div className='h6'>
-            Sử dụng công nghệ trí tuệ nhân tạo (AI) giúp xử lý thông tin ứng
-            viên và tuyển dụng viên nhanh hơn, chính xác hơn.
-          </div>
-        </div>
-
-        <div className='d-flex footer-item'>
-          <div className='position-relative div-center refer-friends-img'>
-            <Image
-              src='/images/fetchunt/refer-friends.svg'
-              alt='refer-friends'
-              layout='fill'
-              objectFit='contain'
-              quality={100}
-            />
-          </div>
-
-          <div className='h6'>
-            Thấp nhất 5.000.000 VND và không giới hạn tiền thưởng với mỗi vị trí
-            trên job board- cập nhật liên tục
-          </div>
         </div>
       </div>
     </div>
