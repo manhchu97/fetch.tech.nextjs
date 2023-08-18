@@ -1,12 +1,32 @@
 @import '@/styles/_mixins.scss';
 
 .cooperate {
-  padding: 100px 10%;
+  padding: 60px 10%;
   background: #ecf3fe;
   margin-bottom: 64px;
 
   @include screen-down(md) {
     padding: 50px 12px;
+  }
+
+  &__header {
+    color: #17274e;
+    font-size: 36px;
+    font-family: 'Quicksand';
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+
+    @include screen-down(md) {
+      font-size: 28px;
+      line-height: 32px;
+    }
+
+    @include screen-down(sm) {
+      font-size: 24px;
+      line-height: 32px;
+    }
   }
 
   &__content {

@@ -1,0 +1,90 @@
+@import '@/styles/_mixins.scss';
+
+.advertisement-container {
+  background: #ffbe16;
+
+  padding: 16px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include screen-down(lg) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @include screen-down(md) {
+    flex-direction: column;
+  }
+
+  :global .advertisement-content-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  :global .advertisement-action-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include screen-down(lg) {
+      margin-top: 30px;
+      justify-content: center;
+      flex-direction: row-reverse;
+    }
+
+    @include screen-down(sm) {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .advertisement-main-action {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 24px;
+      
+      @include screen-down(sm) {
+        width: 100%;
+      }
+
+      a {
+        width: 100%;
+      }
+
+      .front-primary {
+        background: #17274e;
+        color: #fff;
+
+        @include screen-down(sm) {
+          font-size: 20px;
+        }
+      }
+
+      .edge-primary {
+        background: linear-gradient(
+          to left,
+          #09132b 5%,
+          #09132b 8%,
+          #09132b 92%,
+          #09132b 100%
+        );
+      }
+
+      .h6 {
+        color: #fff;
+        font-family: 'Quicksand';
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 500;
+        margin-top: 12px;
+        text-align: center;
+
+        @include screen-down(sm) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

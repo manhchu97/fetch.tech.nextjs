@@ -18,6 +18,7 @@ import Messenger from '@/sections/fetchunt/messenger'
 import { IListJobResponse } from '@/types/fetchunt'
 
 const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
+const Advertisement = dynamic(() => import('@/sections/fetchunt/advertisement'))
 const JobList = dynamic(() => import('@/sections/fetchunt/job-list'))
 const Career = dynamic(() => import('@/sections/fetchunt/career'))
 const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
@@ -74,19 +75,27 @@ const FetchuntPage = ({
       <Introduction />
 
       <LazyLoadComponent>
-        <JobList fallback={fallback} />
-      </LazyLoadComponent>
-
-      <LazyLoadComponent>
-        <MainContent />
-      </LazyLoadComponent>
-
-      <LazyLoadComponent>
         <Cooperate />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
+        <JobList fallback={fallback} />
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <Advertisement
+          buttonText='Tham gia ngay'
+          linkTo='https://portal.fetch.tech/auth/login?tab=signin'
+          time='Thời gian: 22/07 - 31/08/2023'
+        />
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
         <JoinSteps />
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <MainContent />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
