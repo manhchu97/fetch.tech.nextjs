@@ -2,11 +2,12 @@
 
 .advertisement-container {
   background: #ffbe16;
-
   padding: 16px 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  top: 0;
+  z-index: 9999;
 
   @include screen-down(lg) {
     flex-wrap: wrap;
@@ -44,13 +45,18 @@
       justify-content: center;
       align-items: center;
       margin: 0 24px;
-      
+
       @include screen-down(sm) {
         width: 100%;
       }
 
       a {
         width: 100%;
+      }
+
+      .click {
+        right: -32px;
+        bottom: 4px;
       }
 
       .front-primary {

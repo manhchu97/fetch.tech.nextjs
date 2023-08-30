@@ -24,9 +24,7 @@ const Career = dynamic(() => import('@/sections/fetchunt/career'))
 const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
 const JoinSteps = dynamic(() => import('@/sections/fetchunt/join-steps'))
 const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
-const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'), {
-  loading: () => <p>Loading...</p>,
-})
+const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'))
 
 export const getStaticProps = async () => {
   const params = {
@@ -74,9 +72,7 @@ const FetchuntPage = ({
 
       <Introduction />
 
-      <LazyLoadComponent>
-        <Cooperate />
-      </LazyLoadComponent>
+      <Cooperate />
 
       <LazyLoadComponent>
         <JobList fallback={fallback} />
@@ -111,9 +107,7 @@ const FetchuntPage = ({
         />
       </LazyLoadComponent>
 
-      <LazyLoadComponent>
-        <Footer />
-      </LazyLoadComponent>
+      <Footer />
 
       <Messenger />
     </SWRConfigProvider>

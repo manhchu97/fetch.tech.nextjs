@@ -31,7 +31,6 @@
       }
 
       .header-logo-img {
-        filter: brightness(0) invert(1);
         width: 180px;
         height: 40px;
 
@@ -110,6 +109,10 @@
       position: unset;
     }
 
+    @include screen-down(lg) {
+      padding: 0;
+    }
+
     @include screen-down(md) {
       padding: 16px;
     }
@@ -118,11 +121,17 @@
     flex-direction: column;
     justify-content: center;
 
+    .introduction-img-bg {
+      z-index: 10;
+      width: 100%;
+      height: 85%;
+      position: absolute;
+    }
+
     .introduction-img {
       width: 64%;
       height: 600px;
       z-index: -1;
-
       position: absolute;
       right: 0;
 
@@ -139,8 +148,6 @@
 
     .main-content {
       width: 36%;
-      z-index: 10;
-
       display: flex;
       flex-direction: column;
       justify-content: center;

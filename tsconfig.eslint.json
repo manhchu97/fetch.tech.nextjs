@@ -3,6 +3,7 @@
   "include": [
     "components/**/*.ts",
     "components/**/*.js",
+    "lotties/**/*.json",
     ".eslintrc.js",
     "**/*.ts",
     "**/*.tsx"
