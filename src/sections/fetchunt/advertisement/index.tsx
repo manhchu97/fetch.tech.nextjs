@@ -84,30 +84,18 @@ const Advertisement = ({
               )}
               ref={ref}
             >
-              <div className='position-absolute'>
-                <Lottie options={fireworkOptions} height={100} width={120} />
+              <div className='position-absolute firework-animation'>
+                <Lottie options={fireworkOptions} height={140} width={168} />
               </div>
 
               <Image
-                src='/images/fetchunt/advertisement_bg.png'
+                src='/images/fetchunt/advertisement_bonus_points.png'
                 alt='Advertisement content'
-                width={370}
-                height={100}
+                width={281}
+                height={160}
                 quality={100}
               />
-            </div>
-          )}
-        />
 
-        <AnimatiopnOnScrollWrap
-          render={(ref, animate) => (
-            <div
-              className={clsx('advertisement-action-container', {
-                animate__animated: true,
-                animate__bounceIn: animate,
-              })}
-              ref={ref}
-            >
               <div className='advertisement-main-action position-relative'>
                 <Link href={linkTo}>
                   <a target='_blank' rel='noopener noreferrer'>
@@ -143,15 +131,46 @@ const Advertisement = ({
 
                 <div className='h6'>{time}</div>
               </div>
+            </div>
+          )}
+        />
 
-              <div className='advertisment-image'>
+        <AnimatiopnOnScrollWrap
+          render={(ref, animate) => (
+            <div
+              className={clsx('advertisement-action-container', {
+                animate__animated: true,
+                animate__bounceIn: animate,
+              })}
+              ref={ref}
+            >
+              <div className='advertisement-image'>
                 <Image
-                  src='/images/fetchunt/advertisement.png'
+                  src='/images/fetchunt/introduction_ver_2.png'
                   alt='Advertisement image'
-                  width={120}
-                  height={100}
+                  width={210}
+                  height={173}
                   quality={100}
                 />
+              </div>
+
+              <div className='advertisement-main-content position-relative'>
+                <div className='advertisement-image-logo'>
+                  <Image
+                    src='/images/fetchunt/advertisement_fetch_logo.png'
+                    alt='Advertisement logo'
+                    width={108}
+                    height={45}
+                    quality={100}
+                  />
+                </div>
+
+                <div className='advertisement-fetchunt-introdution'>
+                  <div className='h6'>
+                    Fetchunt - Nền tảng cung ứng nhân lực dành cho các nhà phát
+                    triển
+                  </div>
+                </div>
               </div>
             </div>
           )}

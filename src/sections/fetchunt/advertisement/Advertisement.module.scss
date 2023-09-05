@@ -1,42 +1,64 @@
 @import '@/styles/_mixins.scss';
 
 .advertisement-container {
-  background: #ffbe16;
-  padding: 16px 10%;
+  padding: 8px 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   top: 0;
   z-index: 9999;
+  height: auto;
 
-  @include screen-down(lg) {
-    flex-wrap: wrap;
-    justify-content: center;
+  background-image: url('/images/fetchunt/advertisement_bg.png');
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-size: 100% 245px;
+
+  @include screen-down(xxl) {
+    padding: 8px 16px;
   }
 
-  @include screen-down(md) {
+  @include screen-down(lg) {
     flex-direction: column;
+    background-image: none;
+    background-color: #ffbe16;
+    height: auto;
+    padding: 0;
+  }
+
+  @include screen-down(sm) {
+    position: relative !important;
   }
 
   :global .advertisement-content-container {
     display: flex;
-    flex-direction: column;
-  }
-
-  :global .advertisement-action-container {
-    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    width: 60%;
 
     @include screen-down(lg) {
-      margin-top: 30px;
-      justify-content: center;
-      flex-direction: row-reverse;
+      width: 100%;
+      padding: 16px 0;
     }
 
     @include screen-down(sm) {
       flex-direction: column;
-      width: 100%;
+      align-items: center;
+    }
+
+    .firework-animation {
+      left: 0;
+      z-index: 2;
+
+      @include screen-down(lg) {
+        left: 50px;
+      }
+
+      @include screen-down(sm) {
+        top: 50px;
+        left: 50px;
+      }
     }
 
     .advertisement-main-action {
@@ -44,51 +66,150 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin: 0 24px;
+      margin: 0 40px;
+
+      @include screen-down(xxl) {
+        margin: 0 20px;
+      }
 
       @include screen-down(sm) {
         width: 100%;
+        margin-top: 20px;
       }
 
       a {
-        width: 100%;
+        width: fit-content;
       }
 
       .click {
-        right: -32px;
+        right: 20px;
         bottom: 4px;
+
+        @include screen-down(xl) {
+          right: -10px;
+        }
+
+        @include screen-down(xl) {
+          right: 100px;
+        }
       }
 
       .front-primary {
-        background: #17274e;
+        background: linear-gradient(94deg, #2c63e8 7.85%, #0f2775 85.8%);
         color: #fff;
+        border-radius: 100px;
+        font-weight: 700;
+        min-width: 200px;
+        max-width: 240px;
+
+        @include screen-down(xl) {
+          font-size: 20px;
+        }
 
         @include screen-down(sm) {
-          font-size: 20px;
+          margin: 0 auto;
         }
       }
 
       .edge-primary {
         background: linear-gradient(
           to left,
-          #09132b 5%,
-          #09132b 8%,
-          #09132b 92%,
-          #09132b 100%
+          #09132b 7.85%,
+          #09132b 85.8%,
+          #09132b 113.91%,
+          #09132b 117.92%
         );
+        border-radius: 100px;
+        min-width: 200px;
+        max-width: 240px;
+
+        @include screen-down(sm) {
+          visibility: hidden;
+        }
       }
 
       .h6 {
-        color: #fff;
+        color: #17274e;
         font-family: 'Quicksand';
         font-size: 20px;
         line-height: 24px;
-        font-weight: 500;
+        font-weight: 700;
         margin-top: 12px;
-        text-align: center;
+        text-align: left;
+        text-decoration: underline;
+
+        @include screen-down(xxl) {
+          min-width: 300px;
+        }
+
+        @include screen-down(xl) {
+          font-size: 16px;
+          min-width: unset;
+        }
 
         @include screen-down(sm) {
-          font-size: 16px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  :global .advertisement-action-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 100%;
+    margin-left: 60px;
+
+    @include screen-down(lg) {
+      justify-content: space-around;
+      flex-direction: row-reverse;
+      width: 100%;
+      margin-left: 0;
+      padding: 16px 0;
+      background-color: #2d2552;
+      display: none;
+    }
+
+    @include screen-down(sm) {
+      flex-direction: column-reverse;
+      width: 100%;
+    }
+
+    .advertisement-image {
+      margin-right: 36px;
+
+      @include screen-down(lg) {
+        position: relative;
+        bottom: -23px;
+      }
+    }
+
+    .advertisement-main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include screen-down(sm) {
+        margin-bottom: 16px;
+      }
+
+      .advertisement-fetchunt-introdution {
+        max-width: 400px;
+
+        .h6 {
+          color: #ffffff;
+          font-family: 'Quicksand';
+          font-size: 20px;
+          line-height: 24px;
+          font-weight: 700;
+          margin-top: 12px;
+          text-align: center;
+
+          @include screen-down(sm) {
+            font-size: 16px;
+          }
         }
       }
     }

@@ -75,15 +75,15 @@ const FetchuntPage = ({
       <Cooperate />
 
       <LazyLoadComponent>
-        <JobList fallback={fallback} />
+        <Advertisement
+          buttonText='THAM GIA NGAY'
+          linkTo='https://portal.fetch.tech/auth/login?tab=signin'
+          time='Thời gian: 01/09 - 30/09/2023'
+        />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
-        <Advertisement
-          buttonText='Tham gia ngay'
-          linkTo='https://portal.fetch.tech/auth/login?tab=signin'
-          time='Thời gian: 22/07 - 31/08/2023'
-        />
+        <JobList fallback={fallback} />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
