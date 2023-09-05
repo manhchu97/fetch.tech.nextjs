@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Lottie from 'react-lottie'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 import animationData from '@/lotties/blink_blink.json'
+import clsx from 'clsx'
 import { logEvent } from 'firebase/analytics'
 
 import Button from '@/components/button/Button'
+import MenuItem from '@/components/nav/menu-item'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
@@ -23,54 +25,127 @@ const Introduction = (): React.ReactElement => {
     },
   }
 
+  const [isExpandContent, setIsExpandContent] = useState<boolean>(false)
+
   return (
     <div className={styles['introduction-container']}>
-      <div className='header d-flex'>
-        <div className='header-logo-container div-center flex-grow-1'>
-          <Link href={PATH_CONFIG.fetchunt}>
-            <a className='header-logo-img' rel='noopener noreferrer'>
+      <div className='header-wrapper'>
+        <div className='header d-flex'>
+          <div className='header-logo-container div-center flex-grow-1'>
+            <Link href={PATH_CONFIG.fetchunt}>
+              <a className='header-logo-img' rel='noopener noreferrer'>
+                <Image
+                  src='/images/fetchunt/advertisement_fetch_logo.png'
+                  alt='Picture of the author'
+                  width={96}
+                  height={40}
+                  quality={100}
+                  priority
+                />
+              </a>
+            </Link>
+          </div>
+
+          <div className='hstack gap-3 actions'>
+            <Link href='https://www.fetch.tech/careers'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <button type='button' className='btn btn-outline-primary'>
+                  Việc làm IT
+                </button>
+              </a>
+            </Link>
+
+            <Link href='https://www.fetch.tech/company'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <button type='button' className='btn btn-outline-primary'>
+                  Dành cho doanh nghiệp
+                </button>
+              </a>
+            </Link>
+          </div>
+
+          <div className='refer'>
+            <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <Button
+                  type='button'
+                  title='Bắt đầu giới thiệu ứng viên'
+                  frontClassName='front-primary'
+                  edgeClassName='edge-primary'
+                  size='small'
+                  variant='filled'
+                />
+              </a>
+            </Link>
+          </div>
+
+          <div
+            className={clsx(
+              'nav-toggler',
+              isExpandContent && 'show-nav-container',
+            )}
+            role='button'
+            onClick={() => setIsExpandContent((prev) => !prev)}
+          >
+            {isExpandContent ? (
               <Image
-                src='/images/FetchWhite.svg'
-                alt='Picture of the author'
-                width={180}
-                height={40}
+                src='/images/NavbarClose.png'
+                alt='close'
+                width={16}
+                height={16}
+              />
+            ) : (
+              <Image
+                src='/images/NavbarOpen.png'
+                alt='open'
+                width={32}
+                height={32}
                 priority
               />
-            </a>
-          </Link>
+            )}
+          </div>
         </div>
+      </div>
 
-        <div className='hstack gap-3 actions'>
+      <div
+        className={clsx(
+          'nav-container',
+          isExpandContent && 'show-nav-container',
+        )}
+      >
+        <div className='nav-group-items'>
           <Link href='https://www.fetch.tech/careers'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-outline-primary'>
-                Việc làm IT
-              </button>
+            <a>
+              <MenuItem title='Việc làm IT' />
             </a>
           </Link>
 
           <Link href='https://www.fetch.tech/company'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-outline-primary'>
-                Dành cho doanh nghiệp
-              </button>
+            <a>
+              <MenuItem title='Dành cho doanh nghiệp' />
             </a>
           </Link>
-        </div>
 
-        <div className='refer'>
-          <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <Button
-                type='button'
-                title='Bắt đầu giới thiệu ứng viên'
-                frontClassName='front-primary'
-                edgeClassName='edge-primary'
-                size='small'
-                variant='filled'
-              />
+          <div className='refer'>
+            <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <Button
+                  type='button'
+                  title='Bắt đầu giới thiệu ứng viên'
+                  frontClassName='front-primary'
+                  edgeClassName='edge-primary'
+                  size='small'
+                  variant='filled'
+                />
+              </a>
+            </Link>
+          </div>
+
+          {/* <Link href={PATH_CONFIG.gtta}>
+            <a>
+              <MenuItem title='For GTTA' />
             </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
