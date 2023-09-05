@@ -61,6 +61,11 @@
       justify-content: flex-start;
       align-items: center;
 
+      & span:hover {
+        transform: scale(1.1);
+        transition: all ease 0.3s;
+      }
+
       .step-image-container {
         flex-shrink: 0;
 
@@ -115,7 +120,7 @@
 
   :global .join-steps-footer {
     display: flex;
-    margin-top: 80px;
+    margin-top: 50px;
     justify-content: center;
 
     @include screen-down(lg) {

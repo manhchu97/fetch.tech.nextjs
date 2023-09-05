@@ -113,7 +113,7 @@ const JoinSteps = () => {
             <div
               className={clsx('join-steps-main m-auto', {
                 animate__animated: true,
-                animate__slideInLeft: animate,
+                animate__bounceIn: animate,
               })}
               ref={ref}
             >
@@ -135,7 +135,7 @@ const JoinSteps = () => {
             <div
               className={clsx('join-steps-main ', {
                 animate__animated: true,
-                animate__slideInLeft: animate,
+                animate__bounceIn: animate,
               })}
               ref={ref}
             >

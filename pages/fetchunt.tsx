@@ -24,9 +24,7 @@ const Career = dynamic(() => import('@/sections/fetchunt/career'))
 const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
 const JoinSteps = dynamic(() => import('@/sections/fetchunt/join-steps'))
 const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
-const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'), {
-  loading: () => <p>Loading...</p>,
-})
+const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'))
 
 export const getStaticProps = async () => {
   const params = {
@@ -74,20 +72,18 @@ const FetchuntPage = ({
 
       <Introduction />
 
+      <Cooperate />
+
       <LazyLoadComponent>
-        <Cooperate />
+        <Advertisement
+          buttonText='THAM GIA NGAY'
+          linkTo='https://portal.fetch.tech/auth/login?tab=signin'
+          time='Thời gian: 01/09 - 30/09/2023'
+        />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
         <JobList fallback={fallback} />
-      </LazyLoadComponent>
-
-      <LazyLoadComponent>
-        <Advertisement
-          buttonText='Tham gia ngay'
-          linkTo='https://portal.fetch.tech/auth/login?tab=signin'
-          time='Thời gian: 22/07 - 31/08/2023'
-        />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
@@ -111,9 +107,7 @@ const FetchuntPage = ({
         />
       </LazyLoadComponent>
 
-      <LazyLoadComponent>
-        <Footer />
-      </LazyLoadComponent>
+      <Footer />
 
       <Messenger />
     </SWRConfigProvider>

@@ -1,8 +1,10 @@
 import React from 'react'
+import Lottie from 'react-lottie'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
+import animationData from '@/lotties/blink_blink.json'
 import { logEvent } from 'firebase/analytics'
 
 import Button from '@/components/button/Button'
@@ -12,6 +14,15 @@ import { PATH_CONFIG } from '@/routes/paths'
 import styles from './Introduction.module.scss'
 
 const Introduction = (): React.ReactElement => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
+
   return (
     <div className={styles['introduction-container']}>
       <div className='header d-flex'>
@@ -19,10 +30,10 @@ const Introduction = (): React.ReactElement => {
           <Link href={PATH_CONFIG.fetchunt}>
             <a className='header-logo-img' rel='noopener noreferrer'>
               <Image
-                src='/images/LogoDefault.svg'
+                src='/images/FetchWhite.svg'
                 alt='Picture of the author'
-                layout='fill'
-                objectFit='contain'
+                width={180}
+                height={40}
                 priority
               />
             </a>
@@ -33,7 +44,7 @@ const Introduction = (): React.ReactElement => {
           <Link href='https://www.fetch.tech/careers'>
             <a target='_blank' rel='noopener noreferrer'>
               <button type='button' className='btn btn-outline-primary'>
-                Việc làm
+                Việc làm IT
               </button>
             </a>
           </Link>
@@ -65,6 +76,10 @@ const Introduction = (): React.ReactElement => {
 
       <div className='main'>
         <div className='introduction-img'>
+          <div className='introduction-img-bg'>
+            <Lottie options={defaultOptions} style={{ width: '100%' }} />
+          </div>
+
           <Image
             src='/images/fetchunt/introduction_ver_2.png'
             alt='Picture of the author'
