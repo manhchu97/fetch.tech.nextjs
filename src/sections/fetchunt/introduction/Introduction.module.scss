@@ -6,8 +6,7 @@
   }
 
   :global .header {
-    // padding: 0 10%;
-    padding: 0 16px;
+    padding: 0 32px;
     max-width: $max-width-wrapper;
     margin: 0 auto;
     margin-bottom: 50px;
@@ -113,7 +112,10 @@
   :global .main {
     position: relative;
     min-height: 600px;
-    padding: 0 10%;
+    max-width: $max-width-wrapper;
+    padding: 0 32px;
+    margin: 0 auto;
+    margin-top: 24px;
 
     @include screen-down(xxl) {
       min-height: unset;
@@ -315,7 +317,11 @@
         background-color: #ffbe16;
         width: 100%;
         align-items: normal;
-        padding: 16px;
+        padding: 8px 32px 32px;
+
+        @include screen-down(sm) {
+          padding: 8px 16px 32px;
+        }
       }
     }
 
@@ -368,9 +374,6 @@
 
     @include screen-down(lg) {
       display: block;
-      // position: absolute;
-      // right: 0px;
-      // height: 48px;
       padding: 12px;
       font-size: 1.25rem;
       line-height: 1;

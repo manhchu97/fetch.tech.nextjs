@@ -1,8 +1,9 @@
 @import '@/styles/_mixins.scss';
 
 .join-steps-container {
+  padding: 140px 32px 60px;
+  max-width: $max-width-wrapper;
   margin: 0 auto;
-  padding: 140px 5% 60px;
 
   @include screen-down(lg) {
     margin: 0 auto;

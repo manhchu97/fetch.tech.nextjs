@@ -20,20 +20,22 @@ const Banner = ({
   linkTo = '',
 }: BannerProps): React.ReactElement => {
   return (
-    <div className={clsx('ft-full-screen', styles['banner-container'])}>
-      <div className='banner-content-container'>
-        <div className='text-title'>{title}</div>
-        <div className='text-sub-title'>{subTitle}</div>
-      </div>
+    <div className={clsx(styles['banner-wrapper'])}>
+      <div className={clsx('ft-full-screen', styles['banner-container'])}>
+        <div className='banner-content-container'>
+          <div className='text-title'>{title}</div>
+          <div className='text-sub-title'>{subTitle}</div>
+        </div>
 
-      <div className='banner-button-container'>
-        <Link href={linkTo}>
-          <a target='_blank' rel='noopener noreferrer'>
-            <div className='banner-button div-center' role='button'>
-              {buttonText}
-            </div>
-          </a>
-        </Link>
+        <div className='banner-button-container'>
+          <Link href={linkTo}>
+            <a target='_blank' rel='noopener noreferrer'>
+              <div className='banner-button div-center' role='button'>
+                {buttonText}
+              </div>
+            </a>
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -1,12 +1,17 @@
 @import '@/styles/_mixins.scss';
 
-.cooperate {
-  padding: 60px 10%;
+.cooperate-wrapper {
   background: #ecf3fe;
+}
+
+.cooperate {
+  max-width: $max-width-wrapper;
+  padding: 60px 48px;
+  margin: 0 auto;
   margin-bottom: 64px;
 
   @include screen-down(md) {
-    padding: 50px 12px;
+    padding: 50px 48px;
   }
 
   &__header {

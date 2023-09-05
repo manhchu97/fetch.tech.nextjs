@@ -72,90 +72,92 @@ const Cooperate = () => {
   }
 
   return (
-    <div className={clsx(style['cooperate'], 'overflow-hidden')}>
-      <div className={style['cooperate__header']}>
-        + 1000 Cơ hội Nhận thưởng từ các Dự án Quốc tế lên tới 20.000 USD
+    <div className={style['cooperate-wrapper']}>
+      <div className={clsx(style['cooperate'], 'overflow-hidden')}>
+        <div className={style['cooperate__header']}>
+          + 1000 Cơ hội Nhận thưởng từ các Dự án Quốc tế lên tới 20.000 USD
+        </div>
+
+        <AnimatiopnOnScrollWrap
+          render={(ref, animate) => (
+            <div
+              ref={ref}
+              className={clsx({
+                animate__animated: true,
+                animate__fadeInLeft: animate,
+              })}
+            >
+              <ReactSlick settings={settings}>
+                <div className={style['slide--item']}>
+                  <div className={style['slide--item__content']}>
+                    <Image
+                      src='/images/home-page/Customer1.png'
+                      width={93}
+                      height={46}
+                      alt='customer'
+                    />
+                  </div>
+                </div>
+
+                <div className={style['slide--item']}>
+                  <div className={style['slide--item__content']}>
+                    <Image
+                      src='/images/home-page/Customer2.png'
+                      width={55}
+                      height={46}
+                      alt='customer'
+                    />
+                  </div>
+                </div>
+
+                <div className={style['slide--item']}>
+                  <div className={style['slide--item__content']}>
+                    <Image
+                      src='/images/home-page/Customer3.png'
+                      width={99}
+                      height={27}
+                      alt='customer'
+                    />
+                  </div>
+                </div>
+
+                <div className={style['slide--item']}>
+                  <div className={style['slide--item__content']}>
+                    <Image
+                      src='/images/home-page/Customer4.png'
+                      width={91}
+                      height={89}
+                      alt='customer'
+                    />
+                  </div>
+                </div>
+
+                <div className={style['slide--item']}>
+                  <div className={style['slide--item__content']}>
+                    <Image
+                      src='/images/home-page/Customer5.png'
+                      width={71}
+                      height={47}
+                      alt='customer'
+                    />
+                  </div>
+                </div>
+
+                <div className={style['slide--item']}>
+                  <div className={style['slide--item__content']}>
+                    <Image
+                      src='/images/home-page/Customer6.png'
+                      width={103}
+                      height={35}
+                      alt='customer'
+                    />
+                  </div>
+                </div>
+              </ReactSlick>
+            </div>
+          )}
+        />
       </div>
-
-      <AnimatiopnOnScrollWrap
-        render={(ref, animate) => (
-          <div
-            ref={ref}
-            className={clsx({
-              animate__animated: true,
-              animate__fadeInLeft: animate,
-            })}
-          >
-            <ReactSlick settings={settings}>
-              <div className={style['slide--item']}>
-                <div className={style['slide--item__content']}>
-                  <Image
-                    src='/images/home-page/Customer1.png'
-                    width={93}
-                    height={46}
-                    alt='customer'
-                  />
-                </div>
-              </div>
-
-              <div className={style['slide--item']}>
-                <div className={style['slide--item__content']}>
-                  <Image
-                    src='/images/home-page/Customer2.png'
-                    width={55}
-                    height={46}
-                    alt='customer'
-                  />
-                </div>
-              </div>
-
-              <div className={style['slide--item']}>
-                <div className={style['slide--item__content']}>
-                  <Image
-                    src='/images/home-page/Customer3.png'
-                    width={99}
-                    height={27}
-                    alt='customer'
-                  />
-                </div>
-              </div>
-
-              <div className={style['slide--item']}>
-                <div className={style['slide--item__content']}>
-                  <Image
-                    src='/images/home-page/Customer4.png'
-                    width={91}
-                    height={89}
-                    alt='customer'
-                  />
-                </div>
-              </div>
-
-              <div className={style['slide--item']}>
-                <div className={style['slide--item__content']}>
-                  <Image
-                    src='/images/home-page/Customer5.png'
-                    width={71}
-                    height={47}
-                    alt='customer'
-                  />
-                </div>
-              </div>
-
-              <div className={style['slide--item']}>
-                <div className={style['slide--item__content']}>
-                  <Image
-                    src='/images/home-page/Customer6.png'
-                    width={103}
-                    height={35}
-                    alt='customer'
-                  />
-                </div>
-              </div>
-            </ReactSlick>
-          </div>
-        )}
-      />
     </div>
   )
 }
