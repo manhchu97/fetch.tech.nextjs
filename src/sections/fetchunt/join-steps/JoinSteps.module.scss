@@ -1,125 +1,138 @@
 @import '@/styles/_mixins.scss';
 
 .join-steps-container {
+  padding: 140px 32px 60px;
+  max-width: $max-width-wrapper;
   margin: 0 auto;
-  padding: 0 10%;
+
+  @include screen-down(lg) {
+    margin: 0 auto;
+    padding: 50px 10% 0;
+  }
 
   @include screen-down(sm) {
-    padding: 16px;
+    padding: 50px 16px 0;
   }
 
   :global .join-steps-header {
     color: #17274e;
     text-align: center;
     font-size: 40px;
-    font-family: Quicksand;
+    font-family: 'Quicksand';
     font-weight: 700;
     line-height: 44px;
-    letter-spacing: -0.5px;
     margin-bottom: 64px;
 
-    @include screen-down(sm) {
+    @include screen-down(lg) {
+      font-size: 40px;
+      margin-bottom: 32px;
+    }
+
+    @include screen-down(md) {
+      margin-bottom: 28px;
       font-size: 28px;
     }
   }
 
   :global .join-steps-main {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-
-    @include screen-down(sm) {
-      width: 90%;
-    }
-
-    .num-step {
-      width: 51px;
-      height: 50px;
-      flex-shrink: 0;
-      border-radius: 51px;
-      background: #ffbe16;
-      margin-right: 32px;
-
-      text-align: justify;
-      font-size: 24px;
-      font-family: Quicksand;
-      font-weight: 500;
-      line-height: 36px;
-      color: #fff;
+    @include screen-down(lg) {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
 
       @include screen-down(sm) {
-        width: 40px;
-        height: 40px;
-        margin-right: 24px;
-
-        font-size: 18px;
+        width: 90%;
       }
     }
 
-    .accordion-header {
-      margin-top: 4px;
+    .container {
+      max-width: 100%;
+    }
 
-      .h6 {
-        font-weight: 500;
+    .h6 {
+      font-family: 'Quicksand';
+      color: #1f3a6f;
+      line-height: 36px;
+      margin: 0;
+    }
 
-        @include screen-up(md) {
-          font-size: 24px;
+    .step-title-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      & span:hover {
+        transform: scale(1.1);
+        transition: all ease 0.3s;
+      }
+
+      .step-image-container {
+        flex-shrink: 0;
+
+        .step-arrow-container {
+          position: absolute;
+          top: 35px;
+          right: -24px;
         }
       }
 
-      @include screen-down(sm) {
-        margin-top: 0;
+      .step-title-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 32px;
+
+        .h6 {
+          font-size: 24px;
+          font-weight: 700;
+          text-align: center;
+          margin: 0;
+
+          @include screen-down(lg) {
+            text-align: left;
+          }
+        }
       }
     }
 
-    .accordion-content {
-      @include screen-down(sm) {
-        margin-left: -66px;
+    .show-more-btn {
+      margin: 16px 0;
+
+      &.reverse {
+        transition: all 0.3s ease;
+        transform: rotate(-180deg);
       }
 
+      &.initial {
+        transition: all 0.3s ease;
+        transform: rotate(0);
+      }
+    }
+
+    .step-content-container {
       .h6 {
         font-size: 20px;
-
-        @include screen-down(md) {
-          font-size: 16px;
-        }
+        font-weight: 500;
+        text-align: justify;
       }
     }
   }
 
   :global .join-steps-footer {
     display: flex;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 50px;
     justify-content: center;
 
-    @include screen-down(sm) {
-      margin-top: 30px;
-      margin-bottom: 60px;
+    @include screen-down(lg) {
+      margin-top: 40px;
     }
 
-    button {
-      background: #ffc01e;
-      border-radius: 8px;
-      color: #fff;
-      padding: 12px 120px;
-      outline: unset;
-      border: unset;
+    .btn-primary {
+      min-width: 320px;
 
-      font-family: 'Quicksand';
-      font-style: normal;
-      font-weight: 600;
-      font-size: 28px;
-      line-height: 40px;
-
-      @include screen-down(sm) {
-        padding: 12px 64px;
-        font-size: 22px;
-      }
-
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      @include screen-down(lg) {
+        width: 100%;
       }
     }
   }

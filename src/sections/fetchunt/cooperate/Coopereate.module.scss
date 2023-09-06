@@ -1,12 +1,37 @@
 @import '@/styles/_mixins.scss';
 
-.cooperate {
-  padding: 100px 10%;
+.cooperate-wrapper {
   background: #ecf3fe;
+}
+
+.cooperate {
+  max-width: $max-width-wrapper;
+  padding: 60px 48px;
+  margin: 0 auto;
   margin-bottom: 64px;
 
   @include screen-down(md) {
-    padding: 50px 12px;
+    padding: 50px 48px;
+  }
+
+  &__header {
+    color: #17274e;
+    font-size: 36px;
+    font-family: 'Quicksand';
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+
+    @include screen-down(md) {
+      font-size: 28px;
+      line-height: 32px;
+    }
+
+    @include screen-down(sm) {
+      font-size: 24px;
+      line-height: 32px;
+    }
   }
 
   &__content {
