@@ -1,10 +1,16 @@
 @import '@/styles/_mixins.scss';
 
-.banner-container {
+.banner-wrapper {
   background: #ff6847;
-  padding: 50px calc(10% + 5px);
+}
+
+.banner-container {
+  padding: 50px 32px;
+  margin: 0 auto;
+  max-width: $max-width-wrapper;
   display: flex;
   justify-content: space-between;
+  background: #ff6847;
 
   @include screen-down(md) {
     flex-direction: column;

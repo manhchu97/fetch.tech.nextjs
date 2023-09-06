@@ -1,65 +1,162 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Lottie from 'react-lottie'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
+import animationData from '@/lotties/blink_blink.json'
+import clsx from 'clsx'
 import { logEvent } from 'firebase/analytics'
+
+import Button from '@/components/button/Button'
+import MenuItem from '@/components/nav/menu-item'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './Introduction.module.scss'
 
 const Introduction = (): React.ReactElement => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
+
+  const [isExpandContent, setIsExpandContent] = useState<boolean>(false)
+
   return (
     <div className={styles['introduction-container']}>
-      <div className='header d-flex'>
-        <div className='header-logo-container div-center flex-grow-1'>
-          <Link href={PATH_CONFIG.fetchunt}>
-            <a className='header-logo-img' rel='noopener noreferrer'>
+      <div className='header-wrapper'>
+        <div className='header d-flex'>
+          <div className='header-logo-container div-center flex-grow-1'>
+            <Link href={PATH_CONFIG.fetchunt}>
+              <a className='header-logo-img' rel='noopener noreferrer'>
+                <Image
+                  src='/images/fetchunt/advertisement_fetch_logo.png'
+                  alt='Picture of the author'
+                  width={96}
+                  height={40}
+                  quality={100}
+                  priority
+                />
+              </a>
+            </Link>
+          </div>
+
+          <div className='hstack gap-3 actions'>
+            <Link href='https://www.fetch.tech/careers'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <button type='button' className='btn btn-outline-primary'>
+                  Việc làm IT
+                </button>
+              </a>
+            </Link>
+
+            <Link href='https://www.fetch.tech/company'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <button type='button' className='btn btn-outline-primary'>
+                  Dành cho doanh nghiệp
+                </button>
+              </a>
+            </Link>
+          </div>
+
+          <div className='refer'>
+            <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <Button
+                  type='button'
+                  title='Bắt đầu giới thiệu ứng viên'
+                  frontClassName='front-primary'
+                  edgeClassName='edge-primary'
+                  size='small'
+                  variant='filled'
+                />
+              </a>
+            </Link>
+          </div>
+
+          <div
+            className={clsx(
+              'nav-toggler',
+              isExpandContent && 'show-nav-container',
+            )}
+            role='button'
+            onClick={() => setIsExpandContent((prev) => !prev)}
+          >
+            {isExpandContent ? (
               <Image
-                src='/images/LogoDefault.svg'
-                alt='Picture of the author'
-                layout='fill'
-                objectFit='contain'
+                src='/images/NavbarClose.png'
+                alt='close'
+                width={16}
+                height={16}
+              />
+            ) : (
+              <Image
+                src='/images/NavbarOpen.png'
+                alt='open'
+                width={32}
+                height={32}
                 priority
               />
-            </a>
-          </Link>
+            )}
+          </div>
         </div>
+      </div>
 
-        <div className='hstack gap-3 actions'>
+      <div
+        className={clsx(
+          'nav-container',
+          isExpandContent && 'show-nav-container',
+        )}
+      >
+        <div className='nav-group-items'>
           <Link href='https://www.fetch.tech/careers'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-outline-primary'>
-                Việc làm
-              </button>
+            <a>
+              <MenuItem title='Việc làm IT' />
             </a>
           </Link>
 
           <Link href='https://www.fetch.tech/company'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-outline-primary'>
-                Dành cho doanh nghiệp
-              </button>
+            <a>
+              <MenuItem title='Dành cho doanh nghiệp' />
             </a>
           </Link>
-        </div>
 
-        <div className='refer'>
-          <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <button type='button' className='btn btn-primary'>
-                Bắt đầu giới thiệu ứng viên
-              </button>
+          <div className='refer'>
+            <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
+              <a target='_blank' rel='noopener noreferrer'>
+                <Button
+                  type='button'
+                  title='Bắt đầu giới thiệu ứng viên'
+                  frontClassName='front-primary'
+                  edgeClassName='edge-primary'
+                  size='small'
+                  variant='filled'
+                />
+              </a>
+            </Link>
+          </div>
+
+          {/* <Link href={PATH_CONFIG.gtta}>
+            <a>
+              <MenuItem title='For GTTA' />
             </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
       <div className='main'>
         <div className='introduction-img'>
+          <div className='introduction-img-bg'>
+            <Lottie options={defaultOptions} style={{ width: '100%' }} />
+          </div>
+
           <Image
-            src='/images/fetchunt/introduction.png'
+            src='/images/fetchunt/introduction_ver_2.png'
             alt='Picture of the author'
             layout='fill'
             objectFit='contain'
@@ -70,19 +167,20 @@ const Introduction = (): React.ReactElement => {
         <div className='main-content'>
           <div className='h3'>FETCHUNT</div>
 
+          <div className='h4'>Giới thiệu ứng viên Nhận thưởng hấp dẫn</div>
+
           <div className='h5'>
-            Fetchunt là một nền tảng tuyển dụng cho phép các nhà tuyển dụng và
-            chuyên gia công nghệ giới thiệu, kết nối ứng viên và chia sẻ cơ hội
-            việc làm, tạo ra giá trị mới với nỗ lực tối thiểu.{' '}
-            <strong>100% người tham gia</strong> có thể nhận tiền thưởng từ việc
-            giới thiệu ứng viên và tham gia cộng đồng đặc biệt của chúng tôi
+            Nền tảng cung ứng nhân lực đầu tiên giúp{' '}
+            <strong className='highlight'>
+              100% người tham gia nhận thưởng thành công
+            </strong>{' '}
+            khi giới thiệu ứng viên.
           </div>
 
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
             <a target='_blank' rel='noopener noreferrer'>
-              <button
-                type='button'
-                className='btn btn-primary'
+              <Button
+                className='btn-primary'
                 onClick={async () => {
                   const { initializeFirebase } = await import(
                     '@/utils/firebase'
@@ -93,47 +191,12 @@ const Introduction = (): React.ReactElement => {
                     logEvent(analytics, '#clickthrough_Signup_begin')
                   }
                 }}
-              >
-                Tìm kiếm cơ hội nhận thưởng
-              </button>
+                size='large'
+                variant='filled'
+                title='Bắt đầu ngay'
+              />
             </a>
           </Link>
-        </div>
-      </div>
-
-      <div className='footer'>
-        <div className='d-flex footer-item'>
-          <div className='position-relative div-center process-recruiter-img'>
-            <Image
-              src='/images/fetchunt/process-recruiter.svg'
-              alt='process-recruiter'
-              layout='fill'
-              objectFit='contain'
-              quality={100}
-            />
-          </div>
-
-          <div className='h6'>
-            Sử dụng công nghệ trí tuệ nhân tạo (AI) giúp xử lý thông tin ứng
-            viên và tuyển dụng viên nhanh hơn, chính xác hơn.
-          </div>
-        </div>
-
-        <div className='d-flex footer-item'>
-          <div className='position-relative div-center refer-friends-img'>
-            <Image
-              src='/images/fetchunt/refer-friends.svg'
-              alt='refer-friends'
-              layout='fill'
-              objectFit='contain'
-              quality={100}
-            />
-          </div>
-
-          <div className='h6'>
-            Thấp nhất 5.000.000 VND và không giới hạn tiền thưởng với mỗi vị trí
-            trên job board- cập nhật liên tục
-          </div>
         </div>
       </div>
     </div>
