@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import clsx from 'clsx'
+import { logEvent } from 'firebase/analytics'
 import ldDebounce from 'lodash.debounce'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
@@ -12,7 +13,6 @@ import Button from '@/components/button/Button'
 import { PATH_CONFIG } from '@/routes/paths'
 
 import styles from './MainContent.module.scss'
-import { logEvent } from 'firebase/analytics'
 
 const MainContent = (): React.ReactElement => {
   const [isMobileScreen, setIsMobileScreen] = useState(false)
@@ -208,7 +208,7 @@ const MainContent = (): React.ReactElement => {
                   </div>
 
                   <div className='div-center btn-text'>
-                    <Link href='https://m.me/fetchvietnam'>
+                    <Link href='https://www.linkedin.com/pulse/b%E1%BA%A1n-s%E1%BA%BD-kh%C3%B4ng-mu%E1%BB%91n-b%E1%BB%8F-l%E1%BB%A1-3-c%C6%A1-h%E1%BB%99i-tuy%E1%BB%87t-v%E1%BB%9Di-n%C3%A0y?trk=public_post_feed-article-content'>
                       <a target='_blank' rel='noopener noreferrer'>
                         Tìm hiểu thêm: 3 cách tăng thu nhập cùng Fetchunt
                       </a>
@@ -359,14 +359,16 @@ const MainContent = (): React.ReactElement => {
   )
 
   return (
-    <div className={clsx(styles['content-container'])}>
-      <div className='d-flex justify-content-lg-between ft-main-content-container'>
-        <div className='main-header'>Tại sao chọn tin tưởng Fetchunt</div>
+    <div className={clsx(styles['content-wrapper'])}>
+      <div className={clsx(styles['content-container'])}>
+        <div className='d-flex justify-content-lg-between ft-main-content-container'>
+          <div className='main-header'>Tại sao chọn tin tưởng Fetchunt</div>
 
-        <div className='main-content'>
-          {sections.map((section) => (
-            <React.Fragment key={section.id}>{section.render}</React.Fragment>
-          ))}
+          <div className='main-content'>
+            {sections.map((section) => (
+              <React.Fragment key={section.id}>{section.render}</React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
     </div>

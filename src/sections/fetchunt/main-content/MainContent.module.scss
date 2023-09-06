@@ -1,9 +1,13 @@
 @import '@/styles/_mixins.scss';
 
-.content-container {
-  margin: 64px auto;
-  padding: 24px 10%;
+.content-wrapper {
   background: rgba(240, 248, 253, 0.5);
+}
+
+.content-container {
+  padding: 24px 32px;
+  max-width: $max-width-wrapper;
+  margin: 64px auto;
 
   @include screen-down(sm) {
     padding: 32px;

@@ -1,18 +1,34 @@
 @import '@/styles/_mixins.scss';
 
-.advertisement-container {
-  padding: 8px 10%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  top: 0;
-  z-index: 9999;
-  height: auto;
-
+.advertisement-wrapper {
   background-image: url('/images/fetchunt/advertisement_bg.png');
   background-repeat: no-repeat;
   background-origin: border-box;
   background-size: 100% 245px;
+  z-index: 9999;
+  top: 0;
+  width: 100%;
+
+  @include screen-down(sm) {
+    position: relative !important;
+  }
+}
+
+.advertisement-frame {
+  height: 192px;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.advertisement-container {
+  padding: 8px 32px;
+  max-width: $max-width-wrapper;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: transparent;
 
   @include screen-down(xxl) {
     padding: 8px 16px;
@@ -24,10 +40,6 @@
     background-color: #ffbe16;
     height: auto;
     padding: 0;
-  }
-
-  @include screen-down(sm) {
-    position: relative !important;
   }
 
   :global .advertisement-content-container {
@@ -50,6 +62,10 @@
     .firework-animation {
       left: 0;
       z-index: 2;
+
+      @media only screen and (min-width: 1800px) {
+        left: 100px;
+      }
 
       @include screen-down(lg) {
         left: 50px;
@@ -79,19 +95,6 @@
 
       a {
         width: fit-content;
-      }
-
-      .click {
-        right: 20px;
-        bottom: 4px;
-
-        @include screen-down(xl) {
-          right: -10px;
-        }
-
-        @include screen-down(xl) {
-          right: 100px;
-        }
       }
 
       .front-primary {
@@ -137,6 +140,7 @@
         margin-top: 12px;
         text-align: left;
         text-decoration: underline;
+        position: relative;
 
         @include screen-down(xxl) {
           min-width: 300px;
@@ -149,6 +153,15 @@
 
         @include screen-down(sm) {
           text-align: center;
+        }
+
+        .click {
+          right: 0;
+          bottom: -10px;
+
+          @include screen-down(xl) {
+            right: -10px;
+          }
         }
       }
     }
