@@ -32,7 +32,7 @@ const Introduction = (): React.ReactElement => {
       <div className='header-wrapper'>
         <div className='header d-flex'>
           <div className='header-logo-container div-center flex-grow-1'>
-            <Link href={PATH_CONFIG.fetchunt}>
+            <Link href={PATH_CONFIG.hunt}>
               <a className='header-logo-img' rel='noopener noreferrer'>
                 <Image
                   src='/images/fetchunt/advertisement_fetch_logo.png'
@@ -165,7 +165,7 @@ const Introduction = (): React.ReactElement => {
         </div>
 
         <div className='main-content'>
-          <div className='h3'>FETCHUNT</div>
+          <div className='h3'>FETCH</div>
 
           <div className='h4'>Giới thiệu ứng viên Nhận thưởng hấp dẫn</div>
 

@@ -41,6 +41,6 @@ export const PATH_CONFIG = {
   },
   privacyPolicy: path(ROOT_PATH, 'privacy-policy'),
   serviceAgreement: path(ROOT_PATH, 'service-agreement'),
-  fetchunt: path(ROOT_PATH, 'fetchunt'),
+  hunt: path(ROOT_PATH, 'hunt'),
   frequentlyQuestions: path(ROOT_PATH, 'frequently-questions'),
 }

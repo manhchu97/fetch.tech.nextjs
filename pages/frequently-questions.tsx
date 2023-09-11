@@ -6,11 +6,11 @@ import { SCREEN } from '@/config/global'
 
 import LazyLoadComponent from '@/components/LazyLoadComponent'
 
-import Header from '@/sections/fetchunt/header'
+import Header from '@/sections/hunt/header'
 
-const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
-const Career = dynamic(() => import('@/sections/fetchunt/career'))
-const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
+const Banner = dynamic(() => import('@/sections/hunt/banner'))
+const Career = dynamic(() => import('@/sections/hunt/career'))
+const Footer = dynamic(() => import('@/sections/hunt/footer'))
 const MainContent = dynamic(
   () => import('@/sections/frequently-questions/main-content'),
   {
@@ -30,7 +30,7 @@ const FrequentlyQuestionsPage: NextPage = () => {
   return (
     <>
       <NextSeo
-        title='Fetchunt | Câu hỏi thường gặp'
+        title='Fetch | Câu hỏi thường gặp'
         description='Câu hỏi thường gặp'
         themeColor='#ffbf14'
         additionalLinkTags={[

@@ -12,19 +12,19 @@ import { SWRConfigProvider } from '@/components/SwrConfig'
 
 import { API_LIST_JOB } from '@/routes/api'
 
-import Introduction from '@/sections/fetchunt/introduction'
-import Messenger from '@/sections/fetchunt/messenger'
+import Introduction from '@/sections/hunt/introduction'
+import Messenger from '@/sections/hunt/messenger'
 
 import { IListJobResponse } from '@/types/fetchunt'
 
-const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
-const Advertisement = dynamic(() => import('@/sections/fetchunt/advertisement'))
-const JobList = dynamic(() => import('@/sections/fetchunt/job-list'))
-const Career = dynamic(() => import('@/sections/fetchunt/career'))
-const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
-const JoinSteps = dynamic(() => import('@/sections/fetchunt/join-steps'))
-const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
-const MainContent = dynamic(() => import('@/sections/fetchunt/main-content'))
+const Banner = dynamic(() => import('@/sections/hunt/banner'))
+const Advertisement = dynamic(() => import('@/sections/hunt/advertisement'))
+const JobList = dynamic(() => import('@/sections/hunt/job-list'))
+const Career = dynamic(() => import('@/sections/hunt/career'))
+const Cooperate = dynamic(() => import('@/sections/hunt/cooperate'))
+const JoinSteps = dynamic(() => import('@/sections/hunt/join-steps'))
+const Footer = dynamic(() => import('@/sections/hunt/footer'))
+const MainContent = dynamic(() => import('@/sections/hunt/main-content'))
 
 export const getStaticProps = async () => {
   const params = {
@@ -50,8 +50,8 @@ const FetchuntPage = ({
   return (
     <SWRConfigProvider>
       <NextSeo
-        title='Fetchunt | Nền tảng cho nhà tuyển dụng giới thiệu ứng viên'
-        description='Fetchunt là nền tảng mạng lưới công việc trực tuyến cho nhà tuyển dụng giới thiệu, trao đổi ứng viên trên toàn quốc. Đây là cơ hội cho nhà tuyển dụng tăng thu nhập không giới hạn. Bạn chỉ cần giới thiệu ứng viên, việc còn lại hãy để đội ngũ của Fetchunt lo.'
+        title='Fetch | Nền tảng cho nhà tuyển dụng giới thiệu ứng viên'
+        description='Fetch là nền tảng mạng lưới công việc trực tuyến cho nhà tuyển dụng giới thiệu, trao đổi ứng viên trên toàn quốc. Đây là cơ hội cho nhà tuyển dụng tăng thu nhập không giới hạn. Bạn chỉ cần giới thiệu ứng viên, việc còn lại hãy để đội ngũ của Fetch lo.'
         themeColor='#ffbf14'
         additionalLinkTags={[
           {

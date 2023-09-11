@@ -171,7 +171,7 @@ const Advertisement = ({
 
                   <div className='advertisement-fetchunt-introdution'>
                     <div className='h6'>
-                      Fetchunt - Nền tảng cung ứng nhân lực dành cho các nhà
+                      Fetch - Nền tảng cung ứng nhân lực dành cho các nhà
                       phát triển
                     </div>
                   </div>
