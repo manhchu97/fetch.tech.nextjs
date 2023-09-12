@@ -126,7 +126,7 @@ const MainContent = (): React.ReactElement => {
                   <div className='div-center btn-text'>
                     <Link href={PATH_CONFIG.privacyPolicy}>
                       <a target='_blank' rel='noopener noreferrer'>
-                        Tìm hiểu thêm: Chính sách bảo mật thông tin của Fetchunt
+                        Tìm hiểu thêm: Chính sách bảo mật thông tin của Fetch
                       </a>
                     </Link>
                   </div>
@@ -210,7 +210,7 @@ const MainContent = (): React.ReactElement => {
                   <div className='div-center btn-text'>
                     <Link href='https://www.linkedin.com/pulse/b%E1%BA%A1n-s%E1%BA%BD-kh%C3%B4ng-mu%E1%BB%91n-b%E1%BB%8F-l%E1%BB%A1-3-c%C6%A1-h%E1%BB%99i-tuy%E1%BB%87t-v%E1%BB%9Di-n%C3%A0y?trk=public_post_feed-article-content'>
                       <a target='_blank' rel='noopener noreferrer'>
-                        Tìm hiểu thêm: 3 cách tăng thu nhập cùng Fetchunt
+                        Tìm hiểu thêm: 3 cách tăng thu nhập cùng Fetch
                       </a>
                     </Link>
                   </div>
@@ -299,7 +299,7 @@ const MainContent = (): React.ReactElement => {
 
                       <div className='h6'>
                         Khác với các chương trình chỉ dành cho tuyển dụng viên
-                        chuyên nghiệp, nền tảng của Fetchunt chào đón tất cả các
+                        chuyên nghiệp, nền tảng của Fetch chào đón tất cả các
                         đối tượng có nhu cầu tìm kiếm hoặc giới thiệu việc làm
                         trên thị trường IT sôi động.
                       </div>
@@ -362,7 +362,7 @@ const MainContent = (): React.ReactElement => {
     <div className={clsx(styles['content-wrapper'])}>
       <div className={clsx(styles['content-container'])}>
         <div className='d-flex justify-content-lg-between ft-main-content-container'>
-          <div className='main-header'>Tại sao chọn tin tưởng Fetchunt</div>
+          <div className='main-header'>Tại sao chọn tin tưởng Fetch</div>
 
           <div className='main-content'>
             {sections.map((section) => (

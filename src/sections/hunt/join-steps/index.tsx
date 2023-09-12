@@ -105,7 +105,7 @@ const JoinSteps = () => {
 
   return (
     <div className={styles['join-steps-container']}>
-      <div className='join-steps-header'>Các bước để gia nhập nhà FETCHUNT</div>
+      <div className='join-steps-header'>Các bước để gia nhập nhà FETCH</div>
 
       {isMobileScreen ? (
         <AnimatiopnOnScrollWrap

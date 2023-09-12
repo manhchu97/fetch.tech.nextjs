@@ -90,7 +90,7 @@ function JobList({ fallback }: IListJobProps) {
         <div className='job-list-header'>
           Khám phá ngay các{' '}
           <strong className='highlight'>TIN TUYỂN DỤNG NỔI BẬT</strong> của
-          FETCHUNT
+          FETCH
         </div>
 
         <div className='job-list-main'>

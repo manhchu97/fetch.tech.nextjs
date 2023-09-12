@@ -241,7 +241,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='footer-copy-right'>
-        © {new Date().getFullYear()} Công ty TNHH Fetchunt
+        © {new Date().getFullYear()} Công ty TNHH Fetch
       </div>
     </div>
   )
