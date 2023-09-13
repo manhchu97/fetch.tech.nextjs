@@ -10,8 +10,12 @@ import fireworkData from '@/lotties/firework.json'
 import clsx from 'clsx'
 import { logEvent } from 'firebase/analytics'
 
+import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
+
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Advertisement.module.scss'
 
@@ -101,7 +105,11 @@ const Advertisement = ({
 
                 <div className='advertisement-main-action position-relative'>
                   <Link href={linkTo}>
-                    <a target='_blank' rel='noopener noreferrer'>
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      id={GA_EVENT_BUTTON_ID.USER_CAMPAIGN}
+                    >
                       <Button
                         type='button'
                         size='large'
@@ -112,6 +120,8 @@ const Advertisement = ({
                         title={buttonText}
                         className='btn-primary'
                         onClick={async () => {
+                          handleTrackingEvent(GA_EVENT_NAME.USER_CAMPAIGN)
+
                           const { initializeFirebase } = await import(
                             '@/utils/firebase'
                           )
@@ -171,8 +181,8 @@ const Advertisement = ({
 
                   <div className='advertisement-fetchunt-introdution'>
                     <div className='h6'>
-                      Fetch - Nền tảng cung ứng nhân lực dành cho các nhà
-                      phát triển
+                      Fetch - Nền tảng cung ứng nhân lực dành cho các nhà phát
+                      triển
                     </div>
                   </div>
                 </div>
