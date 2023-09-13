@@ -6,8 +6,12 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import ldDebounce from 'lodash.debounce'
 
+import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
+
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './JoinSteps.module.scss'
 import JoinStepsAccordion from './accordion'
@@ -234,13 +238,20 @@ const JoinSteps = () => {
 
       <div className='join-steps-footer'>
         <Link href='https://m.me/fetchvietnam' passHref>
-          <a target='_blank' rel='noopener noreferrer'>
+          <a
+            target='_blank'
+            rel='noopener noreferrer'
+            id={GA_EVENT_BUTTON_ID.USER_INTEREST}
+          >
             <Button
               className='btn-primary'
               type='button'
               variant='filled'
               size='large'
               title='Hướng dẫn tôi'
+              onClick={() => {
+                handleTrackingEvent(GA_EVENT_NAME.USER_INTEREST)
+              }}
             />
           </a>
         </Link>

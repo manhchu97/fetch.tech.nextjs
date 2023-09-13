@@ -173,9 +173,9 @@ const frequentlyQuestions = [
         content: (
           <>
             <div className='mb-2'>
-              Liên kết tài khoản quyết toán với Fetch là bước bắt buộc để
-              có thể thực hiện thao tác rút tiền về tài khoản ngân hàng. Các
-              bước liên kết như sau:
+              Liên kết tài khoản quyết toán với Fetch là bước bắt buộc để có thể
+              thực hiện thao tác rút tiền về tài khoản ngân hàng. Các bước liên
+              kết như sau:
             </div>
 
             <div className='list-steps mb-2'>
@@ -193,8 +193,8 @@ const frequentlyQuestions = [
 
             <div className='mb-2'>
               Hoàn tất xong các bước trên là bạn có thể liên kết tài khoản quyết
-              toán trên Fetch thành công và có thể tiến hành cách rút tiền
-              từ Fetch về tài khoản.
+              toán trên Fetch thành công và có thể tiến hành cách rút tiền từ
+              Fetch về tài khoản.
             </div>
 
             <div className='mb-2'>
@@ -237,13 +237,12 @@ const frequentlyQuestions = [
         ),
       },
       {
-        title:
-          'Câu 2: Các cách tôi có thể nhận thưởng ở trên nền tảng Fetch?',
+        title: 'Câu 2: Các cách tôi có thể nhận thưởng ở trên nền tảng Fetch?',
         content: (
           <>
             <div className='mb-2'>
-              Để nhận thưởng trên nền tảng Fetch, bạn có thể thực hiện các
-              bước dưới đây:
+              Để nhận thưởng trên nền tảng Fetch, bạn có thể thực hiện các bước
+              dưới đây:
             </div>
 
             <div className='list-sub-description'>
@@ -293,10 +292,10 @@ const frequentlyQuestions = [
                 </div>
                 Để nhận tiền thưởng khi giới thiệu ứng viên thành công cho các
                 Jobs trên portal, bạn cần đăng ký và tham gia chương trình giới
-                thiệu ứng viên của Fetch. Mỗi một Job sẽ có một mức tiền
-                thưởng và quy trình nhận thưởng khác nhau do yêu cầu từ phía nhà
-                tuyển dụng. Bạn có thể xem chi tiết về các mức tiền thưởng và
-                quy trình nhận thưởng trên portal của Fetch.
+                thiệu ứng viên của Fetch. Mỗi một Job sẽ có một mức tiền thưởng
+                và quy trình nhận thưởng khác nhau do yêu cầu từ phía nhà tuyển
+                dụng. Bạn có thể xem chi tiết về các mức tiền thưởng và quy
+                trình nhận thưởng trên portal của Fetch.
               </div>
             </div>
           </>

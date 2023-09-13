@@ -8,10 +8,14 @@ import animationData from '@/lotties/blink_blink.json'
 import clsx from 'clsx'
 import { logEvent } from 'firebase/analytics'
 
+import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
+
 import Button from '@/components/button/Button'
 import MenuItem from '@/components/nav/menu-item'
 
 import { PATH_CONFIG } from '@/routes/paths'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Introduction.module.scss'
 
@@ -178,10 +182,16 @@ const Introduction = (): React.ReactElement => {
           </div>
 
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
-            <a target='_blank' rel='noopener noreferrer'>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              id={GA_EVENT_BUTTON_ID.USER_SIGN_UP}
+            >
               <Button
                 className='btn-primary'
                 onClick={async () => {
+                  handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)
+
                   const { initializeFirebase } = await import(
                     '@/utils/firebase'
                   )
