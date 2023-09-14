@@ -249,9 +249,7 @@ const JoinSteps = () => {
               variant='filled'
               size='large'
               title='Hướng dẫn tôi'
-              onClick={() => {
-                handleTrackingEvent(GA_EVENT_NAME.USER_INTEREST)
-              }}
+              onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_INTEREST)}
             />
           </a>
         </Link>
