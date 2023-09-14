@@ -8,7 +8,6 @@ import Link from 'next/link'
 import clickData from '@/lotties/click.json'
 import fireworkData from '@/lotties/firework.json'
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
 
 import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
 
@@ -119,21 +118,9 @@ const Advertisement = ({
                         edgeClassName='edge-primary'
                         title={buttonText}
                         className='btn-primary'
-                        onClick={async () => {
+                        onClick={() =>
                           handleTrackingEvent(GA_EVENT_NAME.USER_CAMPAIGN)
-
-                          const { initializeFirebase } = await import(
-                            '@/utils/firebase'
-                          )
-
-                          const analytics = await initializeFirebase()
-                          if (analytics) {
-                            logEvent(
-                              analytics,
-                              '#clickthrough_banner_advertisement',
-                            )
-                          }
-                        }}
+                        }
                       />
                     </a>
                   </Link>

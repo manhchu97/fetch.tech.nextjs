@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 import animationData from '@/lotties/blink_blink.json'
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
 
 import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
 
@@ -189,18 +188,7 @@ const Introduction = (): React.ReactElement => {
             >
               <Button
                 className='btn-primary'
-                onClick={async () => {
-                  handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)
-
-                  const { initializeFirebase } = await import(
-                    '@/utils/firebase'
-                  )
-
-                  const analytics = await initializeFirebase()
-                  if (analytics) {
-                    logEvent(analytics, '#clickthrough_Signup_begin')
-                  }
-                }}
+                onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)}
                 size='large'
                 variant='filled'
                 title='Bắt đầu ngay'
