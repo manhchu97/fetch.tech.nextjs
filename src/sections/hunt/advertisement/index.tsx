@@ -9,7 +9,7 @@ import clickData from '@/lotties/click.json'
 import fireworkData from '@/lotties/firework.json'
 import clsx from 'clsx'
 
-import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
+import { GA_EVENT_NAME } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
@@ -104,11 +104,7 @@ const Advertisement = ({
 
                 <div className='advertisement-main-action position-relative'>
                   <Link href={linkTo}>
-                    <a
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      id={GA_EVENT_BUTTON_ID.USER_CAMPAIGN}
-                    >
+                    <a target='_blank' rel='noopener noreferrer'>
                       <Button
                         type='button'
                         size='large'

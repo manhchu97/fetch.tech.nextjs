@@ -74,10 +74,6 @@ export const GA_EVENT_NAME = {
   USER_CAMPAIGN: 'user_campaign',
   USER_SIGN_UP: 'user_sign_up',
   USER_INTEREST: 'user_interest',
-}
-
-export const GA_EVENT_BUTTON_ID = {
-  USER_CAMPAIGN: 'button-join-us-hunt',
-  USER_SIGN_UP: 'button-sign-up-hunt',
-  USER_INTEREST: 'button-instruction-hunt',
+  USER_JOB_INTEREST: 'user_job_interest',
+  RECRUITER_SIGN_IN: 'recruiter_signin',
 }

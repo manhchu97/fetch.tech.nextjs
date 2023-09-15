@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic'
 import { SCREEN } from '@/config/global'
 
 const CommonFirebase = dynamic(() => import('./CommonFirebase'))
-const FetchuntFirebase = dynamic(() => import('./FetchuntFirebase'))
 
 const FirebaseComp = ({ pageName }: { pageName: string }) => {
   if (
@@ -13,7 +12,7 @@ const FirebaseComp = ({ pageName }: { pageName: string }) => {
       SCREEN.SERVICE_AGREEMENT_PAGE,
     ].includes(pageName)
   )
-    return <FetchuntFirebase />
+    return null
 
   return <CommonFirebase />
 }

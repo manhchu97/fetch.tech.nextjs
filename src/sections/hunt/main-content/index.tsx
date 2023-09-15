@@ -4,13 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
 import ldDebounce from 'lodash.debounce'
+
+import { GA_EVENT_NAME } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
 
 import { PATH_CONFIG } from '@/routes/paths'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './MainContent.module.scss'
 
@@ -334,16 +337,9 @@ const MainContent = (): React.ReactElement => {
                           size='large'
                           variant='filled'
                           title='Đăng ký tài khoản giới thiệu ngay'
-                          onClick={async () => {
-                            const { initializeFirebase } = await import(
-                              '@/utils/firebase'
-                            )
-
-                            const analytics = await initializeFirebase()
-                            if (analytics) {
-                              logEvent(analytics, '#clickthrough_Signup_end')
-                            }
-                          }}
+                          onClick={() =>
+                            handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)
+                          }
                         />
                       </a>
                     </Link>
