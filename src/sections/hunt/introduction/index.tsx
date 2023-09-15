@@ -7,7 +7,7 @@ import Link from 'next/link'
 import animationData from '@/lotties/blink_blink.json'
 import clsx from 'clsx'
 
-import { GA_EVENT_BUTTON_ID, GA_EVENT_NAME } from '@/config/global'
+import { GA_EVENT_NAME } from '@/config/global'
 
 import Button from '@/components/button/Button'
 import MenuItem from '@/components/nav/menu-item'
@@ -77,6 +77,9 @@ const Introduction = (): React.ReactElement => {
                   edgeClassName='edge-primary'
                   size='small'
                   variant='filled'
+                  onClick={() =>
+                    handleTrackingEvent(GA_EVENT_NAME.RECRUITER_SIGN_IN)
+                  }
                 />
               </a>
             </Link>
@@ -181,11 +184,7 @@ const Introduction = (): React.ReactElement => {
           </div>
 
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
-            <a
-              target='_blank'
-              rel='noopener noreferrer'
-              id={GA_EVENT_BUTTON_ID.USER_SIGN_UP}
-            >
+            <a target='_blank' rel='noopener noreferrer'>
               <Button
                 className='btn-primary'
                 onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)}

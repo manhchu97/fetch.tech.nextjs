@@ -9,7 +9,7 @@ import qs from 'query-string'
 import useSWR from 'swr'
 
 import { DEFAULT_PAGE_SIZE, SHARE_STATUS } from '@/config/fetchunt'
-import { DEFAULT_PAGE_NUMBER, HOST_API } from '@/config/global'
+import { DEFAULT_PAGE_NUMBER, GA_EVENT_NAME, HOST_API } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
@@ -20,6 +20,7 @@ import { PATH_CONFIG } from '@/routes/paths'
 import { IJobItem, IListJobResponse } from '@/types/fetchunt'
 
 import fetcher from '@/utils/fetcher'
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './JobList.module.scss'
 
@@ -237,7 +238,14 @@ function JobList({ fallback }: IListJobProps) {
               <div className='h5'>
                 <Link href='https://portal.fetch.tech/jobs'>
                   <a target='_blank' rel='noopener noreferrer'>
-                    <span role='button'>Xem thêm</span>
+                    <span
+                      role='button'
+                      onClick={() =>
+                        handleTrackingEvent(GA_EVENT_NAME.USER_JOB_INTEREST)
+                      }
+                    >
+                      Xem thêm
+                    </span>
                   </a>
                 </Link>
               </div>
