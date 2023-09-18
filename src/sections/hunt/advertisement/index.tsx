@@ -14,6 +14,8 @@ import { GA_EVENT_NAME } from '@/config/global'
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
 
+import useTranslation from '@/hooks/useTranslation'
+
 import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Advertisement.module.scss'
@@ -29,6 +31,7 @@ const Advertisement = ({
   linkTo = '',
   time = '',
 }: AdvertisementProps): React.ReactElement => {
+  const { translate, currentLang } = useTranslation()
   const containerRef = useRef<any>(null)
   const [isSticky, setIsSticky] = useState<boolean>(false)
 
@@ -95,7 +98,7 @@ const Advertisement = ({
                 </div>
 
                 <Image
-                  src='/images/fetchunt/advertisement_bonus_points.png'
+                  src={`/images/fetchunt/advertisement_bonus_points_${currentLang}.png`}
                   alt='Advertisement content'
                   width={281}
                   height={160}
@@ -143,7 +146,7 @@ const Advertisement = ({
               >
                 <div className='advertisement-image'>
                   <Image
-                    src='/images/fetchunt/introduction_ver_2.png'
+                    src={`/images/fetchunt/introduction_ver_2_${currentLang}.png`}
                     alt='Advertisement image'
                     width={210}
                     height={173}
@@ -164,8 +167,7 @@ const Advertisement = ({
 
                   <div className='advertisement-fetchunt-introdution'>
                     <div className='h6'>
-                      Fetch - Nền tảng cung ứng nhân lực dành cho các nhà phát
-                      triển
+                      {translate('hunt.advertisement.description')}
                     </div>
                   </div>
                 </div>

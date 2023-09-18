@@ -14,6 +14,8 @@ import { DEFAULT_PAGE_NUMBER, GA_EVENT_NAME, HOST_API } from '@/config/global'
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
 
+import useTranslation from '@/hooks/useTranslation'
+
 import { API_LIST_JOB } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
 
@@ -29,6 +31,7 @@ interface IListJobProps {
 }
 
 function JobList({ fallback }: IListJobProps) {
+  const { translate } = useTranslation()
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [mounted, setMounted] = useState<boolean>(false)
 
@@ -89,9 +92,11 @@ function JobList({ fallback }: IListJobProps) {
     <div className={styles['job-list-wrapper']}>
       <div className={styles['job-list-container']}>
         <div className='job-list-header'>
-          Khám phá ngay các{' '}
-          <strong className='highlight'>TIN TUYỂN DỤNG NỔI BẬT</strong> của
-          FETCH
+          {translate('hunt.job_list.title.title_1')}{' '}
+          <strong className='highlight'>
+            {translate('hunt.job_list.title.highlight')}
+          </strong>{' '}
+          {translate('hunt.job_list.title.title_2')}
         </div>
 
         <div className='job-list-main'>
@@ -134,7 +139,7 @@ function JobList({ fallback }: IListJobProps) {
                       <div className='p'>{type}</div>
 
                       <div className='p bonus'>
-                        Thưởng giới thiệu:{' '}
+                        {translate('hunt.job_list.referral_rewards')}:{' '}
                         {Number(totalBonus || 0).toLocaleString('it-IT')} VND
                       </div>
                     </div>
@@ -184,7 +189,9 @@ function JobList({ fallback }: IListJobProps) {
                           <a target='_blank' rel='noopener noreferrer'>
                             <Button
                               type='button'
-                              title='Giới thiệu ứng viên'
+                              title={translate(
+                                'hunt.job_list.referring_candidate',
+                              )}
                               size='small'
                               variant='filled'
                             />
@@ -197,7 +204,7 @@ function JobList({ fallback }: IListJobProps) {
                           <a target='_blank' rel='noopener noreferrer'>
                             <Button
                               type='button'
-                              title='Ứng tuyển'
+                              title={translate('hunt.job_list.apply')}
                               size='small'
                               variant='outlined'
                             />
@@ -244,7 +251,7 @@ function JobList({ fallback }: IListJobProps) {
                         handleTrackingEvent(GA_EVENT_NAME.USER_JOB_INTEREST)
                       }
                     >
-                      Xem thêm
+                      {translate('hunt.job_list.more')}
                     </span>
                   </a>
                 </Link>

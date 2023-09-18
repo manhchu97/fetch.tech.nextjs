@@ -1,0 +1,128 @@
+{
+  "SEO_title": "Fetch | Platform for recruiters to introduce candidates",
+  "introduction": {
+    "header": {
+      "itJobs": "IT Jobs",
+      "for_business": "For business",
+      "referring_candidates": "Referring candidates"
+    },
+    "main": {
+      "fetch": "Fetch",
+      "title": "Refer your candidates, grab your rewards now!",
+      "sub_title": {
+        "sub_title_1": "The pioneer human resources supply platform that guarantees a",
+        "highlight": "100% successful reward for all participants",
+        "sub_title_2": "when introducing candidates."
+      },
+      "start_now": "Start now"
+    }
+  },
+  "cooperate": {
+    "title": "+ 1000 Opportunities for Rewards from International Projects of up to $20,000 USD"
+  },
+  "advertisement": {
+    "button_text": "JOIN NOW",
+    "time": "Time: 01/09 - 30/09/2023",
+    "description": "Fetch - The human resources supply platform for developers"
+  },
+  "job_list": {
+    "title": {
+      "title_1": "Explore the",
+      "highlight": "Featured Job Listings",
+      "title_2": "on Fetch now"
+    },
+    "referral_rewards": "Referral rewards",
+    "referring_candidate": "Referring a candidate",
+    "apply": "Apply",
+    "more": "More"
+  },
+  "join_steps": {
+    "title": "Steps to join FETCH",
+    "step_1": {
+      "title": "Register as a member",
+      "description_1": "Access",
+      "description_2": "here",
+      "description_3": "and fill out all information in the form. Select",
+      "description_4": "Register",
+      "description_5": "to complete step 1."
+    },
+    "step_2": {
+      "title": "Search for suitable jobs and candidates",
+      "description": "Log in to the platform and find out information about positions with suitable candidates."
+    },
+    "step_3": {
+      "title": "Refer candidates",
+      "description": "Upload and enter complete candidate information, check the profile in the list of applied positions."
+    },
+    "step_4": {
+      "title": "Monitor the candidate's status and wait for reward approval",
+      "description": "Tracking candidate status on the system will help you easily calculate bonuses thanks to a transparent commission mechanism for each position."
+    },
+    "step_5": {
+      "title": "Withdraw the reward to your account",
+      "description": "Once your reward points are confirmed, you can convert your reward points into cash and withdraw them to the bank account you registered in the Profile section."
+    },
+    "guide_me": "Guide me"
+  },
+  "main_content": {
+    "title": "Why Choose to Trust Fetch",
+    "content_1": {
+      "title": "Data security",
+      "sub_title_1": "Candidate and recruiter information is kept secure and used in strict compliance with policies between all parties",
+      "sub_title_2": "Preventing candidates and recruiters from having their contact information exposed and being harassed by unreliable systems",
+      "action": "Learn more: Fetch's Information Security Policy"
+    },
+    "content_2": {
+      "title": "Increase income",
+      "sub_title_1": "Securing a source of income ranging from 2 to 5 million VND by:",
+      "sub_title_2": "Referring new members",
+      "sub_title_3": "Referring suitable candidates for positions",
+      "sub_title_4": "Sharing #shareCV profiles of candidates who are open-to-work",
+      "action": "Learn more: 3 Ways to Increase Income with Fetch"
+    },
+    "content_3": {
+      "title": "Equal opportunities for all",
+      "sub_title_1": "Unlike programs exclusively for professional recruiters, Fetch's platform welcomes all individuals with a need to search for or refer jobs in the dynamic IT market",
+      "sub_title_2": "You can compete for rewards fairly when referring family members, friends, or colleagues without worrying about having too few CVs or only focusing on a particular opportunity",
+      "action": "Sign up and refer now"
+    }
+  },
+  "career": {
+    "title": "Pioneering in Talent Acquisition",
+    "sub_title": "Established in 2014 with just 12 employees at the outset. Today, Fetch is a leading technology enterprise with over 500 employees.",
+    "card": {
+      "card_1": {
+        "title": "500+",
+        "sub_title": "successful projects"
+      },
+      "card_2": {
+        "title": "7+",
+        "sub_title": "years in operation"
+      },
+      "card_3": {
+        "title": "5 mil USD",
+        "sub_title": "income to date"
+      },
+      "card_4": {
+        "title": "100+",
+        "sub_title": "development partners"
+      }
+    }
+  },
+  "banner": {
+    "title": "The most suitable option for you",
+    "sub_title": "Boost your income by registering now",
+    "button_text": "Contact us"
+  },
+  "footer": {
+    "title": "Subscribe to receive updates from us",
+    "your_email": "Your email",
+    "mail_required": "Please enter your email to receive notifications from us",
+    "register": "Register",
+    "about_us": "About us",
+    "frequently_ask_questions": "Frequently asked questions",
+    "privacy_policy": "Privacy policy",
+    "terms_of_service": "Terms of service",
+    "fetch_company": "Fetch Technology Pte. Ltd."
+  }
+}

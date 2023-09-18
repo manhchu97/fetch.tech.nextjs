@@ -2,6 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: false,
+  i18n: {
+    // Disabling Automatic Locale Detection
+    locales: ['en', 'vi'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     domains: [

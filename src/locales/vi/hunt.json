@@ -1,0 +1,128 @@
+{
+  "SEO_title": "Fetch | Nền tảng cho nhà tuyển dụng giới thiệu ứng viên",
+  "introduction": {
+    "header": {
+      "itJobs": "Việc làm IT",
+      "for_business": "Dành cho doanh nghiệp",
+      "referring_candidates": "Bắt đầu giới thiệu ứng viên"
+    },
+    "main": {
+      "fetch": "Fetch",
+      "title": "Giới thiệu ứng viên Nhận thưởng hấp dẫn",
+      "sub_title": {
+        "sub_title_1": "Nền tảng cung ứng nhân lực đầu tiên giúp",
+        "highlight": "100% người tham gia nhận thưởng thành công",
+        "sub_title_2": "khi giới thiệu ứng viên."
+      },
+      "start_now": "Bắt đầu ngay"
+    }
+  },
+  "cooperate": {
+    "title": "+ 1000 Cơ hội Nhận thưởng từ các Dự án Quốc tế lên tới 20.000 USD"
+  },
+  "advertisement": {
+    "button_text": "THAM GIA NGAY",
+    "time": "Thời gian: 01/09 - 30/09/2023",
+    "description": "Fetch - Nền tảng cung ứng nhân lực dành cho các nhà phát triển"
+  },
+  "job_list": {
+    "title": {
+      "title_1": "Khám phá ngay các",
+      "highlight": "TIN TUYỂN DỤNG NỔI BẬT",
+      "title_2": "của FETCH"
+    },
+    "referral_rewards": "Thưởng giới thiệu",
+    "referring_candidate": "Giới thiệu ứng viên",
+    "apply": "Ứng tuyển",
+    "more": "Xem thêm"
+  },
+  "join_steps": {
+    "title": "Các bước để gia nhập nhà FETCH",
+    "step_1": {
+      "title": "Đăng ký thành viên",
+      "description_1": "Truy cập",
+      "description_2": "tại đây",
+      "description_3": "và điền đầy đủ thông tin theo mẫu. Chọn",
+      "description_4": "Đăng ký",
+      "description_5": "để hoàn thành bước 1."
+    },
+    "step_2": {
+      "title": "Tìm kiếm công việc & ứng viên phù hợp",
+      "description": "Đăng nhập nền tảng và tìm hiểu thông tin các vị trí có ứng viên phù hợp."
+    },
+    "step_3": {
+      "title": "Giới thiệu ứng viên",
+      "description": "Tải và nhập lên đầy đủ thông tin ứng viên, kiểm tra lại hồ sơ trong danh sách vị trí ứng tuyển."
+    },
+    "step_4": {
+      "title": "Theo dõi trạng thái ứng viên & chờ xét duyệt phần thưởng",
+      "description": "Theo dõi trạng thái ứng viên trên hệ thống sẽ giúp bạn dễ dàng tính được tiền thưởng nhờ cơ chế hoa hồng minh bạch cho từng vị trí tuyển."
+    },
+    "step_5": {
+      "title": "Rút tiền thưởng về tài khoản của bạn",
+      "description": "Sau khi được xác nhận điểm thưởng, bạn có thể đổi điểm thưởng thành tiền mặt và rút về tài khoản ngân hàng bạn đã đăng ký trong mục Hồ sơ."
+    },
+    "guide_me": "Hướng dẫn tôi"
+  },
+  "main_content": {
+    "title": "Tại sao chọn tin tưởng Fetch",
+    "content_1": {
+      "title": "Bảo mật thông tin",
+      "sub_title_1": "Thông tin ứng viên và tuyển dụng viên được bảo mật và đảm bảo sử dụng theo đúng chính sách nghiêm ngặt giữa các bên",
+      "sub_title_2": "Ngăn chặn tình trạng ứng viên và tuyển dụng viên bị lộ thông tin liên hệ và bị làm phiền bởi các hệ thông không đáng tin cậy",
+      "action": "Tìm hiểu thêm: Chính sách bảo mật thông tin của Fetch"
+    },
+    "content_2": {
+      "title": "Tăng thêm thu nhập",
+      "sub_title_1": "Nguồn thu nhập đảm bảo từ 2 đến 5 triệu nhờ:",
+      "sub_title_2": "Giới thiệu thành viên mới",
+      "sub_title_3": "Giới thiệu ứng viên phù hợp cho các vị trí",
+      "sub_title_4": "Chia sẻ #shareCV các ứng viên đang open-to-work sẵn có",
+      "action": "Tìm hiểu thêm: 3 cách tăng thu nhập cùng Fetch"
+    },
+    "content_3": {
+      "title": "Cơ hội công bằng cho tất cả",
+      "sub_title_1": "Khác với các chương trình chỉ dành cho tuyển dụng viên chuyên nghiệp, nền tảng của Fetch chào đón tất cả các đối tượng có nhu cầu tìm kiếm hoặc giới thiệu việc làm trên thị trường IT sôi động",
+      "sub_title_2": "Bạn có thể cạnh tranh tiền thưởng công bằng khi giới thiệu người thân, bạn bè, hoặc đồng nghiệp mà không cần phải lo lắng rằng mình có quá ít CV hay chỉ quan tâm tới một cơ hội đặc biệt nào đó",
+      "action": "Đăng ký tài khoản giới thiệu ngay"
+    }
+  },
+  "career": {
+    "title": "Tiên phong trong thu hút nhân sự",
+    "sub_title": "Thành lập năm 2014 với khởi đầu chỉ 12 nhân viên. Đến nay, Fetch là doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân viên.",
+    "card": {
+      "card_1": {
+        "title": "500+",
+        "sub_title": "dự án thành công"
+      },
+      "card_2": {
+        "title": "7+",
+        "sub_title": "năm hoạt động"
+      },
+      "card_3": {
+        "title": "5 mil USD",
+        "sub_title": "thu nhập tới hiện tại"
+      },
+      "card_4": {
+        "title": "100+",
+        "sub_title": "đối tác phát triển"
+      }
+    }
+  },
+  "banner": {
+    "title": "Lựa chọn phù hợp nhất với bạn",
+    "sub_title": "Gia tăng thu nhập của bạn bằng cách đăng ký ngay!",
+    "button_text": "Liên hệ chúng tôi"
+  },
+  "footer": {
+    "title": "Đăng ký nhận tin từ chúng tôi",
+    "your_email": "Email của bạn",
+    "mail_required": "Vui lòng nhập email để nhận thông báo từ chúng tôi",
+    "register": "Đăng ký",
+    "about_us": "Về chúng tôi",
+    "frequently_ask_questions": "Câu hỏi thường gặp",
+    "privacy_policy": "Chính sách bảo mật",
+    "terms_of_service": "Thoả thuận dịch vụ",
+    "fetch_company": "Công ty TNHH Fetch"
+  }
+}
