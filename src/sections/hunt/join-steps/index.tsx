@@ -6,8 +6,12 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import ldDebounce from 'lodash.debounce'
 
+import { GA_EVENT_NAME } from '@/config/global'
+
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './JoinSteps.module.scss'
 import JoinStepsAccordion from './accordion'
@@ -105,7 +109,7 @@ const JoinSteps = () => {
 
   return (
     <div className={styles['join-steps-container']}>
-      <div className='join-steps-header'>Các bước để gia nhập nhà FETCHUNT</div>
+      <div className='join-steps-header'>Các bước để gia nhập nhà FETCH</div>
 
       {isMobileScreen ? (
         <AnimatiopnOnScrollWrap
@@ -241,6 +245,7 @@ const JoinSteps = () => {
               variant='filled'
               size='large'
               title='Hướng dẫn tôi'
+              onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_INTEREST)}
             />
           </a>
         </Link>

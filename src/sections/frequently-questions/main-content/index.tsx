@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import clsx from 'clsx'
 
-import Accordion from '@/sections/fetchunt/accordion'
+import Accordion from '@/sections/hunt/accordion'
 
 import styles from './MainContent.module.scss'
 
@@ -56,75 +56,73 @@ const frequentlyQuestions = [
     heading: 'II. Chương trình giới thiệu ứng viên',
     questions: [
       {
-        title: 'Câu 1: Chương trình giới thiệu của FetchHunt là gì?',
+        title: 'Câu 1: Chương trình giới thiệu của Fetch là gì?',
         content:
-          'Fetch Hunt là một nền tảng giới thiệu ứng viên trực tuyến. Chúng tôi kết nối các nhà tuyển dụng, chuyên gia công nghệ… tham gia mạng lưới giới thiệu ứng viên với các job công nghệ toàn cầu, tạo ra cơ hội gia tăng thu nhập và đem lại các giá trị mới cho cộng đồng.',
+          'Fetch là một nền tảng giới thiệu ứng viên trực tuyến. Chúng tôi kết nối các nhà tuyển dụng, chuyên gia công nghệ… tham gia mạng lưới giới thiệu ứng viên với các job công nghệ toàn cầu, tạo ra cơ hội gia tăng thu nhập và đem lại các giá trị mới cho cộng đồng.',
       },
       {
-        title: 'Câu 2: Làm thế nào để đăng ký tài khoản Fetch Hunt?',
+        title: 'Câu 2: Làm thế nào để đăng ký tài khoản Fetch?',
         content:
-          'Để đăng ký tài khoản Fetch Hunt, bạn chỉ cần truy cập trang web (link) của chúng tôi và làm theo hướng dẫn đơn giản trên màn hình. Bạn cần cung cấp thông tin cơ bản về cá nhân và thông tin liên lạc để hoàn tất quá trình đăng ký.',
+          'Để đăng ký tài khoản Fetch, bạn chỉ cần truy cập trang web (link) của chúng tôi và làm theo hướng dẫn đơn giản trên màn hình. Bạn cần cung cấp thông tin cơ bản về cá nhân và thông tin liên lạc để hoàn tất quá trình đăng ký.',
       },
       {
-        title:
-          'Câu 3: Tôi có thể sử dụng Fetch Hunt để tìm kiếm việc làm không?',
+        title: 'Câu 3: Tôi có thể sử dụng Fetch để tìm kiếm việc làm không?',
         content: (
           <>
             <div className='mb-2'>
-              Trên thực tế, Fetch Hunt là một nền tảng giới thiệu ứng viên cho
-              nhà tuyển dụng bằng cách cung cấp các thông tin liên quan đến ứng
-              viên như kinh nghiệm việc làm, kỹ năng, giáo dục…
+              Trên thực tế, Fetch là một nền tảng giới thiệu ứng viên cho nhà
+              tuyển dụng bằng cách cung cấp các thông tin liên quan đến ứng viên
+              như kinh nghiệm việc làm, kỹ năng, giáo dục…
             </div>
 
             <div>
-              Fetch Hunt không hoạt động như các trang tìm kiếm việc làm thông
-              thường. Tuy nhiên Fetch Hunt mở cơ hội giới thiệu ứng viên công
-              bằng cho tất cả các đối tượng như HR freelancer, chuyên gia công
-              nghệ… Do đó nếu bạn cảm thấy bản thân phù hợp với công việc có thể
-              tự đăng tải CV và các thông tin liên quan qua mục Nộp hồ sơ ứng
-              viên như thông thường. Nếu thành công thì bạn sẽ được thưởng như
-              quy định.
+              Fetch không hoạt động như các trang tìm kiếm việc làm thông
+              thường. Tuy nhiên Fetch mở cơ hội giới thiệu ứng viên công bằng
+              cho tất cả các đối tượng như HR freelancer, chuyên gia công nghệ…
+              Do đó nếu bạn cảm thấy bản thân phù hợp với công việc có thể tự
+              đăng tải CV và các thông tin liên quan qua mục Nộp hồ sơ ứng viên
+              như thông thường. Nếu thành công thì bạn sẽ được thưởng như quy
+              định.
             </div>
           </>
         ),
       },
       {
         title:
-          'Câu 4: Fetch Hunt có tính phí không? Nếu có, thì giá cả như thế nào?',
+          'Câu 4: Fetch có tính phí không? Nếu có, thì giá cả như thế nào?',
         content: (
           <>
             <div className='mb-2'>
-              Hiện tại, với tính năng giới thiệu ứng viên, Fetch Hunt hoàn toàn
-              không tính phí với bên giới thiệu ứng viên. Nếu có bất kỳ trường
-              hợp yêu cầu bên giới thiệu ứng viên tính phí, hãy xem xét kỹ lại
-              nền tảng bởi vì rất có thể Fetch Hunt bị bên thứ 3 mạo danh tên
-              tuổi và sử dụng với mục đích xấu.
+              Hiện tại, với tính năng giới thiệu ứng viên, Fetch hoàn toàn không
+              tính phí với bên giới thiệu ứng viên. Nếu có bất kỳ trường hợp yêu
+              cầu bên giới thiệu ứng viên tính phí, hãy xem xét kỹ lại nền tảng
+              bởi vì rất có thể Fetch bị bên thứ 3 mạo danh tên tuổi và sử dụng
+              với mục đích xấu.
             </div>
 
             <div>
-              Trong tương lai, Fetch Hunt sẽ mở tính năng kết nối với các công
-              ty, tổ chức,... Khi tính năng được mở, chúng tôi sẽ nhanh chóng có
-              thông báo chính xác đến tất cả các đối tượng.
+              Trong tương lai, Fetch sẽ mở tính năng kết nối với các công ty, tổ
+              chức,... Khi tính năng được mở, chúng tôi sẽ nhanh chóng có thông
+              báo chính xác đến tất cả các đối tượng.
             </div>
           </>
         ),
       },
       {
         title:
-          'Câu 5: Tôi có thể mời đối tượng nào tham gia chương trình giới thiệu ứng viên của Fetch Hunt?',
+          'Câu 5: Tôi có thể mời đối tượng nào tham gia chương trình giới thiệu ứng viên của Fetch?',
         content:
-          'Fetch Hunt tập trung tìm kiếm các ứng viên cho các Job trong lĩnh vực công nghệ trên quy mô toàn cầu. Vậy nên, nếu bạn là người giới thiệu ứng viên, có ứng viên tiềm năng, phù hợp với các yêu cầu tuyển dụng của vị trí đăng tải, và được phép sử dụng thông tin của ứng viên, bạn hoàn toàn có thể giới thiệu ứng viên đó cho Fetch Hunt.',
+          'Fetch tập trung tìm kiếm các ứng viên cho các Job trong lĩnh vực công nghệ trên quy mô toàn cầu. Vậy nên, nếu bạn là người giới thiệu ứng viên, có ứng viên tiềm năng, phù hợp với các yêu cầu tuyển dụng của vị trí đăng tải, và được phép sử dụng thông tin của ứng viên, bạn hoàn toàn có thể giới thiệu ứng viên đó cho Fetch.',
       },
       {
-        title:
-          'Câu 6: Tôi có thể đăng tuyển dụng công việc trên Fetch Hunt không?',
+        title: 'Câu 6: Tôi có thể đăng tuyển dụng công việc trên Fetch không?',
         content: (
           <>
             <div className='mb-2'>
               Hiện tại, bạn <strong>KHÔNG</strong> thể đăng tải các thông tin
-              tuyển dụng lên nền tảng Fetch Hunt vì chúng tôi đang chỉ mở duy
-              nhất tính năng giới thiệu ứng viên dành cho các đối tượng có ứng
-              viên tiềm năng và muốn gia tăng thu nhập.
+              tuyển dụng lên nền tảng Fetch vì chúng tôi đang chỉ mở duy nhất
+              tính năng giới thiệu ứng viên dành cho các đối tượng có ứng viên
+              tiềm năng và muốn gia tăng thu nhập.
             </div>
 
             <div>
@@ -135,33 +133,31 @@ const frequentlyQuestions = [
         ),
       },
       {
-        title:
-          'Câu 7: Quy trình giới thiệu ứng viên của Fetch Hunt như thế nào?',
+        title: 'Câu 7: Quy trình giới thiệu ứng viên của Fetch như thế nào?',
         content:
-          'Quy trình giới thiệu ứng viên và nhận thưởng của Fetch Hunt khá đơn giản và mở cơ hội công bằng cho tất cả mọi người. Bạn có thể xem hướng dẫn chi tiết tại link:... để tạo tài khoản và bắt đầu giới thiệu ứng viên cùng Fetch Hunt ngay hôm nay.',
+          'Quy trình giới thiệu ứng viên và nhận thưởng của Fetch khá đơn giản và mở cơ hội công bằng cho tất cả mọi người. Bạn có thể xem hướng dẫn chi tiết tại link:... để tạo tài khoản và bắt đầu giới thiệu ứng viên cùng Fetch ngay hôm nay.',
       },
       {
-        title:
-          'Câu 8: Chương trình “Affiliate Member” của Fetch Hunt như thế nào?',
+        title: 'Câu 8: Chương trình “Affiliate Member” của Fetch như thế nào?',
         content: (
           <>
             <div className='mb-2'>
               Giống với tên gọi “Affiliate Member”, chương trình này của Fetch
-              Hunt cho phép người dùng giới thiệu nền tảng Fetch Hunt với những
-              người khác và nhận được hoa hồng khi người đó đăng ký và sử dụng
-              dịch vụ của Fetch Hunt, cụ thể ở đây là “Giới thiệu ứng viên”. Khi
-              một người dùng được giới thiệu đăng ký và sử dụng Fetch Hunt,
-              người giới thiệu sẽ nhận được một khoản hoa hồng tùy thuộc vào số
-              lượng người dùng mới và mức độ sử dụng dịch vụ của họ.
+              cho phép người dùng giới thiệu nền tảng Fetch với những người khác
+              và nhận được hoa hồng khi người đó đăng ký và sử dụng dịch vụ của
+              Fetch, cụ thể ở đây là “Giới thiệu ứng viên”. Khi một người dùng
+              được giới thiệu đăng ký và sử dụng Fetch, người giới thiệu sẽ nhận
+              được một khoản hoa hồng tùy thuộc vào số lượng người dùng mới và
+              mức độ sử dụng dịch vụ của họ.
             </div>
 
             <div>
-              Mỗi người dùng sau khi đăng ký thành công tài khoản trên Fetch
-              Hunt và sẽ có một mã Affiliate riêng. Bạn truy cập … để lấy mã và
-              gửi cho bạn bè của bạn. Khi người được mời tạo tài khoản và giới
-              thiệu thành 1 công 1 ứng viên đầu tiên, lượt mời của bạn được chấp
-              nhận và sẽ được tích điểm vào tài khoản. Bạn cần chờ ít nhất 7
-              ngày để có thể rút tiền về tài khoản ngân hàng của mình.
+              Mỗi người dùng sau khi đăng ký thành công tài khoản trên Fetch và
+              sẽ có một mã Affiliate riêng. Bạn truy cập … để lấy mã và gửi cho
+              bạn bè của bạn. Khi người được mời tạo tài khoản và giới thiệu
+              thành 1 công 1 ứng viên đầu tiên, lượt mời của bạn được chấp nhận
+              và sẽ được tích điểm vào tài khoản. Bạn cần chờ ít nhất 7 ngày để
+              có thể rút tiền về tài khoản ngân hàng của mình.
             </div>
           </>
         ),
@@ -177,9 +173,9 @@ const frequentlyQuestions = [
         content: (
           <>
             <div className='mb-2'>
-              Liên kết tài khoản quyết toán với Fetch Hunt là bước bắt buộc để
-              có thể thực hiện thao tác rút tiền về tài khoản ngân hàng. Các
-              bước liên kết như sau:
+              Liên kết tài khoản quyết toán với Fetch là bước bắt buộc để có thể
+              thực hiện thao tác rút tiền về tài khoản ngân hàng. Các bước liên
+              kết như sau:
             </div>
 
             <div className='list-steps mb-2'>
@@ -197,8 +193,8 @@ const frequentlyQuestions = [
 
             <div className='mb-2'>
               Hoàn tất xong các bước trên là bạn có thể liên kết tài khoản quyết
-              toán trên Fetch Hunt thành công và có thể tiến hành cách rút tiền
-              từ Fetch Hunt về tài khoản.
+              toán trên Fetch thành công và có thể tiến hành cách rút tiền từ
+              Fetch về tài khoản.
             </div>
 
             <div className='mb-2'>
@@ -234,20 +230,19 @@ const frequentlyQuestions = [
                     />
                   </div>
                 </div>
-                Fetch Hunt không giới hạn số lần rút
+                Fetch không giới hạn số lần rút
               </div>
             </div>
           </>
         ),
       },
       {
-        title:
-          'Câu 2: Các cách tôi có thể nhận thưởng ở trên nền tảng Fetch Hunt?',
+        title: 'Câu 2: Các cách tôi có thể nhận thưởng ở trên nền tảng Fetch?',
         content: (
           <>
             <div className='mb-2'>
-              Để nhận thưởng trên nền tảng Fetch Hunt, bạn có thể thực hiện các
-              bước dưới đây:
+              Để nhận thưởng trên nền tảng Fetch, bạn có thể thực hiện các bước
+              dưới đây:
             </div>
 
             <div className='list-sub-description'>
@@ -297,10 +292,10 @@ const frequentlyQuestions = [
                 </div>
                 Để nhận tiền thưởng khi giới thiệu ứng viên thành công cho các
                 Jobs trên portal, bạn cần đăng ký và tham gia chương trình giới
-                thiệu ứng viên của Fetch Hunt. Mỗi một Job sẽ có một mức tiền
-                thưởng và quy trình nhận thưởng khác nhau do yêu cầu từ phía nhà
-                tuyển dụng. Bạn có thể xem chi tiết về các mức tiền thưởng và
-                quy trình nhận thưởng trên portal của Fetch Hunt.
+                thiệu ứng viên của Fetch. Mỗi một Job sẽ có một mức tiền thưởng
+                và quy trình nhận thưởng khác nhau do yêu cầu từ phía nhà tuyển
+                dụng. Bạn có thể xem chi tiết về các mức tiền thưởng và quy
+                trình nhận thưởng trên portal của Fetch.
               </div>
             </div>
           </>

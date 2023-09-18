@@ -69,3 +69,11 @@ export const FIREBASE_FETCHUNT_CONFIG = {
 export const REGEX_SPECIAL_CHARS = /[.*+?^${}()|[\]\\]/g
 
 export const REGEX_WHOLE_MATCH = '\\$&'
+
+export const GA_EVENT_NAME = {
+  USER_CAMPAIGN: 'user_campaign',
+  USER_SIGN_UP: 'user_sign_up',
+  USER_INTEREST: 'user_interest',
+  USER_JOB_INTEREST: 'user_job_interest',
+  RECRUITER_SIGN_IN: 'recruiter_signin',
+}

@@ -8,10 +8,13 @@ import Link from 'next/link'
 import clickData from '@/lotties/click.json'
 import fireworkData from '@/lotties/firework.json'
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
+
+import { GA_EVENT_NAME } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Advertisement.module.scss'
 
@@ -111,19 +114,9 @@ const Advertisement = ({
                         edgeClassName='edge-primary'
                         title={buttonText}
                         className='btn-primary'
-                        onClick={async () => {
-                          const { initializeFirebase } = await import(
-                            '@/utils/firebase'
-                          )
-
-                          const analytics = await initializeFirebase()
-                          if (analytics) {
-                            logEvent(
-                              analytics,
-                              '#clickthrough_banner_advertisement',
-                            )
-                          }
-                        }}
+                        onClick={() =>
+                          handleTrackingEvent(GA_EVENT_NAME.USER_CAMPAIGN)
+                        }
                       />
                     </a>
                   </Link>
@@ -171,8 +164,8 @@ const Advertisement = ({
 
                   <div className='advertisement-fetchunt-introdution'>
                     <div className='h6'>
-                      Fetchunt - Nền tảng cung ứng nhân lực dành cho các nhà
-                      phát triển
+                      Fetch - Nền tảng cung ứng nhân lực dành cho các nhà phát
+                      triển
                     </div>
                   </div>
                 </div>

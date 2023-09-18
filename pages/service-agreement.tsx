@@ -6,12 +6,12 @@ import { SCREEN } from '@/config/global'
 
 import LazyLoadComponent from '@/components/LazyLoadComponent'
 
-import Header from '@/sections/fetchunt/header'
+import Header from '@/sections/hunt/header'
 
-const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
-const Career = dynamic(() => import('@/sections/fetchunt/career'))
-const Cooperate = dynamic(() => import('@/sections/fetchunt/cooperate'))
-const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
+const Banner = dynamic(() => import('@/sections/hunt/banner'))
+const Career = dynamic(() => import('@/sections/hunt/career'))
+const Cooperate = dynamic(() => import('@/sections/hunt/cooperate'))
+const Footer = dynamic(() => import('@/sections/hunt/footer'))
 const MainContent = dynamic(
   () => import('@/sections/service-agreement/main-content'),
   {
@@ -31,7 +31,7 @@ const ServiceAgreementPage: NextPage = () => {
   return (
     <>
       <NextSeo
-        title='Fetchunt | Thoả thuận dịch vụ'
+        title='Fetch | Thoả thuận dịch vụ'
         description='Thoả thuận dịch vụ'
         themeColor='#ffbf14'
         additionalLinkTags={[

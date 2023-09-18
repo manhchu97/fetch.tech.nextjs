@@ -6,12 +6,15 @@ import Link from 'next/link'
 
 import animationData from '@/lotties/blink_blink.json'
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
+
+import { GA_EVENT_NAME } from '@/config/global'
 
 import Button from '@/components/button/Button'
 import MenuItem from '@/components/nav/menu-item'
 
 import { PATH_CONFIG } from '@/routes/paths'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Introduction.module.scss'
 
@@ -32,7 +35,7 @@ const Introduction = (): React.ReactElement => {
       <div className='header-wrapper'>
         <div className='header d-flex'>
           <div className='header-logo-container div-center flex-grow-1'>
-            <Link href={PATH_CONFIG.fetchunt}>
+            <Link href={PATH_CONFIG.hunt}>
               <a className='header-logo-img' rel='noopener noreferrer'>
                 <Image
                   src='/images/fetchunt/advertisement_fetch_logo.png'
@@ -74,6 +77,9 @@ const Introduction = (): React.ReactElement => {
                   edgeClassName='edge-primary'
                   size='small'
                   variant='filled'
+                  onClick={() =>
+                    handleTrackingEvent(GA_EVENT_NAME.RECRUITER_SIGN_IN)
+                  }
                 />
               </a>
             </Link>
@@ -165,7 +171,7 @@ const Introduction = (): React.ReactElement => {
         </div>
 
         <div className='main-content'>
-          <div className='h3'>FETCHUNT</div>
+          <div className='h3'>FETCH</div>
 
           <div className='h4'>Giới thiệu ứng viên Nhận thưởng hấp dẫn</div>
 
@@ -181,16 +187,7 @@ const Introduction = (): React.ReactElement => {
             <a target='_blank' rel='noopener noreferrer'>
               <Button
                 className='btn-primary'
-                onClick={async () => {
-                  const { initializeFirebase } = await import(
-                    '@/utils/firebase'
-                  )
-
-                  const analytics = await initializeFirebase()
-                  if (analytics) {
-                    logEvent(analytics, '#clickthrough_Signup_begin')
-                  }
-                }}
+                onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)}
                 size='large'
                 variant='filled'
                 title='Bắt đầu ngay'

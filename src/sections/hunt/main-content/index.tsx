@@ -4,13 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
 import ldDebounce from 'lodash.debounce'
+
+import { GA_EVENT_NAME } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
 
 import { PATH_CONFIG } from '@/routes/paths'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './MainContent.module.scss'
 
@@ -126,7 +129,7 @@ const MainContent = (): React.ReactElement => {
                   <div className='div-center btn-text'>
                     <Link href={PATH_CONFIG.privacyPolicy}>
                       <a target='_blank' rel='noopener noreferrer'>
-                        Tìm hiểu thêm: Chính sách bảo mật thông tin của Fetchunt
+                        Tìm hiểu thêm: Chính sách bảo mật thông tin của Fetch
                       </a>
                     </Link>
                   </div>
@@ -210,7 +213,7 @@ const MainContent = (): React.ReactElement => {
                   <div className='div-center btn-text'>
                     <Link href='https://www.linkedin.com/pulse/b%E1%BA%A1n-s%E1%BA%BD-kh%C3%B4ng-mu%E1%BB%91n-b%E1%BB%8F-l%E1%BB%A1-3-c%C6%A1-h%E1%BB%99i-tuy%E1%BB%87t-v%E1%BB%9Di-n%C3%A0y?trk=public_post_feed-article-content'>
                       <a target='_blank' rel='noopener noreferrer'>
-                        Tìm hiểu thêm: 3 cách tăng thu nhập cùng Fetchunt
+                        Tìm hiểu thêm: 3 cách tăng thu nhập cùng Fetch
                       </a>
                     </Link>
                   </div>
@@ -299,7 +302,7 @@ const MainContent = (): React.ReactElement => {
 
                       <div className='h6'>
                         Khác với các chương trình chỉ dành cho tuyển dụng viên
-                        chuyên nghiệp, nền tảng của Fetchunt chào đón tất cả các
+                        chuyên nghiệp, nền tảng của Fetch chào đón tất cả các
                         đối tượng có nhu cầu tìm kiếm hoặc giới thiệu việc làm
                         trên thị trường IT sôi động.
                       </div>
@@ -334,16 +337,9 @@ const MainContent = (): React.ReactElement => {
                           size='large'
                           variant='filled'
                           title='Đăng ký tài khoản giới thiệu ngay'
-                          onClick={async () => {
-                            const { initializeFirebase } = await import(
-                              '@/utils/firebase'
-                            )
-
-                            const analytics = await initializeFirebase()
-                            if (analytics) {
-                              logEvent(analytics, '#clickthrough_Signup_end')
-                            }
-                          }}
+                          onClick={() =>
+                            handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)
+                          }
                         />
                       </a>
                     </Link>
@@ -362,7 +358,7 @@ const MainContent = (): React.ReactElement => {
     <div className={clsx(styles['content-wrapper'])}>
       <div className={clsx(styles['content-container'])}>
         <div className='d-flex justify-content-lg-between ft-main-content-container'>
-          <div className='main-header'>Tại sao chọn tin tưởng Fetchunt</div>
+          <div className='main-header'>Tại sao chọn tin tưởng Fetch</div>
 
           <div className='main-content'>
             {sections.map((section) => (
