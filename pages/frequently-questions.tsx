@@ -8,6 +8,8 @@ import LazyLoadComponent from '@/components/LazyLoadComponent'
 
 import Header from '@/sections/hunt/header'
 
+import { getDataFromLocales } from '@/utils/getLocalesData'
+
 const Banner = dynamic(() => import('@/sections/hunt/banner'))
 const Career = dynamic(() => import('@/sections/hunt/career'))
 const Footer = dynamic(() => import('@/sections/hunt/footer'))
@@ -22,6 +24,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       pageName: SCREEN.FREQUENTLY_QUESTIONS_PAGE,
+      translations: await getDataFromLocales(['hunt']),
     },
   }
 }

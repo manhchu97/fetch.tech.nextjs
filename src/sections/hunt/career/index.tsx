@@ -5,9 +5,13 @@ import clsx from 'clsx'
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import ReactSlick from '@/components/ReactSlick'
 
+import useTranslation from '@/hooks/useTranslation'
+
 import style from './Career.module.scss'
 
 const Career = () => {
+  const { translate } = useTranslation()
+
   const settings = {
     dots: true,
     infinite: true,
@@ -41,58 +45,58 @@ const Career = () => {
 
         <div className='z-2 mb-5 position-relative row d-flex justify-content-center align-items-center'>
           <div className='col-9 col-lg-7 col-xl-8  col-xxl-7 career-info-container'>
-            <div className='h3'>Tiên phong trong thu hút nhân sự</div>
+            <div className='h3'>{translate('hunt.career.title')}</div>
+            <div className='h6'>{translate('hunt.career.sub_title')}</div>
+          </div>
+        </div>
+
+        <div className='z-2 position-relative row mb-5'>
+          <div className='col-3' />
+
+          <div className={clsx('col-3', 'career-card-container')}>
+            <AnimatiopnOnScrollWrap
+              render={(ref, animate) => (
+                <div
+                  ref={ref}
+                  className={clsx('h2', {
+                    animate__animated: true,
+                    animate__bounceIn: animate,
+                  })}
+                >
+                  {translate('hunt.career.card.card_1.title')}
+                </div>
+              )}
+            />
+
             <div className='h6'>
-              Thành lập năm 2014 với khởi đầu chỉ 12 nhân viên. Đến nay, Fetch
-              là doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân
-              viên.
+              {translate('hunt.career.card.card_1.sub_title')}
+            </div>
+          </div>
+
+          <div className='col-3' />
+
+          <div className={clsx('col-3', 'career-card-container')}>
+            <AnimatiopnOnScrollWrap
+              render={(ref, animate) => (
+                <div
+                  ref={ref}
+                  className={clsx('h2', {
+                    animate__animated: true,
+                    animate__bounceIn: animate,
+                  })}
+                >
+                  {translate('hunt.career.card.card_2.title')}
+                </div>
+              )}
+            />
+
+            <div className='h6'>
+              {translate('hunt.career.card.card_2.sub_title')}
             </div>
           </div>
         </div>
 
         <div className='z-2 position-relative row mb-5'>
-          <div className='col-3' />
-
-          <div className={clsx('col-3', 'career-card-container')}>
-            <AnimatiopnOnScrollWrap
-              render={(ref, animate) => (
-                <div
-                  ref={ref}
-                  className={clsx('h2', {
-                    animate__animated: true,
-                    animate__bounceIn: animate,
-                  })}
-                >
-                  500+
-                </div>
-              )}
-            />
-
-            <div className='h6'>dự án thành công</div>
-          </div>
-
-          <div className='col-3' />
-
-          <div className={clsx('col-3', 'career-card-container')}>
-            <AnimatiopnOnScrollWrap
-              render={(ref, animate) => (
-                <div
-                  ref={ref}
-                  className={clsx('h2', {
-                    animate__animated: true,
-                    animate__bounceIn: animate,
-                  })}
-                >
-                  7+
-                </div>
-              )}
-            />
-
-            <div className='h6'>năm hoạt động</div>
-          </div>
-        </div>
-
-        <div className='z-2 position-relative row mb-5'>
           <div className={clsx('col-3', 'career-card-container')}>
             <AnimatiopnOnScrollWrap
               render={(ref, animate) => (
@@ -103,12 +107,14 @@ const Career = () => {
                     animate__bounceIn: animate,
                   })}
                 >
-                  5 triệu USD
+                  {translate('hunt.career.card.card_3.title')}
                 </h2>
               )}
             />
 
-            <h6 className='h6'>thu nhập tới hiện tại</h6>
+            <h6 className='h6'>
+              {translate('hunt.career.card.card_3.sub_title')}
+            </h6>
           </div>
 
           <div className='col-3' />
@@ -123,11 +129,13 @@ const Career = () => {
                     animate__bounceIn: animate,
                   })}
                 >
-                  100+
+                  {translate('hunt.career.card.card_4.title')}
                 </h2>
               )}
             />
-            <h6 className='h6'>đối tác phát triển</h6>
+            <h6 className='h6'>
+              {translate('hunt.career.card.card_4.sub_title')}
+            </h6>
           </div>
 
           <div className='col-3' />
@@ -137,12 +145,8 @@ const Career = () => {
       <div className='career-mobile-container'>
         <div className='row d-flex justify-content-center align-items-center m-0'>
           <div className='col-11 career-info-container'>
-            <div className='h3'>Tiên phong trong thu hút nhân sự</div>
-            <div className='h6'>
-              Thành lập năm 2014 với khởi đầu chỉ 12 nhân viên. Đến nay, Fetch
-              là doanh nghiệp hàng đầu trong lĩnh vực công nghệ với hơn 500 nhân
-              viên.
-            </div>
+            <div className='h3'>{translate('hunt.career.title')}</div>
+            <div className='h6'>{translate('hunt.career.sub_title')}</div>
           </div>
 
           <div className='position-relative mb-5 row d-flex justify-content-center align-items-center'>
@@ -169,12 +173,14 @@ const Career = () => {
                                 animate__bounceIn: animate,
                               })}
                             >
-                              500+
+                              {translate('hunt.career.card.card_1.title')}
                             </div>
                           )}
                         />
 
-                        <div className='h6'>dự án thành công</div>
+                        <div className='h6'>
+                          {translate('hunt.career.card.card_1.sub_title')}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -191,12 +197,14 @@ const Career = () => {
                                 animate__bounceIn: animate,
                               })}
                             >
-                              7+
+                              {translate('hunt.career.card.card_2.title')}
                             </div>
                           )}
                         />
 
-                        <div className='h6'>năm hoạt động</div>
+                        <div className='h6'>
+                          {translate('hunt.career.card.card_2.sub_title')}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -213,12 +221,14 @@ const Career = () => {
                                 animate__bounceIn: animate,
                               })}
                             >
-                              5 triệu USD
+                              {translate('hunt.career.card.card_3.title')}
                             </h2>
                           )}
                         />
 
-                        <h6 className='h6'>thu nhập tới hiện tại</h6>
+                        <h6 className='h6'>
+                          {translate('hunt.career.card.card_3.sub_title')}
+                        </h6>
                       </div>
                     </div>
                   </div>
@@ -235,11 +245,13 @@ const Career = () => {
                                 animate__bounceIn: animate,
                               })}
                             >
-                              100+
+                              {translate('hunt.career.card.card_4.title')}
                             </h2>
                           )}
                         />
-                        <h6 className='h6'>đối tác phát triển</h6>
+                        <h6 className='h6'>
+                          {translate('hunt.career.card.card_4.sub_title')}
+                        </h6>
                       </div>
                     </div>
                   </div>

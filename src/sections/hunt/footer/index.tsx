@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { useToastContext } from '@/context/ToastContext'
 
 import { useSubscribeFormValidator } from '@/hooks/useSubscribeFormValidator'
+import useTranslation from '@/hooks/useTranslation'
 
 import { API_FETCHUNT_SUBCRIBER_BY_EMAIL } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
@@ -17,6 +18,7 @@ import { ISubscribeForm } from '@/types/subscribeForm'
 import styles from './Footer.module.scss'
 
 const Footer = () => {
+  const { translate } = useTranslation()
   const [form, setForm] = useState<ISubscribeForm>({
     email: '',
   })
@@ -95,7 +97,7 @@ const Footer = () => {
         <div className='footer-form-container col-xs-12 col-lg-5'>
           <div className='footer-form-inner'>
             <div className='text-form-input'>
-              Đăng ký nhận tin từ chúng tôi!
+              {translate('hunt.footer.title')}
             </div>
 
             <form onSubmit={onSubmitForm}>
@@ -112,7 +114,7 @@ const Footer = () => {
                       'form-control': true,
                       'is-invalid': errors.email.dirty && errors.email.error,
                     })}
-                    placeholder='Email của bạn'
+                    placeholder={translate('hunt.footer.your_email')}
                   />
 
                   <div className='invalid-feedback'>
@@ -122,7 +124,7 @@ const Footer = () => {
 
                 <div className='col-4 p-0'>
                   <button type='submit' className='subscribe-button'>
-                    Đăng ký
+                    {translate('hunt.footer.register')}
                   </button>
                 </div>
               </div>
@@ -134,13 +136,17 @@ const Footer = () => {
           <div className='col-6 col-lg-5'>
             <Link href='https://www.fetch.tech/company'>
               <a target='_blank' rel='noopener noreferrer'>
-                <span className='nav-title'>Về chúng tôi</span>
+                <span className='nav-title'>
+                  {translate('hunt.footer.about_us')}
+                </span>
               </a>
             </Link>
 
             <Link href={PATH_CONFIG.frequentlyQuestions}>
               <a target='_blank' rel='noopener noreferrer'>
-                <span className='nav-title'>Câu hỏi thường gặp</span>
+                <span className='nav-title'>
+                  {translate('hunt.footer.frequently_ask_questions')}
+                </span>
               </a>
             </Link>
           </div>
@@ -148,13 +154,17 @@ const Footer = () => {
           <div className='col-6 col-lg-7'>
             <Link href={PATH_CONFIG.privacyPolicy}>
               <a target='_blank' rel='noopener noreferrer'>
-                <span className='nav-title'>Chính sách bảo mật</span>
+                <span className='nav-title'>
+                  {translate('hunt.footer.privacy_policy')}
+                </span>
               </a>
             </Link>
 
             <Link href={PATH_CONFIG.serviceAgreement}>
               <a target='_blank' rel='noopener noreferrer'>
-                <span className='nav-title'>Thoả thuận dịch vụ</span>
+                <span className='nav-title'>
+                  {translate('hunt.footer.terms_of_service')}
+                </span>
               </a>
             </Link>
           </div>
@@ -241,7 +251,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='footer-copy-right'>
-        © {new Date().getFullYear()} Công ty TNHH Fetch
+        © {new Date().getFullYear()} {translate('hunt.footer.fetch_company')}
       </div>
     </div>
   )

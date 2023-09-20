@@ -10,12 +10,16 @@ import { DEFAULT_PAGE_NUMBER, HOST_API, SCREEN } from '@/config/global'
 import LazyLoadComponent from '@/components/LazyLoadComponent'
 import { SWRConfigProvider } from '@/components/SwrConfig'
 
+import useTranslation from '@/hooks/useTranslation'
+
 import { API_LIST_JOB } from '@/routes/api'
 
 import Introduction from '@/sections/hunt/introduction'
 import Messenger from '@/sections/hunt/messenger'
 
 import { IListJobResponse } from '@/types/fetchunt'
+
+import { getDataFromLocales } from '@/utils/getLocalesData'
 
 const Banner = dynamic(() => import('@/sections/hunt/banner'))
 const Advertisement = dynamic(() => import('@/sections/hunt/advertisement'))
@@ -40,6 +44,7 @@ export const getStaticProps = async () => {
     props: {
       fallback: data,
       pageName: SCREEN.FETCHUNT_PAGE,
+      translations: await getDataFromLocales(['hunt']),
     },
   }
 }
@@ -47,10 +52,12 @@ export const getStaticProps = async () => {
 const FetchuntPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { translate } = useTranslation()
+
   return (
     <SWRConfigProvider>
       <NextSeo
-        title='Fetch | Nền tảng cho nhà tuyển dụng giới thiệu ứng viên'
+        title={translate('hunt.SEO_title')}
         description='Fetch là nền tảng mạng lưới công việc trực tuyến cho nhà tuyển dụng giới thiệu, trao đổi ứng viên trên toàn quốc. Đây là cơ hội cho nhà tuyển dụng tăng thu nhập không giới hạn. Bạn chỉ cần giới thiệu ứng viên, việc còn lại hãy để đội ngũ của Fetch lo.'
         themeColor='#ffbf14'
         additionalLinkTags={[
@@ -76,9 +83,9 @@ const FetchuntPage = ({
 
       <LazyLoadComponent>
         <Advertisement
-          buttonText='THAM GIA NGAY'
+          buttonText={translate('hunt.advertisement.button_text')}
           linkTo='https://portal.fetch.tech/auth/login?tab=signin'
-          time='Thời gian: 01/09 - 30/09/2023'
+          time={translate('hunt.advertisement.time')}
         />
       </LazyLoadComponent>
 
@@ -100,9 +107,9 @@ const FetchuntPage = ({
 
       <LazyLoadComponent>
         <Banner
-          title='Lựa chọn phù hợp nhất với bạn'
-          subTitle='Gia tăng thu nhập của bạn bằng cách đăng ký ngay!'
-          buttonText='Liên hệ chúng tôi'
+          title={translate('hunt.banner.title')}
+          subTitle={translate('hunt.banner.sub_title')}
+          buttonText={translate('hunt.banner.button_text')}
           linkTo='https://www.fetch.tech/'
         />
       </LazyLoadComponent>

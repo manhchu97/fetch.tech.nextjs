@@ -5,9 +5,13 @@ import clsx from 'clsx'
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import ReactSlick from '@/components/ReactSlick'
 
+import useTranslation from '@/hooks/useTranslation'
+
 import style from './Coopereate.module.scss'
 
 const Cooperate = () => {
+  const { translate } = useTranslation()
+
   const settings = {
     infinite: true,
     slidesToShow: 5,
@@ -75,7 +79,7 @@ const Cooperate = () => {
     <div className={style['cooperate-wrapper']}>
       <div className={clsx(style['cooperate'], 'overflow-hidden')}>
         <div className={style['cooperate__header']}>
-          + 1000 Cơ hội Nhận thưởng từ các Dự án Quốc tế lên tới 20.000 USD
+          {translate('hunt.cooperate.title')}
         </div>
 
         <AnimatiopnOnScrollWrap
