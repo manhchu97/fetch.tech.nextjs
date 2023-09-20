@@ -18,6 +18,10 @@
   height: 192px;
   width: 100%;
   background-color: #ffffff;
+
+  @include screen-down(sm) {
+    display: none;
+  }
 }
 
 .advertisement-container {

@@ -6,78 +6,69 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import ldDebounce from 'lodash.debounce'
 
+import { GA_EVENT_NAME } from '@/config/global'
+
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
+
+import useTranslation from '@/hooks/useTranslation'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './JoinSteps.module.scss'
 import JoinStepsAccordion from './accordion'
 
-const joinSteps = [
+const JOIN_STEPS = (translate: (key: string) => string) => [
   {
     step: 1,
     icon: '/images/fetchunt/step_1.png',
-    title: <>Đăng ký thành viên</>,
+    title: <>{translate('hunt.join_steps.step_1.title')}</>,
     content: (
       <>
-        Truy cập&nbsp;
+        {translate('hunt.join_steps.step_1.description_1')}&nbsp;
         <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
           <a target='_blank' rel='noopener noreferrer'>
-            <u>tại đây</u>
+            <u>{translate('hunt.join_steps.step_1.description_2')}</u>
           </a>
         </Link>
-        &nbsp;và điền đầy đủ thông tin theo mẫu. Chọn <strong>Đăng ký</strong>
-        &nbsp; để hoàn thành bước 1.
+        &nbsp;{translate('hunt.join_steps.step_1.description_3')}&nbsp;
+        <strong>{translate('hunt.join_steps.step_1.description_4')}</strong>
+        &nbsp; {translate('hunt.join_steps.step_1.description_5')}
       </>
     ),
   },
   {
     step: 2,
     icon: '/images/fetchunt/step_2.png',
-    title: <>Tìm kiếm công việc & ứng viên phù hợp</>,
-    content: (
-      <>
-        Đăng nhập nền tảng và tìm hiểu thông tin các vị trí có ứng viên phù hợp.
-      </>
-    ),
+    title: <>{translate('hunt.join_steps.step_2.title')}</>,
+    content: <>{translate('hunt.join_steps.step_2.description')}</>,
   },
   {
     step: 3,
     icon: '/images/fetchunt/step_3.png',
-    title: <>Giới thiệu ứng viên</>,
-    content: (
-      <>
-        Tải và nhập lên đầy đủ thông tin ứng viên, kiểm tra lại hồ sơ trong danh
-        sách vị trí ứng tuyển.
-      </>
-    ),
+    title: <>{translate('hunt.join_steps.step_3.title')}</>,
+    content: <>{translate('hunt.join_steps.step_3.description')}</>,
   },
   {
     step: 4,
     icon: '/images/fetchunt/step_4.png',
-    title: <>Theo dõi trạng thái ứng viên & chờ xét duyệt phần thưởng</>,
-    content: (
-      <>
-        Theo dõi trạng thái ứng viên trên hệ thống sẽ giúp bạn dễ dàng tính được
-        tiền thưởng nhờ cơ chế hoa hồng minh bạch cho từng vị trí tuyển.
-      </>
-    ),
+    title: <>{translate('hunt.join_steps.step_4.title')}</>,
+    content: <>{translate('hunt.join_steps.step_4.description')}</>,
   },
   {
     step: 5,
     icon: '/images/fetchunt/step_5.png',
-    title: <>Rút tiền thưởng về tài khoản của bạn</>,
-    content: (
-      <>
-        Sau khi được xác nhận điểm thưởng, bạn có thể đổi điểm thưởng thành tiền
-        mặt và rút về tài khoản ngân hàng bạn đã đăng ký trong mục Hồ sơ.
-      </>
-    ),
+    title: <>{translate('hunt.join_steps.step_5.title')}</>,
+    content: <>{translate('hunt.join_steps.step_5.description')}</>,
   },
 ]
 
 const JoinSteps = () => {
+  const { translate } = useTranslation()
   const [open, setOpen] = useState(false)
   const [isMobileScreen, setIsMobileScreen] = useState(false)
+
+  const joinSteps = JOIN_STEPS(translate)
 
   useEffect(() => {
     let unmounted = false
@@ -105,7 +96,9 @@ const JoinSteps = () => {
 
   return (
     <div className={styles['join-steps-container']}>
-      <div className='join-steps-header'>Các bước để gia nhập nhà FETCHUNT</div>
+      <div className='join-steps-header'>
+        {translate('hunt.join_steps.title')}
+      </div>
 
       {isMobileScreen ? (
         <AnimatiopnOnScrollWrap
@@ -240,7 +233,8 @@ const JoinSteps = () => {
               type='button'
               variant='filled'
               size='large'
-              title='Hướng dẫn tôi'
+              title={translate('hunt.join_steps.guide_me')}
+              onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_INTEREST)}
             />
           </a>
         </Link>

@@ -24,23 +24,23 @@ const MainContent = (): React.ReactElement => {
             <div className='h3 heading-section'>I. KHÁI NIỆM</div>
 
             <div className='description-section'>
-              Fetchunt là nền tảng giới thiệu ứng viên cho nhà tuyển dụng của
-              Công ty TNHH Fetch Technology Việt Nam.
+              Fetch là nền tảng giới thiệu ứng viên cho nhà tuyển dụng của Công
+              ty TNHH Fetch Technology Việt Nam.
             </div>
 
             <div className='description-section'>
               Bạn nghĩa là bất kỳ cá nhân, tổ chức nào đăng ký việc sử dụng nền
-              tảng của Fetchunt.
+              tảng của Fetch.
             </div>
 
             <div className='description-section'>
               Ứng viên nghĩa là người được Bạn giới thiệu thông qua nền tảng
-              tuyển dụng của Fetchunt.
+              tuyển dụng của Fetch.
             </div>
 
             <div className='description-section'>
               Dịch Vụ nghĩa là các dịch vụ được cung cấp trên nền tảng tuyển
-              dụng của Fetchunt.
+              dụng của Fetch.
             </div>
           </div>
 
@@ -49,7 +49,7 @@ const MainContent = (): React.ReactElement => {
 
             <div className='description-section'>
               Quy chế hoạt động này bao gồm các điều khoản và điều kiện để hoạt
-              động và sử dụng dịch vụ trên nền tảng Fetchunt.
+              động và sử dụng dịch vụ trên nền tảng Fetch.
             </div>
 
             <div className='description-section'>
@@ -59,15 +59,13 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='description-section'>
-              Mọi hoạt động cung cấp dịch vụ trên nền tảng Fetchunt được thực
-              hiện công khai, minh bạch, đảm bảo quyền lợi của người dùng.
+              Mọi hoạt động cung cấp dịch vụ trên nền tảng Fetch được thực hiện
+              công khai, minh bạch, đảm bảo quyền lợi của người dùng.
             </div>
           </div>
 
           <div className='service-agreement-content-section'>
-            <div className='h3 heading-section'>
-              III. TRÁCH NHIỆM CỦA FETCHUNT
-            </div>
+            <div className='h3 heading-section'>III. TRÁCH NHIỆM CỦA FETCH</div>
 
             <div className='description-section'>
               Bảo mật thông tin tuyệt đối cho các bên trong quá trình tuyển
@@ -75,17 +73,16 @@ const MainContent = (): React.ReactElement => {
             </div>
 
             <div className='description-section'>
-              Fetchunt tham gia trực tiếp vào quá trình tuyển dụng ứng viên và
-              chịu trách nhiệm trong quá trình tuyển dụng ứng viên, loại bỏ
-              những ứng viên không hợp lệ và thông báo kết quả cho Bạn trên nền
-              tảng.
+              Fetch tham gia trực tiếp vào quá trình tuyển dụng ứng viên và chịu
+              trách nhiệm trong quá trình tuyển dụng ứng viên, loại bỏ những ứng
+              viên không hợp lệ và thông báo kết quả cho Bạn trên nền tảng.
             </div>
 
             <div className='description-section'>
-              Fetchunt được phép thực hiện bất kỳ hành động nào liên quan đến
-              Nội dung của Bạn khi tự xét thấy cần thiết hoặc thích hợp, nếu
-              Fetchunt tin rằng Nội dung của Bạn có thể tạo ra trách nhiệm pháp
-              lý cho Fetchunt, gây thiệt hại đến thương hiệu Fetchunt.
+              Fetch được phép thực hiện bất kỳ hành động nào liên quan đến Nội
+              dung của Bạn khi tự xét thấy cần thiết hoặc thích hợp, nếu Fetch
+              tin rằng Nội dung của Bạn có thể tạo ra trách nhiệm pháp lý cho
+              Fetch, gây thiệt hại đến thương hiệu Fetch.
             </div>
           </div>
 
@@ -96,13 +93,13 @@ const MainContent = (): React.ReactElement => {
 
             <div className='sub-section'>
               <div className='sub-section-title'>
-                1. Quyền của bạn khi tham gia trên nền tảng của Fetchunt
+                1. Quyền của bạn khi tham gia trên nền tảng của Fetch
               </div>
 
               <div className='sub-section-description description-section'>
-                Khi đăng kí tài khoản trên nền tảng Fetchunt thành công bạn sẽ
-                trở thành Thành viên của Fetchunt. Sau khi đăng nhập bạn có thể
-                sử dụng các tính năng và dịch vụ của nền tảng như:
+                Khi đăng kí tài khoản trên nền tảng Fetch thành công bạn sẽ trở
+                thành Thành viên của Fetch. Sau khi đăng nhập bạn có thể sử dụng
+                các tính năng và dịch vụ của nền tảng như:
                 <div className='list-sub-description'>
                   <div className='sub-description-item'>
                     <div className='check-icon-container'>
@@ -161,10 +158,10 @@ const MainContent = (): React.ReactElement => {
                         />
                       </div>
                     </div>
-                    Bạn sẽ có thể được hưởng các chính sách ưu đãi do Fetchunt.
-                    Các chính sách ưu đãi này sẽ được chúng tôi giải quyết (nếu
-                    có) và sẽ được đăng tải trực tiếp trên nền tảng Fetchunt
-                    hoặc được gửi trực tiếp đến bạn.
+                    Bạn sẽ có thể được hưởng các chính sách ưu đãi do Fetch. Các
+                    chính sách ưu đãi này sẽ được chúng tôi giải quyết (nếu có)
+                    và sẽ được đăng tải trực tiếp trên nền tảng Fetch hoặc được
+                    gửi trực tiếp đến bạn.
                   </div>
 
                   <div className='sub-description-item'>
@@ -178,9 +175,9 @@ const MainContent = (): React.ReactElement => {
                         />
                       </div>
                     </div>
-                    Bạn có quyền đóng góp ý kiến cho nền tảng Fetchunt trong quá
+                    Bạn có quyền đóng góp ý kiến cho nền tảng Fetch trong quá
                     trình hoạt động. Các kiến nghị được gửi trực tiếp bằng tin
-                    nhắn hoặc email đến cho Fetchunt.
+                    nhắn hoặc email đến cho Fetch.
                   </div>
                 </div>
               </div>
@@ -188,7 +185,7 @@ const MainContent = (): React.ReactElement => {
 
             <div className='sub-section'>
               <div className='sub-section-title'>
-                2. Nghĩa vụ và trách nhiệm của bạn khi tham gia trên Fetchunt
+                2. Nghĩa vụ và trách nhiệm của bạn khi tham gia trên Fetch
               </div>
 
               <div className='sub-section-description description-section'>
@@ -207,9 +204,9 @@ const MainContent = (): React.ReactElement => {
                     Bạn sẽ tự chịu trách nhiệm về bảo mật, lưu giữ và mọi hoạt
                     động sử dụng dịch vụ dưới tên đăng ký, mật khẩu và hộp thư
                     điện tử của mình. Bạn có trách nhiệm thông báo kịp thời cho
-                    nền tảng Fetchunt về những hành vi sử dụng trái phép, lạm
-                    dụng, vi phạm bảo mật, lưu giữ tên đăng ký và mật khẩu của
-                    mình để hai bên cùng hợp tác xử lý.
+                    nền tảng Fetch về những hành vi sử dụng trái phép, lạm dụng,
+                    vi phạm bảo mật, lưu giữ tên đăng ký và mật khẩu của mình để
+                    hai bên cùng hợp tác xử lý.
                   </div>
 
                   <div className='sub-description-item'>
@@ -224,8 +221,7 @@ const MainContent = (): React.ReactElement => {
                       </div>
                     </div>
                     Bạn cam kết những thông tin ứng viên cung cấp và những thông
-                    tin đăng tải lên nền tảng Fetchunt là chính xác và hoàn
-                    chỉnh.
+                    tin đăng tải lên nền tảng Fetch là chính xác và hoàn chỉnh.
                   </div>
 
                   <div className='sub-description-item'>
@@ -258,9 +254,9 @@ const MainContent = (): React.ReactElement => {
                     </div>
                     Bạn tự chịu trách nhiệm về nội dung, hình ảnh của thông tin
                     Doanh nghiệp và các thông tin khác cũng như toàn bộ quá
-                    trình giao dịch với ứng viên trên nền tảng Fetchunt. Thông
-                    tin nào ứng viên không muốn tiết lộ thành viên cũng phải
-                    tuân thủ và làm theo.
+                    trình giao dịch với ứng viên trên nền tảng Fetch. Thông tin
+                    nào ứng viên không muốn tiết lộ thành viên cũng phải tuân
+                    thủ và làm theo.
                   </div>
 
                   <div className='sub-description-item'>
@@ -276,7 +272,7 @@ const MainContent = (): React.ReactElement => {
                     </div>
                     Bạn phải tuân thủ quy định của pháp luật về thanh toán, bảo
                     vệ quyền sở hữu trí tuệ, và các quy định của pháp luật có
-                    liên quan khác khi tham gia Fetchunt.
+                    liên quan khác khi tham gia Fetch.
                   </div>
 
                   <div className='sub-description-item'>
@@ -292,8 +288,8 @@ const MainContent = (): React.ReactElement => {
                     </div>
                     Bạn cam kết không được thay đổi, chỉnh sửa, sao chép, truyền
                     bá, phân phối, cung cấp và tạo những công cụ tương tự của
-                    dịch vụ do nền tảng Fetchunt cung cấp cho một bên thứ ba nếu
-                    không được sự đồng ý của Fetchunt.
+                    dịch vụ do nền tảng Fetch cung cấp cho một bên thứ ba nếu
+                    không được sự đồng ý của Fetch.
                   </div>
 
                   <div className='sub-description-item'>
@@ -307,11 +303,11 @@ const MainContent = (): React.ReactElement => {
                         />
                       </div>
                     </div>
-                    Bạn không được hành động gây mất uy tín của nền tảng
-                    Fetchunt dưới mọi hình thức như gây mất đoàn kết giữa các
-                    thành viên bằng cách sử dụng tên đăng ký thứ hai, thông qua
-                    một bên thứ ba hoặc tuyên truyền, phổ biến những thông tin
-                    không có lợi cho uy tín của nền tảng Fetchunt.
+                    Bạn không được hành động gây mất uy tín của nền tảng Fetch
+                    dưới mọi hình thức như gây mất đoàn kết giữa các thành viên
+                    bằng cách sử dụng tên đăng ký thứ hai, thông qua một bên thứ
+                    ba hoặc tuyên truyền, phổ biến những thông tin không có lợi
+                    cho uy tín của nền tảng Fetch.
                   </div>
                 </div>
               </div>
@@ -322,14 +318,14 @@ const MainContent = (): React.ReactElement => {
             <div className='h3 heading-section'>V. ĐIỀU KHOẢN ÁP DỤNG</div>
 
             <div className='description-section'>
-              Mọi tranh chấp phát sinh giữa nền tảng Fetchunt và Bạn sẽ được
-              giải quyết trên cơ sở thương lượng. Trường hợp không đạt được thỏa
+              Mọi tranh chấp phát sinh giữa nền tảng Fetch và Bạn sẽ được giải
+              quyết trên cơ sở thương lượng. Trường hợp không đạt được thỏa
               thuận như mong muốn, một trong hai bên có quyền đưa vụ việc ra Tòa
               án có thẩm quyền để giải quyết.
             </div>
 
             <div className='description-section'>
-              Fetchunt có quyền điều chỉnh, thay đổi Quy chế này cho phù hợp với
+              Fetch có quyền điều chỉnh, thay đổi Quy chế này cho phù hợp với
               thực tiễn hoạt động. Các thay đổi có hiệu lực ngay khi được đăng
               trên nền tảng mà không cần thông báo trước. Thành viên vui lòng
               kiểm tra các điều kiện này để cập nhật các thay đổi.

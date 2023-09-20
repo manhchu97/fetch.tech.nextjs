@@ -11,6 +11,7 @@ import FirebaseComp from '@/components/Firebase'
 import GoogleTagManager from '@/components/GoogleTagManager'
 
 import ToastProvider from '@/context/ToastContext'
+import TranslationProvider from '@/context/TranslateContext'
 
 import '@/styles/fonts.scss'
 import '@/styles/globals.scss'
@@ -21,6 +22,8 @@ import '@/styles/toast.scss'
 
 interface CustomPageProps {
   pageName?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  translations: Record<string, any>
 }
 
 const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
@@ -34,10 +37,15 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
       />
 
       <ToastProvider>
-        <Component {...pageProps} />
+        <TranslationProvider translations={pageProps?.translations} >
+          <Component {...pageProps} />
 
-        <GoogleTagManager gtmId={GOOGLE_TAG_MANAGER_KEY} pageName={pageName} />
-        <FirebaseComp pageName={pageName} />
+          <GoogleTagManager
+            gtmId={GOOGLE_TAG_MANAGER_KEY}
+            pageName={pageName}
+          />
+          <FirebaseComp pageName={pageName} />
+        </TranslationProvider>
       </ToastProvider>
     </>
   )

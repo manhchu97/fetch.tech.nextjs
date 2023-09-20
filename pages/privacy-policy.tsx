@@ -6,11 +6,13 @@ import { SCREEN } from '@/config/global'
 
 import LazyLoadComponent from '@/components/LazyLoadComponent'
 
-import Header from '@/sections/fetchunt/header'
+import Header from '@/sections/hunt/header'
 
-const Banner = dynamic(() => import('@/sections/fetchunt/banner'))
-const Career = dynamic(() => import('@/sections/fetchunt/career'))
-const Footer = dynamic(() => import('@/sections/fetchunt/footer'))
+import { getDataFromLocales } from '@/utils/getLocalesData'
+
+const Banner = dynamic(() => import('@/sections/hunt/banner'))
+const Career = dynamic(() => import('@/sections/hunt/career'))
+const Footer = dynamic(() => import('@/sections/hunt/footer'))
 const MainContent = dynamic(
   () => import('@/sections/privacy-policy/main-content'),
   {
@@ -22,6 +24,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       pageName: SCREEN.PRIVACY_POLICY_PAGE,
+      translations: await getDataFromLocales(['hunt']),
     },
   }
 }
@@ -30,7 +33,7 @@ const PrivacyPolicyPage: NextPage = () => {
   return (
     <>
       <NextSeo
-        title='Fetchunt | Chính sách bảo mật'
+        title='Fetch | Chính sách bảo mật'
         description='Chính sách bảo mật'
         themeColor='#ffbf14'
         additionalLinkTags={[

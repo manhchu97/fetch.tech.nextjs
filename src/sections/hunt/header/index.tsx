@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className={styles['header-container']}>
       <div className='header-logo-container d-flex justify-content-center align-items-center'>
-        <Link href={PATH_CONFIG.fetchunt}>
+        <Link href={PATH_CONFIG.hunt}>
           <a className='header-logo-img' rel='noopener noreferrer'>
             <Image
               src='/images/LogoDefault.svg'
@@ -37,7 +37,7 @@ const Header = () => {
           </div>
 
           <div className='col-12 col-md-8 col-lg-4 d-flex flex-column align-items-center header-banner-content'>
-            <div className='fetchunt-title'>FETCHUNT</div>
+            <div className='fetchunt-title'>FETCH</div>
 
             <div className='subtitle'>
               Nền tảng cho nhà tuyển dụng giới thiệu ứng viên

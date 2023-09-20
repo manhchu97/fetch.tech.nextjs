@@ -6,16 +6,24 @@ import Link from 'next/link'
 
 import animationData from '@/lotties/blink_blink.json'
 import clsx from 'clsx'
-import { logEvent } from 'firebase/analytics'
+
+import { GA_EVENT_NAME } from '@/config/global'
 
 import Button from '@/components/button/Button'
+import LanguageSwitcher from '@/components/language-switcher/LanguageSwitcher'
 import MenuItem from '@/components/nav/menu-item'
 
+import useTranslation from '@/hooks/useTranslation'
+
 import { PATH_CONFIG } from '@/routes/paths'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Introduction.module.scss'
 
 const Introduction = (): React.ReactElement => {
+  const { translate, currentLang } = useTranslation()
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -32,7 +40,7 @@ const Introduction = (): React.ReactElement => {
       <div className='header-wrapper'>
         <div className='header d-flex'>
           <div className='header-logo-container div-center flex-grow-1'>
-            <Link href={PATH_CONFIG.fetchunt}>
+            <Link href={PATH_CONFIG.hunt}>
               <a className='header-logo-img' rel='noopener noreferrer'>
                 <Image
                   src='/images/fetchunt/advertisement_fetch_logo.png'
@@ -50,7 +58,7 @@ const Introduction = (): React.ReactElement => {
             <Link href='https://www.fetch.tech/careers'>
               <a target='_blank' rel='noopener noreferrer'>
                 <button type='button' className='btn btn-outline-primary'>
-                  Việc làm IT
+                  {translate('hunt.introduction.header.itJobs')}
                 </button>
               </a>
             </Link>
@@ -58,7 +66,7 @@ const Introduction = (): React.ReactElement => {
             <Link href='https://www.fetch.tech/company'>
               <a target='_blank' rel='noopener noreferrer'>
                 <button type='button' className='btn btn-outline-primary'>
-                  Dành cho doanh nghiệp
+                  {translate('hunt.introduction.header.for_business')}
                 </button>
               </a>
             </Link>
@@ -69,14 +77,23 @@ const Introduction = (): React.ReactElement => {
               <a target='_blank' rel='noopener noreferrer'>
                 <Button
                   type='button'
-                  title='Bắt đầu giới thiệu ứng viên'
+                  title={translate(
+                    'hunt.introduction.header.referring_candidates',
+                  )}
                   frontClassName='front-primary'
                   edgeClassName='edge-primary'
                   size='small'
                   variant='filled'
+                  onClick={() =>
+                    handleTrackingEvent(GA_EVENT_NAME.RECRUITER_SIGN_IN)
+                  }
                 />
               </a>
             </Link>
+          </div>
+
+          <div className='switcher'>
+            <LanguageSwitcher />
           </div>
 
           <div
@@ -116,13 +133,15 @@ const Introduction = (): React.ReactElement => {
         <div className='nav-group-items'>
           <Link href='https://www.fetch.tech/careers'>
             <a>
-              <MenuItem title='Việc làm IT' />
+              <MenuItem title={translate('hunt.introduction.header.itJobs')} />
             </a>
           </Link>
 
           <Link href='https://www.fetch.tech/company'>
             <a>
-              <MenuItem title='Dành cho doanh nghiệp' />
+              <MenuItem
+                title={translate('hunt.introduction.header.for_business')}
+              />
             </a>
           </Link>
 
@@ -131,7 +150,9 @@ const Introduction = (): React.ReactElement => {
               <a target='_blank' rel='noopener noreferrer'>
                 <Button
                   type='button'
-                  title='Bắt đầu giới thiệu ứng viên'
+                  title={translate(
+                    'hunt.introduction.header.referring_candidates',
+                  )}
                   frontClassName='front-primary'
                   edgeClassName='edge-primary'
                   size='small'
@@ -156,7 +177,7 @@ const Introduction = (): React.ReactElement => {
           </div>
 
           <Image
-            src='/images/fetchunt/introduction_ver_2.png'
+            src={`/images/fetchunt/introduction_ver_2_${currentLang}.png`}
             alt='Picture of the author'
             layout='fill'
             objectFit='contain'
@@ -165,35 +186,26 @@ const Introduction = (): React.ReactElement => {
         </div>
 
         <div className='main-content'>
-          <div className='h3'>FETCHUNT</div>
+          <div className='h3'>{translate('hunt.introduction.main.fetch')}</div>
 
-          <div className='h4'>Giới thiệu ứng viên Nhận thưởng hấp dẫn</div>
+          <div className='h4'>{translate('hunt.introduction.main.title')}</div>
 
           <div className='h5'>
-            Nền tảng cung ứng nhân lực đầu tiên giúp{' '}
+            {translate('hunt.introduction.main.sub_title.sub_title_1')}{' '}
             <strong className='highlight'>
-              100% người tham gia nhận thưởng thành công
+              {translate('hunt.introduction.main.sub_title.highlight')}
             </strong>{' '}
-            khi giới thiệu ứng viên.
+            {translate('hunt.introduction.main.sub_title.sub_title_2')}
           </div>
 
           <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
             <a target='_blank' rel='noopener noreferrer'>
               <Button
                 className='btn-primary'
-                onClick={async () => {
-                  const { initializeFirebase } = await import(
-                    '@/utils/firebase'
-                  )
-
-                  const analytics = await initializeFirebase()
-                  if (analytics) {
-                    logEvent(analytics, '#clickthrough_Signup_begin')
-                  }
-                }}
+                onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)}
                 size='large'
                 variant='filled'
-                title='Bắt đầu ngay'
+                title={translate('hunt.introduction.main.start_now')}
               />
             </a>
           </Link>
