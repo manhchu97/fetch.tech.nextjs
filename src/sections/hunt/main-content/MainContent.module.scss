@@ -5,9 +5,13 @@
 }
 
 .content-container {
-  padding: 24px 32px;
+  padding: 24px 64px;
   max-width: $max-width-wrapper;
   margin: 64px auto;
+
+  @include screen-down(xl) {
+    padding: 23px 32px;
+  }
 
   @include screen-down(sm) {
     padding: 32px;

@@ -7,7 +7,12 @@
 .job-list-container {
   margin: 64px auto;
   max-width: $max-width-wrapper;
-  padding: 50px 32px;
+  padding: 50px 64px;
+
+  @include screen-down(lg) {
+    padding: 50px 32px;
+
+  }
 
   @include screen-down(sm) {
     padding: 16px;

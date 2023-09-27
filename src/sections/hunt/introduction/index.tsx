@@ -171,44 +171,56 @@ const Introduction = (): React.ReactElement => {
       </div>
 
       <div className='main'>
-        <div className='introduction-img'>
-          <div className='introduction-img-bg'>
-            <Lottie options={defaultOptions} style={{ width: '100%' }} />
+        <div className='row'>
+          <div className='col-md-5 d-flex align-items-center'>
+            <div className='main-content'>
+              <div className='h3'>
+                {translate('hunt.introduction.main.fetch')}
+              </div>
+
+              <div className='h4'>
+                {translate('hunt.introduction.main.title')}
+              </div>
+
+              <div className='h5'>
+                {translate('hunt.introduction.main.sub_title.sub_title_1')}{' '}
+                <strong className='highlight'>
+                  {translate('hunt.introduction.main.sub_title.highlight')}
+                </strong>{' '}
+                {translate('hunt.introduction.main.sub_title.sub_title_2')}
+              </div>
+
+              <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
+                <a target='_blank' rel='noopener noreferrer'>
+                  <Button
+                    className='btn-primary'
+                    onClick={() =>
+                      handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)
+                    }
+                    size='large'
+                    variant='filled'
+                    title={translate('hunt.introduction.main.start_now')}
+                  />
+                </a>
+              </Link>
+            </div>
           </div>
 
-          <Image
-            src={`/images/fetchunt/introduction_ver_2_${currentLang}.png`}
-            alt='Picture of the author'
-            layout='fill'
-            objectFit='contain'
-            priority
-          />
-        </div>
+          <div className='col-md-7 d-flex justify-content-center align-items-end'>
+            <div className='introduction-img d-flex justify-content-center'>
+              <div className='introduction-img-bg'>
+                <Lottie options={defaultOptions} style={{ width: '100%' }} />
+              </div>
 
-        <div className='main-content'>
-          <div className='h3'>{translate('hunt.introduction.main.fetch')}</div>
-
-          <div className='h4'>{translate('hunt.introduction.main.title')}</div>
-
-          <div className='h5'>
-            {translate('hunt.introduction.main.sub_title.sub_title_1')}{' '}
-            <strong className='highlight'>
-              {translate('hunt.introduction.main.sub_title.highlight')}
-            </strong>{' '}
-            {translate('hunt.introduction.main.sub_title.sub_title_2')}
-          </div>
-
-          <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <Button
-                className='btn-primary'
-                onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)}
-                size='large'
-                variant='filled'
-                title={translate('hunt.introduction.main.start_now')}
+              <Image
+                src={`/images/fetchunt/introduction_ver_2_${currentLang}.png`}
+                alt='introduction banner'
+                height={650}
+                width={780}
+                priority
               />
-            </a>
-          </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

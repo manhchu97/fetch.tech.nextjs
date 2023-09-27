@@ -6,13 +6,14 @@
   }
 
   :global .header {
-    padding: 0 32px;
+    padding: 0 64px;
     max-width: $max-width-wrapper;
     margin: 0 auto;
     margin-bottom: 50px;
 
     @include screen-down(lg) {
       margin-bottom: 0;
+      padding: 0 32px;
     }
 
     @include screen-down(sm) {
@@ -106,80 +107,56 @@
     .switcher {
       display: flex;
       align-items: center;
-
-      // @include screen-down(lg) {
-      //   display: none;
-      // }
     }
   }
 
   :global .main {
     position: relative;
-    min-height: 600px;
     max-width: $max-width-wrapper;
-    padding: 0 32px;
+    padding: 0 64px;
     margin: 0 auto;
-    margin-top: 24px;
-
-    @include screen-down(xxl) {
-      min-height: unset;
-      position: unset;
-    }
+    justify-content: center;
 
     @include screen-down(lg) {
-      padding: 0;
+      margin-top: 48px;
+      padding: 0 32px;
     }
 
     @include screen-down(md) {
-      padding: 16px;
-    }
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .introduction-img-bg {
-      z-index: 10;
-      width: 100%;
-      height: 85%;
-      position: absolute;
+      margin-bottom: 48px;
     }
 
     .introduction-img {
-      width: 64%;
-      height: 600px;
-      z-index: -1;
-      position: absolute;
-      right: 0;
+      position: relative;
+      z-index: unset;
+      width: 100%;
 
-      @include screen-down(xxl) {
-        position: relative;
-        z-index: unset;
+      & > span {
+        height: 100% !important;
+        img {
+          z-index: -1;
+        }
+      }
 
+      @include screen-down(md) {
+        display: none !important;
+      }
+
+      .introduction-img-bg {
+        z-index: 1000;
+        position: absolute;
         width: 100%;
-        height: 60vw;
-
-        right: 0;
+        height: 75%;
       }
     }
 
     .main-content {
-      width: 36%;
       display: flex;
       flex-direction: column;
       justify-content: center;
 
-      @include screen-down(xxl) {
-        width: 90%;
-        margin: 64px auto;
-      }
-
-      @include screen-down(md) {
-        margin: 32px auto;
-      }
-
-      @include screen-down(sm) {
-        width: 100%;
+      @include screen-down(lg) {
+        margin: 24px 0;
       }
 
       .h3 {
@@ -190,6 +167,12 @@
         font-weight: 700;
         line-height: 80px;
         margin-bottom: 32px;
+
+        @include screen-down(xl) {
+          font-size: 60px;
+          line-height: 72px;
+          margin-bottom: 24px;
+        }
 
         @include screen-down(md) {
           font-size: 64px;
@@ -214,6 +197,12 @@
         line-height: 36px;
         margin-bottom: 36px;
 
+        @include screen-down(xl) {
+          font-size: 28px;
+          line-height: 32px;
+          margin-bottom: 24px;
+        }
+
         @include screen-down(sm) {
           font-size: 28px;
           line-height: 32px;
@@ -228,7 +217,19 @@
         font-family: 'Quicksand';
         line-height: 30px;
         font-weight: 700;
-        margin-bottom: 54px;
+        margin-bottom: 48px;
+
+        @include screen-down(xl) {
+          font-size: 20px;
+          line-height: 24px;
+          margin-bottom: 32px;
+        }
+
+        @include screen-down(lg) {
+          font-size: 18px;
+          line-height: 24px;
+          margin-bottom: 32px;
+        }
 
         @include screen-down(md) {
           font-size: 20px;
@@ -241,70 +242,17 @@
       }
 
       .btn-primary {
-        min-width: 320px;
+        min-width: 240px;
+
+        @include screen-down(lg) {
+          span {
+            padding: 6px 12px;
+          }
+        }
 
         @include screen-down(sm) {
           min-width: 0;
           width: 100%;
-        }
-      }
-    }
-  }
-
-  :global .footer {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 0 10%;
-
-    @include screen-down(lg) {
-      flex-direction: column;
-    }
-
-    @include screen-down(sm) {
-      padding: 0 16px;
-    }
-
-    .footer-item {
-      width: 45%;
-      background-color: #17274e;
-      padding: 32px;
-      border-radius: 27px;
-      margin-bottom: 48px;
-
-      @include screen-down(lg) {
-        width: 100%;
-      }
-
-      @include screen-down(sm) {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .h6 {
-        color: #fff;
-        text-align: center;
-        font-size: 24px;
-        font-family: 'Quicksand';
-        font-weight: 500;
-        line-height: 30px;
-
-        @include screen-down(sm) {
-          font-size: 20px;
-        }
-      }
-
-      .refer-friends-img,
-      .process-recruiter-img {
-        width: 700px;
-        margin-right: 16px;
-
-        @include screen-down(sm) {
-          width: 250px;
-          height: 150px;
-          margin: 0;
-          margin-bottom: 16px;
         }
       }
     }
