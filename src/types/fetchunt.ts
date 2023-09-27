@@ -1,3 +1,5 @@
+import { ISalary } from './job'
+
 export interface ISkill {
   id: string
   name: string
@@ -19,6 +21,7 @@ export interface IJobItem {
   content: string
   type: string
   salary: string
+  salaryJob: ISalary
   slug: string
   description: string
   externalRecruiter: boolean

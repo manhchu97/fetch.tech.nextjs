@@ -83,7 +83,7 @@ export const GA_EVENT_NAME = {
 }
 
 export const LOCALES = ['en', 'vi']
-export const DEFAULT_LOCALE = 'en'
+export const DEFAULT_LOCALE = 'vi'
 
 export const ALL_LANGUAGES = [
   {
