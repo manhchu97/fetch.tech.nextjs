@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +13,7 @@ import { DEFAULT_PAGE_NUMBER, GA_EVENT_NAME, HOST_API } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
+import LocalPaging from '@/components/pagination/LocalPaging'
 
 import useTranslation from '@/hooks/useTranslation'
 
@@ -34,22 +35,33 @@ function JobList({ fallback }: IListJobProps) {
   const { translate } = useTranslation()
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [mounted, setMounted] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(DEFAULT_PAGE_NUMBER)
 
   useEffect(() => setMounted(true), [])
 
-  const { data: jobData } = useSWR(
-    mounted ? [API_LIST_JOB] : null,
+  const { data: jobData, isValidating } = useSWR(
+    mounted ? [API_LIST_JOB, page] : null,
     (url: string) => {
       const params = {
         pageSize: DEFAULT_PAGE_SIZE,
-        pageNumber: DEFAULT_PAGE_NUMBER,
+        pageNumber: page || DEFAULT_PAGE_NUMBER,
         status: SHARE_STATUS,
       }
 
       return fetcher(`${HOST_API}/${url}?${qs.stringify(params)}`)
     },
-    { fallbackData: fallback },
+    {
+      fallbackData: fallback,
+      revalidateOnFocus: false,
+    },
   )
+
+  const totalRecord: number = useMemo(
+    () => jobData?.data?.total || 0,
+    [jobData],
+  )
+
+  const pageNumber = useMemo(() => page || DEFAULT_PAGE_NUMBER, [page])
 
   const listJobs: IJobItem[] = useMemo(
     () => jobData?.data?.list || jobData?.data?.jobs || [],
@@ -86,6 +98,20 @@ function JobList({ fallback }: IListJobProps) {
       unmounted = true
       window.removeEventListener('resize', handleResize)
     }
+  }, [])
+
+  useEffect(() => {
+    if (!mounted || isValidating) return
+
+    const listJobElement: HTMLDivElement = document.querySelector(
+      '.job-list-header',
+    ) as HTMLDivElement
+
+    listJobElement?.scrollIntoView({ behavior: 'smooth' })
+  }, [mounted, isValidating])
+
+  const onPageChange = useCallback((newPage: number) => {
+    setPage(newPage)
   }, [])
 
   return (
@@ -170,7 +196,7 @@ function JobList({ fallback }: IListJobProps) {
 
                     <div
                       className={clsx(
-                        'list-icon-info hstack  mb-3',
+                        'list-icon-info hstack mb-3',
                         isMobileScreen ? 'gap-1' : 'gap-4',
                       )}
                     >
@@ -242,19 +268,18 @@ function JobList({ fallback }: IListJobProps) {
                 animate__slideInUp: animate,
               })}
             >
-              <div className='h5'>
-                <Link href='https://portal.fetch.tech/jobs'>
-                  <a target='_blank' rel='noopener noreferrer'>
-                    <span
-                      role='button'
-                      onClick={() =>
-                        handleTrackingEvent(GA_EVENT_NAME.USER_JOB_INTEREST)
-                      }
-                    >
-                      {translate('hunt.job_list.more')}
-                    </span>
-                  </a>
-                </Link>
+              <div
+                onClick={() => {
+                  handleTrackingEvent(GA_EVENT_NAME.USER_JOB_INTEREST)
+                }}
+              >
+                <LocalPaging
+                  className='justify-content-center pagination-lg my-4'
+                  onPageChange={onPageChange}
+                  totalCount={totalRecord}
+                  pageSize={DEFAULT_PAGE_SIZE}
+                  currentPage={pageNumber}
+                />
               </div>
             </div>
           )}

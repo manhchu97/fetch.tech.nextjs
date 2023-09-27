@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
+//  useEffect,
 import Lottie from 'react-lottie'
 
 import Image from 'next/image'
@@ -33,6 +34,7 @@ const Advertisement = ({
 }: AdvertisementProps): React.ReactElement => {
   const { translate, currentLang } = useTranslation()
   const containerRef = useRef<any>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isSticky, setIsSticky] = useState<boolean>(false)
 
   const fireworkOptions = {
@@ -53,23 +55,23 @@ const Advertisement = ({
     },
   }
 
-  useEffect(() => {
-    const onScroll = () => {
-      const element = containerRef.current
+  // useEffect(() => {
+  //   const onScroll = () => {
+  //     const element = containerRef.current
 
-      if (!element) return
+  //     if (!element) return
 
-      const { top } = element.getBoundingClientRect()
+  //     const { top } = element.getBoundingClientRect()
 
-      setIsSticky(top <= 0)
-    }
+  //     setIsSticky(top <= 0)
+  //   }
 
-    window.addEventListener('scroll', onScroll)
+  //   window.addEventListener('scroll', onScroll)
 
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('scroll', onScroll)
+  //   }
+  // }, [])
 
   return (
     <div ref={containerRef}>

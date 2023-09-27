@@ -18,8 +18,7 @@ const LanguageSwitcher = (): React.ReactElement => {
     translate,
   } = useTranslation()
   const [showDropdownMenu, setShowDropdownMenu] = useState(false)
-  console.log(currentLang)
-
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement

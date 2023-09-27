@@ -1,0 +1,16 @@
+.review-cv-banner {
+  position: fixed;
+  top: 24%;
+  right: 12px;
+  z-index: 9999;
+  animation: bump 1s alternate infinite ease-in;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}

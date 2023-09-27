@@ -5,12 +5,16 @@
 }
 
 .banner-container {
-  padding: 50px 32px;
+  padding: 50px 64px;
   margin: 0 auto;
   max-width: $max-width-wrapper;
   display: flex;
   justify-content: space-between;
   background: #ff6847;
+
+  @include screen-down(lg) {
+    padding: 50px 32px;
+  }
 
   @include screen-down(md) {
     flex-direction: column;
