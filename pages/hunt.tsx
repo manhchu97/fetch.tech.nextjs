@@ -29,6 +29,7 @@ const Cooperate = dynamic(() => import('@/sections/hunt/cooperate'))
 const JoinSteps = dynamic(() => import('@/sections/hunt/join-steps'))
 const Footer = dynamic(() => import('@/sections/hunt/footer'))
 const MainContent = dynamic(() => import('@/sections/hunt/main-content'))
+const ReviewCVBanner = dynamic(() => import('@/sections/hunt/review-cv-banner'))
 
 export const getStaticProps = async () => {
   const params = {
@@ -80,6 +81,8 @@ const FetchuntPage = ({
       <Introduction />
 
       <Cooperate />
+
+      <ReviewCVBanner />
 
       <LazyLoadComponent>
         <Advertisement
