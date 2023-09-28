@@ -5,7 +5,11 @@ import Link from 'next/link'
 
 import ldDebounce from 'lodash.debounce'
 
+import { GA_EVENT_NAME } from '@/config/global'
+
 import useTranslation from '@/hooks/useTranslation'
+
+import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './ReviewCVBanner.module.scss'
 
@@ -39,7 +43,10 @@ const ReviewCVBanner = (): React.ReactElement => {
   }, [])
 
   return (
-    <div className={styles['review-cv-banner']}>
+    <div
+      className={styles['review-cv-banner']}
+      onClick={() => handleTrackingEvent(GA_EVENT_NAME.CV_REVIEW)}
+    >
       <Link href='https://portal.fetch.tech/marketplace/my-list-cv'>
         <a target='_blank' rel='noopener noreferrer'>
           <Image
