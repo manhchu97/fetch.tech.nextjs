@@ -26,6 +26,7 @@ import fetcher from '@/utils/fetcher'
 import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './JobList.module.scss'
+import { formatSalary } from '@/config/job'
 
 interface IListJobProps {
   fallback: IListJobResponse
@@ -138,6 +139,7 @@ function JobList({ fallback }: IListJobProps) {
                 Tags,
                 time,
                 totalBonus,
+                salaryJob,
               },
               index,
             ) => (
@@ -184,7 +186,7 @@ function JobList({ fallback }: IListJobProps) {
                           height={15}
                         />
 
-                        {salary}
+                        {Number(salary) || formatSalary(salaryJob)}
                       </div>
 
                       <div className='icon-info hstack gap-2'>
