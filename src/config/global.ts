@@ -80,6 +80,7 @@ export const GA_EVENT_NAME = {
   USER_INTEREST: 'user_interest',
   USER_JOB_INTEREST: 'user_job_interest',
   RECRUITER_SIGN_IN: 'recruiter_signin',
+  CV_REVIEW: 'cv_review',
 }
 
 export const LOCALES = ['en', 'vi']
