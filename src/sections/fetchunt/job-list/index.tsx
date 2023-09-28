@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,13 +9,10 @@ import qs from 'query-string'
 import useSWR from 'swr'
 
 import { DEFAULT_PAGE_SIZE, SHARE_STATUS } from '@/config/fetchunt'
-import { DEFAULT_PAGE_NUMBER, GA_EVENT_NAME, HOST_API } from '@/config/global'
+import { DEFAULT_PAGE_NUMBER, HOST_API } from '@/config/global'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
-import LocalPaging from '@/components/pagination/LocalPaging'
-
-import useTranslation from '@/hooks/useTranslation'
 
 import { API_LIST_JOB } from '@/routes/api'
 import { PATH_CONFIG } from '@/routes/paths'
@@ -23,46 +20,32 @@ import { PATH_CONFIG } from '@/routes/paths'
 import { IJobItem, IListJobResponse } from '@/types/fetchunt'
 
 import fetcher from '@/utils/fetcher'
-import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './JobList.module.scss'
-import { formatSalary } from '@/config/job'
 
 interface IListJobProps {
   fallback: IListJobResponse
 }
 
 function JobList({ fallback }: IListJobProps) {
-  const { translate } = useTranslation()
   const [isMobileScreen, setIsMobileScreen] = useState(false)
   const [mounted, setMounted] = useState<boolean>(false)
-  const [page, setPage] = useState<number>(DEFAULT_PAGE_NUMBER)
 
   useEffect(() => setMounted(true), [])
 
-  const { data: jobData, isValidating } = useSWR(
-    mounted ? [API_LIST_JOB, page] : null,
+  const { data: jobData } = useSWR(
+    mounted ? [API_LIST_JOB] : null,
     (url: string) => {
       const params = {
         pageSize: DEFAULT_PAGE_SIZE,
-        pageNumber: page || DEFAULT_PAGE_NUMBER,
+        pageNumber: DEFAULT_PAGE_NUMBER,
         status: SHARE_STATUS,
       }
 
       return fetcher(`${HOST_API}/${url}?${qs.stringify(params)}`)
     },
-    {
-      fallbackData: fallback,
-      revalidateOnFocus: false,
-    },
+    { fallbackData: fallback },
   )
-
-  const totalRecord: number = useMemo(
-    () => jobData?.data?.total || 0,
-    [jobData],
-  )
-
-  const pageNumber = useMemo(() => page || DEFAULT_PAGE_NUMBER, [page])
 
   const listJobs: IJobItem[] = useMemo(
     () => jobData?.data?.list || jobData?.data?.jobs || [],
@@ -101,29 +84,13 @@ function JobList({ fallback }: IListJobProps) {
     }
   }, [])
 
-  useEffect(() => {
-    if (!mounted || isValidating) return
-
-    const listJobElement: HTMLDivElement = document.querySelector(
-      '.job-list-header',
-    ) as HTMLDivElement
-
-    listJobElement?.scrollIntoView({ behavior: 'smooth' })
-  }, [mounted, isValidating])
-
-  const onPageChange = useCallback((newPage: number) => {
-    setPage(newPage)
-  }, [])
-
   return (
     <div className={styles['job-list-wrapper']}>
       <div className={styles['job-list-container']}>
         <div className='job-list-header'>
-          {translate('hunt.job_list.title.title_1')}{' '}
-          <strong className='highlight'>
-            {translate('hunt.job_list.title.highlight')}
-          </strong>{' '}
-          {translate('hunt.job_list.title.title_2')}
+          Khám phá ngay các{' '}
+          <strong className='highlight'>TIN TUYỂN DỤNG NỔI BẬT</strong> của
+          FETCHUNT
         </div>
 
         <div className='job-list-main'>
@@ -139,7 +106,6 @@ function JobList({ fallback }: IListJobProps) {
                 Tags,
                 time,
                 totalBonus,
-                salaryJob,
               },
               index,
             ) => (
@@ -167,7 +133,7 @@ function JobList({ fallback }: IListJobProps) {
                       <div className='p'>{type}</div>
 
                       <div className='p bonus'>
-                        {translate('hunt.job_list.referral_rewards')}:{' '}
+                        Thưởng giới thiệu:{' '}
                         {Number(totalBonus || 0).toLocaleString('it-IT')} VND
                       </div>
                     </div>
@@ -186,7 +152,7 @@ function JobList({ fallback }: IListJobProps) {
                           height={15}
                         />
 
-                        {Number(salary) || formatSalary(salaryJob)}
+                        {salary}
                       </div>
 
                       <div className='icon-info hstack gap-2'>
@@ -198,7 +164,7 @@ function JobList({ fallback }: IListJobProps) {
 
                     <div
                       className={clsx(
-                        'list-icon-info hstack mb-3',
+                        'list-icon-info hstack  mb-3',
                         isMobileScreen ? 'gap-1' : 'gap-4',
                       )}
                     >
@@ -217,9 +183,7 @@ function JobList({ fallback }: IListJobProps) {
                           <a target='_blank' rel='noopener noreferrer'>
                             <Button
                               type='button'
-                              title={translate(
-                                'hunt.job_list.referring_candidate',
-                              )}
+                              title='Giới thiệu ứng viên'
                               size='small'
                               variant='filled'
                             />
@@ -232,7 +196,7 @@ function JobList({ fallback }: IListJobProps) {
                           <a target='_blank' rel='noopener noreferrer'>
                             <Button
                               type='button'
-                              title={translate('hunt.job_list.apply')}
+                              title='Ứng tuyển'
                               size='small'
                               variant='outlined'
                             />
@@ -270,18 +234,12 @@ function JobList({ fallback }: IListJobProps) {
                 animate__slideInUp: animate,
               })}
             >
-              <div
-                onClick={() => {
-                  handleTrackingEvent(GA_EVENT_NAME.USER_JOB_INTEREST)
-                }}
-              >
-                <LocalPaging
-                  className='justify-content-center pagination-lg my-4'
-                  onPageChange={onPageChange}
-                  totalCount={totalRecord}
-                  pageSize={DEFAULT_PAGE_SIZE}
-                  currentPage={pageNumber}
-                />
+              <div className='h5'>
+                <Link href='https://portal.fetch.tech/jobs'>
+                  <a target='_blank' rel='noopener noreferrer'>
+                    <span role='button'>Xem thêm</span>
+                  </a>
+                </Link>
               </div>
             </div>
           )}

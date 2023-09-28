@@ -6,11 +6,11 @@
 
 .cooperate {
   max-width: $max-width-wrapper;
-  padding: 60px 48px;
+  padding: 60px 64px;
   margin: 0 auto;
   margin-bottom: 64px;
 
-  @include screen-down(md) {
+  @include screen-down(lg) {
     padding: 50px 48px;
   }
 

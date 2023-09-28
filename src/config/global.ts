@@ -81,3 +81,19 @@ export const GA_EVENT_NAME = {
   USER_JOB_INTEREST: 'user_job_interest',
   RECRUITER_SIGN_IN: 'recruiter_signin',
 }
+
+export const LOCALES = ['en', 'vi']
+export const DEFAULT_LOCALE = 'vi'
+
+export const ALL_LANGUAGES = [
+  {
+    label: 'English',
+    value: 'en',
+    icon: '/images/nav/icon_en.svg',
+  },
+  {
+    label: 'Tiếng Việt',
+    value: 'vi',
+    icon: '/images/nav/icon_vi.svg',
+  },
+]

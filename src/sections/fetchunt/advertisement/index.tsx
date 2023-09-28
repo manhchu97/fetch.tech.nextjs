@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState } from 'react'
-//  useEffect,
+import React, { useEffect, useRef, useState } from 'react'
 import Lottie from 'react-lottie'
 
 import Image from 'next/image'
@@ -9,15 +8,10 @@ import Link from 'next/link'
 import clickData from '@/lotties/click.json'
 import fireworkData from '@/lotties/firework.json'
 import clsx from 'clsx'
-
-import { GA_EVENT_NAME } from '@/config/global'
+import { logEvent } from 'firebase/analytics'
 
 import AnimatiopnOnScrollWrap from '@/components/AnimationOnScrollWrap'
 import Button from '@/components/button/Button'
-
-import useTranslation from '@/hooks/useTranslation'
-
-import { handleTrackingEvent } from '@/utils/googleAnalytics'
 
 import styles from './Advertisement.module.scss'
 
@@ -32,9 +26,7 @@ const Advertisement = ({
   linkTo = '',
   time = '',
 }: AdvertisementProps): React.ReactElement => {
-  const { translate, currentLang } = useTranslation()
   const containerRef = useRef<any>(null)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isSticky, setIsSticky] = useState<boolean>(false)
 
   const fireworkOptions = {
@@ -55,23 +47,23 @@ const Advertisement = ({
     },
   }
 
-  // useEffect(() => {
-  //   const onScroll = () => {
-  //     const element = containerRef.current
+  useEffect(() => {
+    const onScroll = () => {
+      const element = containerRef.current
 
-  //     if (!element) return
+      if (!element) return
 
-  //     const { top } = element.getBoundingClientRect()
+      const { top } = element.getBoundingClientRect()
 
-  //     setIsSticky(top <= 0)
-  //   }
+      setIsSticky(top <= 0)
+    }
 
-  //   window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll)
 
-  //   return () => {
-  //     window.removeEventListener('scroll', onScroll)
-  //   }
-  // }, [])
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
 
   return (
     <div ref={containerRef}>
@@ -100,7 +92,7 @@ const Advertisement = ({
                 </div>
 
                 <Image
-                  src={`/images/fetchunt/advertisement_bonus_points_${currentLang}.png`}
+                  src='/images/fetchunt/advertisement_bonus_points.png'
                   alt='Advertisement content'
                   width={281}
                   height={160}
@@ -119,9 +111,19 @@ const Advertisement = ({
                         edgeClassName='edge-primary'
                         title={buttonText}
                         className='btn-primary'
-                        onClick={() =>
-                          handleTrackingEvent(GA_EVENT_NAME.USER_CAMPAIGN)
-                        }
+                        onClick={async () => {
+                          const { initializeFirebase } = await import(
+                            '@/utils/firebase'
+                          )
+
+                          const analytics = await initializeFirebase()
+                          if (analytics) {
+                            logEvent(
+                              analytics,
+                              '#clickthrough_banner_advertisement',
+                            )
+                          }
+                        }}
                       />
                     </a>
                   </Link>
@@ -148,7 +150,7 @@ const Advertisement = ({
               >
                 <div className='advertisement-image'>
                   <Image
-                    src={`/images/fetchunt/introduction_ver_2_${currentLang}.png`}
+                    src='/images/fetchunt/introduction_ver_2.png'
                     alt='Advertisement image'
                     width={210}
                     height={173}
@@ -169,7 +171,8 @@ const Advertisement = ({
 
                   <div className='advertisement-fetchunt-introdution'>
                     <div className='h6'>
-                      {translate('hunt.advertisement.description')}
+                      Fetchunt - Nền tảng cung ứng nhân lực dành cho các nhà
+                      phát triển
                     </div>
                   </div>
                 </div>

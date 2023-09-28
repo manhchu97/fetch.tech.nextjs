@@ -10,7 +10,10 @@ import clsx from 'clsx'
 import { GA_EVENT_NAME } from '@/config/global'
 
 import Button from '@/components/button/Button'
+import LanguageSwitcher from '@/components/language-switcher/LanguageSwitcher'
 import MenuItem from '@/components/nav/menu-item'
+
+import useTranslation from '@/hooks/useTranslation'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
@@ -19,6 +22,8 @@ import { handleTrackingEvent } from '@/utils/googleAnalytics'
 import styles from './Introduction.module.scss'
 
 const Introduction = (): React.ReactElement => {
+  const { translate, currentLang } = useTranslation()
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -53,7 +58,7 @@ const Introduction = (): React.ReactElement => {
             <Link href='https://www.fetch.tech/careers'>
               <a target='_blank' rel='noopener noreferrer'>
                 <button type='button' className='btn btn-outline-primary'>
-                  Việc làm IT
+                  {translate('hunt.introduction.header.itJobs')}
                 </button>
               </a>
             </Link>
@@ -61,7 +66,7 @@ const Introduction = (): React.ReactElement => {
             <Link href='https://www.fetch.tech/company'>
               <a target='_blank' rel='noopener noreferrer'>
                 <button type='button' className='btn btn-outline-primary'>
-                  Dành cho doanh nghiệp
+                  {translate('hunt.introduction.header.for_business')}
                 </button>
               </a>
             </Link>
@@ -72,7 +77,9 @@ const Introduction = (): React.ReactElement => {
               <a target='_blank' rel='noopener noreferrer'>
                 <Button
                   type='button'
-                  title='Bắt đầu giới thiệu ứng viên'
+                  title={translate(
+                    'hunt.introduction.header.referring_candidates',
+                  )}
                   frontClassName='front-primary'
                   edgeClassName='edge-primary'
                   size='small'
@@ -83,6 +90,10 @@ const Introduction = (): React.ReactElement => {
                 />
               </a>
             </Link>
+          </div>
+
+          <div className='switcher'>
+            <LanguageSwitcher />
           </div>
 
           <div
@@ -122,13 +133,15 @@ const Introduction = (): React.ReactElement => {
         <div className='nav-group-items'>
           <Link href='https://www.fetch.tech/careers'>
             <a>
-              <MenuItem title='Việc làm IT' />
+              <MenuItem title={translate('hunt.introduction.header.itJobs')} />
             </a>
           </Link>
 
           <Link href='https://www.fetch.tech/company'>
             <a>
-              <MenuItem title='Dành cho doanh nghiệp' />
+              <MenuItem
+                title={translate('hunt.introduction.header.for_business')}
+              />
             </a>
           </Link>
 
@@ -137,7 +150,9 @@ const Introduction = (): React.ReactElement => {
               <a target='_blank' rel='noopener noreferrer'>
                 <Button
                   type='button'
-                  title='Bắt đầu giới thiệu ứng viên'
+                  title={translate(
+                    'hunt.introduction.header.referring_candidates',
+                  )}
                   frontClassName='front-primary'
                   edgeClassName='edge-primary'
                   size='small'
@@ -156,44 +171,56 @@ const Introduction = (): React.ReactElement => {
       </div>
 
       <div className='main'>
-        <div className='introduction-img'>
-          <div className='introduction-img-bg'>
-            <Lottie options={defaultOptions} style={{ width: '100%' }} />
+        <div className='row'>
+          <div className='col-md-5 d-flex align-items-center'>
+            <div className='main-content'>
+              <div className='h3'>
+                {translate('hunt.introduction.main.fetch')}
+              </div>
+
+              <div className='h4'>
+                {translate('hunt.introduction.main.title')}
+              </div>
+
+              <div className='h5'>
+                {translate('hunt.introduction.main.sub_title.sub_title_1')}{' '}
+                <strong className='highlight'>
+                  {translate('hunt.introduction.main.sub_title.highlight')}
+                </strong>{' '}
+                {translate('hunt.introduction.main.sub_title.sub_title_2')}
+              </div>
+
+              <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
+                <a target='_blank' rel='noopener noreferrer'>
+                  <Button
+                    className='btn-primary'
+                    onClick={() =>
+                      handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)
+                    }
+                    size='large'
+                    variant='filled'
+                    title={translate('hunt.introduction.main.start_now')}
+                  />
+                </a>
+              </Link>
+            </div>
           </div>
 
-          <Image
-            src='/images/fetchunt/introduction_ver_2.png'
-            alt='Picture of the author'
-            layout='fill'
-            objectFit='contain'
-            priority
-          />
-        </div>
+          <div className='col-md-7 d-flex justify-content-center align-items-end'>
+            <div className='introduction-img d-flex justify-content-center'>
+              <div className='introduction-img-bg'>
+                <Lottie options={defaultOptions} style={{ width: '100%' }} />
+              </div>
 
-        <div className='main-content'>
-          <div className='h3'>FETCH</div>
-
-          <div className='h4'>Giới thiệu ứng viên Nhận thưởng hấp dẫn</div>
-
-          <div className='h5'>
-            Nền tảng cung ứng nhân lực đầu tiên giúp{' '}
-            <strong className='highlight'>
-              100% người tham gia nhận thưởng thành công
-            </strong>{' '}
-            khi giới thiệu ứng viên.
-          </div>
-
-          <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
-            <a target='_blank' rel='noopener noreferrer'>
-              <Button
-                className='btn-primary'
-                onClick={() => handleTrackingEvent(GA_EVENT_NAME.USER_SIGN_UP)}
-                size='large'
-                variant='filled'
-                title='Bắt đầu ngay'
+              <Image
+                src={`/images/fetchunt/introduction_ver_2_${currentLang}.png`}
+                alt='introduction banner'
+                height={650}
+                width={780}
+                priority
               />
-            </a>
-          </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
