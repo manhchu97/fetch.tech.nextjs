@@ -1,0 +1,240 @@
+@import '@/styles/_mixins.scss';
+
+.content-container {
+  padding: 24px 64px;
+  max-width: $max-width-wrapper;
+  margin: 64px auto;
+
+  @include screen-down(xl) {
+    padding: 24px 32px;
+  }
+
+  @include screen-down(sm) {
+    padding: 32px;
+  }
+
+  :global .ft-main-content-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .main-header {
+      color: #17274e;
+      font-family: 'Inter';
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 60px;
+      text-align: center;
+      margin-bottom: 32px;
+      text-transform: uppercase;
+
+      @include screen-down(md) {
+        font-size: 28px;
+        line-height: 32px;
+      }
+
+      & > span {
+        color: #ffbe16;
+      }
+    }
+
+    .main-content {
+      width: 100%;
+
+      .card-container {
+        margin-bottom: 24px;
+
+        @include screen-down(xl) {
+          flex-direction: column;
+          margin-bottom: 32px;
+
+          &:nth-of-type(even) {
+            flex-direction: column-reverse;
+          }
+        }
+
+        .content-container {
+          width: 45%;
+
+          @include screen-down(xl) {
+            width: 80%;
+          }
+
+          @include screen-down(md) {
+            width: 100%;
+          }
+
+          .btn-text {
+            color: #ffbe16;
+            font-family: Quicksand;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 25px;
+            text-decoration: underline;
+
+            @include screen-down(sm) {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      .card-button {
+        background: #ffc01e;
+        border-radius: 8px;
+        font-family: 'Quicksand';
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;
+        color: #fff;
+        padding: 12px 24px;
+
+        @include screen-down(xl) {
+          font-size: 24px;
+          line-height: 28px;
+        }
+
+        @include screen-down(sm) {
+          font-size: 18px;
+          line-height: 24px;
+        }
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .card-title {
+        font-family: 'Quicksand';
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 44px;
+        letter-spacing: -0.5px;
+        color: #ffc01e;
+        margin-bottom: 24px;
+
+        @include screen-down(lg) {
+          font-size: 28px;
+        }
+
+        @include screen-down(md) {
+          font-size: 24px;
+        }
+      }
+
+      .three-first-steps {
+        .processing-step-img {
+          width: 700px;
+          height: 458px;
+
+          @include screen-between(xl, xxl) {
+            width: 500px;
+            height: 365px;
+          }
+
+          @include screen-down(xl) {
+            margin-bottom: 36px;
+          }
+
+          @include screen-down(sm) {
+            width: 340px;
+            height: 248px;
+          }
+        }
+      }
+
+      .three-last-steps {
+        .processing-step-img {
+          width: 650px;
+          height: 540px;
+
+          @include screen-between(xl, xxl) {
+            width: 500px;
+            height: 416px;
+          }
+
+          @include screen-down(xl) {
+            margin-bottom: 36px;
+          }
+
+          @include screen-down(sm) {
+            width: 340px;
+            height: 248px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.step-container {
+  margin-bottom: 30px;
+
+  :global .step-title {
+    font-family: 'Inter';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  :global .step-content {
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  :global .list-items-container {
+    margin-bottom: 24px;
+
+    .h6 {
+      font-family: 'Inter';
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: -0.5px;
+      color: #17264e;
+      text-align: left;
+      margin-bottom: 6px;
+
+      @include screen-down(md) {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  :global .check-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: #ffc01e;
+    border-radius: 50%;
+    margin-right: 16px;
+    flex-shrink: 0;
+    top: 4px;
+
+    @include screen-down(md) {
+      width: 22px;
+      height: 22px;
+    }
+
+    .check-icon-img {
+      width: 10px;
+      height: 10px;
+
+      @include screen-down(md) {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}

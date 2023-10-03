@@ -14,6 +14,7 @@ export const PATH_CONFIG = {
   services: {
     root: path(ROOT_PATH, 'services'),
     salary: path(ROOT_PATH, 'services/salary'),
+    hiringFreelancer: path(ROOT_PATH, 'services/hiring-freelancer'),
     view: (id: number): string => path(ROOT_PATH, `services/${id}`),
   },
   resources: {
