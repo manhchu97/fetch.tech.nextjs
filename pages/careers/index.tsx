@@ -1,4 +1,5 @@
 import type { InferGetStaticPropsType } from 'next'
+import { NextSeo } from 'next-seo'
 
 import qs from 'query-string'
 
@@ -45,7 +46,49 @@ const ListJobPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <SWRConfigProvider>
-      <Page title='Job'>
+      <Page title='Careers'>
+        <NextSeo
+          title='Fetch Technology | Careers'
+          description='Fetch Technology Careers'
+          canonical={'https://fetch.tech/careers'}
+          themeColor='#ffbf14'
+          additionalLinkTags={[
+            {
+              rel: 'icon',
+              href: '/favicon.ico',
+            },
+            {
+              rel: 'apple-touch-icon',
+              href: '/apple-touch-icon.png',
+              sizes: '192x192',
+            },
+            {
+              rel: 'manifest',
+              href: '/manifest.json',
+            },
+          ]}
+          openGraph={{
+            url: 'https://fetch.tech/careers',
+            title: 'Fetch Technology | Careers',
+            description: 'Careers',
+            images: [
+              {
+                url: 'https://fetch.tech/_next/image?url=%2Fimages%2Fcareers%2Fcareers-thumbnail.png&w=1080&q=75',
+                width: 200,
+                height: 100,
+                alt: 'careers page thumbnail',
+                type: 'image/png',
+              },
+            ],
+            siteName: 'Fetch Careers Page',
+          }}
+          twitter={{
+            handle: '@handle',
+            site: '@site',
+            cardType: 'summary_large_image',
+          }}
+        />
+
         <ListJob fallback={fallback} />
 
         <BannerContact

@@ -60,6 +60,7 @@ const FetchuntPage = ({
       <NextSeo
         title={translate('hunt.SEO_title')}
         description='Fetch là nền tảng mạng lưới công việc trực tuyến cho nhà tuyển dụng giới thiệu, trao đổi ứng viên trên toàn quốc. Đây là cơ hội cho nhà tuyển dụng tăng thu nhập không giới hạn. Bạn chỉ cần giới thiệu ứng viên, việc còn lại hãy để đội ngũ của Fetch lo.'
+        canonical={'https://fetch.tech/hunt'}
         themeColor='#ffbf14'
         additionalLinkTags={[
           {
@@ -76,6 +77,26 @@ const FetchuntPage = ({
             href: '/manifest.json',
           },
         ]}
+        openGraph={{
+          url: 'https://fetch.tech/hunt',
+          title: 'Fetch | Nền tảng cho nhà tuyển dụng giới thiệu ứng viên',
+          description:
+            'Fetch là nền tảng mạng lưới công việc trực tuyến cho nhà tuyển dụng giới thiệu, trao đổi ứng viên trên toàn quốc. Đây là cơ hội cho nhà tuyển dụng tăng thu nhập không giới hạn. Bạn chỉ cần giới thiệu ứng viên, việc còn lại hãy để đội ngũ của Fetch lo.',
+          images: [
+            {
+              url: 'https://fetch.tech/_next/image?url=%2Fimages%2Ffetchunt%2Fintroduction_ver_2_vi.png&w=1920&q=75',
+              width: 200,
+              height: 100,
+              alt: 'Hunt introduction thumbnail',
+              type: 'image/png',
+            },
+          ],
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
       />
 
       <Introduction />
