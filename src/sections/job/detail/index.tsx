@@ -162,7 +162,47 @@ const JobDetail = ({
 
   return (
     <Page title={pageTitle}>
-      <NextSeo title={pageTitle} description={metaDescription} />
+      <NextSeo
+        title={pageTitle}
+        description={metaDescription}
+        canonical={'https://fetch.tech/careers'}
+        themeColor='#ffbf14'
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/favicon.ico',
+          },
+          {
+            rel: 'apple-touch-icon',
+            href: '/apple-touch-icon.png',
+            sizes: '192x192',
+          },
+          {
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+        ]}
+        openGraph={{
+          url: 'https://fetch.tech/careers',
+          title: pageTitle,
+          description: metaDescription,
+          images: [
+            {
+              url: 'https://fetch.tech/_next/image?url=%2Fimages%2Fcareers%2Fcareers-thumbnail.png&w=1080&q=75',
+              width: 200,
+              height: 100,
+              alt: 'job share thumbnail',
+              type: 'image/png',
+            },
+          ],
+          siteName: 'Fetch Careers Page',
+        }}
+        twitter={{
+          handle: '@handle',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <div className={clsx(styles['line-header'], 'my-4')}>
         <section id='job' className='job-detail-container mt-4'>
