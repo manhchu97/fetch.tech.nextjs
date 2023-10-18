@@ -34,26 +34,8 @@
       padding-right: 10%;
     }
 
-    .h2 {
-      @include screen-up(xl) {
-        font-size: 42px;
-      }
-
-      @include screen-up(md) {
-        font-size: 36px;
-      }
-
-      @include screen-up(sm) {
-        font-size: 26px !important;
-      }
-    }
-
     .h5-bold {
       margin-bottom: 16px;
-    }
-
-    .par-grey-color {
-      line-height: 24px;
     }
   }
 }

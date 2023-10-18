@@ -2,6 +2,8 @@ import React from 'react'
 
 import dynamic from 'next/dynamic'
 
+import LazyLoadComponent from '@/components/LazyLoadComponent'
+
 import CompanyHeader from '@/sections/companies/header'
 import HowItWork from '@/sections/companies/how-it-work'
 
@@ -23,9 +25,13 @@ const Company = () => {
 
         <KeyFeature />
 
-        <CompanyTrustedBy />
+        <LazyLoadComponent>
+          <CompanyTrustedBy />
+        </LazyLoadComponent>
 
-        <FetchHelp />
+        <LazyLoadComponent>
+          <FetchHelp />
+        </LazyLoadComponent>
       </div>
     </div>
   )

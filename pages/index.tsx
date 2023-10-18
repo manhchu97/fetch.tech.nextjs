@@ -53,7 +53,7 @@ const HomePage: NextPage = () => {
       <Page title=''>
         <NextSeo
           title='Fetch Technology | Build your own Software Engineers team in Vietnam'
-          description='Home page'
+          description='Fetch Technology home page'
           canonical={'https://fetch.tech/'}
           themeColor='#ffbf14'
           additionalLinkTags={[

@@ -5,6 +5,8 @@ import Link from 'next/link'
 
 import clsx from 'clsx'
 
+import LazyLoadComponent from '@/components/LazyLoadComponent'
+
 import Career from '@/sections/home/career'
 import Cooperate from '@/sections/home/cooperate'
 import Talents from '@/sections/home/talents'
@@ -56,11 +58,15 @@ const Home = (): ReactElement => {
         </div>
       </div>
 
-      <Cooperate />
+      <LazyLoadComponent>
+        <Cooperate />
+      </LazyLoadComponent>
 
       <Talents />
 
-      <Career />
+      <LazyLoadComponent>
+        <Career />
+      </LazyLoadComponent>
     </div>
   )
 }

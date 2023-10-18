@@ -2,6 +2,8 @@ import React from 'react'
 
 import dynamic from 'next/dynamic'
 
+import LazyLoadComponent from '@/components/LazyLoadComponent'
+
 import EmployeeHeader from '@/sections/employees/header'
 
 import styles from './Employee.module.scss'
@@ -26,7 +28,9 @@ const Employee = () => {
 
         <EmployeeUSP />
 
-        <EmployeeMember />
+        <LazyLoadComponent>
+          <EmployeeMember />
+        </LazyLoadComponent>
       </div>
     </div>
   )

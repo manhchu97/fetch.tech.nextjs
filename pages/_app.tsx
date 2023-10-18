@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import Script from 'next/script'
 
 import 'animate.css'
@@ -36,8 +37,12 @@ const MyApp = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
         src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js'
       />
 
+      <Head>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+      </Head>
+
       <ToastProvider>
-        <TranslationProvider translations={pageProps?.translations} >
+        <TranslationProvider translations={pageProps?.translations}>
           <Component {...pageProps} />
 
           <GoogleTagManager
