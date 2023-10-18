@@ -36,7 +36,7 @@ const KeyFeature = (): React.ReactElement => (
       <div className='col-sm-12 col-md-6 right'>
         <AnimatiopnOnScrollWrap
           render={(ref, animate) => (
-            <div
+            <h2
               ref={ref}
               className={clsx({
                 'h2 mb-4': true,
@@ -46,7 +46,7 @@ const KeyFeature = (): React.ReactElement => (
               })}
             >
               What makes Fetch different?
-            </div>
+            </h2>
           )}
         />
 
@@ -71,7 +71,7 @@ const KeyFeature = (): React.ReactElement => (
               </div>
 
               <div className='text'>
-                <div className='h5-bold'>Quality talents at the right cost</div>
+                <h5 className='h5-bold'>Quality talents at the right cost</h5>
 
                 <div className='par-grey-color'>
                   All specialists are vetted and guaranteed to deliver results
@@ -103,7 +103,7 @@ const KeyFeature = (): React.ReactElement => (
               </div>
 
               <div className='text'>
-                <div className='h5-bold'>All-in-one service</div>
+                <h5 className='h5-bold'>All-in-one service</h5>
 
                 <div className='par-grey-color'>
                   We&apos;re always available to support you whenever you

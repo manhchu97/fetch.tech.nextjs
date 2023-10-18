@@ -13,7 +13,7 @@ const CompanyTrustedBy = (): React.ReactElement => {
       className={clsx(styles['company-trusted-by-container'], 'wrap-container')}
     >
       <div className='row div-center'>
-        <div className='col-xs-12 col-sm-12 col-md-8 col-lg-6'>
+        <div className='col-12 col-lg-8'>
           <AnimatiopnOnScrollWrap
             render={(ref, animate) => (
               <div
@@ -23,7 +23,7 @@ const CompanyTrustedBy = (): React.ReactElement => {
                   animate__zoomIn: animate,
                 })}
               >
-                <div className='h3'>Trusted by many</div>
+                <h2 className='h2'>Trusted by many</h2>
 
                 <div className='par-grey-color'>
                   Being one of the first in the industry has allowed us to gain

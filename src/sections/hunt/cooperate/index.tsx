@@ -78,9 +78,9 @@ const Cooperate = () => {
   return (
     <div className={style['cooperate-wrapper']}>
       <div className={clsx(style['cooperate'], 'overflow-hidden')}>
-        <div className={style['cooperate__header']}>
+        <h2 className={style['cooperate__header']}>
           {translate('hunt.cooperate.title')}
-        </div>
+        </h2>
 
         <AnimatiopnOnScrollWrap
           render={(ref, animate) => (

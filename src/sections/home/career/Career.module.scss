@@ -27,7 +27,7 @@
       h6 {
         color: rgb(9, 23, 56);
         margin-top: 16px;
-        font-size: 19px;
+        font-size: 20px;
       }
 
       h3 {
@@ -91,11 +91,6 @@
       max-width: 1440px;
       margin: 0 auto;
     }
-
-    h3 {
-      font-size: 36px;
-      line-height: 125%;
-    }
   }
 
   &__info {
@@ -120,7 +115,7 @@
 
       h6 {
         color: rgb(164, 183, 200);
-        font-size: 19px;
+        font-size: 20px;
         @include screen-down(md) {
           color: $heading-color;
         }
@@ -149,8 +144,8 @@
         }
 
         h6 {
-          font-size: 19px;
-          margin-bottom: 25px;
+          font-size: 20px;
+          margin-bottom: 24px;
         }
 
         &--mobile {
@@ -212,8 +207,8 @@
     justify-content: space-between;
 
     h6 {
-      font-size: 15px;
-      line-height: 23px;
+      font-size: 16px;
+      line-height: 22px;
       letter-spacing: 0.1px;
     }
   }

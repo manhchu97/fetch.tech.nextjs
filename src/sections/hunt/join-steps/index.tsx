@@ -96,9 +96,9 @@ const JoinSteps = () => {
 
   return (
     <div className={styles['join-steps-container']}>
-      <div className='join-steps-header'>
+      <h2 className='join-steps-header'>
         {translate('hunt.join_steps.title')}
-      </div>
+      </h2>
 
       {isMobileScreen ? (
         <AnimatiopnOnScrollWrap

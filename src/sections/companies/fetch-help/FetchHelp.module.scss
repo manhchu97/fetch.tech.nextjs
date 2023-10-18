@@ -7,6 +7,10 @@
     margin: 0;
   }
 
+  :global .par-grey-color {
+    margin-top: 8px;
+  }
+
   :global .banner {
     background-color: linear-gradient(
         0deg,
@@ -76,7 +80,7 @@
           border: 1px solid #a4b7c8;
           box-sizing: border-box;
           box-shadow: 0px 18px 29px rgba(164, 183, 200, 0.16);
-          border-radius: 19px;
+          border-radius: 20px;
           height: calc(100%);
           width: 100%;
           transform: translateY(20%);
@@ -122,7 +126,7 @@
       }
 
       .h5-bold {
-        margin-bottom: 50px;
+        margin-bottom: 24px;
       }
     }
 

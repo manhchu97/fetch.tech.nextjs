@@ -174,21 +174,21 @@ const Introduction = (): React.ReactElement => {
         <div className='row'>
           <div className='col-md-5 d-flex align-items-center'>
             <div className='main-content'>
-              <div className='h3'>
+              <h1 className='h3'>
                 {translate('hunt.introduction.main.fetch')}
-              </div>
+              </h1>
 
-              <div className='h4'>
+              <h2 className='h4'>
                 {translate('hunt.introduction.main.title')}
-              </div>
+              </h2>
 
-              <div className='h5'>
+              <h3 className='h5'>
                 {translate('hunt.introduction.main.sub_title.sub_title_1')}{' '}
                 <strong className='highlight'>
                   {translate('hunt.introduction.main.sub_title.highlight')}
                 </strong>{' '}
                 {translate('hunt.introduction.main.sub_title.sub_title_2')}
-              </div>
+              </h3>
 
               <Link href='https://portal.fetch.tech/auth/login?tab=signin'>
                 <a target='_blank' rel='noopener noreferrer'>

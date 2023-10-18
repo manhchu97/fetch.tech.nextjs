@@ -123,7 +123,7 @@ const Talents = () => {
 
       <AnimatiopnOnScrollWrap
         render={(ref, animate) => (
-          <h1
+          <h2
             ref={ref}
             className={clsx('h1', {
               animate__animated: true,
@@ -131,7 +131,7 @@ const Talents = () => {
             })}
           >
             Get the best talents in Vietnam with us
-          </h1>
+          </h2>
         )}
       />
 

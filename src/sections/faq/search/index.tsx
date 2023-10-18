@@ -19,7 +19,7 @@ const FAQSearch = (): React.ReactElement => (
     <div className='ft-container'>
       <div className='row justify-content-center'>
         <div className='col-xs-12 col-sm-12 col-lg-10 '>
-          <div className='h3'>Fetch Help Center</div>
+          <div className='h2'>Fetch Help Center</div>
 
           <div className='par'>
             Be part of our growing network of satisfied partners

@@ -104,7 +104,7 @@ const DetailCaseStudiesSection = ({
 
                 {mainInfo?.map((value, index) => (
                   <div key={index}>
-                    <div className='h3'>{value?.title}</div>
+                    <div className='h4'>{value?.title}</div>
 
                     {value?.description?.map((description, subIndex) => (
                       <div className='p-text' key={`${index}-${subIndex}`}>

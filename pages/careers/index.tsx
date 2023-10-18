@@ -70,7 +70,7 @@ const ListJobPage = ({
           openGraph={{
             url: 'https://fetch.tech/careers',
             title: 'Fetch Technology | Careers',
-            description: 'Careers',
+            description: 'Fetch Technology Careers',
             images: [
               {
                 url: 'https://fetch.tech/_next/image?url=%2Fimages%2Fcareers%2Fcareers-thumbnail.png&w=1080&q=75',

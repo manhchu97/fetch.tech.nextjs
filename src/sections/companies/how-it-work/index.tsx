@@ -63,9 +63,9 @@ const HowItWork = (): React.ReactElement => {
                   animate__fadeInLeft: animate,
                 })}
               >
-                <div className='h3'>
+                <h3 className='h3'>
                   We offer customised packages to each client
-                </div>
+                </h3>
 
                 <div className='h6-p-color'>
                   No longer is hiring and managing offshore staff daunting. With
@@ -89,7 +89,7 @@ const HowItWork = (): React.ReactElement => {
                     animate__fadeInLeft: animate,
                   })}
                 >
-                  <div className='h5'>We offer a diverse range of products</div>
+                  <h5 className='h5'>We offer a diverse range of products</h5>
 
                   <div className='par-grey-color'>
                     From team management to project consultancy, we will always
@@ -108,7 +108,7 @@ const HowItWork = (): React.ReactElement => {
                     animate__fadeInLeft: animate,
                   })}
                 >
-                  <div className='h5'>Flexible and catered to your needs</div>
+                  <h5 className='h5'>Flexible and catered to your needs</h5>
 
                   <div className='par-grey-color'>
                     Don&apos;t need a particular feature in the service
@@ -130,7 +130,7 @@ const HowItWork = (): React.ReactElement => {
 
           <div className='col-sm-12 col-lg-8 col-xl-8 right'>
             <div className='banner'>
-              <div className='h5'>Client services</div>
+              <h5 className='h5'>Client services</h5>
             </div>
 
             <div className='row g-4'>
@@ -163,9 +163,9 @@ const HowItWork = (): React.ReactElement => {
             animate__fadeInLeft: isAnimated,
           })}
         >
-          <div className='h6' style={{ minWidth: '50%' }}>
+          <h6 className='h6' style={{ minWidth: '50%' }}>
             {serviceDesc}
-          </div>
+          </h6>
 
           <Link href={serviceUrl}>
             <a>

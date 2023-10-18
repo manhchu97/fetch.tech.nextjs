@@ -89,7 +89,7 @@ const Cooperate = () => {
             ref={ref}
           >
             <div className='col-md-9 col-12 text-center text-md-start mb-4'>
-              <h3 className='h3'>Trusted by many</h3>
+              <h2 className='h2'>Trusted by many</h2>
 
               <h6 className='h6'>
                 We’re proud to share our growing list of satisfied partners
