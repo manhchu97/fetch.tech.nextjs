@@ -1,6 +1,12 @@
+@import '@/styles/_mixins.scss';
+
 .card-container {
   height: 100%;
   border-color: var(--bs-gray-200);
+
+  @include screen-down(xl) {
+    margin: 0 12px;
+  }
 
   :global .card-header {
     flex: 1;
