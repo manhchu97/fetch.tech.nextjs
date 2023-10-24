@@ -1,9 +1,14 @@
 @import '@/styles/_mixins.scss';
 
 .content-container {
-  padding: 24px 64px;
-  max-width: $max-width-wrapper;
-  margin: 64px auto;
+  padding: 24px 0;
+  max-width: 1400px;
+  margin: 0 auto 64px;
+
+  @media only screen and (max-width: 1800px) {
+    padding: 24px 10%;
+    max-width: unset;
+  }
 
   @include screen-down(xl) {
     padding: 24px 32px;
@@ -27,6 +32,7 @@
       line-height: 60px;
       text-align: center;
       margin-bottom: 32px;
+      margin-top: 50px;
       text-transform: uppercase;
 
       @include screen-down(md) {
@@ -42,10 +48,19 @@
     .main-content {
       width: 100%;
 
+      &:nth-of-type(odd) {
+        height: 400px;
+
+        @include screen-down(lg) {
+          height: auto;
+        }
+      }
+
       .card-container {
         margin-bottom: 24px;
+        height: 100%;
 
-        @include screen-down(xl) {
+        @include screen-down(lg) {
           flex-direction: column;
           margin-bottom: 32px;
 
@@ -55,7 +70,14 @@
         }
 
         .content-container {
+          position: relative;
+          padding: 0;
           width: 45%;
+
+          ul {
+            text-align: start;
+            padding: 0;
+          }
 
           @include screen-down(xl) {
             width: 80%;
@@ -75,6 +97,24 @@
 
             @include screen-down(sm) {
               font-size: 18px;
+            }
+          }
+
+          .horizontal-line {
+            position: absolute;
+            top: 0;
+            bottom: 28%;
+            left: 22px;
+            background: linear-gradient(
+              0deg,
+              rgba(255, 190, 22, 1),
+              rgba(255, 190, 22, 0)
+            );
+            width: 4px;
+            z-index: 1;
+
+            @include screen-down(sm) {
+              bottom: 27%;
             }
           }
         }
@@ -124,68 +164,63 @@
         }
       }
 
-      .three-first-steps {
+      .how-we-help {
         .processing-step-img {
-          width: 700px;
-          height: 458px;
-
-          @include screen-down(xxl) {
-            width: 50%;
-            height: 300px;
-          }
-
-          @include screen-down(xl) {
-            margin-bottom: 36px;
-            width: 60%;
-            height: 400px;
-          }
+          flex: 1;
+          height: 100%;
 
           @include screen-down(lg) {
-            width: 80%;
-            height: 400px;
-          }
-
-          @include screen-down(md) {
-            height: 290px;
+            margin-bottom: 24px;
           }
 
           @include screen-down(sm) {
-            width: 100%;
-            height: 270px;
+            display: none;
+          }
+        }
+
+        .content-container {
+          flex: 1;
+          margin-left: 24px;
+
+          .step-title {
+            color: #f2bc16;
           }
         }
       }
 
-      .three-last-steps {
+      .how-it-work {
+        @include screen-down(lg) {
+          flex-direction: column-reverse;
+        }
+
         .processing-step-img {
-          width: 650px;
-          height: 540px;
-
-          @include screen-down(xxl) {
-            width: 50%;
-            height: 515px;
-          }
-
-          @include screen-down(xl) {
-            margin-bottom: 36px;
-            width: 60%;
-            height: 500px;
-          }
+          flex: 1;
 
           @include screen-down(lg) {
-            margin-bottom: 36px;
-            width: 60%;
-            height: 370px;
-          }
-
-          @include screen-down(md) {
-            width: 70%;
-            height: 320px;
+            margin-bottom: 32px;
           }
 
           @include screen-down(sm) {
-            width: 90%;
-            height: 280px;
+            display: none;
+          }
+
+          & > span {
+            @include screen-down(lg) {
+              transform: scale(0.8);
+            }
+
+            @include screen-down(md) {
+              transform: initial;
+            }
+          }
+        }
+
+        .content-container {
+          flex: 1;
+          margin-right: 24px;
+
+          .step-title {
+            font-size: 22px;
           }
         }
       }
@@ -194,15 +229,39 @@
 }
 
 .step-container {
-  margin-bottom: 30px;
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+
+  :global .step-number {
+    position: relative;
+    z-index: 99;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #fce9b6;
+
+    & span {
+      font-family: 'Inter';
+      color: #f2bc16;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
 
   :global .step-title {
     font-family: 'Inter';
     font-size: 24px;
     font-weight: 700;
     line-height: 30px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   :global .step-content {
@@ -213,6 +272,7 @@
   }
 
   :global .list-items-container {
+    padding: 0;
     margin-bottom: 24px;
 
     .h6 {

@@ -1,3 +1,5 @@
+import { paramCase } from 'param-case'
+
 interface ServiceTypeProps {
   [name: string]: string
 }
@@ -228,3 +230,44 @@ export const SERVICE_BODY_CONFIG = [
     ],
   },
 ]
+
+export const ENGAGEMENT_MODEL_OPTIONS = [
+  {
+    value: paramCase('Freelancers'),
+    label: 'Freelancers',
+  },
+  {
+    value: paramCase('Fulltimers'),
+    label: 'Fulltimers',
+  },
+  {
+    value: paramCase('Part time contract workers'),
+    label: 'Part time contract workers',
+  },
+  {
+    value: paramCase('Others'),
+    label: 'Others',
+  },
+]
+
+export enum CLIENT_INFO_FORM_FIELD_VALUES {
+  COMPANY_NAME = 'companyName',
+  CONTACT_NAME = 'contactName',
+  EMAIL = 'email',
+  PHONE = 'phone',
+  SKILL = 'skill',
+  PROJECT_REQUIREMENT = 'projectRequirement',
+  DURATION = 'duration',
+  ENGAGEMENT_MODEL = 'engagementModel',
+}
+
+export const CLIENT_INFO_DEFAULT_VALUES = {
+  [CLIENT_INFO_FORM_FIELD_VALUES.COMPANY_NAME]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.CONTACT_NAME]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.EMAIL]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.PHONE]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.SKILL]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.DURATION]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL]: '',
+}

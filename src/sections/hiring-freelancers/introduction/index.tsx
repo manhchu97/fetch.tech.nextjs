@@ -15,13 +15,13 @@ const Introduction = ({
         <div className='row'>
           <div className='col-md-6 d-flex  align-items-center justify-content-center'>
             <div className='main-content'>
-              <div className='h3'>
+              <h1 className='h3'>
                 Hire the top freelance engineers from VietNam today
-              </div>
+              </h1>
 
-              <div className='h4'>
+              <h4 className='h4'>
                 Fuss free and simple steps to fulfill all your engineering needs
-              </div>
+              </h4>
 
               <Button
                 className='btn-primary'

@@ -1,0 +1,121 @@
+.card-container {
+  height: 100%;
+  border-color: var(--bs-gray-200);
+
+  :global .card-header {
+    flex: 1;
+    background-color: #fff;
+    padding: 32px 32px 0;
+    border-bottom: none;
+
+    .user-info {
+      margin-left: 32px;
+      margin-bottom: 32px;
+    }
+
+    .card-experience {
+      flex: 1;
+      &__basic-description {
+        & .subtitle2 {
+          margin-top: 1px;
+        }
+      }
+    }
+  }
+
+  :global .card-content {
+    flex: 1;
+    padding: 0 20px;
+
+    & .card-experience__detail {
+      & .h6 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-left: 16px;
+      }
+
+      &-list {
+        list-style: none;
+      }
+
+      &-item {
+        padding: 12px 8px;
+        display: flex;
+        align-items: center;
+        border-top: 4px solid var(--bs-gray-100);
+        border-bottom: 4px solid var(--bs-gray-100);
+
+        &:first-child {
+          border-top: 8px solid var(--bs-gray-100);
+        }
+
+        &:last-child {
+          border-bottom: 8px solid var(--bs-gray-100);
+        }
+
+        &__year {
+          padding: 12px 16px;
+          background-color: #ffbe164d;
+          color: #ffbe16;
+          text-align: center;
+          border-radius: 12px;
+
+          & span {
+            font-size: 16px;
+            font-weight: 700;
+          }
+
+          & p {
+            font-size: 14px;
+          }
+        }
+
+        &__detail {
+          & .subtitle2.text-bold {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  :global .card-action {
+    margin: 32px 0;
+
+    & .btn-primary {
+      padding: 8px 40px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    & .btn-see-profile {
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffbe16;
+    }
+  }
+
+  :global .text-max-line {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+
+    &-1 {
+      -webkit-line-clamp: 1;
+    }
+
+    &-2 {
+      -webkit-line-clamp: 2;
+    }
+
+    &-3 {
+      -webkit-line-clamp: 3;
+    }
+
+    &-4 {
+      -webkit-line-clamp: 4;
+    }
+  }
+}

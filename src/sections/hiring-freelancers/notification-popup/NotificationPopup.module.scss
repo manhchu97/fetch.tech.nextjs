@@ -1,0 +1,37 @@
+.notification-popup-container {
+  :global .custom-modal {
+    .ft-modal-dialog {
+      width: 500px;
+
+      .ft-modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .title {
+          color: #ffbe16 !important;
+        }
+
+        .subtitle {
+          color: #17264e;
+          font-weight: 700;
+        }
+
+        .message {
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+  :global .notification-popup-header {
+    position: relative;
+
+    .notification-popup-close-icon {
+      position: absolute;
+      z-index: 10;
+      right: 8px;
+      top: 4px;
+    }
+  }
+}

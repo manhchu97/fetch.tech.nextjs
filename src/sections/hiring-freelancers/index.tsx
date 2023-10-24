@@ -7,14 +7,25 @@ import BannerContact from '@/components/banner/contact'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
-import ClientInfoPopup from './client-info-popup'
+import { ISkillData } from '@/types/hiring-freelancers'
 
 const Cooperate = dynamic(() => import('./cooperate'))
 const Introduction = dynamic(() => import('./introduction'))
 const ProcessingSteps = dynamic(() => import('./processing-steps'))
+const ClientReviews = dynamic(() => import('./client-reviews'))
+const Suggestion = dynamic(() => import('./suggestion'))
+const ClientInfoPopup = dynamic(() => import('./client-info-popup'))
+const NotificationPopup = dynamic(() => import('./notification-popup'))
 
-const HiringFreelancersSections = ({}): React.ReactElement => {
-  const [isOpenClientPopup, setIsOpenClientPopup] = useState(true)
+type HiringFreelancersSectionProps = {
+  skills: ISkillData[]
+}
+
+const HiringFreelancersSections = ({
+  skills,
+}: HiringFreelancersSectionProps): React.ReactElement => {
+  const [isOpenClientPopup, setIsOpenClientPopup] = useState(false)
+  const [isOpenNotificationPopup, setIsOpenNotificationPopup] = useState(false)
 
   const handleCloseClientInfoPopup = useCallback(() => {
     setIsOpenClientPopup(false)
@@ -24,10 +35,27 @@ const HiringFreelancersSections = ({}): React.ReactElement => {
     setIsOpenClientPopup(true)
   }, [])
 
+  const handleCloseNotificationPopup = useCallback(() => {
+    setIsOpenNotificationPopup(false)
+  }, [])
+
+  const handleOpenNotificationPopup = useCallback(() => {
+    setIsOpenNotificationPopup(true)
+  }, [])
+
   return (
     <>
       {isOpenClientPopup && (
-        <ClientInfoPopup isOpen onClose={handleCloseClientInfoPopup} />
+        <ClientInfoPopup
+          skills={skills}
+          isOpen
+          onClose={handleCloseClientInfoPopup}
+          handleOpenNotificationPopup={handleOpenNotificationPopup}
+        />
+      )}
+
+      {isOpenNotificationPopup && (
+        <NotificationPopup isOpen onClose={handleCloseNotificationPopup} />
       )}
 
       <LazyLoadComponent>
@@ -39,14 +67,24 @@ const HiringFreelancersSections = ({}): React.ReactElement => {
       </LazyLoadComponent>
 
       <LazyLoadComponent>
-        <ProcessingSteps />
+        <ProcessingSteps
+          handleOpenClientInfoPopup={handleOpenClientInfoPopup}
+        />
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <ClientReviews />
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <Suggestion handleOpenClientInfoPopup={handleOpenClientInfoPopup} />
       </LazyLoadComponent>
 
       <LazyLoadComponent>
         <BannerContact
-          title='Build your career with Fetch'
-          subTitle='Join our team of talented and like-minded individuals and let your aspirations soar today.'
-          buttonText='Contact us'
+          title='Find the perfect fit with Fetch'
+          subTitle='Find the perfect fit with Fetch'
+          buttonText='Sign up'
           linkTo={PATH_CONFIG.contact}
         />
       </LazyLoadComponent>

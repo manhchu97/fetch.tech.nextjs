@@ -1,0 +1,19 @@
+.suggestion-wrapper {
+  margin-bottom: 80px;
+
+  :global .suggestion-container {
+    & .suggestion-header {
+      text-align: center;
+
+      & > h6 {
+        color: #17264e;
+      }
+    }
+
+    & .suggestion-list {
+      max-width: 1440px;
+      margin-top: 60px;
+      padding: 0 24px;
+    }
+  }
+}

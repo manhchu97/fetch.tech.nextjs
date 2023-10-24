@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import PhoneInput, { CountryData } from 'react-phone-input-2'
+import Select from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 
 import Image from 'next/image'
 
@@ -9,12 +11,19 @@ import clsx from 'clsx'
 import * as Yup from 'yup'
 
 import { PHONE_COUNTRIES } from '@/config/phone'
+import {
+  CLIENT_INFO_DEFAULT_VALUES,
+  CLIENT_INFO_FORM_FIELD_VALUES,
+  ENGAGEMENT_MODEL_OPTIONS,
+} from '@/config/services'
 
 import Modal from '@/components/modal/Modal'
 
 import { useToastContext } from '@/context/ToastContext'
 
 import { API_CLIENT_HIRING_FREELANCERS_INFO } from '@/routes/api'
+
+import { ISkillData } from '@/types/hiring-freelancers'
 
 import { _postApi } from '@/utils/axios'
 
@@ -31,63 +40,125 @@ type ClientInfoSubmitForm = {
   engagementModel: string
 }
 
-const defaultValues: ClientInfoSubmitForm = {
-  companyName: '',
-  contactName: '',
-  email: '',
-  phone: '',
-  skill: '',
-  projectRequirement: '',
-  duration: '',
-  engagementModel: '',
+type SelectOption = {
+  value: string
+  label: string
+}
+
+const colourStyles = {
+  multiValue: (styles: object) => {
+    return {
+      ...styles,
+      backgroundColor: '#fccc4b',
+      color: 'white',
+    }
+  },
+  multiValueLabel: (styles: object) => ({
+    ...styles,
+    color: 'white',
+  }),
+  option: (
+    styles: object,
+    { isDisabled, isSelected }: { isDisabled: boolean; isSelected: boolean },
+  ) => {
+    return {
+      ...styles,
+      backgroundColor: 'white',
+      color: 'black',
+      cursor: isDisabled ? 'not-allowed' : 'default',
+      padding: '6px 12px',
+      ...(isSelected && {
+        backgroundColor: '#f8e7be',
+        borderRadius: '6px',
+        padding: '6px 12px',
+      }),
+
+      ':hover': {
+        backgroundColor: '#f8e7be',
+        borderRadius: '6px',
+        padding: '6px 12px',
+      },
+    }
+  },
+}
+
+type ClientInfoPopupProps = {
+  isOpen: boolean
+  skills: ISkillData[]
+  onClose: () => void
+  handleOpenNotificationPopup: () => void
 }
 
 const ClientInfoPopup = ({
   isOpen = false,
-  onClose = () => {},
-}): React.ReactElement => {
-  const { errorToast, successToast } = useToastContext()
+  skills,
+  onClose,
+  handleOpenNotificationPopup,
+}: ClientInfoPopupProps): React.ReactElement => {
+  const { errorToast } = useToastContext()
   const [countryCode, setCountryCode] = useState('')
   const submitRef = useRef<HTMLButtonElement>(null)
 
   const validationSchema = Yup.object().shape({
-    companyName: Yup.string().required('Company name is required'),
-    contactName: Yup.string().required('Contact name is required'),
-    email: Yup.string().required('Email is required').email('Email is invalid'),
-    phone: Yup.string().test(
+    [CLIENT_INFO_FORM_FIELD_VALUES.COMPANY_NAME]: Yup.string().required(
+      'Company name is required',
+    ),
+    [CLIENT_INFO_FORM_FIELD_VALUES.CONTACT_NAME]: Yup.string().required(
+      'Contact name is required',
+    ),
+    [CLIENT_INFO_FORM_FIELD_VALUES.EMAIL]: Yup.string()
+      .required('Email is required')
+      .email('Email is invalid'),
+    [CLIENT_INFO_FORM_FIELD_VALUES.PHONE]: Yup.string().test(
       'validator-custom-phone',
       function (value, { createError, path }) {
         if (!value) return true
-
         const currentPhoneCountry = PHONE_COUNTRIES.find(
           (country) => country.iso2 === countryCode.toUpperCase(),
         )
-
         const isValid =
           currentPhoneCountry && value
             ? new RegExp(currentPhoneCountry.validation).test(
                 value?.replace(/ /g, ''),
               )
             : false
-
         if (!isValid)
           return createError({
             path,
             message: 'Please enter a valid phone',
           })
-
         return true
       },
     ),
-    skill: Yup.string().required('Key skillsets needed is required'),
-    projectRequirement: Yup.string().required(
+    [CLIENT_INFO_FORM_FIELD_VALUES.SKILL]: Yup.array()
+      .of(
+        Yup.object().shape({
+          value: Yup.string().required(),
+          label: Yup.string().required(),
+        }),
+      )
+      .nullable()
+      .required('Key skillsets needed is required'),
+    [CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT]: Yup.string().required(
       'Project requirement is required',
     ),
-    duration: Yup.string().required('Estimated duration needed is required'),
-    engagementModel: Yup.string().required(
-      'Preferred engagement model is required',
+    [CLIENT_INFO_FORM_FIELD_VALUES.DURATION]: Yup.string().required(
+      'Estimated duration needed is required',
     ),
+    [CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL]: Yup.object()
+      .shape({ value: Yup.string().required(), label: Yup.string().required() })
+      .nullable()
+      .required('Preferred engagement model is required'),
   })
+
+  const skillsFormat = useMemo(
+    () =>
+      (skills || []).map((item) => ({
+        value: item?.id,
+        label: item?.name,
+      })),
+    [skills],
+  )
 
   const {
     register,
@@ -96,20 +167,40 @@ const ClientInfoPopup = ({
     control,
     trigger,
   } = useForm<ClientInfoSubmitForm>({
-    defaultValues,
+    defaultValues: CLIENT_INFO_DEFAULT_VALUES as ClientInfoSubmitForm,
     resolver: yupResolver(validationSchema),
   })
 
   const onSubmit = async (data: ClientInfoSubmitForm) => {
     try {
-      console.log(data)
-      const response = await _postApi(API_CLIENT_HIRING_FREELANCERS_INFO, data)
+      const {
+        [CLIENT_INFO_FORM_FIELD_VALUES.SKILL]: skills = [],
+        [CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL]: engagementModel = {},
+      } = data || {}
+
+      const skillFormat = (skills as SelectOption[])
+        ?.map((item: SelectOption) => item?.label || '')
+        .filter(Boolean)
+        .join(', ')
+
+      const engagementFormat = (engagementModel as SelectOption)?.label || ''
+
+      const dataFormat = {
+        ...data,
+        [CLIENT_INFO_FORM_FIELD_VALUES.SKILL]: skillFormat,
+        [CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL]: engagementFormat,
+      }
+
+      const response = await _postApi(
+        API_CLIENT_HIRING_FREELANCERS_INFO,
+        dataFormat,
+      )
 
       if (!response?.data?.success) {
         throw new Error(response?.data?.success?.message)
       }
 
-      successToast('Thank you for connecting with Fetch!')
+      handleOpenNotificationPopup()
       onClose()
     } catch (error) {
       errorToast(
@@ -153,7 +244,7 @@ const ClientInfoPopup = ({
             <Image
               src='/images/hiring-freelancers/client_form_bg.png'
               alt='Client form image'
-              height={520}
+              height={695}
               width={633}
               priority
             />
@@ -162,6 +253,15 @@ const ClientInfoPopup = ({
           <form
             className='contact-form-container'
             onSubmit={handleSubmit(onSubmit)}
+            onKeyDown={(e) => {
+              if (
+                e.key === 'Enter' ||
+                e.code === 'Enter' ||
+                e.which === 13 ||
+                e.charCode === 13
+              )
+                e.preventDefault()
+            }}
           >
             <div className='contact-form-header-container'>
               <div className='contact-form-header-logo'>
@@ -195,15 +295,20 @@ const ClientInfoPopup = ({
 
                   <input
                     type='text'
-                    {...register('companyName')}
+                    {...register(CLIENT_INFO_FORM_FIELD_VALUES.COMPANY_NAME)}
                     className={`form-control ${
-                      errors.companyName ? 'is-invalid' : ''
+                      errors?.[CLIENT_INFO_FORM_FIELD_VALUES.COMPANY_NAME]
+                        ? 'is-invalid'
+                        : ''
                     }`}
                     placeholder='Company Co. Ltd'
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.companyName?.message}
+                    {
+                      errors?.[CLIENT_INFO_FORM_FIELD_VALUES.COMPANY_NAME]
+                        ?.message
+                    }
                   </div>
                 </div>
 
@@ -212,15 +317,20 @@ const ClientInfoPopup = ({
 
                   <input
                     type='text'
-                    {...register('contactName')}
+                    {...register(CLIENT_INFO_FORM_FIELD_VALUES.CONTACT_NAME)}
                     className={`form-control ${
-                      errors.contactName ? 'is-invalid' : ''
+                      errors?.[CLIENT_INFO_FORM_FIELD_VALUES.CONTACT_NAME]
+                        ? 'is-invalid'
+                        : ''
                     }`}
                     placeholder='E.g John Micheal Doe'
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.contactName?.message}
+                    {
+                      errors?.[CLIENT_INFO_FORM_FIELD_VALUES.CONTACT_NAME]
+                        ?.message
+                    }
                   </div>
                 </div>
 
@@ -228,7 +338,7 @@ const ClientInfoPopup = ({
                   <label className='control-label'>Email Address</label>
 
                   <Controller
-                    name='email'
+                    name={CLIENT_INFO_FORM_FIELD_VALUES.EMAIL}
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <input
@@ -247,7 +357,7 @@ const ClientInfoPopup = ({
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.email?.message}
+                    {errors?.[CLIENT_INFO_FORM_FIELD_VALUES.EMAIL]?.message}
                   </div>
                 </div>
 
@@ -255,7 +365,7 @@ const ClientInfoPopup = ({
                   <label className='control-label'>Phone number</label>
 
                   <Controller
-                    name='phone'
+                    name={CLIENT_INFO_FORM_FIELD_VALUES.PHONE}
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { onChange, value } }) => (
@@ -280,7 +390,7 @@ const ClientInfoPopup = ({
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.phone?.message}
+                    {errors?.[CLIENT_INFO_FORM_FIELD_VALUES.PHONE]?.message}
                   </div>
                 </div>
 
@@ -288,24 +398,28 @@ const ClientInfoPopup = ({
                   <label className='control-label'>Key skillsets needed</label>
 
                   <Controller
-                    name='skill'
+                    name={CLIENT_INFO_FORM_FIELD_VALUES.SKILL}
                     control={control}
-                    render={({ field: { onChange, value } }) => (
-                      <input
-                        type='text'
-                        value={value}
-                        className={`form-control ${
-                          errors.skill ? 'is-invalid' : ''
+                    render={({ field: { onChange, name } }) => (
+                      <CreatableSelect
+                        styles={colourStyles}
+                        name={name}
+                        options={skillsFormat}
+                        isMulti
+                        className={`skill-input-container ${
+                          errors?.skill ? 'is-invalid' : ''
                         }`}
-                        onChange={async (value) => {
-                          onChange(value)
+                        classNamePrefix='multi-select'
+                        onChange={(selectedOption) => {
+                          onChange(selectedOption)
                         }}
+                        placeholder='Select skills...'
                       />
                     )}
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.skill?.message}
+                    {errors?.[CLIENT_INFO_FORM_FIELD_VALUES.SKILL]?.message}
                   </div>
                 </div>
 
@@ -313,7 +427,7 @@ const ClientInfoPopup = ({
                   <label className='control-label'>Project requirement</label>
 
                   <Controller
-                    name='projectRequirement'
+                    name={CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT}
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <input
@@ -330,7 +444,11 @@ const ClientInfoPopup = ({
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.projectRequirement?.message}
+                    {
+                      errors?.[
+                        CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT
+                      ]?.message
+                    }
                   </div>
                 </div>
 
@@ -340,7 +458,7 @@ const ClientInfoPopup = ({
                   </label>
 
                   <Controller
-                    name='duration'
+                    name={CLIENT_INFO_FORM_FIELD_VALUES.DURATION}
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <input
@@ -357,7 +475,7 @@ const ClientInfoPopup = ({
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.duration?.message}
+                    {errors?.[CLIENT_INFO_FORM_FIELD_VALUES.DURATION]?.message}
                   </div>
                 </div>
 
@@ -367,24 +485,32 @@ const ClientInfoPopup = ({
                   </label>
 
                   <Controller
-                    name='engagementModel'
+                    name={CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL}
                     control={control}
-                    render={({ field: { onChange, value } }) => (
-                      <input
-                        type='text'
-                        value={value}
-                        className={`form-control ${
-                          errors.engagementModel ? 'is-invalid' : ''
+                    render={({ field: { onChange, name } }) => (
+                      <Select
+                        styles={colourStyles}
+                        name={name}
+                        options={ENGAGEMENT_MODEL_OPTIONS}
+                        // isMulti
+                        className={`engagement-model-input-container ${
+                          errors?.engagementModel ? 'is-invalid' : ''
                         }`}
-                        onChange={async (value) => {
-                          onChange(value)
+                        classNamePrefix='multi-select'
+                        menuPlacement='top'
+                        onChange={(selectedOption) => {
+                          onChange(selectedOption)
                         }}
+                        placeholder='Select engagment model...'
                       />
                     )}
                   />
 
                   <div className='invalid-feedback'>
-                    {errors.engagementModel?.message}
+                    {
+                      errors?.[CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL]
+                        ?.message
+                    }
                   </div>
                 </div>
 
