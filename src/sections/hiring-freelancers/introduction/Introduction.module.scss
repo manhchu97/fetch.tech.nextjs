@@ -22,20 +22,26 @@
       margin-bottom: 48px;
     }
 
+    .row {
+      @include screen-down(md) {
+        flex-direction: column-reverse !important;
+      }
+    }
+
     .introduction-img {
       position: relative;
       z-index: unset;
       width: 100%;
+
+      @include screen-down(md) {
+        width: 80%;
+      }
 
       & > span {
         height: 100% !important;
         img {
           z-index: -1;
         }
-      }
-
-      @include screen-down(md) {
-        display: none !important;
       }
 
       .introduction-img-bg {

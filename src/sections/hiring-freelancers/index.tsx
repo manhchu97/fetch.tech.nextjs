@@ -3,19 +3,20 @@ import React, { useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 import LazyLoadComponent from '@/components/LazyLoadComponent'
-import BannerContact from '@/components/banner/contact'
 
 import { PATH_CONFIG } from '@/routes/paths'
 
 import { ISkillData } from '@/types/hiring-freelancers'
 
+import Introduction from './introduction'
+
 const Cooperate = dynamic(() => import('./cooperate'))
-const Introduction = dynamic(() => import('./introduction'))
 const ProcessingSteps = dynamic(() => import('./processing-steps'))
 const ClientReviews = dynamic(() => import('./client-reviews'))
 const Suggestion = dynamic(() => import('./suggestion'))
 const ClientInfoPopup = dynamic(() => import('./client-info-popup'))
 const NotificationPopup = dynamic(() => import('./notification-popup'))
+const BannerContact = dynamic(() => import('@/components/banner/contact'))
 
 type HiringFreelancersSectionProps = {
   skills: ISkillData[]
@@ -58,9 +59,7 @@ const HiringFreelancersSections = ({
         <NotificationPopup isOpen onClose={handleCloseNotificationPopup} />
       )}
 
-      <LazyLoadComponent>
-        <Introduction handleOpenClientInfoPopup={handleOpenClientInfoPopup} />
-      </LazyLoadComponent>
+      <Introduction handleOpenClientInfoPopup={handleOpenClientInfoPopup} />
 
       <LazyLoadComponent>
         <Cooperate />
