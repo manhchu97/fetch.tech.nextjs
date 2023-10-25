@@ -1,8 +1,5 @@
 # https://www.robotstxt.org/robotstxt.html
 Sitemap: https://fetch.tech/sitemap.xml
 User-agent: *
-Disallow: /resources/calculator
-Disallow: /contact
-Disallow: /faq
 Disallow: /images/mail-templates
 Allow: /
