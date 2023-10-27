@@ -23,6 +23,7 @@ interface ISuggestionCardProps {
     location: string
     experienceDescription: string
     skills: string[]
+    avatarUrl: string
     experience: IExperience[]
   }
   handleOpenClientInfoPopup: () => void
@@ -32,8 +33,15 @@ const SuggestionCard = ({
   candidateInfo,
   handleOpenClientInfoPopup,
 }: ISuggestionCardProps): React.ReactElement => {
-  const { name, role, location, experienceDescription, skills, experience } =
-    candidateInfo || {}
+  const {
+    name,
+    role,
+    location,
+    experienceDescription,
+    skills,
+    experience,
+    avatarUrl,
+  } = candidateInfo || {}
 
   return (
     <div className={clsx('card', styles['card-container'])}>
@@ -42,7 +50,7 @@ const SuggestionCard = ({
           <div className='user-avatar flex-shrink-0'>
             <Image
               alt='candidate avatar'
-              src='/images/resources/calculator/avatar.png'
+              src={avatarUrl}
               width={72}
               height={72}
             />

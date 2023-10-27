@@ -4,7 +4,7 @@
   height: 100%;
   border-color: var(--bs-gray-200);
 
-  @include screen-down(xl) {
+  @include screen-down(xxl) {
     margin: 0 12px;
   }
 
@@ -13,6 +13,14 @@
     background-color: #fff;
     padding: 32px 32px 0;
     border-bottom: none;
+
+    @include screen-down(xl) {
+      min-height: 270px;
+    }
+
+    @include screen-down(lg) {
+      min-height: unset;
+    }
 
     .user-info {
       margin-left: 32px;
@@ -42,6 +50,13 @@
 
       &-list {
         list-style: none;
+        max-height: 250px;
+        min-height: 250px;
+
+        @include screen-down(xxl) {
+          min-height: unset;
+          max-height: unset;
+        }
       }
 
       &-item {
