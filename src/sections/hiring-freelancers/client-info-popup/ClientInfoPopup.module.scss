@@ -4,7 +4,7 @@
 .client-info-container {
   :global .custom-modal {
     .ft-modal-dialog {
-      width: 80%;
+      width: 80% !important;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -12,11 +12,11 @@
       padding: 20px;
 
       @include screen-down(xl) {
-        width: 80%;
+        width: 80% !important;
       }
 
       @include screen-down(lg) {
-        width: 100%;
+        width: 100% !important;
       }
     }
 

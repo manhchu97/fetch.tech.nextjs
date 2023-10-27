@@ -11,7 +11,7 @@ import { PHONE_COUNTRIES } from '@/config/phone'
 import { useFormStepContext } from '@/context/FormStepContext'
 import { useToastContext } from '@/context/ToastContext'
 
-import { API_SUBMIT_CLIENT_INFO } from '@/routes/api'
+import { API_SUBCRIBER_BY_EMAIL, API_SUBMIT_CLIENT_INFO } from '@/routes/api'
 
 import { _postApi } from '@/utils/axios'
 
@@ -87,13 +87,32 @@ const ClientInfoStep = (): React.ReactElement => {
 
   const onSubmit = async (data: ClientInfoSubmitForm) => {
     try {
-      const { companyName = '' } = data || {}
+      const {
+        companyName = '',
+        email = '',
+        contactName = '',
+        phone = '',
+      } = data || {}
       const response = await _postApi(API_SUBMIT_CLIENT_INFO, {
         ...data,
         name: companyName,
       })
 
-      if (response?.data?.success) {
+      const sendSlackNotificationResponse = await _postApi(
+        API_SUBCRIBER_BY_EMAIL,
+        {
+          name: contactName,
+          purpose: 'New client want to connect Fetch',
+          company: companyName,
+          email,
+          ...(phone && { phone: `+${phone}` }),
+        },
+      )
+
+      if (
+        response?.data?.success ||
+        sendSlackNotificationResponse?.data?.success
+      ) {
         successToast('Thank you for connecting with Fetch!')
       }
 

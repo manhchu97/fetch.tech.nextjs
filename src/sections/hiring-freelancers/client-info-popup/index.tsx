@@ -266,7 +266,7 @@ const ClientInfoPopup = ({
             <div className='contact-form-header-container'>
               <div className='contact-form-header-logo'>
                 <Image
-                  src='/images/contact/FetchPolygonLogo.png'
+                  src='/images/hiring-freelancers/FetchPolygonLogo.png'
                   alt='Fetch logo'
                   width={69}
                   height={72}

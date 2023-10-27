@@ -1,5 +1,7 @@
 .notification-popup-container {
   :global .custom-modal {
+    padding: 24px;
+
     .ft-modal-dialog {
       width: 500px;
 
@@ -15,10 +17,12 @@
         .subtitle {
           color: #17264e;
           font-weight: 700;
+          text-align: center;
         }
 
         .message {
           font-style: italic;
+          text-align: center;
         }
       }
     }
