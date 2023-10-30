@@ -1,0 +1,208 @@
+@import '@/styles/_mixins.scss';
+
+.introduction-container {
+  :global .main {
+    position: relative;
+    max-width: 1400px;
+    padding: 0;
+    margin: 60px auto 80px;
+    justify-content: center;
+
+    @media only screen and (max-width: 1800px) {
+      padding: 0 10%;
+      max-width: unset;
+    }
+
+    @include screen-down(lg) {
+      margin-top: 48px;
+      padding: 0 32px;
+    }
+
+    @include screen-down(md) {
+      margin-bottom: 48px;
+    }
+
+    .row {
+      @include screen-down(md) {
+        flex-direction: column-reverse !important;
+      }
+    }
+
+    .introduction-img {
+      position: relative;
+      z-index: unset;
+      width: 100%;
+
+      @include screen-down(md) {
+        width: 80%;
+      }
+
+      & > span {
+        height: 100% !important;
+        img {
+          z-index: -1;
+        }
+      }
+
+      .introduction-img-bg {
+        z-index: 1000;
+        position: absolute;
+        width: 100%;
+        height: 75%;
+      }
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      @include screen-down(lg) {
+        margin: 24px 0;
+      }
+
+      .h3 {
+        color: #17264e;
+        text-align: center;
+        font-size: 36px;
+        font-family: 'Inter';
+        font-weight: 700;
+        line-height: 44px;
+        margin-bottom: 32px;
+
+        @include screen-down(xxl) {
+          font-size: 30px;
+          line-height: 36px;
+          margin-bottom: 24px;
+        }
+
+        @include screen-down(xl) {
+          font-size: 24px;
+        }
+
+        @include screen-down(lg) {
+          font-size: 22px;
+        }
+      }
+
+      .h4 {
+        color: #17264e;
+        text-align: center;
+        font-size: 24px;
+        font-family: 'Inter';
+        font-weight: 400;
+        line-height: 30px;
+        margin-bottom: 40px;
+
+        @include screen-down(xxl) {
+          margin-bottom: 32px;
+        }
+
+        @include screen-down(xl) {
+          font-size: 20px;
+          line-height: 32px;
+          margin-bottom: 24px;
+        }
+      }
+
+      .btn-primary {
+        min-width: 240px;
+
+        @include screen-down(lg) {
+          span {
+            padding: 6px 12px;
+          }
+        }
+
+        @include screen-down(sm) {
+          min-width: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  :global .nav-container {
+    display: none;
+
+    @include screen-down(lg) {
+      &.show-nav-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #ffbe16;
+        width: 100%;
+        align-items: normal;
+        padding: 8px 32px 32px;
+
+        @include screen-down(sm) {
+          padding: 8px 16px 32px;
+        }
+      }
+    }
+
+    .nav-group-items {
+      display: flex;
+      flex-direction: column;
+
+      .menu-item-container {
+        font-family: Gilroy-Medium;
+        letter-spacing: -0.25px;
+        color: #ffffff;
+
+        @include screen-between(sm, lg) {
+          margin-right: 60px;
+        }
+
+        @include screen-down(lg) {
+          margin-bottom: 20px;
+        }
+      }
+
+      @include screen(xs) {
+        flex-direction: column;
+      }
+
+      .refer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .edge-primary {
+          background: linear-gradient(
+            to left,
+            #023275 5%,
+            #023275 8%,
+            #023275 92%,
+            #023275 100%
+          );
+        }
+
+        .front-primary {
+          background-color: #003889;
+        }
+      }
+    }
+  }
+
+  :global .nav-toggler {
+    display: none;
+
+    @include screen-down(lg) {
+      display: block;
+      padding: 12px;
+      font-size: 1.25rem;
+      line-height: 1;
+      background-color: transparent;
+      filter: brightness(0) invert(1);
+      border-radius: 0.25rem;
+      transition: box-shadow 0.15s ease-in-out;
+
+      &.show-nav-container {
+        padding: 20px;
+        padding-bottom: 19px;
+      }
+    }
+  }
+}

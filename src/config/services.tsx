@@ -1,3 +1,7 @@
+import { paramCase } from 'param-case'
+
+import { fDateDuration } from '@/utils/formatTime'
+
 interface ServiceTypeProps {
   [name: string]: string
 }
@@ -224,6 +228,247 @@ export const SERVICE_BODY_CONFIG = [
           "The consultant will guide your local staff to take over the team's management when they’re thoroughly trained and proficient, thereby allowing full control and sustainability for independent growth into the future for your organisation.",
         width: 298,
         height: 322,
+      },
+    ],
+  },
+]
+
+export const ENGAGEMENT_MODEL_OPTIONS = [
+  {
+    value: paramCase('Freelancers'),
+    label: 'Freelancers',
+  },
+  {
+    value: paramCase('Fulltimers'),
+    label: 'Fulltimers',
+  },
+  {
+    value: paramCase('Part time contract workers'),
+    label: 'Part time contract workers',
+  },
+  {
+    value: paramCase('Others'),
+    label: 'Others',
+  },
+]
+
+export enum CLIENT_INFO_FORM_FIELD_VALUES {
+  COMPANY_NAME = 'companyName',
+  CONTACT_NAME = 'contactName',
+  EMAIL = 'email',
+  PHONE = 'phone',
+  SKILL = 'skill',
+  PROJECT_REQUIREMENT = 'projectRequirement',
+  DURATION = 'duration',
+  ENGAGEMENT_MODEL = 'engagementModel',
+}
+
+export const CLIENT_INFO_DEFAULT_VALUES = {
+  [CLIENT_INFO_FORM_FIELD_VALUES.COMPANY_NAME]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.CONTACT_NAME]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.EMAIL]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.PHONE]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.SKILL]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.DURATION]: '',
+  [CLIENT_INFO_FORM_FIELD_VALUES.ENGAGEMENT_MODEL]: '',
+}
+
+const calculateYearOfExperience = (startYear: string, endYear?: string) => {
+  if (!startYear) return ''
+
+  if (!endYear)
+    return `Have ${
+      fDateDuration(String(startYear), String(new Date().getFullYear()))?.value
+    } years work experience`
+
+  return `Have ${
+    fDateDuration(String(startYear), String(endYear))?.value
+  } years work experience`
+}
+
+export const LIST_CANDIDATES = [
+  {
+    id: 1,
+    name: 'Nguyen Hoang An',
+    role: 'Frontend Developer',
+    location: 'Hanoi, Vietnam',
+    experienceDescription: calculateYearOfExperience('2020'),
+    avatarUrl: '/images/hiring-freelancers/nguyen_hoang_an_avatar.png',
+    skills: ['Javascript', 'TypeScript', 'HTML', 'CSS'],
+    experience: [
+      {
+        duration: String(fDateDuration('01-01-2020', '05-01-2022')?.value),
+        position: 'Frontend Developer',
+        company: 'Saigon Technology',
+        time: '01/2020 - 05/2022',
+      },
+      {
+        duration: String(fDateDuration('06-01-2022', '', true)?.value),
+        position: 'Frontend Developer',
+        company: 'Oddle',
+        time: '06/2022 - Present',
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Hoang Van Minh',
+    role: 'Mobile Developer',
+    location: 'Hochiminh, Vietnam',
+    experienceDescription: calculateYearOfExperience('2017'),
+    avatarUrl: '/images/hiring-freelancers/hoang_van_minh_avatar.png',
+    skills: ['React Native', 'Flutter', 'Android', 'IOS'],
+    experience: [
+      {
+        duration: String(fDateDuration('08-01-2018', '11-01-2020')?.value),
+        position: 'Mobile Developer',
+        company: 'VIRALSOFT',
+        time: '08/2018 - 11/2020',
+      },
+      {
+        duration: String(fDateDuration('12-01-2020', '', true)?.value),
+        position: 'Mobile team leader',
+        company: 'NTQ Solution',
+        time: '12/2020 - Present',
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Vu Viet Dat',
+    role: 'Fullstack Developer',
+    location: 'Danang, Vietnam',
+    experienceDescription: calculateYearOfExperience('2019'),
+    avatarUrl: '/images/hiring-freelancers/vu_viet_dat_avatar.png',
+    skills: ['NodeJS', 'VueJS', 'JavaScript', 'TypeScript'],
+    experience: [
+      {
+        duration: String(fDateDuration('04-01-2019', '05-01-2021')?.value),
+        position: 'Software Engineer',
+        company: 'Relipa Software',
+        time: '04/2019 - 05/2021',
+      },
+      {
+        duration: String(fDateDuration('06-01-2021', '', true)?.value),
+        position: 'Software Engineer',
+        company: 'FPT Software',
+        time: '06/2021 - Present',
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Pham Viet Vuong',
+    role: 'UI/UX Designer',
+    location: 'Hanoi, Vietnam',
+    experienceDescription: calculateYearOfExperience('2018'),
+    avatarUrl: '/images/hiring-freelancers/pham_viet_vuong_avatar.png',
+    skills: ['Figma', 'Photoshop', 'React Native', 'ReactJS'],
+    experience: [
+      {
+        duration: String(fDateDuration('08-01-2018', '05-01-2021')?.value),
+        position: 'React Native Developer',
+        company: 'SmartOSC',
+        time: '08/2018 - 05/2021',
+      },
+      {
+        duration: String(fDateDuration('06-01-2020', '', true)?.value),
+        position: 'UI/UX Designer',
+        company: 'SmartDev LLC',
+        time: '06/2021 - Present',
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Nguyen Viet Ha',
+    role: 'Senior QA',
+    location: 'Hanoi, Vietnam',
+    experienceDescription: calculateYearOfExperience('2015'),
+    avatarUrl: '/images/hiring-freelancers/nguyen_viet_ha_avatar.png',
+    skills: ['Selenium', 'HTML', 'CSS', 'Javascript', 'Java', 'PHP'],
+    experience: [
+      {
+        duration: String(fDateDuration('08-01-2018', '10-01-2019')?.value),
+        position: 'Tester',
+        company: 'Blueotter VN',
+        time: '08/2018 - 10/2019',
+      },
+      {
+        duration: String(fDateDuration('11-01-2019', '', true)?.value),
+        position: 'Tester',
+        company: 'Blueotter VN',
+        time: '11/2019 - Present',
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: 'Nguyen Van Son',
+    role: 'Python Developer',
+    location: 'Hochiminh, Vietnam',
+    experienceDescription: calculateYearOfExperience('2018'),
+    avatarUrl: '/images/hiring-freelancers/nguyen_van_son_avatar.png',
+    skills: ['Python'],
+    experience: [
+      {
+        duration: String(fDateDuration('05-01-2018', '06-01-2020')?.value),
+        position: 'Python Developer',
+        company: 'DXC',
+        time: '05/2018 - 06/2020',
+      },
+      {
+        duration: String(fDateDuration('07-01-2020', '', true)?.value),
+        position: 'Senior Python Developer',
+        company: 'NashTech',
+        time: '07/2020 - Present',
+      },
+    ],
+  },
+  {
+    id: 7,
+    name: 'Tran Thi Tram',
+    role: 'DevOps Engineer',
+    location: 'Danang, Vietnam',
+    experienceDescription: calculateYearOfExperience('2019'),
+    avatarUrl: '/images/hiring-freelancers/tran_thi_tram_avatar.png',
+    skills: ['DevOps', 'Java'],
+    experience: [
+      {
+        duration: String(fDateDuration('03-01-2019', '07-01-2022')?.value),
+        position: 'Software Engineer',
+        company: 'MoMo',
+        time: '03/2019 - 07/2022',
+      },
+      {
+        duration: String(fDateDuration('08-01-2022', '', true)?.value),
+        position: 'Senior DevOps Engineer',
+        company: 'GFT',
+        time: '08/2022 - Present',
+      },
+    ],
+  },
+  {
+    id: 8,
+    name: 'Tran Van Thoi',
+    role: 'Lead Software Engineer',
+    location: 'Hanoi, Vietnam',
+    experienceDescription: calculateYearOfExperience('2013'),
+    avatarUrl: '/images/hiring-freelancers/tran_van_thoi_avatar.png',
+    skills: ['Java', 'Golang', 'NodeJS'],
+    experience: [
+      {
+        duration: String(fDateDuration('07-01-2019', '08-01-2022')?.value),
+        position: 'Team Leader',
+        company: 'Techcombank',
+        time: '07/2019 - 08/2022',
+      },
+      {
+        duration: String(fDateDuration('09-01-2022', '', true)?.value),
+        position: 'Lead Software Engineer',
+        company: 'Onemount',
+        time: '09/2022 - Present',
       },
     ],
   },

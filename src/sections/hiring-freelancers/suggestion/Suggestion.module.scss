@@ -1,0 +1,45 @@
+/*! purgecss start ignore */
+@import '@/styles/_mixins.scss';
+
+.suggestion-wrapper {
+  margin-bottom: 80px;
+
+  :global .suggestion-container {
+    & .suggestion-header {
+      text-align: center;
+      padding: 0 16px;
+
+      & > h6 {
+        color: #17264e;
+      }
+    }
+
+    & .suggestion-list {
+      max-width: 1440px;
+      margin-top: 60px;
+      padding: 0 24px;
+
+      @include screen-down(xl) {
+        padding: 0 16px;
+      }
+
+      & .slick-track {
+        display: flex !important;
+      }
+
+      & .slick-slide {
+        height: inherit !important;
+
+        & > div {
+          height: 100%;
+        }
+      }
+
+      & .slick-dots {
+        bottom: -46px;
+      }
+    }
+  }
+}
+
+/*! purgecss end ignore */

@@ -117,6 +117,16 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
                           />
                         </a>
                       </Link>
+
+                      <Link href={PATH_CONFIG.services.hiringFreelancer}>
+                        <a>
+                          <DropdownItem
+                            title='Hiring freelancers'
+                            text='Hiring freelancers'
+                            imageSrc='/images/nav/HiringFreelancers.png'
+                          />
+                        </a>
+                      </Link>
                     </div>
 
                     <div className='upperArrow'></div>

@@ -1,0 +1,324 @@
+@import '@/styles/_mixins.scss';
+
+.content-container {
+  padding: 24px 0;
+  max-width: 1400px;
+  margin: 0 auto 64px;
+
+  @media only screen and (max-width: 1800px) {
+    padding: 24px 10%;
+    max-width: unset;
+  }
+
+  @include screen-down(xl) {
+    padding: 24px 32px;
+  }
+
+  @include screen-down(sm) {
+    padding: 32px;
+  }
+
+  :global .ft-main-content-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .main-header {
+      color: #17274e;
+      font-family: 'Inter';
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 60px;
+      text-align: center;
+      margin-bottom: 32px;
+      margin-top: 50px;
+      text-transform: uppercase;
+
+      @include screen-down(md) {
+        font-size: 28px;
+        line-height: 32px;
+      }
+
+      & > span {
+        color: #ffbe16;
+      }
+    }
+
+    .main-content {
+      width: 100%;
+
+      &:nth-of-type(odd) {
+        height: 400px;
+
+        @include screen-down(lg) {
+          height: auto;
+        }
+      }
+
+      .card-container {
+        margin-bottom: 24px;
+        height: 100%;
+
+        @include screen-down(lg) {
+          flex-direction: column;
+          margin-bottom: 32px;
+
+          &:nth-of-type(even) {
+            flex-direction: column-reverse;
+          }
+        }
+
+        .content-container {
+          position: relative;
+          padding: 0;
+          width: 45%;
+
+          ul {
+            text-align: start;
+            padding: 0;
+          }
+
+          @include screen-down(xl) {
+            width: 80%;
+          }
+
+          @include screen-down(md) {
+            width: 100%;
+          }
+
+          .btn-text {
+            color: #ffbe16;
+            font-family: Quicksand;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 25px;
+            text-decoration: underline;
+
+            @include screen-down(sm) {
+              font-size: 18px;
+            }
+          }
+
+          .horizontal-line {
+            position: absolute;
+            top: 0;
+            bottom: 28%;
+            left: 22px;
+            background: linear-gradient(
+              0deg,
+              rgba(255, 190, 22, 1),
+              rgba(255, 190, 22, 0)
+            );
+            width: 4px;
+            z-index: 1;
+
+            @include screen-down(sm) {
+              bottom: 27%;
+            }
+          }
+        }
+      }
+
+      .card-button {
+        background: #ffc01e;
+        border-radius: 8px;
+        font-family: 'Quicksand';
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;
+        color: #fff;
+        padding: 12px 24px;
+
+        @include screen-down(xl) {
+          font-size: 24px;
+          line-height: 28px;
+        }
+
+        @include screen-down(sm) {
+          font-size: 18px;
+          line-height: 24px;
+        }
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .card-title {
+        font-family: 'Quicksand';
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 44px;
+        letter-spacing: -0.5px;
+        color: #ffc01e;
+        margin-bottom: 24px;
+
+        @include screen-down(lg) {
+          font-size: 28px;
+        }
+
+        @include screen-down(md) {
+          font-size: 24px;
+        }
+      }
+
+      .how-we-help {
+        .processing-step-img {
+          flex: 1;
+          height: 100%;
+
+          @include screen-down(lg) {
+            margin-bottom: 24px;
+          }
+
+          @include screen-down(sm) {
+            display: none;
+          }
+        }
+
+        .content-container {
+          flex: 1;
+          margin-left: 24px;
+
+          .step-title {
+            color: #f2bc16;
+          }
+        }
+      }
+
+      .how-it-work {
+        @include screen-down(lg) {
+          flex-direction: column-reverse;
+        }
+
+        .processing-step-img {
+          flex: 1;
+
+          @include screen-down(lg) {
+            margin-bottom: 32px;
+          }
+
+          @include screen-down(sm) {
+            display: none;
+          }
+
+          & > span {
+            @include screen-down(lg) {
+              transform: scale(0.8);
+            }
+
+            @include screen-down(md) {
+              transform: initial;
+            }
+          }
+        }
+
+        .content-container {
+          flex: 1;
+          margin-right: 24px;
+
+          .step-title {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.step-container {
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+
+  :global .step-number {
+    position: relative;
+    z-index: 99;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #fce9b6;
+
+    & span {
+      font-family: 'Inter';
+      color: #f2bc16;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+
+  :global .step-title {
+    font-family: 'Inter';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 12px;
+  }
+
+  :global .step-content {
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  :global .list-items-container {
+    padding: 0;
+    margin-bottom: 24px;
+
+    .h6 {
+      font-family: 'Inter';
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: -0.5px;
+      color: #17264e;
+      text-align: left;
+      margin-bottom: 6px;
+
+      @include screen-down(md) {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  :global .check-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: #ffc01e;
+    border-radius: 50%;
+    margin-right: 16px;
+    flex-shrink: 0;
+    top: 4px;
+
+    @include screen-down(md) {
+      width: 22px;
+      height: 22px;
+    }
+
+    .check-icon-img {
+      width: 10px;
+      height: 10px;
+
+      @include screen-down(md) {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}

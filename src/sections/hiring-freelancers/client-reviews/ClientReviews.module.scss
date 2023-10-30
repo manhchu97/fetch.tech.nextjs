@@ -1,0 +1,60 @@
+@import '@/styles/_mixins.scss';
+@import '@/styles/_variables.scss';
+
+.card {
+  height: 517px;
+  border-radius: 18px;
+  background-color: #fff;
+  border: 1px solid #eeeeee;
+  margin: 0 25px 50px;
+  overflow: hidden;
+
+  @media (min-width: $lg) and (max-width: 1170px) {
+    height: 600px;
+  }
+
+  @include screen-down(sm) {
+    height: 600px;
+  }
+
+  &__top {
+    background-color: #eef6fa;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__bottom {
+    padding: 40px 12px 22px;
+    height: calc(100% - 200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h6 {
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: 0.1px;
+    }
+  }
+}
+
+.client_review {
+  margin-bottom: 60px;
+
+  > h6 {
+    color: #17264e;
+    margin-bottom: 50px;
+  }
+
+  &__content {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  h3 {
+    font-size: 36px;
+    line-height: 125%;
+  }
+}
