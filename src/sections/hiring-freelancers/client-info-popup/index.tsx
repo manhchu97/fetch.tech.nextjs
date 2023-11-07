@@ -35,7 +35,6 @@ type ClientInfoSubmitForm = {
   email: string
   phone: string
   skill: string
-  projectRequirement: string
   duration: string
   engagementModel: string
 }
@@ -139,9 +138,6 @@ const ClientInfoPopup = ({
       )
       .nullable()
       .required('Key skillsets needed is required'),
-    [CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT]: Yup.string().required(
-      'Project requirement is required',
-    ),
     [CLIENT_INFO_FORM_FIELD_VALUES.DURATION]: Yup.string().required(
       'Estimated duration needed is required',
     ),
@@ -424,35 +420,6 @@ const ClientInfoPopup = ({
                 </div>
 
                 <div className='form-group required'>
-                  <label className='control-label'>Project requirement</label>
-
-                  <Controller
-                    name={CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT}
-                    control={control}
-                    render={({ field: { onChange, value } }) => (
-                      <input
-                        type='text'
-                        value={value}
-                        className={`form-control ${
-                          errors.projectRequirement ? 'is-invalid' : ''
-                        }`}
-                        onChange={async (value) => {
-                          onChange(value)
-                        }}
-                      />
-                    )}
-                  />
-
-                  <div className='invalid-feedback'>
-                    {
-                      errors?.[
-                        CLIENT_INFO_FORM_FIELD_VALUES.PROJECT_REQUIREMENT
-                      ]?.message
-                    }
-                  </div>
-                </div>
-
-                <div className='form-group required'>
                   <label className='control-label'>
                     Estimated duration needed
                   </label>
@@ -492,7 +459,6 @@ const ClientInfoPopup = ({
                         styles={colourStyles}
                         name={name}
                         options={ENGAGEMENT_MODEL_OPTIONS}
-                        // isMulti
                         className={`engagement-model-input-container ${
                           errors?.engagementModel ? 'is-invalid' : ''
                         }`}
