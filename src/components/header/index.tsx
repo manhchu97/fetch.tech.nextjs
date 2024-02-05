@@ -180,11 +180,18 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
               />
             </div>
 
-            <Link href={PATH_CONFIG.blog.root}>
-              <a>
-                <MenuItem title='Blogs' />
-              </a>
-            </Link>
+            <div className='nav-group-items'>
+              <Link href={PATH_CONFIG.careers.root}>
+                <a>
+                  <MenuItem title='Careers' />
+                </a>
+              </Link>
+              <Link href={PATH_CONFIG.blog.root}>
+                <a>
+                  <MenuItem title='Blogs' />
+                </a>
+              </Link>
+            </div>
           </div>
 
           <div className='nav-actions'>
