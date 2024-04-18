@@ -217,7 +217,7 @@ const Header = ({ themeColor = '' }: IHeaderProps) => {
             </div>
 
             <div className='whatsapp-container'>
-              <Link href='https://wa.me/6589334200'>
+              <Link href='https://wa.me/6586069949'>
                 <a>
                   <div role='button' className='whatsapp-button'>
                     <div className='whatsapp-icon'>
