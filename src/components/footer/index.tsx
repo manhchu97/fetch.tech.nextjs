@@ -221,7 +221,7 @@ const Footer = () => {
             </a>
           </Link>
 
-          <Link href='tel:+6586069949' passHref>
+          <Link href='tel:+6589334200' passHref>
             <a className='img-social-container' rel='noreferrer'>
               <div className='img-social'>
                 <Image
