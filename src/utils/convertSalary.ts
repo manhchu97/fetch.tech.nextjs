@@ -6,8 +6,8 @@ import {
   RoleType,
 } from '@/sections/resources/calculator/types'
 
-const maxSalarySHI = 36 * 10 ** 6
-const maxSalaryUI = 93.6 * 10 ** 6
+const maxSalarySHI = 46800000
+const maxSalaryUI = 99200000
 
 export const BASE_SALARY_INSURANCE = 4.68 * 10 ** 6
 
