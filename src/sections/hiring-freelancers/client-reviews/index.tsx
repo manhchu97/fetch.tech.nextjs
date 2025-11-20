@@ -96,7 +96,7 @@ const ClientReviews = () => {
                 description='Co-founder'
               />
 
-              <Card
+              {/* <Card
                 imgProps={{
                   src: '/images/home-page/FeedbackPic3.png',
                   width: 224,
@@ -105,7 +105,7 @@ const ClientReviews = () => {
                 title="“Hiring is costly – a portion goes to recruitment agencies, another to the recruitment process and another to the actual interviews. We haven't got down to other expenses such as office rent as well as operational costs. Fetch eliminates a significant chunk of these expenditures and helps overcome our past hiring difficulties.”"
                 name='Qi Yu'
                 description='Founder'
-              />
+              /> */}
             </ReactSlick>
           </div>
         )}
