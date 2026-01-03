@@ -11,16 +11,8 @@ const maxSalaryUI = 99200000
 
 export const BASE_SALARY_INSURANCE = 4.68 * 10 ** 6
 
-const TAXABLE_INCOME_KEY = [
-  '5M',
-  '10M',
-  '18M',
-  '32M',
-  '52M',
-  '80M',
-  'over_80M',
-] as const
-type TaxableIncomeKey = typeof TAXABLE_INCOME_KEY[number]
+const TAXABLE_INCOME_KEY = ['10M', '30M', '60M', '100M', 'over_100M'] as const
+type TaxableIncomeKey = (typeof TAXABLE_INCOME_KEY)[number]
 
 type TaxableIncomeValue = {
   value: number
@@ -28,53 +20,41 @@ type TaxableIncomeValue = {
   reductionAmount: number
 }
 const taxableIncomeArr: Record<TaxableIncomeKey, TaxableIncomeValue> = {
-  '5M': {
-    value: 5 * 10 ** 6,
+  '10M': {
+    value: 10 * 10 ** 6,
     reductionPercent: 0.05,
     reductionAmount: 0,
   },
-  '10M': {
-    value: 10 * 10 ** 6,
+  '30M': {
+    value: 30 * 10 ** 6,
     reductionPercent: 0.1,
-    reductionAmount: 0.25 * 10 ** 6,
+    reductionAmount: 0.5 * 10 ** 6,
   },
-  '18M': {
-    value: 18 * 10 ** 6,
-    reductionPercent: 0.15,
-    reductionAmount: 0.75 * 10 ** 6,
-  },
-  '32M': {
-    value: 32 * 10 ** 6,
+  '60M': {
+    value: 60 * 10 ** 6,
     reductionPercent: 0.2,
-    reductionAmount: 1.65 * 10 ** 6,
+    reductionAmount: 3.5 * 10 ** 6,
   },
-  '52M': {
-    value: 52 * 10 ** 6,
-    reductionPercent: 0.25,
-    reductionAmount: 3.25 * 10 ** 6,
-  },
-  '80M': {
-    value: 80 * 10 ** 6,
+  '100M': {
+    value: 100 * 10 ** 6,
     reductionPercent: 0.3,
-    reductionAmount: 5.85 * 10 ** 6,
+    reductionAmount: 9.5 * 10 ** 6,
   },
-  over_80M: {
-    value: 80 * 10 ** 6,
+  over_100M: {
+    value: 100 * 10 ** 6,
     reductionPercent: 0.35,
-    reductionAmount: 9.85 * 10 ** 6,
+    reductionAmount: 14.5 * 10 ** 6,
   },
 }
 
 const GROSS_EXCHANGE_KEY = [
-  '4M750',
-  '9M250',
-  '16M050',
-  '27M250',
-  '42M250',
-  '61M850',
-  'over_61M850',
+  '9M500',
+  '27M500',
+  '48M500',
+  '72M500',
+  'over_72M500',
 ] as const
-type GrossExchangeKey = typeof GROSS_EXCHANGE_KEY[number]
+type GrossExchangeKey = (typeof GROSS_EXCHANGE_KEY)[number]
 
 type GrossExchangeValue = {
   value: number
@@ -83,40 +63,30 @@ type GrossExchangeValue = {
 }
 
 const grossExchangeArr: Record<GrossExchangeKey, GrossExchangeValue> = {
-  '4M750': {
-    value: 4.75 * 10 ** 6,
+  '9M500': {
+    value: 9.5 * 10 ** 6,
     reductionPercentGE: 0.95,
     reductionAmountGE: 0,
   },
-  '9M250': {
-    value: 9.25 * 10 ** 6,
+  '27M500': {
+    value: 27.5 * 10 ** 6,
     reductionPercentGE: 0.9,
-    reductionAmountGE: 0.25 * 10 ** 6,
+    reductionAmountGE: 0.5 * 10 ** 6,
   },
-  '16M050': {
-    value: 16.05 * 10 ** 6,
-    reductionPercentGE: 0.85,
-    reductionAmountGE: 0.75 * 10 ** 6,
-  },
-  '27M250': {
-    value: 27.25 * 10 ** 6,
+  '48M500': {
+    value: 48.5 * 10 ** 6,
     reductionPercentGE: 0.8,
-    reductionAmountGE: 1.65 * 10 ** 6,
+    reductionAmountGE: 3.5 * 10 ** 6,
   },
-  '42M250': {
-    value: 42.25 * 10 ** 6,
-    reductionPercentGE: 0.75,
-    reductionAmountGE: 3.25 * 10 ** 6,
-  },
-  '61M850': {
-    value: 61.85 * 10 ** 6,
+  '72M500': {
+    value: 72.5 * 10 ** 6,
     reductionPercentGE: 0.7,
-    reductionAmountGE: 5.85 * 10 ** 6,
+    reductionAmountGE: 9.5 * 10 ** 6,
   },
-  over_61M850: {
-    value: 61.85 * 10 ** 6,
+  over_72M500: {
+    value: 72.5 * 10 ** 6,
     reductionPercentGE: 0.65,
-    reductionAmountGE: 9.85 * 10 ** 6,
+    reductionAmountGE: 14.5 * 10 ** 6,
   },
 }
 
@@ -130,8 +100,8 @@ const grossExchangeArr: Record<GrossExchangeKey, GrossExchangeValue> = {
 const taxData = {
   forEmployer: { SI: 0.175, HI: 0.03, UI: 0.01, TU: 0.02, PVI: 250000 },
   forEmployee: {
-    self: 11000000,
-    dependent: 4400000,
+    self: 15500000,
+    dependent: 6200000,
     SI: 0.08,
     HI: 0.015,
     UI: 0.01,
@@ -139,7 +109,7 @@ const taxData = {
 }
 
 const EXCHANGE_RATE = ['VND', 'USD', 'SGD'] as const
-type ExchangeRate = typeof EXCHANGE_RATE[number]
+type ExchangeRate = (typeof EXCHANGE_RATE)[number]
 
 export const convertExchangeRate = (
   rateType: ExchangeRate,
@@ -176,36 +146,26 @@ export const convertToVND = (
 export const getPersonalIncomeTaxable = (taxableIncome: number) => {
   if (taxableIncome <= 0) return 0
 
-  let taxableIncomeKey: TaxableIncomeKey = '5M'
+  let taxableIncomeKey: TaxableIncomeKey = '10M'
 
-  if (taxableIncome <= taxableIncomeArr['5M'].value) taxableIncomeKey = '5M'
-  else if (
-    taxableIncome > taxableIncomeArr['5M'].value &&
-    taxableIncome <= taxableIncomeArr['10M'].value
-  )
-    taxableIncomeKey = '10M'
+  if (taxableIncome <= taxableIncomeArr['10M'].value) taxableIncomeKey = '10M'
   else if (
     taxableIncome > taxableIncomeArr['10M'].value &&
-    taxableIncome <= taxableIncomeArr['18M'].value
+    taxableIncome <= taxableIncomeArr['30M'].value
   )
-    taxableIncomeKey = '18M'
+    taxableIncomeKey = '30M'
   else if (
-    taxableIncome > taxableIncomeArr['18M'].value &&
-    taxableIncome <= taxableIncomeArr['32M'].value
+    taxableIncome > taxableIncomeArr['30M'].value &&
+    taxableIncome <= taxableIncomeArr['60M'].value
   )
-    taxableIncomeKey = '32M'
+    taxableIncomeKey = '60M'
   else if (
-    taxableIncome > taxableIncomeArr['32M'].value &&
-    taxableIncome <= taxableIncomeArr['52M'].value
+    taxableIncome > taxableIncomeArr['60M'].value &&
+    taxableIncome <= taxableIncomeArr['100M'].value
   )
-    taxableIncomeKey = '52M'
-  else if (
-    taxableIncome > taxableIncomeArr['52M'].value &&
-    taxableIncome <= taxableIncomeArr['80M'].value
-  )
-    taxableIncomeKey = '80M'
-  else if (taxableIncome > taxableIncomeArr['80M'].value)
-    taxableIncomeKey = 'over_80M'
+    taxableIncomeKey = '100M'
+  else if (taxableIncome > taxableIncomeArr['100M'].value)
+    taxableIncomeKey = 'over_100M'
 
   return (
     taxableIncome * taxableIncomeArr[taxableIncomeKey].reductionPercent -
@@ -216,22 +176,18 @@ export const getPersonalIncomeTaxable = (taxableIncome: number) => {
 export const getTaxableIncomeFromGE = (grossExchange: number) => {
   if (grossExchange <= 0) return grossExchange
 
-  let grossExchangeKey: GrossExchangeKey = '4M750'
+  let grossExchangeKey: GrossExchangeKey = '9M500'
 
-  if (grossExchange < grossExchangeArr['4M750'].value)
-    grossExchangeKey = '4M750'
-  else if (grossExchange < grossExchangeArr['9M250'].value)
-    grossExchangeKey = '9M250'
-  else if (grossExchange < grossExchangeArr['16M050'].value)
-    grossExchangeKey = '16M050'
-  else if (grossExchange < grossExchangeArr['27M250'].value)
-    grossExchangeKey = '27M250'
-  else if (grossExchange < grossExchangeArr['42M250'].value)
-    grossExchangeKey = '42M250'
-  else if (grossExchange < grossExchangeArr['61M850'].value)
-    grossExchangeKey = '61M850'
-  else if (grossExchange >= grossExchangeArr['61M850'].value)
-    grossExchangeKey = 'over_61M850'
+  if (grossExchange < grossExchangeArr['9M500'].value)
+    grossExchangeKey = '9M500'
+  else if (grossExchange < grossExchangeArr['27M500'].value)
+    grossExchangeKey = '27M500'
+  else if (grossExchange < grossExchangeArr['48M500'].value)
+    grossExchangeKey = '48M500'
+  else if (grossExchange < grossExchangeArr['72M500'].value)
+    grossExchangeKey = '72M500'
+  else if (grossExchange >= grossExchangeArr['72M500'].value)
+    grossExchangeKey = 'over_72M500'
 
   return (
     (grossExchange - grossExchangeArr[grossExchangeKey].reductionAmountGE) /
